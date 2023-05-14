@@ -1,47 +1,32 @@
-import Image from "@/components/Image";
-import { Box, Grid, Stack, styled } from "@mui/material";
-import { Fragment } from "react";
+import { Box, Grid, styled } from "@mui/material";
 
-import logo from "@/public/image/logo.png";
-import { useMeasure } from "react-use";
-import Link from "@/components/Link";
+import { MenuItemForHeader, MenuOptionsForHeader } from "@/compositions";
 
 const Header = () => {
-  const [ref, { width }] = useMeasure();
   return (
-    <Fragment>
-      <Grid container justifyContent={"space-between"}>
-        <Grid item lg={6}>
-          <Stack direction={"row"} alignItems={"center"} gap={"30px"}>
-            <Box position={"relative"} ref={ref} width={170} height={43}>
-              <Image
-                src={logo}
-                width={width}
-                height={width}
-                style={{ objectFit: "cover" }}
-              />
-            </Box>
-
-            <StyledLink href={"/"}>For You</StyledLink>
-            <StyledLink href={"/movie"}>Movie</StyledLink>
-            <StyledLink href={"/tv"}>Tv</StyledLink>
-          </Stack>
+    <StyledWrapper>
+      <StyledGridContainer container spacing={2}>
+        <Grid item lg={6} md={4} sm={4} xs={12}>
+          <MenuItemForHeader />
         </Grid>
-        <Grid item lg={6}>
-          menu item 2
+        <Grid item lg={6} md={8} sm={8} xs={12}>
+          <MenuOptionsForHeader />
         </Grid>
-      </Grid>
-    </Fragment>
+      </StyledGridContainer>
+    </StyledWrapper>
   );
 };
 
-const StyledLink = styled(Link)(() => {
+const StyledWrapper = styled(Box)(() => {
   return {
-    textDecoration: "none",
-    "&:hover": {
-      color: "rgb(28, 199, 73)",
-      transition: "color linear 0.2s",
-    },
+    padding: "9px 0",
+  };
+});
+
+const StyledGridContainer = styled(Grid)(() => {
+  return {
+    justifyContent: "space-between",
+    alignItems: "center",
   };
 });
 

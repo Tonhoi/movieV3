@@ -5,7 +5,7 @@ import {
 } from "@mui/material";
 
 import { robotoBold, robotoMedium, robotoRegular } from "@/libs";
-import { PALETTE_COLOR } from "@/configuration";
+import { COMPONENT_STATE, PALETTE_COLOR, PSEUDO_STATE } from "@/configuration";
 
 type OmitProperties = "fontSize" | "fontWeight" | "lineHeight" | "letterSpacing";
 
@@ -15,7 +15,7 @@ const createTypographyProperties = (
     fontWeight: string | number;
     lineHeight: string | number;
     letterSpacing?: string | number;
-    color?: string;
+    // color?: string;
   } & Omit<React.CSSProperties, OmitProperties>
 ) => {
   const { fontSize, fontWeight, letterSpacing, lineHeight, ...restProps } = props;
@@ -35,28 +35,23 @@ const defaultTheme = createTheme({
     primary: {
       main: PALETTE_COLOR.primary,
     },
-    secondary: {},
     common: {
       white: PALETTE_COLOR.white,
       black: PALETTE_COLOR.black,
     },
     grey: {},
 
-    // greyColor: {},
     error: {
       main: PALETTE_COLOR.primary,
     },
-    // neutral: {
-    //   neutral1: PALETTE_COLOR.green,
-    //   neutral2: PALETTE_COLOR.gray,
-    // },
+
     text: {
       primary: PALETTE_COLOR.gray,
       secondary: PALETTE_COLOR.green,
     },
   },
   typography: {
-    fontFamily: robotoBold.style.fontFamily,
+    fontFamily: robotoRegular.style.fontFamily,
     h1: createTypographyProperties({
       fontFamily: robotoRegular.style.fontFamily,
       fontWeight: 400,
@@ -64,19 +59,19 @@ const defaultTheme = createTheme({
       lineHeight: "55px",
     }),
     h2: createTypographyProperties({
-      fontFamily: robotoBold.style.fontFamily,
+      fontFamily: robotoRegular.style.fontFamily,
       fontWeight: 700,
       fontSize: 36,
       lineHeight: "48px",
     }),
     h3: createTypographyProperties({
-      fontFamily: robotoMedium.style.fontFamily,
+      fontFamily: robotoRegular.style.fontFamily,
       fontWeight: 600,
       fontSize: 24,
       lineHeight: "30px",
     }),
     h4: createTypographyProperties({
-      fontFamily: robotoBold.style.fontFamily,
+      fontFamily: robotoRegular.style.fontFamily,
       fontWeight: 700,
       fontSize: 32,
       lineHeight: "40px",
@@ -84,13 +79,13 @@ const defaultTheme = createTheme({
 
     // custom
     h5: createTypographyProperties({
-      fontFamily: robotoBold.style.fontFamily,
+      fontFamily: robotoRegular.style.fontFamily,
       fontWeight: 700,
       fontSize: 14,
       lineHeight: "16px",
     }),
     h6: createTypographyProperties({
-      fontFamily: robotoBold.style.fontFamily,
+      fontFamily: robotoRegular.style.fontFamily,
       fontWeight: 700,
       fontSize: 12,
       lineHeight: "16px",
@@ -107,6 +102,11 @@ const defaultTheme = createTheme({
     }),
     subtitle1: createTypographyProperties({
       fontWeight: 500,
+      fontSize: 16,
+      lineHeight: "24px",
+    }),
+    subtitle2: createTypographyProperties({
+      fontWeight: 500,
       fontSize: 12,
       lineHeight: "12px",
     }),
@@ -116,11 +116,29 @@ const defaultTheme = createTheme({
 const theme = createTheme({
   ...defaultTheme,
   components: {
-    MuiTypography: {},
+    MuiTypography: {
+      defaultProps: {
+        variant: "body2",
+      },
+    },
 
     MuiContainer: {
       defaultProps: {
         maxWidth: "xl",
+      },
+    },
+    MuiButton: {
+      defaultProps: {},
+
+      styleOverrides: {
+        root: {
+          borderColor: PALETTE_COLOR.white,
+          [PSEUDO_STATE.hover]: {
+            borderColor: PALETTE_COLOR.white,
+            opacity: 0.6,
+            transition: "opacity linear 0.3s",
+          },
+        },
       },
     },
 

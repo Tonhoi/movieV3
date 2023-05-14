@@ -1,7 +1,8 @@
-import { Container } from "@mui/material";
 import { ReactNode } from "react";
-import Header from "./Header";
-import Footer from "./Footer";
+
+import { Container } from "@mui/material";
+
+import { Header, Footer, Slider } from "@/compositions";
 
 interface layoutProps {
   children: ReactNode;
@@ -13,6 +14,7 @@ const Layout = (props: layoutProps) => {
   return (
     <Container maxWidth={"xl"}>
       <Header />
+      <Slider />
       {children}
       <Footer />
     </Container>
