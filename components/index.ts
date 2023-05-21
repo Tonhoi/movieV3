@@ -9,6 +9,7 @@ export { default as FilmIcon } from "./Icons/FilmIcon";
 export { default as GlobeIcon } from "./Icons/GlobeIcon";
 export { default as TvIcon } from "./Icons/TvIcon";
 export { default as UserIcon } from "./Icons/UserIcon";
+export { default as ArrowRightIcon } from "./Icons/ArrowRightIcon";
 
 export { default as Image } from "./Image";
 

@@ -1,7 +1,5 @@
 import { Fragment, ReactNode } from "react";
 
-import { Container } from "@mui/material";
-
 import { Header, Footer, Slider } from "@/compositions";
 import { useRouter } from "next/router";
 
@@ -14,7 +12,7 @@ const Layout = (props: layoutProps) => {
   const { asPath } = useRouter();
 
   return (
-    <Container maxWidth={"xl"}>
+    <Fragment>
       {asPath !== "/login" && (
         <Fragment>
           <Header />
@@ -24,7 +22,7 @@ const Layout = (props: layoutProps) => {
 
       {children}
       {asPath !== "/login" && <Footer />}
-    </Container>
+    </Fragment>
   );
 };
 

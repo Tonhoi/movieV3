@@ -1,21 +1,24 @@
-import { Fragment, memo } from "react";
+import { HTMLAttributes, memo } from "react";
 
-import { Box, Divider, Stack, styled, useTheme, Paper, Typography } from "@mui/material";
+import {
+  Divider,
+  Stack,
+  styled,
+  useTheme,
+  Typography,
+  AutocompleteRenderOptionState,
+} from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useMeasure } from "react-use";
 
 import { SearchIcon } from "@/components";
 import FormControlForAutocomplete from "@/compositions/FormControl/FormControlForAutocomplete";
+import { CustomInput } from "@/compositions";
 import { top100Films } from "@/constant";
-import ScrollBars from "@/components/ScrollBars";
-import CustomInput from "./CustomInput";
 
 const SearchForHeader = () => {
   const { control } = useForm();
-  const theme = useTheme();
   const [ref, { width }] = useMeasure<HTMLDivElement>();
-
-  console.log(theme);
 
   return (
     <StyledSearchBlock ref={ref}>
@@ -28,7 +31,11 @@ const SearchForHeader = () => {
         ListboxComponent={CustomInput}
         options={top100Films}
         loadingText={<LoadingText />}
-        renderOption={(props, option: any) => {
+        renderOption={(
+          props: HTMLAttributes<HTMLLIElement>,
+          option: any,
+          state: AutocompleteRenderOptionState
+        ) => {
           return (
             <StyledCustomRenderOptions>
               <Typography>{option.year}</Typography>
@@ -54,6 +61,7 @@ const SearchForHeader = () => {
           },
         }}
       />
+
       <StyledSearchIconBlock>
         <StyledDivider orientation="vertical" flexItem />
         <StyledSearchIcon />
@@ -130,6 +138,7 @@ const StyledCustomRenderOptions = styled(Stack)(() => {
     padding: "14px 16px",
     gap: 8,
     cursor: "pointer",
+
     "&:hover": {
       backgroundColor: "#ffffff14",
       transition: "all linear 0.2s",

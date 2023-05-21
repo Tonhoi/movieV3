@@ -1,4 +1,4 @@
-import { ElementType, Fragment, KeyboardEvent, MouseEvent } from "react";
+import { ElementType, Fragment, KeyboardEvent, MouseEvent, ReactNode } from "react";
 import {
   Box,
   SwipeableDrawer,
@@ -15,17 +15,19 @@ import {
   useTheme,
 } from "@mui/material";
 import Hamburger from "hamburger-react";
+import { useRouter } from "next/router";
 
 import { GlobeIcon, UserIcon, ClockIcon, FilmIcon, TvIcon, Link } from "@/components";
+import { useToggle } from "@/hooks";
+import { ROUTES } from "@/routers";
+
+// image
 import avatar from "@/public/image/avatar.png";
 import backgroundAvatar from "@/public/image/backgroundAvatar.png";
-import { useToggle } from "@/hooks";
-import { ROUTES } from "@/routes";
-import { useRouter } from "next/router";
 
 interface listItemCompProps extends ListItemProps {
   text: string;
-  icon: any;
+  icon: ReactNode;
   path: string;
 }
 
@@ -62,13 +64,13 @@ export default function SwipeableTemporaryDrawer() {
         <Divider />
 
         <ListItemComp
-          path={ROUTES.Movie}
+          path={ROUTES.movie}
           icon={<FilmIcon sx={{ width: 28, height: 28 }} />}
           text="Movie"
         />
 
         <ListItemComp
-          path={ROUTES.Tv}
+          path={ROUTES.tv}
           icon={<TvIcon sx={{ width: 28, height: 28 }} />}
           text="Tv"
         />
@@ -78,7 +80,7 @@ export default function SwipeableTemporaryDrawer() {
 
       <List>
         <ListItemComp
-          path={ROUTES.History}
+          path={ROUTES.history}
           icon={<ClockIcon sx={{ width: 28, height: 28 }} />}
           text="History"
         />
@@ -88,7 +90,7 @@ export default function SwipeableTemporaryDrawer() {
           text="Language"
         />
         <ListItemComp
-          path={ROUTES.Me}
+          path={ROUTES.me}
           icon={<UserIcon sx={{ width: 28, height: 28 }} />}
           text="Me"
         />
@@ -119,24 +121,10 @@ const ListItemComp = (props: listItemCompProps) => {
 
   return (
     <ListItem disablePadding component={Link as ElementType} href={path} {...props}>
-      <ListItemButton
-        selected={router.pathname === path}
-        sx={{
-          "&.Mui-selected": { backgroundColor: "#b2f7c4", position: "relative" },
-          "&.Mui-selected::after": {
-            content: '""',
-            position: "absolute",
-            top: 0,
-            left: 0,
-            bottom: 0,
-            width: 4,
-            backgroundColor: "#00ff43",
-          },
-        }}
-      >
+      <StyledListItemButton selected={router.pathname === path}>
         <ListItemIcon>{icon}</ListItemIcon>
         <ListItemText primary={text} />
-      </ListItemButton>
+      </StyledListItemButton>
     </ListItem>
   );
 };
@@ -145,12 +133,29 @@ const StyledListItemAvatar = styled(ListItem)(({ theme }) => {
   return {
     padding: "14px 0",
     gap: "12px",
+
     backgroundImage: `url(${backgroundAvatar.src})`,
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
     backgroundPosition: "center center",
+
     "& .mui-style-t61n6r-MuiTypography-root": {
       color: theme.palette.common.white,
+    },
+  };
+});
+
+const StyledListItemButton = styled(ListItemButton)(() => {
+  return {
+    "&.Mui-selected": { backgroundColor: "#b2f7c4", position: "relative" },
+    "&.Mui-selected::after": {
+      content: '""',
+      position: "absolute",
+      top: 0,
+      left: 0,
+      bottom: 0,
+      width: 4,
+      backgroundColor: "#00ff43",
     },
   };
 });

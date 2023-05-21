@@ -1,6 +1,7 @@
-import { Menu } from "@/components";
-import { MenuItem } from "@mui/material";
 import { MouseEventHandler } from "react";
+import { MenuItem } from "@mui/material";
+
+import { Menu } from "@/components";
 
 interface menuForLanguageProps {
   anchorEl: null | HTMLElement;

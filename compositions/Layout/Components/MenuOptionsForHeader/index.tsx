@@ -1,25 +1,24 @@
-import { Fragment, MouseEvent, MouseEventHandler, ReactNode, useState } from "react";
-import {
-  Box,
-  Button,
-  Stack,
-  StackProps,
-  Typography,
-  styled,
-  useTheme,
-} from "@mui/material";
+import { Fragment, MouseEvent, ReactNode, useState } from "react";
+import { Button, Stack, StackProps, Typography, styled, useTheme } from "@mui/material";
 
-import { ClockIcon, GlobeIcon, UserIcon, DownloadIcon, Menu, Image } from "@/components";
-import { SearchForHeader } from "@/compositions";
-
+import { ClockIcon, GlobeIcon, UserIcon, DownloadIcon } from "@/components";
 import { useToggle } from "@/hooks";
-import { MenuForHistory, MenuForMe, MenuForLanguage } from "@/compositions";
+import {
+  MenuForHistory,
+  MenuForMe,
+  MenuForLanguage,
+  SearchForHeader,
+} from "@/compositions";
+
+interface optionsCompProps extends StackProps {
+  icon: ReactNode;
+  title: string;
+}
 
 const MenuOptionsForHeader = () => {
   const theme = useTheme();
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  // const openMenuOfLanguage = Boolean(anchorElForHistory);
 
   const {
     on: handleIsOpenMenuForHistory,
@@ -82,7 +81,7 @@ const MenuOptionsForHeader = () => {
         </Button>
       </StyledWrapper>
 
-      {/* <Menu /> */}
+      {/* menu option */}
 
       <MenuForHistory
         anchorEl={anchorEl}
@@ -103,11 +102,6 @@ const MenuOptionsForHeader = () => {
   );
 };
 
-interface optionsCompProps extends StackProps {
-  icon: ReactNode;
-  title: string;
-}
-
 const OptionsComp = (props: optionsCompProps) => {
   const { icon, title } = props;
   const theme = useTheme();
@@ -126,6 +120,7 @@ const StyledWrapper = styled(Stack)(({ theme }) => {
     flexDirection: "row",
     alignItems: "center",
     gap: 32,
+
     [theme.breakpoints.down("md")]: {
       gap: 12,
     },
@@ -137,6 +132,7 @@ const StyledOption = styled(Stack)(() => {
     alignItems: "center",
     gap: "4px",
     cursor: "pointer",
+
     "&:hover svg, &:hover h6": {
       color: "rgb(28, 199, 73)",
       transition: "color linear 0.2s",
@@ -149,6 +145,7 @@ const StyledOptionsBlock = styled(Stack)(({ theme }) => {
     flexDirection: "row",
     alignItems: "center",
     gap: 32,
+
     [theme.breakpoints.down("md")]: {
       display: "none",
     },

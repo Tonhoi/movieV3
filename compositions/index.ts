@@ -14,4 +14,10 @@ export { default as MenuForLanguage } from "./Layout/Components/MenuOptionsForHe
 export { default as MenuForMe } from "./Layout/Components/MenuOptionsForHeader/MenuForMe";
 export { default as ProgressForMenuHistory } from "./Layout/Components/MenuOptionsForHeader/ProgressForMenuHistory";
 
+// form
 export { default as FormControl } from "./FormControl/FormControl";
+export { default as FormControlForAutocomplete } from "./FormControl/FormControlForAutocomplete";
+export { default as FormControlForCheckbox } from "./FormControl/FormControlForCheckbox";
+
+// search for header
+export { default as CustomInput } from "./Layout/Components/SearchForHeader/CustomInput";

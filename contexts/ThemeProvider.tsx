@@ -4,7 +4,15 @@ import {
   ThemeProvider as MuiThemeProvider,
 } from "@mui/material";
 
-import { robotoBold, robotoMedium, robotoRegular } from "@/libs";
+import {
+  robotoBold,
+  robotoMedium,
+  robotoRegular,
+  netflixRegular,
+  netflixBold,
+  netflixMedium,
+  netflixThin,
+} from "@/libs";
 import { COMPONENT_STATE, PALETTE_COLOR, PSEUDO_STATE } from "@/configuration";
 
 type OmitProperties = "fontSize" | "fontWeight" | "lineHeight" | "letterSpacing";
@@ -109,6 +117,37 @@ const defaultTheme = createTheme({
       fontWeight: 500,
       fontSize: 12,
       lineHeight: "12px",
+    }),
+
+    netflixtitle1: createTypographyProperties({
+      fontFamily: netflixMedium.style.fontFamily,
+      fontWeight: 500,
+      fontSize: 32,
+      lineHeight: "40px",
+    }),
+    netflixtitle2: createTypographyProperties({
+      fontFamily: netflixRegular.style.fontFamily,
+      fontWeight: 500,
+      fontSize: 16,
+      lineHeight: "16px",
+    }),
+    netflixtitle3: createTypographyProperties({
+      fontFamily: netflixRegular.style.fontFamily,
+      fontWeight: 400,
+      fontSize: 13,
+      lineHeight: "16px",
+    }),
+    netflixtitle4: createTypographyProperties({
+      fontFamily: netflixMedium.style.fontFamily,
+      fontWeight: 500,
+      fontSize: 16,
+      lineHeight: "16px",
+    }),
+    netflixtitle5: createTypographyProperties({
+      fontFamily: netflixThin.style.fontFamily,
+      fontWeight: 500,
+      fontSize: 16,
+      lineHeight: "16px",
     }),
   },
 });

@@ -1,4 +1,4 @@
-import { Image, Menu, Spacing } from "@/components";
+import { MouseEventHandler } from "react";
 import {
   Box,
   Button,
@@ -9,13 +9,12 @@ import {
   styled,
   useTheme,
 } from "@mui/material";
-import ProgressForMenuHistory from "./ProgressForMenuHistory";
 import { useMeasure } from "react-use";
-import { MouseEventHandler } from "react";
 import { Scrollbars } from "react-custom-scrollbars";
 
+import { Image, Menu, Spacing, ArrowRightIcon } from "@/components";
+import ProgressForMenuHistory from "./ProgressForMenuHistory";
 import demoImageCard from "@/public/image/demoImageCard.jpg";
-import ArrowRightIcon from "@/components/Icons/ArrowRightIcon";
 
 interface menuForHistoryProps {
   anchorEl: null | HTMLElement;
@@ -48,7 +47,7 @@ const MenuForHistory = (props: menuForHistoryProps) => {
         </StyledMenuItem>
       </Scrollbars>
       <Spacing spacing={1} />
-      <Divider sx={{ backgroundColor: theme.palette.common.white, opacity: '0.5' }} />
+      <Divider sx={{ backgroundColor: theme.palette.common.white, opacity: "0.5" }} />
       <Stack marginBottom={"-8px"}>
         <Button
           variant="text"
@@ -84,20 +83,24 @@ const StyledWrapperStack = styled(Stack)(() => {
 
 const StyledImageBlock = styled(Box)(() => {
   return {
+    position: "relative",
+
     width: 110,
     height: 62,
-    position: "relative",
     borderRadius: "4px",
+
     overflow: "hidden",
   };
 });
 
 const StyledHeading = styled(Typography)(() => {
   return {
-    fontWeight: 400,
-    color: "#A9A9AC",
     width: 130,
+    fontWeight: 400,
+
+    color: "#A9A9AC",
     whiteSpace: "nowrap",
+
     overflow: "hidden",
     textOverflow: "ellipsis",
   };

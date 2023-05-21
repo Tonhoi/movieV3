@@ -6,11 +6,30 @@ interface IScrollBarsProps extends ScrollbarProps {
   children: ReactNode;
 }
 
-const renderThumb = ({ style, ...props }: any) => {
-  const thumbStyle = {
-    backgroundColor: "rgba(147, 147, 147, 0.5)",
+interface RenderThumbProps {
+  style: {
+    position: string;
+    display: string;
+    width: string;
   };
-  return <Box style={{ ...style, ...thumbStyle }} {...props} />;
+}
+
+const renderThumb = ({ style, ...props }: RenderThumbProps) => {
+  // const thumbStyle = {
+  //   backgroundColor: "rgba(147, 147, 147, 0.5)",
+  // };
+  return (
+    <Box
+      sx={{
+        width: style.width,
+        display: style.display,
+        position: style.position,
+        // ...thumbStyle,
+        backgroundColor: "rgba(147, 147, 147, 0.5)",
+      }}
+      {...props}
+    />
+  );
 };
 
 const ScrollBars = (props: IScrollBarsProps) => {

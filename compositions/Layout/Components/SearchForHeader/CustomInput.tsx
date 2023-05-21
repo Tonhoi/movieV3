@@ -1,9 +1,10 @@
-import ScrollBars from "@/components/ScrollBars";
 import { Box, Divider, Paper, Typography, styled } from "@mui/material";
-import React, { Fragment, forwardRef } from "react";
+import { ReactNode, forwardRef } from "react";
+
+import ScrollBars from "@/components/ScrollBars";
+import { ScrollbarProps } from "react-custom-scrollbars";
 
 const CustomInput = forwardRef((props: any, ref) => {
-  console.log(props)
   return (
     <Box ref={ref}>
       <ScrollBars>
