@@ -1,8 +1,9 @@
-import { ReactNode } from "react";
+import { Fragment, ReactNode } from "react";
 
 import { Container } from "@mui/material";
 
 import { Header, Footer, Slider } from "@/compositions";
+import { useRouter } from "next/router";
 
 interface layoutProps {
   children: ReactNode;
@@ -10,13 +11,19 @@ interface layoutProps {
 
 const Layout = (props: layoutProps) => {
   const { children } = props;
+  const { asPath } = useRouter();
 
   return (
     <Container maxWidth={"xl"}>
-      <Header />
-      <Slider />
+      {asPath !== "/login" && (
+        <Fragment>
+          <Header />
+          <Slider />
+        </Fragment>
+      )}
+
       {children}
-      <Footer />
+      {asPath !== "/login" && <Footer />}
     </Container>
   );
 };

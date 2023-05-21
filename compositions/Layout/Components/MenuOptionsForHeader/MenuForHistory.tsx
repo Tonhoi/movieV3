@@ -9,7 +9,7 @@ import {
   styled,
   useTheme,
 } from "@mui/material";
-import LinearWithValueLabel from "../LinearWithValueLabel";
+import ProgressForMenuHistory from "./ProgressForMenuHistory";
 import { useMeasure } from "react-use";
 import { MouseEventHandler } from "react";
 import { Scrollbars } from "react-custom-scrollbars";
@@ -29,7 +29,7 @@ const MenuForHistory = (props: menuForHistoryProps) => {
   const theme = useTheme();
   return (
     <Menu anchorEl={anchorEl} open={openMenuOfLanguage} onClose={handleClose}>
-      <Scrollbars style={{ height: 300 }} autoHide>
+      <Scrollbars style={{ height: 100 }} autoHide>
         <StyledMenuItem onClick={handleClose} divider>
           <StyledWrapperStack>
             <StyledImageBlock ref={ref}>
@@ -41,7 +41,7 @@ const MenuForHistory = (props: menuForHistoryProps) => {
                 <Typography variant="h6" fontWeight={400} color={"#828387"}>
                   Watch to Episode 2
                 </Typography>
-                <LinearWithValueLabel />
+                <ProgressForMenuHistory />
               </Box>
             </Stack>
           </StyledWrapperStack>

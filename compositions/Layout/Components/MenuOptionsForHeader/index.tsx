@@ -1,13 +1,19 @@
-import { Fragment, MouseEvent, MouseEventHandler, useState } from "react";
-import { Button, Stack, StackProps, Typography, styled, useTheme } from "@mui/material";
+import { Fragment, MouseEvent, MouseEventHandler, ReactNode, useState } from "react";
+import {
+  Box,
+  Button,
+  Stack,
+  StackProps,
+  Typography,
+  styled,
+  useTheme,
+} from "@mui/material";
 
 import { ClockIcon, GlobeIcon, UserIcon, DownloadIcon, Menu, Image } from "@/components";
 import { SearchForHeader } from "@/compositions";
 
-import MenuForHistory from "./Menu/MenuForHistory";
-import MenuForMe from "./Menu/MenuForMe";
 import { useToggle } from "@/hooks";
-import MenuForLanguage from "./Menu/MenuForLanguage";
+import { MenuForHistory, MenuForMe, MenuForLanguage } from "@/compositions";
 
 const MenuOptionsForHeader = () => {
   const theme = useTheme();
@@ -16,29 +22,26 @@ const MenuOptionsForHeader = () => {
   // const openMenuOfLanguage = Boolean(anchorElForHistory);
 
   const {
-    toggle: handleToggleMenuForHistory,
     on: handleIsOpenMenuForHistory,
     toggleOff: handleCloseMenuForHistory,
     toggleOn: handleOpenMenuForHistory,
   } = useToggle();
 
   const {
-    toggle: handleToggleMenuForLanguage,
     on: handleIsOpenMenuForLanguage,
     toggleOff: handleCloseMenuForLanguage,
     toggleOn: handleOpenMenuForLanguage,
   } = useToggle();
 
   const {
-    toggle: handleToggleMenuForAccount,
     on: handleIsOpenMenuForAccount,
     toggleOff: handleCloseMenuForAccount,
     toggleOn: handleOpenMenuForAccount,
   } = useToggle();
 
-  const handleClick = (event: MouseEvent<HTMLElement>) => {
+  const handleClick = (event: MouseEvent<HTMLElement>, handleOpenMenu: () => void) => {
     setAnchorEl(event.currentTarget);
-    // toggleOn();
+    handleOpenMenu();
   };
   const handleClose = () => {
     setAnchorEl(null);
@@ -53,21 +56,19 @@ const MenuOptionsForHeader = () => {
         <SearchForHeader />
         <StyledOptionsBlock>
           <OptionsComp
-            Icon={ClockIcon}
+            icon={<ClockIcon />}
             title="History"
-            onClick={(event) =>
-              handleClick.bind(this, handleClick(event), handleOpenMenuForHistory())
-            }
+            onClick={(event) => handleClick.call(this, event, handleOpenMenuForHistory)}
           />
           <OptionsComp
-            Icon={GlobeIcon}
+            icon={<GlobeIcon />}
             title="Language"
-            onClick={(event) => handleClick.bind(this, handleOpenMenuForLanguage())}
+            onClick={(event) => handleClick.call(this, event, handleOpenMenuForLanguage)}
           />
           <OptionsComp
-            Icon={UserIcon}
+            icon={<UserIcon />}
             title="Me"
-            onClick={(event) => handleClick.bind(this, handleOpenMenuForAccount())}
+            onClick={(event) => handleClick.call(this, event, handleOpenMenuForAccount)}
           />
         </StyledOptionsBlock>
         <Button
@@ -103,16 +104,16 @@ const MenuOptionsForHeader = () => {
 };
 
 interface optionsCompProps extends StackProps {
-  Icon: any;
+  icon: ReactNode;
   title: string;
 }
 
 const OptionsComp = (props: optionsCompProps) => {
-  const { Icon, title } = props;
+  const { icon, title } = props;
   const theme = useTheme();
   return (
-    <StyledOption {...props}>
-      <Icon sx={{ color: theme.palette.common.white }} />
+    <StyledOption sx={{ color: "white" }} {...props}>
+      {icon}
       <Typography variant="subtitle2" color={theme.palette.common.white}>
         {title}
       </Typography>
