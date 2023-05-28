@@ -2,13 +2,13 @@ import { Fragment, MouseEvent, ReactNode, useState } from "react";
 import { Button, Stack, StackProps, Typography, styled, useTheme } from "@mui/material";
 
 import { ClockIcon, GlobeIcon, UserIcon, DownloadIcon } from "@/components";
-import { useToggle } from "@/hooks";
 import {
   MenuForHistory,
   MenuForMe,
   MenuForLanguage,
   SearchForHeader,
 } from "@/compositions";
+import { useToggle } from "@/hooks";
 
 interface optionsCompProps extends StackProps {
   icon: ReactNode;
@@ -42,43 +42,37 @@ const MenuOptionsForHeader = () => {
     setAnchorEl(event.currentTarget);
     handleOpenMenu();
   };
-  const handleClose = () => {
-    setAnchorEl(null);
-    handleCloseMenuForHistory();
-    handleCloseMenuForLanguage();
-    handleCloseMenuForAccount();
-  };
 
   return (
     <Fragment>
       <StyledWrapper>
         <SearchForHeader />
+
         <StyledOptionsBlock>
           <OptionsComp
             icon={<ClockIcon />}
             title="History"
-            onClick={(event) => handleClick.call(this, event, handleOpenMenuForHistory)}
+            onClick={(event) => handleClick(event, handleOpenMenuForHistory)}
           />
+
           <OptionsComp
             icon={<GlobeIcon />}
             title="Language"
-            onClick={(event) => handleClick.call(this, event, handleOpenMenuForLanguage)}
+            onClick={(event) => handleClick(event, handleOpenMenuForLanguage)}
           />
+
           <OptionsComp
             icon={<UserIcon />}
             title="Me"
-            onClick={(event) => handleClick.call(this, event, handleOpenMenuForAccount)}
+            onClick={(event) => handleClick(event, handleOpenMenuForAccount)}
           />
         </StyledOptionsBlock>
-        <Button
-          variant="contained"
-          sx={{ backgroundColor: "rgb(28, 199, 73)" }}
-          startIcon={<DownloadIcon />}
-        >
+
+        <StyledButton variant="contained" startIcon={<DownloadIcon />}>
           <Typography variant={"body2"} color={theme.palette.common.white}>
             APP
           </Typography>
-        </Button>
+        </StyledButton>
       </StyledWrapper>
 
       {/* menu option */}
@@ -86,17 +80,17 @@ const MenuOptionsForHeader = () => {
       <MenuForHistory
         anchorEl={anchorEl}
         openMenuOfLanguage={handleIsOpenMenuForHistory}
-        handleClose={handleClose}
+        handleClose={handleCloseMenuForHistory}
       />
       <MenuForLanguage
         anchorEl={anchorEl}
         openMenuOfLanguage={handleIsOpenMenuForLanguage}
-        handleClose={handleClose}
+        handleClose={handleCloseMenuForLanguage}
       />
       <MenuForMe
         anchorEl={anchorEl}
         openMenuOfLanguage={handleIsOpenMenuForAccount}
-        handleClose={handleClose}
+        handleClose={handleCloseMenuForAccount}
       />
     </Fragment>
   );
@@ -148,6 +142,18 @@ const StyledOptionsBlock = styled(Stack)(({ theme }) => {
 
     [theme.breakpoints.down("md")]: {
       display: "none",
+    },
+  };
+});
+
+const StyledButton = styled(Button)(() => {
+  return {
+    backgroundColor: "rgb(28, 199, 73)",
+
+    ":hover": {
+      backgroundColor: "rgb(28, 199, 73)",
+      opacity: "0.8",
+      transition: "opacity linear 0.3s",
     },
   };
 });

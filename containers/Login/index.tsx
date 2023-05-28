@@ -18,7 +18,7 @@ import FormControlForCheckbox from "@/compositions/FormControl/FormControlForChe
 const Login = () => {
   const { control } = useForm();
   const theme = useTheme();
-  console.log(theme);
+
   return (
     <StyledWrapper>
       <StyledOverlay />
@@ -84,44 +84,42 @@ const Login = () => {
           </Grid>
 
           <Grid item lg={12} md={12} xs={12}>
-            <Stack
-              direction={"row"}
-              alignItems={"center"}
-              justifyContent={"space-between"}
-            >
-              <Stack direction={"row"} alignItems={"center"}>
-                <FormControlForCheckbox control={control} name={"remember_password"}>
-                  {() => (
-                    <FormControlLabel
-                      control={<Checkbox defaultChecked color="default" />}
-                      label={
-                        <Typography variant="netflixtitle3" color={"#b3b3b3"}>
-                          Remember me
-                        </Typography>
-                      }
-                    />
-                  )}
-                </FormControlForCheckbox>
-              </Stack>
+            <StyledStackWrapper>
+              <FormControlForCheckbox control={control} name={"remember_password"}>
+                {() => (
+                  <FormControlLabel
+                    control={<Checkbox defaultChecked color="default" />}
+                    label={
+                      <Typography variant="netflixtitle3" color={"#b3b3b3"}>
+                        Remember me
+                      </Typography>
+                    }
+                  />
+                )}
+              </FormControlForCheckbox>
+
               <Link href={"/tro-giup"}>
                 <Typography color={"#b3b3b3"} variant="netflixtitle3">
                   Need help?
                 </Typography>
               </Link>
-            </Stack>
+            </StyledStackWrapper>
           </Grid>
 
           <Grid item lg={12} md={12} xs={12}>
-            <Stack direction={"row"} alignItems={"center"} gap={"6px"}>
-              <Typography variant="netflixtitle2" color={"#737373"}>
-                New to Netflix?
+            <Typography
+              marginRight={theme.spacing(1)}
+              variant="netflixtitle2"
+              color={"#737373"}
+            >
+              New to Netflix?
+            </Typography>
+
+            <Link href={"/register"}>
+              <Typography color={theme.palette.common.white} variant={"netflixtitle2"}>
+                Sign up now
               </Typography>
-              <Link href={"/register"}>
-                <Typography color={theme.palette.common.white} variant={"netflixtitle2"}>
-                  Sign up now
-                </Typography>
-              </Link>
-            </Stack>
+            </Link>
           </Grid>
         </Grid>
       </StyledFormBlock>
@@ -144,12 +142,16 @@ const StyledFormBlock = styled(Box)(({ theme }) => {
     position: "relative",
     zIndex: 2,
 
-    width: "100%",
-    maxWidth: 450,
+    width: 450,
+    maxWidth: "calc(100% - 24px)",
     padding: "60px 68px 40px",
 
     backgroundColor: "rgba(0,0,0,.75)",
     color: theme.palette.common.white,
+
+    [theme.breakpoints.down("sm")]: {
+      padding: "60px 40px 40px",
+    },
   };
 });
 
@@ -160,9 +162,10 @@ const StyledButton = styled(Button)(() => {
     backgroundColor: "#e50914",
 
     ":hover": {
-      backgroundColor: "#e50914",
       opadcity: "0.8",
       transition: "opacity linear 0.2s",
+
+      backgroundColor: "#e50914",
     },
   };
 });
@@ -174,8 +177,18 @@ const StyledOverlay = styled(Box)(() => {
     left: 0,
     bottom: 0,
     zIndex: 1,
+
     width: "100%",
+
     backgroundColor: "rgba(0, 0, 0, 0.4)",
+  };
+});
+
+const StyledStackWrapper = styled(Stack)(() => {
+  return {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   };
 });
 

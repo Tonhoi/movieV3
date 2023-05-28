@@ -1,6 +1,8 @@
-import { Menu } from "@/components";
-import { Box, Button, MenuItem, Stack, Typography, styled } from "@mui/material";
 import { MouseEventHandler } from "react";
+import { MenuWrapper } from "@/components";
+import { Box, Button, MenuItem, Stack, Typography, styled } from "@mui/material";
+import { useRouter } from "next/router";
+import { ROUTES } from "@/routers";
 
 interface menuForLanguageProps {
   anchorEl: null | HTMLElement;
@@ -9,21 +11,26 @@ interface menuForLanguageProps {
 }
 const MenuForMe = (props: menuForLanguageProps) => {
   const { anchorEl, openMenuOfLanguage, handleClose } = props;
+  const router = useRouter();
 
   return (
-    <Menu anchorEl={anchorEl} open={openMenuOfLanguage} onClose={handleClose}>
-      <MenuItem onClick={handleClose}>
+    <MenuWrapper anchorEl={anchorEl} open={openMenuOfLanguage} onClose={handleClose}>
+      <MenuItem disableRipple>
         <Stack gap={2}>
           <Typography display={"block"}>Login to watch trendy content</Typography>
 
           <Box textAlign={"center"}>
-            <StyledButton variant="contained" color={"success"}>
+            <StyledButton
+              variant="contained"
+              color={"success"}
+              onClick={() => router.push(ROUTES.login)}
+            >
               Login
             </StyledButton>
           </Box>
         </Stack>
       </MenuItem>
-    </Menu>
+    </MenuWrapper>
   );
 };
 

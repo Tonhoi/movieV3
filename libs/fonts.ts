@@ -1,29 +1,35 @@
 import localFont from "next/font/local";
 
-const robotoRegular = localFont({
+const sanProRegular = localFont({
   src: [
     {
-      path: "../public/fonts/Roboto-Regular.ttf",
+      path: "../public/fonts/SourceSansPro-Regular.ttf",
     },
   ],
 });
 
-const robotoMedium = localFont({
+const sanProLight = localFont({
   src: [
     {
-      path: "../public/fonts/Roboto-Medium.ttf",
+      path: "../public/fonts/SourceSansPro-Light.ttf",
+    },
+  ],
+});
+const sanProExtraLight = localFont({
+  src: [
+    {
+      path: "../public/fonts/SourceSansPro-ExtraLight.ttf",
     },
   ],
 });
 
-const robotoBold = localFont({
+const sanProBold = localFont({
   src: [
     {
-      path: "../public/fonts/Roboto-Bold.ttf",
+      path: "../public/fonts/SourceSansPro-Bold.ttf",
     },
   ],
 });
-
 
 const netflixThin = localFont({
   src: [
@@ -56,4 +62,13 @@ const netflixMedium = localFont({
   ],
 });
 
-export { robotoRegular, robotoMedium, robotoBold, netflixRegular, netflixBold, netflixMedium, netflixThin };
+export {
+  sanProExtraLight,
+  sanProRegular,
+  sanProLight,
+  sanProBold,
+  netflixRegular,
+  netflixBold,
+  netflixMedium,
+  netflixThin,
+};

@@ -3,9 +3,10 @@ import { useMeasure } from "react-use";
 
 import { Link, Image } from "@/components";
 import { ROUTES } from "@/routers";
-import logo from "@/public/image/logo.png";
 import { useMedia } from "@/hooks";
 import SwipeableTemporaryDrawer from "./AppBarForHeader";
+
+import logo from "@/public/image/logo.png";
 
 const MenuItemForHeader = () => {
   const [ref, { width }] = useMeasure();
@@ -74,6 +75,7 @@ const StyledImageBlock = styled(Box)(({ theme }) => {
     },
   };
 });
+
 const StyledImage = styled(Image)(({ theme }) => {
   return {
     objectFit: "cover",

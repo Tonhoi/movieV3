@@ -4,8 +4,8 @@ import { MenuItemForHeader, MenuOptionsForHeader } from "@/compositions";
 
 const Header = () => {
   return (
-    <Container maxWidth={"xl"}>
-      <StyledWrapper>
+    <StyledWrapper>
+      <Container>
         <StyledGridContainer container spacing={2}>
           <Grid item lg={6} md={4} sm={4} xs={12}>
             <MenuItemForHeader />
@@ -15,13 +15,16 @@ const Header = () => {
             <MenuOptionsForHeader />
           </Grid>
         </StyledGridContainer>
-      </StyledWrapper>
-    </Container>
+      </Container>
+    </StyledWrapper>
   );
 };
 
 const StyledWrapper = styled(Box)(() => {
   return {
+    position: "fixed",
+
+    width: "100%",
     padding: "9px 0",
   };
 });

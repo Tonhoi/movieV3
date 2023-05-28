@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
-import {Box, Typography, LinearProgress, LinearProgressProps} from "@mui/material";
+import {
+  Box,
+  Typography,
+  LinearProgress,
+  LinearProgressProps,
+  Stack,
+} from "@mui/material";
 
 interface LinearProgressWithLabelProps extends LinearProgressProps {
   value: number;
@@ -7,16 +13,16 @@ interface LinearProgressWithLabelProps extends LinearProgressProps {
 
 function LinearProgressWithLabel(props: LinearProgressWithLabelProps) {
   return (
-    <Box sx={{ display: "flex", alignItems: "center" }}>
-      <Box sx={{ width: "100%", mr: 1, color: "red" }}>
+    <Stack direction={"row"} alignItems={"center"}>
+      <Box width={"100%"} marginRight={"1px"}>
         <LinearProgress variant="determinate" color={"success"} {...props} />
       </Box>
-      <Box sx={{ minWidth: 35 }}>
+      <Box minWidth={35}>
         <Typography variant="body2" color="text.secondary">{`${Math.round(
           props.value
         )}%`}</Typography>
       </Box>
-    </Box>
+    </Stack>
   );
 }
 
@@ -33,7 +39,7 @@ export default function LinearWithValueLabel() {
   }, []);
 
   return (
-    <Box sx={{ width: "100%" }}>
+    <Box width={"100%"}>
       <LinearProgressWithLabel value={progress} />
     </Box>
   );

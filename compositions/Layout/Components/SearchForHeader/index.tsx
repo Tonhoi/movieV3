@@ -37,7 +37,7 @@ const SearchForHeader = () => {
           state: AutocompleteRenderOptionState
         ) => {
           return (
-            <StyledCustomRenderOptions>
+            <StyledCustomRenderOptions key={state.index}>
               <Typography>{option.year}</Typography>
               <Typography variant={"h5"}>{option.label}</Typography>
             </StyledCustomRenderOptions>
@@ -64,6 +64,7 @@ const SearchForHeader = () => {
 
       <StyledSearchIconBlock>
         <StyledDivider orientation="vertical" flexItem />
+
         <StyledSearchIcon />
       </StyledSearchIconBlock>
     </StyledSearchBlock>
@@ -106,6 +107,7 @@ const StyledSearchIcon = styled(SearchIcon)(() => {
     position: "relative",
     bottom: 2,
     cursor: "pointer",
+
     ":hover": {
       opacity: 0.8,
       transition: "opacity linear 0.3s",
@@ -117,12 +119,15 @@ const StyledFormControlForAutocomplete = styled(FormControlForAutocomplete)(
   ({ theme }) => {
     return {
       flex: 1,
+
       "& .MuiInput-root": {
         margin: 0,
         paddingLeft: "12px",
+
         "&::before, &:hover::before, &::after, &:hover::after": {
           borderBottom: "none !important",
         },
+
         "& input, & > div > button": {
           color: theme.palette.common.white,
         },
@@ -142,6 +147,7 @@ const StyledCustomRenderOptions = styled(Stack)(() => {
     "&:hover": {
       backgroundColor: "#ffffff14",
       transition: "all linear 0.2s",
+
       "& > h5": {
         color: "#1cc749",
         transition: "all linear 0.2s",

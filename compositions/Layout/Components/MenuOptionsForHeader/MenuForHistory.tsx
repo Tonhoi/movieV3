@@ -12,8 +12,10 @@ import {
 import { useMeasure } from "react-use";
 import { Scrollbars } from "react-custom-scrollbars";
 
-import { Image, Menu, Spacing, ArrowRightIcon } from "@/components";
+import { Image, MenuWrapper, Spacing, ArrowRightIcon } from "@/components";
 import ProgressForMenuHistory from "./ProgressForMenuHistory";
+
+// image
 import demoImageCard from "@/public/image/demoImageCard.jpg";
 
 interface menuForHistoryProps {
@@ -23,19 +25,23 @@ interface menuForHistoryProps {
 }
 
 const MenuForHistory = (props: menuForHistoryProps) => {
-  const [ref, { width }] = useMeasure();
   const { anchorEl, handleClose, openMenuOfLanguage } = props;
+  const [ref, { width }] = useMeasure();
+
   const theme = useTheme();
+
   return (
-    <Menu anchorEl={anchorEl} open={openMenuOfLanguage} onClose={handleClose}>
+    <MenuWrapper anchorEl={anchorEl} open={openMenuOfLanguage} onClose={handleClose}>
       <Scrollbars style={{ height: 100 }} autoHide>
         <StyledMenuItem onClick={handleClose} divider>
           <StyledWrapperStack>
             <StyledImageBlock ref={ref}>
               <Image src={demoImageCard.src} width={width} height={width} />
             </StyledImageBlock>
+
             <Stack gap={1}>
               <StyledHeading variant="h5">Once We Get Married</StyledHeading>
+
               <Box>
                 <Typography variant="h6" fontWeight={400} color={"#828387"}>
                   Watch to Episode 2
@@ -46,8 +52,11 @@ const MenuForHistory = (props: menuForHistoryProps) => {
           </StyledWrapperStack>
         </StyledMenuItem>
       </Scrollbars>
+
       <Spacing spacing={1} />
+
       <Divider sx={{ backgroundColor: theme.palette.common.white, opacity: "0.5" }} />
+
       <Stack marginBottom={"-8px"}>
         <Button
           variant="text"
@@ -61,7 +70,7 @@ const MenuForHistory = (props: menuForHistoryProps) => {
           More
         </Button>
       </Stack>
-    </Menu>
+    </MenuWrapper>
   );
 };
 
@@ -77,6 +86,7 @@ const StyledWrapperStack = styled(Stack)(() => {
     alignItems: "flex-start",
     justifyContent: "flex-start",
     flex: 1,
+
     gap: 8,
   };
 });

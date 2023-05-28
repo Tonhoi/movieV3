@@ -5,13 +5,14 @@ import {
 } from "@mui/material";
 
 import {
-  robotoBold,
-  robotoMedium,
-  robotoRegular,
+  sanProRegular,
+  sanProLight,
+  sanProBold,
   netflixRegular,
   netflixBold,
   netflixMedium,
   netflixThin,
+  sanProExtraLight,
 } from "@/libs";
 import { COMPONENT_STATE, PALETTE_COLOR, PSEUDO_STATE } from "@/configuration";
 
@@ -59,27 +60,27 @@ const defaultTheme = createTheme({
     },
   },
   typography: {
-    fontFamily: robotoRegular.style.fontFamily,
+    fontFamily: sanProRegular.style.fontFamily,
     h1: createTypographyProperties({
-      fontFamily: robotoRegular.style.fontFamily,
+      fontFamily: sanProRegular.style.fontFamily,
       fontWeight: 400,
       fontSize: 50,
       lineHeight: "55px",
     }),
     h2: createTypographyProperties({
-      fontFamily: robotoRegular.style.fontFamily,
+      fontFamily: sanProBold.style.fontFamily,
       fontWeight: 700,
       fontSize: 36,
       lineHeight: "48px",
     }),
     h3: createTypographyProperties({
-      fontFamily: robotoRegular.style.fontFamily,
+      fontFamily: sanProRegular.style.fontFamily,
       fontWeight: 600,
       fontSize: 24,
       lineHeight: "30px",
     }),
     h4: createTypographyProperties({
-      fontFamily: robotoRegular.style.fontFamily,
+      fontFamily: sanProRegular.style.fontFamily,
       fontWeight: 700,
       fontSize: 32,
       lineHeight: "40px",
@@ -87,14 +88,15 @@ const defaultTheme = createTheme({
 
     // custom
     h5: createTypographyProperties({
-      fontFamily: robotoRegular.style.fontFamily,
-      fontWeight: 700,
+      fontFamily: sanProRegular.style.fontFamily,
+      fontWeight: 500,
       fontSize: 14,
       lineHeight: "16px",
     }),
+
     h6: createTypographyProperties({
-      fontFamily: robotoRegular.style.fontFamily,
-      fontWeight: 700,
+      fontFamily: sanProRegular.style.fontFamily,
+      fontWeight: 500,
       fontSize: 12,
       lineHeight: "16px",
     }),
@@ -104,19 +106,27 @@ const defaultTheme = createTheme({
       lineHeight: "32px",
     }),
     body2: createTypographyProperties({
-      fontWeight: 500,
+      fontFamily: sanProBold.style.fontFamily,
+      fontWeight: 700,
       fontSize: 14,
-      lineHeight: "24px",
+      lineHeight: "17px",
     }),
     subtitle1: createTypographyProperties({
-      fontWeight: 500,
+      fontFamily: sanProBold.style.fontFamily,
+      fontWeight: 700,
       fontSize: 16,
-      lineHeight: "24px",
+      lineHeight: "17px",
     }),
     subtitle2: createTypographyProperties({
       fontWeight: 500,
       fontSize: 12,
       lineHeight: "12px",
+    }),
+    subtitle3: createTypographyProperties({
+      fontFamily: sanProBold.style.fontFamily,
+      fontWeight: 500,
+      fontSize: 12,
+      lineHeight: "18px",
     }),
 
     netflixtitle1: createTypographyProperties({
@@ -163,7 +173,7 @@ const theme = createTheme({
 
     MuiContainer: {
       defaultProps: {
-        maxWidth: "xl",
+        maxWidth: "lg",
       },
     },
     MuiButton: {

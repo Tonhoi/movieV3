@@ -10,6 +10,9 @@ export { default as GlobeIcon } from "./Icons/GlobeIcon";
 export { default as TvIcon } from "./Icons/TvIcon";
 export { default as UserIcon } from "./Icons/UserIcon";
 export { default as ArrowRightIcon } from "./Icons/ArrowRightIcon";
+export { default as PlayIcon } from "./Icons/PlayIcon";
+export { default as SaveIcon } from "./Icons/SaveIcon";
+export { default as StarIcon } from "./Icons/StarIcon";
 
 export { default as Image } from "./Image";
 
@@ -18,4 +21,4 @@ export { default as Link } from "./Link";
 export { default as Spacing } from "./Spacing";
 
 // menu
-export { default as Menu } from "./Menu";
+export { default as MenuWrapper } from "./MenuWrapper";
