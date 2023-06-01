@@ -30,12 +30,14 @@
     "react-hook-form": "^7.43.9",
     "react-slick": "^0.29.0",
     "react-use": "^17.4.0",
+    "slick-carousel": "^1.8.1",
     "swr": "^2.1.5",
     "typescript": "5.0.4",
     "yup": "^1.1.1"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.194",
-    "@types/react-custom-scrollbars": "^4.0.10"
+    "@types/react-custom-scrollbars": "^4.0.10",
+    "@types/react-slick": "^0.23.10"
   }
 }

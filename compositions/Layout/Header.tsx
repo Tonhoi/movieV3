@@ -23,6 +23,7 @@ const Header = () => {
 const StyledWrapper = styled(Box)(() => {
   return {
     position: "fixed",
+    zIndex: 99,
 
     width: "100%",
     padding: "9px 0",
