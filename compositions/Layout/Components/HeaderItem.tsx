@@ -4,20 +4,21 @@ import { useMeasure } from "react-use";
 import { Link, Image } from "@/components";
 import { ROUTES } from "@/routers";
 import { useMedia } from "@/hooks";
-import SwipeableTemporaryDrawer from "./AppBarForHeader";
+import HeaderOnMobile from "./HeaderOnMobile";
 
 import logo from "@/public/image/logo.png";
 
-const MenuItemForHeader = () => {
+const HeaderItem = () => {
   const [ref, { width }] = useMeasure();
 
   const { isMdDown } = useMedia();
 
   return (
     <StyledWrapper>
-      {isMdDown && <SwipeableTemporaryDrawer />}
+      {isMdDown && <HeaderOnMobile />}
+
       <StyledImageBlock ref={ref}>
-        <StyledImage src={logo} width={width} height={width} />
+        <Image src={logo} width={width} height={width} />
       </StyledImageBlock>
 
       <StyledLink href={ROUTES.movie}>
@@ -63,6 +64,15 @@ const StyledImageBlock = styled(Box)(({ theme }) => {
     width: 170,
     height: 43,
 
+    ["& img"]: {
+      objectFit: "cover",
+      cursor: "pointer",
+
+      [theme.breakpoints.down("md")]: {
+        marginLeft: "-24px",
+      },
+    },
+
     [theme.breakpoints.down("md")]: {
       margin: "0 auto",
       width: 140,
@@ -76,14 +86,4 @@ const StyledImageBlock = styled(Box)(({ theme }) => {
   };
 });
 
-const StyledImage = styled(Image)(({ theme }) => {
-  return {
-    objectFit: "cover",
-
-    [theme.breakpoints.down("md")]: {
-      marginLeft: "-24px",
-    },
-  };
-});
-
-export default MenuItemForHeader;
+export default HeaderItem;

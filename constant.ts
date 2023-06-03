@@ -1,3 +1,6 @@
+import { ClockIcon, FilmIcon, GlobeIcon, TvIcon, UserIcon } from "./components";
+import { ROUTES } from "./routers";
+
 export const top100Films = [
   { label: "The Shawshank Redemption", year: 1 },
   { label: "The Godfather", year: 2 },
@@ -123,4 +126,32 @@ export const top100Films = [
   { label: "Snatch", year: 2000 },
   { label: "3 Idiots", year: 2009 },
   { label: "Monty Python and the Holy Grail", year: 1975 },
+];
+
+export const HEADERITEM = [
+  {
+    icon: FilmIcon,
+    href: ROUTES.movie,
+    title: "Movie",
+  },
+  {
+    icon: TvIcon,
+    href: ROUTES.tv,
+    title: "Tv",
+  },
+  {
+    icon: ClockIcon,
+    href: ROUTES.history,
+    title: "History",
+  },
+  {
+    icon: GlobeIcon,
+    href: "/",
+    title: "Language",
+  },
+  {
+    icon: UserIcon,
+    href: ROUTES.me,
+    title: "Me",
+  },
 ];

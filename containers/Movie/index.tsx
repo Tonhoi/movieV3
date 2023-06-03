@@ -1,4 +1,4 @@
-import SwipeableTemporaryDrawer from "@/compositions/Layout/Components/AppBarForHeader";
+import SwipeableTemporaryDrawer from "@/compositions/Layout/Components/HeaderOnMobile";
 import { Box } from "@mui/material";
 
 const Movie = () => {

@@ -1,80 +1,109 @@
-import React, { MutableRefObject } from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { Box, Divider, Stack, Typography, styled } from "@mui/material";
 
-import { Spacing, PlayIcon, SaveIcon, StarIcon } from "@/components";
+import { PlayIcon, SaveIcon, StarIcon } from "@/components";
 
 import SlideCardItem from "./SlideCardItem";
 import SlickSlider from "@/compositions/Slick/SlickSlider";
 
 interface ContentSliderHeaderprops {
-  slider1: MutableRefObject<null>;
-  slider2: MutableRefObject<null>;
+  slider1: any;
+  slider3: any;
+  setSlider2: SetStateAction<Dispatch<SetStateAction<null>>>;
+  setSlider3: SetStateAction<Dispatch<SetStateAction<null>>>;
 }
 
 const ContentSliderHeader = (props: ContentSliderHeaderprops) => {
-  const { slider1, slider2 } = props;
+  const { slider1, slider3, setSlider2, setSlider3 } = props;
+
   return (
     <StyledWrapper>
-      <Stack spacing={2} maxWidth={"50%"}>
-        <Typography variant="h2">Luận anh hùng</Typography>
+      <SlickSlider
+        props={{
+          fade: true,
+        }}
+        variant="simple"
+        asNavFor={slider1}
+        refSlick={(
+          slider: ((prevState: null) => null) & Dispatch<SetStateAction<null>>
+        ) => setSlider3(slider)}
+      >
+        {Array(5)
+          .fill(null)
+          .map((el, idx) => (
+            <Stack spacing={2} maxWidth={"50%"} key={idx}>
+              <Typography variant="h2">Luận anh hùng</Typography>
 
-        <StyledSection>
-          <StyledTopText variant="subtitle3">TOP 1</StyledTopText>
-          <Typography variant="subtitle3" padding={"0 6px 0"}>
-            High Popularity
-          </Typography>
-        </StyledSection>
+              <StyledSection>
+                <Typography variant="subtitle3">TOP 1</Typography>
+                <Typography variant="subtitle3" padding={"0 6px 0"}>
+                  High Popularity
+                </Typography>
+              </StyledSection>
 
-        <StyledContentWrapper>
-          <StarIcon style={{ width: 12, height: 12 }} />
-          <Typography variant="body2" color={"rgb(28, 199, 73)"}>
-            9.7
-          </Typography>
-          <StyledDivider orientation="vertical" light />
+              <StyledContentWrapper>
+                <StarIcon style={{ width: 12, height: 12 }} />
+                <Typography variant="body2" color={"rgb(28, 199, 73)"}>
+                  9.7
+                </Typography>
+                <StyledDivider orientation="vertical" light />
 
-          <Typography variant="h6">2017</Typography>
-          <StyledDivider orientation="vertical" light />
+                <Typography variant="h6">2017</Typography>
+                <StyledDivider orientation="vertical" light />
 
-          <Typography variant="h6">C13</Typography>
-          <StyledDivider orientation="vertical" light />
+                <Typography variant="h6">C13</Typography>
+                <StyledDivider orientation="vertical" light />
 
-          <Typography variant="h6">24 Episodes</Typography>
-        </StyledContentWrapper>
+                <Typography variant="h6">24 Episodes</Typography>
+              </StyledContentWrapper>
 
-        <StyledContentWrapper>
-          <StyledGenreMovie variant="h6">Chinese Mainland</StyledGenreMovie>
-        </StyledContentWrapper>
+              <StyledContentWrapper>
+                <StyledGenreMovie variant="h6">Chinese Mainland</StyledGenreMovie>
+              </StyledContentWrapper>
 
-        <StyledDesctiption variant="h5">
-          To buy a couture wedding dress for a customer, fashion buyer Gu Xixi sneaks into
-          a high-end party where she knows a bossy president Yin Sichen with a series of
-          lies and becomes his contracted wife for three months. The inexperienced bossy
-          president and the cute and cunning girl start a love game. Through all kinds of
-          tests, Yin Sichen helps Gu Xixi realize her dream of becoming a designer and
-          establish her own fashion brand, making her as outstanding as him.
-        </StyledDesctiption>
+              <StyledDesctiption variant="h5">
+                To buy a couture wedding dress for a customer, fashion buyer Gu Xixi
+                sneaks into a high-end party where she knows a bossy president Yin Sichen
+                with a series of lies and becomes his contracted wife for three months.
+                The inexperienced bossy president and the cute and cunning girl start a
+                love game. Through all kinds of tests, Yin Sichen helps Gu Xixi realize
+                her dream of becoming a designer and establish her own fashion brand,
+                making her as outstanding as him.
+              </StyledDesctiption>
 
-        <StyledContentWrapper>
-          <PlayIcon />
+              <StyledContentWrapper>
+                <PlayIcon />
 
-          <SaveIcon />
-        </StyledContentWrapper>
-      </Stack>
+                <SaveIcon />
+              </StyledContentWrapper>
+            </Stack>
+          ))}
+      </SlickSlider>
 
       <Box position={"relative"} width={"100%"}>
-        <SlickSlider variant="multiple" asNavFor={slider1.current} refSlick={slider2}>
-          <SlideCardItem />
-          <SlideCardItem />
-          <SlideCardItem />
+        <SlickSlider
+          variant="multiple"
+          asNavFor={slider1 && slider3}
+          refSlick={(
+            slider: ((prevState: null) => null) & Dispatch<SetStateAction<null>>
+          ) => setSlider2(slider)}
+        >
+          {Array(5)
+            .fill(null)
+            .map((el, idx) => (
+              <SlideCardItem key={idx} />
+            ))}
         </SlickSlider>
       </Box>
     </StyledWrapper>
   );
 };
 
-const StyledWrapper = styled(Box)(() => {
+const StyledWrapper = styled(Box)(({ theme }) => {
   return {
     position: "relative",
+    marginTop: theme.spacing(10),
+    // transform: "translateY(-50%)",
     zIndex: 4,
 
     color: "#ECECEC",
@@ -98,7 +127,7 @@ const StyledContentWrapper = styled(Stack)(() => {
   };
 });
 
-const StyledDesctiption = styled(Typography)(() => {
+const StyledDesctiption = styled(Typography)(({ theme }) => {
   return {
     maxWidth: "80%",
     display: "-webkit-box",
@@ -107,6 +136,10 @@ const StyledDesctiption = styled(Typography)(() => {
     overflow: "hidden",
 
     textAlign: "justify",
+
+    [theme.breakpoints.down("sm")]: {
+      maxWidth: "100%",
+    },
   };
 });
 
@@ -137,14 +170,12 @@ const StyledSection = styled(Stack)(() => {
     borderRadius: "2px",
     overflow: "hidden",
     background: "rgba(255, 255, 255, 0.2)",
-  };
-});
 
-const StyledTopText = styled(Typography)(() => {
-  return {
-    padding: "2px 6px",
+    ["& span:first-of-type"]: {
+      padding: "2px 6px",
 
-    backgroundImage: "linear-gradient(90deg, rgb(0, 214, 57) 0%, rgb(0, 194, 52) 100%)",
+      backgroundImage: "linear-gradient(90deg, rgb(0, 214, 57) 0%, rgb(0, 194, 52) 100%)",
+    },
   };
 });
 

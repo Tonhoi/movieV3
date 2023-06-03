@@ -1,25 +1,39 @@
+import { SetStateAction, useState } from "react";
 import { Box, Container, Stack, styled } from "@mui/material";
 
 import ContentSliderHeader from "./Components/Slides/ContentSliderHeader";
 import SlickSlider from "../Slick/SlickSlider";
-import { useRef } from "react";
 
 const Slider = () => {
-  const slider1 = useRef(null);
-  const slider2 = useRef(null);
+  const [slider1, setSlider1] = useState(null);
+  const [slider2, setSlider2] = useState(null);
+  const [slider3, setSlider3] = useState(null);
+
   return (
     <StyledContainer>
       <StyledSlickWrapper>
-        <SlickSlider variant="simple" asNavFor={slider2.current} refSlick={slider1}>
-          {/* using map here */}
-          <StyledThumbnailWrapper>
-            <StyledThumbnail></StyledThumbnail>
-          </StyledThumbnailWrapper>
+        <SlickSlider
+          variant="simple"
+          asNavFor={slider2}
+          refSlick={(slider: SetStateAction<null>) => setSlider1(slider)}
+        >
+          {Array(5)
+            .fill(null)
+            .map((el, idx: number) => (
+              <StyledThumbnailWrapper key={idx}>
+                <StyledThumbnail />
+              </StyledThumbnailWrapper>
+            ))}
         </SlickSlider>
       </StyledSlickWrapper>
 
       <Container>
-        <ContentSliderHeader slider1={slider1} slider2={slider2} />
+        <ContentSliderHeader
+          slider1={slider1}
+          slider3={slider3}
+          setSlider2={setSlider2}
+          setSlider3={setSlider3}
+        />
       </Container>
 
       <StyledBoxShadowLeft />
@@ -27,7 +41,6 @@ const Slider = () => {
       <StyledBoxShadowTop />
 
       <StyledBoxShadowRight />
-      <StyledOverlay />
     </StyledContainer>
   );
 };
@@ -35,32 +48,30 @@ const Slider = () => {
 const StyledContainer = styled(Stack)(() => {
   return {
     position: "relative",
+    // height: "calc(100vh - 133px)",
     height: "100vh",
     justifyContent: "center",
+
+    ["&::after"]: {
+      content: '""',
+      position: "absolute",
+      zIndex: 2,
+      inset: 0,
+
+      height: "100%",
+      width: "100%",
+
+      background: "linear-gradient(rgba(52,73,94,.255),#333 90%)",
+    },
   };
 });
 
 const StyledSlickWrapper = styled(Box)(() => {
   return {
     position: "absolute",
+
     width: "100%",
     height: "100%",
-  };
-});
-
-const StyledThumbnail = styled(Box)(() => {
-  return {
-    position: "absolute",
-    zIndex: "1",
-
-    width: "100%",
-    height: "100vh",
-
-    backgroundImage:
-      "url(https://static2.vieon.vn/vieplay-image/carousel_web_v4/2022/05/24/g9mfrt9z_1920x1080-luananhhung6ebadcb417ca17c991478e11594f60a1.jpg)",
-    backgroundSize: "cover",
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "center",
   };
 });
 
@@ -72,16 +83,19 @@ const StyledThumbnailWrapper = styled(Box)(() => {
   };
 });
 
-const StyledOverlay = styled(Box)(() => {
+const StyledThumbnail = styled(Box)(() => {
   return {
     position: "absolute",
-    zIndex: 2,
-    inset: 0,
+    zIndex: "1",
 
-    height: "100%",
     width: "100%",
+    height: "100%",
 
-    background: "linear-gradient(rgba(52,73,94,.255),#333 90%)",
+    backgroundImage:
+      "url(https://static2.vieon.vn/vieplay-image/carousel_web_v4/2022/05/24/g9mfrt9z_1920x1080-luananhhung6ebadcb417ca17c991478e11594f60a1.jpg)",
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center",
   };
 });
 
@@ -118,9 +132,9 @@ const StyledBoxShadowTop = styled(Box)(() => {
 const StyledBoxShadowRight = styled(Box)(() => {
   return {
     position: "absolute",
-    zIndex: 3,
     top: 0,
     right: 0,
+    zIndex: 3,
 
     width: "15%",
     height: "100%",

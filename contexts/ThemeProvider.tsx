@@ -128,6 +128,12 @@ const defaultTheme = createTheme({
       fontSize: 12,
       lineHeight: "18px",
     }),
+    subtitle4: createTypographyProperties({
+      fontFamily: sanProRegular.style.fontFamily,
+      fontWeight: 500,
+      fontSize: 13,
+      lineHeight: "18px",
+    }),
 
     netflixtitle1: createTypographyProperties({
       fontFamily: netflixMedium.style.fontFamily,
