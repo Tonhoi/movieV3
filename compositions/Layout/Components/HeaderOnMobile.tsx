@@ -18,6 +18,7 @@ import { Image, Link } from "@/components";
 import avatar from "@/public/image/avatar.png";
 import { HEADERITEM } from "@/constant";
 import { useToggle } from "@/hooks";
+import Overlay from "@/components/Overlay";
 
 import backgroundAvatar from "@/public/image/backgroundAvatar.png";
 
@@ -39,7 +40,11 @@ const HeaderOnMobile = () => {
         color={theme.palette.common.white}
       />
 
-      <StyledOverlay onClick={handleCloseHeaderMobile} className="overlay" />
+      <Overlay
+        backgroundColor="rgba(0, 0, 0, 0.5)"
+        onClick={handleCloseHeaderMobile}
+        className="overlay"
+      />
 
       <StyledWrapper className="wrapper">
         <StyledHeaderHeading>
@@ -98,19 +103,6 @@ const StyledWrapper = styled(Box)(({ theme }) => {
     transition: "transform linear 0.2s",
 
     backgroundColor: "rgb(35, 37, 43)",
-  };
-});
-
-const StyledOverlay = styled(Box)(() => {
-  return {
-    position: "fixed",
-    inset: 0,
-    zIndex: 90,
-
-    display: "none",
-    transition: "all linear 0.2s",
-
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
   };
 });
 

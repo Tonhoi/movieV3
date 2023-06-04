@@ -1,5 +1,5 @@
-import { Box, BoxProps, styled } from "@mui/material";
 import React, { ReactNode } from "react";
+import { Box, BoxProps, styled } from "@mui/material";
 
 type backgroundColorType =
   | "rgba(0, 0, 0, 0.1)"
@@ -20,6 +20,7 @@ interface OverlayProps extends BoxProps {
 
 const Overlay = (props: OverlayProps) => {
   const { children, backgroundColor } = props;
+
   return (
     <Container backgroundColor={backgroundColor} {...props}>
       {children}

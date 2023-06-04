@@ -5,6 +5,7 @@ declare module "@mui/material/styles/createTypography" {
     netflixtitle3?: TypographyStyle;
     netflixtitle4?: TypographyStyle;
     netflixtitle5?: TypographyStyle;
+    ryeTitle?: TypographyStyle;
     subtitle3?: TypographyStyle;
     subtitle4?: TypographyStyle;
   }
@@ -15,6 +16,7 @@ declare module "@mui/material/styles/createTypography" {
     netflixtitle3?: TypographyStyle;
     netflixtitle4?: TypographyStyle;
     netflixtitle5?: TypographyStyle;
+    ryeTitle?: TypographyStyle;
     subtitle3?: TypographyStyle;
     subtitle4?: TypographyStyle;
   }
@@ -27,6 +29,7 @@ declare module "@mui/material/Typography" {
     netflixtitle3: true;
     netflixtitle4: true;
     netflixtitle5: true;
+    ryeTitle: true;
     subtitle3: true;
     subtitle4: true;
   }

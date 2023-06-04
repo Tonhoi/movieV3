@@ -31,6 +31,14 @@ const sanProBold = localFont({
   ],
 });
 
+const ryeRegular = localFont({
+  src: [
+    {
+      path: "../public/fonts/Rye-Regular.ttf",
+    },
+  ],
+});
+
 const netflixThin = localFont({
   src: [
     {
@@ -63,6 +71,7 @@ const netflixMedium = localFont({
 });
 
 export {
+  ryeRegular,
   sanProExtraLight,
   sanProRegular,
   sanProLight,

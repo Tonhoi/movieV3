@@ -78,6 +78,7 @@ const StyledSlickWrapper = styled(Box)(() => {
 const StyledThumbnailWrapper = styled(Box)(() => {
   return {
     position: "relative",
+
     width: "100%",
     height: "100vh",
   };

@@ -13,6 +13,7 @@ import {
   netflixMedium,
   netflixThin,
   sanProExtraLight,
+  ryeRegular,
 } from "@/libs";
 import { COMPONENT_STATE, PALETTE_COLOR, PSEUDO_STATE } from "@/configuration";
 
@@ -74,7 +75,7 @@ const defaultTheme = createTheme({
       lineHeight: "48px",
     }),
     h3: createTypographyProperties({
-      fontFamily: sanProRegular.style.fontFamily,
+      fontFamily: sanProBold.style.fontFamily,
       fontWeight: 600,
       fontSize: 24,
       lineHeight: "30px",
@@ -164,6 +165,13 @@ const defaultTheme = createTheme({
       fontWeight: 500,
       fontSize: 16,
       lineHeight: "16px",
+    }),
+
+    ryeTitle: createTypographyProperties({
+      fontFamily: ryeRegular.style.fontFamily,
+      fontWeight: 500,
+      fontSize: 18,
+      lineHeight: "26px",
     }),
   },
 });

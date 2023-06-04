@@ -14,6 +14,7 @@ import { useForm } from "react-hook-form";
 import { Link, Spacing } from "@/components";
 import { FormControl } from "@/compositions";
 import FormControlForCheckbox from "@/compositions/FormControl/FormControlForCheckbox";
+import Overlay from "@/components/Overlay";
 
 const Login = () => {
   const { control } = useForm();
@@ -21,7 +22,7 @@ const Login = () => {
 
   return (
     <StyledWrapper>
-      <StyledOverlay />
+      <Overlay backgroundColor="rgba(0, 0, 0, 0.4)" />
 
       <StyledFormBlock>
         <Grid container>
@@ -167,20 +168,6 @@ const StyledButton = styled(Button)(() => {
 
       backgroundColor: "#e50914",
     },
-  };
-});
-
-const StyledOverlay = styled(Box)(() => {
-  return {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    bottom: 0,
-    zIndex: 1,
-
-    width: "100%",
-
-    backgroundColor: "rgba(0, 0, 0, 0.4)",
   };
 });
 
