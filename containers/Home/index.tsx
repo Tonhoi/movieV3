@@ -5,7 +5,7 @@ import CardItem2 from "@/components/Card/CardItem2";
 import SlickSlider from "@/compositions/Slick/SlickSlider";
 import { Box, Grid } from "@mui/material";
 import Slider from "react-slick";
-import CastCardItem from "@/components/Card/CastCardItem";
+import CastCardItem from "@/components/Card/CastCardItem/CastCardItem";
 
 const Home = () => {
   return (
