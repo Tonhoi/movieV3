@@ -3,34 +3,39 @@ import DetailCardItem from "@/components/Card/DetailCardItem";
 import TopTrendingCarditem from "@/components/Card/TopTrendingCarditem";
 import CardItem2 from "@/components/Card/CardItem2";
 import SlickSlider from "@/compositions/Slick/SlickSlider";
-import { Box, Grid } from "@mui/material";
+import { Box, Container, Grid } from "@mui/material";
 import Slider from "react-slick";
 import CastCardItem from "@/components/Card/CastCardItem/CastCardItem";
+import { Spacing } from "@/components";
 
 const Home = () => {
   return (
-    <Box>
+    <Container>
       {/* <CardItem /> */}
       {/* <DetailCardItem /> */}
       {/* <TopTrendingCarditem /> */}
-
-      {/* <Grid container spacing={2}>
-        <Grid item lg={3} md={3} xs={3}>
-          <CardItem2 />
+      <Spacing spacing={2}  />
+      <Grid container spacing={2} columns={12}>
+        <Grid item lg={2} md={4} xs={4}>
+          <CardItem />
         </Grid>
-        <Grid item lg={3} md={3} xs={3}>
-          <CardItem2 />
+        <Grid item lg={2} md={4} xs={4}>
+          <CardItem />
         </Grid>
-        <Grid item lg={3} md={3} xs={3}>
-          <CardItem2 />
+        <Grid item lg={2} md={4} xs={4}>
+          <CardItem />
         </Grid>
-        <Grid item lg={3} md={3} xs={3}>
-          <CardItem2 />
+        <Grid item lg={2} md={4} xs={4}>
+          <CardItem />
         </Grid>
-      </Grid> */}
-
-      <CastCardItem />
-    </Box>
+        <Grid item lg={2} md={4} xs={4}>
+          <CardItem />
+        </Grid>
+        <Grid item lg={2} md={4} xs={4}>
+          <CardItem />
+        </Grid>
+      </Grid>
+    </Container>
   );
 };
 

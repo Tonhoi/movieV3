@@ -5,7 +5,7 @@ import cardImageDemo from "@/public/image/demoImageCard.jpg";
 
 const CardItem2 = () => {
   return (
-    <Container className="aslkdklad">
+    <Container>
       <StyledCardImage>
         <PlayIcon />
       </StyledCardImage>

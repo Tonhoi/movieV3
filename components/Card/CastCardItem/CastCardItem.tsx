@@ -1,5 +1,5 @@
-import { Box, Divider, Grid, Stack, Typography, styled } from "@mui/material";
-import React from "react";
+import { Box, Divider, Grid, styled } from "@mui/material";
+
 import HeadingCastCardItem from "./HeadingCastCardItem";
 import ContentCastCardItem from "./ContentCastCardItem";
 
@@ -25,11 +25,11 @@ const CastCardItem = () => {
 const Container = styled(Box)(({ theme }) => {
   return {
     width: "100%",
-    maxWidth: "300px",
+    // maxWidth: "300px",
     backgroundColor: "rgb(26, 28, 34)",
     color: theme.palette.common.white,
     padding: 12,
-    borderRadius: "2px",
+    borderRadius: "4px",
   };
 });
 

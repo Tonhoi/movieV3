@@ -13,7 +13,9 @@ const ContextCastCardItem = () => {
         <SaveIcon className="icon-save" />
         <Typography variant={"h5"}>24 Episodes</Typography>
       </StyledImageWrapper>
-      <Typography variant={"body1"}>Our Secrets</Typography>
+      <Typography variant={"body1"} className="name-movie">
+        Our Secrets
+      </Typography>
     </Container>
   );
 };
@@ -22,6 +24,9 @@ const Container = styled(Box)(() => {
   return {
     transform: "scale(1)",
     transition: "transform linear 0.2s",
+    ["& .name-movie"]: {
+      wordBreak: "break-word",
+    },
     ["&:hover"]: {
       transform: "scale(1.05)",
 
@@ -29,7 +34,7 @@ const Container = styled(Box)(() => {
         display: "block",
       },
 
-      ["& p"]: {
+      ["& .name-movie"]: {
         color: "rgb(28, 199, 73)",
       },
     },

@@ -66,7 +66,7 @@ const DetailCardItem = () => {
 
 const Container = styled(Box)(() => {
   return {
-    maxWidth: 284,
+    // maxWidth: 284,
 
     borderRadius: "4px",
     overflow: "hidden",

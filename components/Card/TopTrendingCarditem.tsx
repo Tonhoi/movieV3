@@ -20,8 +20,6 @@ const TopTrendingCarditem = () => {
 
 const Container = styled(Box)(() => {
   return {
-    maxWidth: 180,
-
     borderRadius: "4px",
     overflow: "hidden",
   };
@@ -78,10 +76,12 @@ const StyledCardContent = styled(Box)(({ theme }) => {
     backgroundColor: "rgb(34, 20, 51)",
     color: theme.palette.common.white,
     padding: 10,
+
     ["& > h5"]: {
       marginBottom: 6,
       maxWidth: "80%",
     },
+
     ["& > h6"]: {
       color: "rgba(255, 255, 255, 0.7)",
     },

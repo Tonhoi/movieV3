@@ -49,7 +49,8 @@ const StyledContainer = styled(Stack)(() => {
   return {
     position: "relative",
     // height: "calc(100vh - 133px)",
-    height: "100vh",
+    // height: "100vh",
+    height: "100%",
     justifyContent: "center",
 
     ["&::after"]: {
@@ -80,7 +81,9 @@ const StyledThumbnailWrapper = styled(Box)(() => {
     position: "relative",
 
     width: "100%",
-    height: "100vh",
+    // height: "100vh",
+    aspectRatio: "2 / 1",
+    height: "100%",
   };
 });
 
@@ -96,7 +99,7 @@ const StyledThumbnail = styled(Box)(() => {
       "url(https://static2.vieon.vn/vieplay-image/carousel_web_v4/2022/05/24/g9mfrt9z_1920x1080-luananhhung6ebadcb417ca17c991478e11594f60a1.jpg)",
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
-    backgroundPosition: "center",
+    backgroundPosition: "center center",
   };
 });
 
