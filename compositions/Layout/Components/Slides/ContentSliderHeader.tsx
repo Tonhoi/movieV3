@@ -107,6 +107,14 @@ const StyledWrapper = styled(Box)(({ theme }) => {
     zIndex: 4,
 
     color: "#ECECEC",
+
+    [theme.breakpoints.down("md")]: {
+      marginTop: 0,
+
+      ["& .mui-style-z0me0w"]: {
+        display: "none",
+      },
+    },
   };
 });
 

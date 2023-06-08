@@ -26,6 +26,7 @@ const createSettings = (variant: string) => {
       slidesToShow: 3,
       slidesToScroll: 1,
       arrows: false,
+      autoplay: true,
       responsive: [
         {
           breakpoint: 900,
@@ -45,7 +46,16 @@ const createSettings = (variant: string) => {
         {
           breakpoint: 500,
           settings: {
-            dots: true,
+            dots: false,
+            arrows: false,
+            slidesToShow: 2,
+            slidesToScroll: 1,
+          },
+        },
+        {
+          breakpoint: 400,
+          settings: {
+            dots: false,
             arrows: false,
             slidesToShow: 1,
             slidesToScroll: 1,

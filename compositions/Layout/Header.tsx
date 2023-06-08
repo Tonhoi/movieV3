@@ -27,6 +27,12 @@ const StyledWrapper = styled(Box)(({ theme }) => {
 
     width: "100%",
     padding: "9px 0",
+
+    [theme.breakpoints.down("md")]: {
+      position: "sticky",
+      top: 0,
+      backgroundColor: "#111319",
+    },
   };
 });
 

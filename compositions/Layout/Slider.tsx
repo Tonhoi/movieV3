@@ -45,13 +45,16 @@ const Slider = () => {
   );
 };
 
-const StyledContainer = styled(Stack)(() => {
+const StyledContainer = styled(Stack)(({ theme }) => {
   return {
     position: "relative",
-    // height: "calc(100vh - 133px)",
-    // height: "100vh",
     height: "100%",
     justifyContent: "center",
+    aspectRatio: "2 / 1",
+
+    [theme.breakpoints.down("sm")]: {
+      aspectRatio: "2 / 1.5",
+    },
 
     ["&::after"]: {
       content: '""',
@@ -76,14 +79,17 @@ const StyledSlickWrapper = styled(Box)(() => {
   };
 });
 
-const StyledThumbnailWrapper = styled(Box)(() => {
+const StyledThumbnailWrapper = styled(Box)(({ theme }) => {
   return {
     position: "relative",
 
     width: "100%",
-    // height: "100vh",
     aspectRatio: "2 / 1",
     height: "100%",
+
+    [theme.breakpoints.down("sm")]: {
+      aspectRatio: "2 / 1.5",
+    },
   };
 });
 
