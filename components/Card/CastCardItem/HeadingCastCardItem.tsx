@@ -16,6 +16,7 @@ const HeadingCastCardItem = () => {
           src={
             "https://pic4.iqiyipic.com/image/20230201/b3/ab/p_5318277_m_601_300_300.jpg"
           }
+          alt=""
         />
       </StyledImageWrapper>
 

@@ -1,16 +1,12 @@
 import { forwardRef } from "react";
 import { Box, Divider, Paper, PaperProps, Typography, styled } from "@mui/material";
 
-import ScrollBars from "@/components/ScrollBars";
-
 interface CustomInputProps extends PaperProps {}
 
 const CustomInput = forwardRef((props: CustomInputProps, ref) => {
   return (
     <Box ref={ref}>
-      <ScrollBars>
-        <Paper elevation={1} {...props} />
-      </ScrollBars>
+      <Paper elevation={1} {...props} />
       <StyledViewMoreBlock>
         <StyledDivider />
         <Typography variant={"h5"} padding={"12px 0"} display={"block"}>
