@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 import { Box, BoxProps, styled } from "@mui/material";
 
 interface PoperWrapperProps extends BoxProps {
@@ -7,6 +7,7 @@ interface PoperWrapperProps extends BoxProps {
 
 const PoperWrapper = (props: PoperWrapperProps) => {
   const { children } = props;
+
   return <Container {...props}>{children}</Container>;
 };
 
@@ -20,8 +21,8 @@ const Container = styled(Box)(({ theme }) => {
     opacity: 0,
     transition: "all linear 0.2s",
 
-    background: "rgb(26, 28, 34)",
-    border: "1px solid rgba(255, 255, 255, 0.25)",
+    background: theme.palette.secondary.main,
+    border: `1px solid ${theme.palette.opacity.white_025}`,
     borderRadius: 4,
 
     ["&.active"]: {
@@ -37,7 +38,7 @@ const Container = styled(Box)(({ theme }) => {
 
         borderWidth: 8,
         borderStyle: "solid",
-        borderColor: "transparent transparent rgb(26, 28, 34) transparent",
+        borderColor: `transparent transparent ${theme.palette.secondary.main} transparent`,
       },
     },
   };

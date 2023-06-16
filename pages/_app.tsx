@@ -9,7 +9,7 @@ import { Head } from "@/hocs";
 import { createEmotionCache } from "@/libs";
 
 import { SWR } from "@/contexts";
-import Layout from "@/compositions/Layout";
+import Layout from "@/compositions/Layout/Layout";
 import ThemeProvider from "@/contexts/ThemeProvider";
 
 const clientSideEmotionCache = createEmotionCache();

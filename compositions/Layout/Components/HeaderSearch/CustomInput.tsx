@@ -1,5 +1,5 @@
-import { Box, Divider, Paper, PaperProps, Typography, styled } from "@mui/material";
 import { forwardRef } from "react";
+import { Box, Divider, Paper, PaperProps, Typography, styled } from "@mui/material";
 
 import ScrollBars from "@/components/ScrollBars";
 
@@ -21,7 +21,7 @@ const CustomInput = forwardRef((props: CustomInputProps, ref) => {
   );
 });
 
-const StyledViewMoreBlock = styled(Box)(() => {
+const StyledViewMoreBlock = styled(Box)(({ theme }) => {
   return {
     position: "absolute",
     bottom: 0,
@@ -30,7 +30,7 @@ const StyledViewMoreBlock = styled(Box)(() => {
     width: "calc(100% + 67px)",
     textAlign: "center",
 
-    backgroundColor: "#1a1c22",
+    backgroundColor: theme.palette.secondary.main,
     color: "#bcbdbe",
   };
 });

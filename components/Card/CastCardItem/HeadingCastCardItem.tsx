@@ -20,10 +20,14 @@ const HeadingCastCardItem = () => {
       </StyledImageWrapper>
 
       <StyledContentWrapper>
-        <Typography variant="body1">Han Gao</Typography>
+        <Typography variant="body1" className="artist-name">
+          Han Gao
+        </Typography>
 
-        <Stack>
-          <Typography variant={"h6"}>Director</Typography>
+        <Stack className="content-bottom-wrapper">
+          <Typography variant={"h6"} className="title">
+            Director
+          </Typography>
 
           <Button
             variant={"text"}
@@ -33,7 +37,7 @@ const HeadingCastCardItem = () => {
             disableTouchRipple
             disableFocusRipple
           >
-            <Typography variant={"h6"} marginRight={"4px"}>
+            <Typography variant={"h6"} className="button-title">
               More
             </Typography>
           </Button>
@@ -47,6 +51,7 @@ const Container = styled(Stack)(() => {
   return {
     width: "100%",
     flexDirection: "row",
+    alignItems: "center",
 
     marginBottom: 12,
   };
@@ -58,6 +63,7 @@ const StyledImageWrapper = styled(Box)(() => {
 
     width: "100%",
     maxWidth: "80px",
+    height: 80,
     borderRadius: "50%",
     overflow: "hidden",
     aspectRatio: "1/1",
@@ -69,7 +75,7 @@ const StyledContentWrapper = styled(Box)(() => {
     padding: "10px 0 10px 10px",
     width: "100%",
 
-    ["& > div"]: {
+    ["& .content-bottom-wrapper"]: {
       flexDirection: "row",
       alignItems: "center",
       justifyContent: "space-between",
@@ -80,8 +86,8 @@ const StyledContentWrapper = styled(Box)(() => {
       color: "rgb(0, 204, 54)",
       textTransform: "capitalize",
 
-      ["& span"]: {
-        margin: 0,
+      ["&-title"]: {
+        margin: "0px 4px 0px 0px",
       },
 
       ["& svg"]: {

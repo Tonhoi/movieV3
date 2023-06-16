@@ -7,6 +7,7 @@ import { Box, Container, Grid } from "@mui/material";
 import Slider from "react-slick";
 import CastCardItem from "@/components/Card/CastCardItem/CastCardItem";
 import { Spacing } from "@/components";
+import ContentCastCardItem from "@/components/Card/CastCardItem/ContentCastCardItem";
 
 const Home = () => {
   return (
@@ -14,25 +15,16 @@ const Home = () => {
       {/* <CardItem /> */}
       {/* <DetailCardItem /> */}
       {/* <TopTrendingCarditem /> */}
-      <Spacing spacing={2}  />
-      <Grid container spacing={2} columns={12}>
-        <Grid item lg={2} md={4} xs={4}>
-          <CardItem />
+      <Spacing spacing={2} />
+      <Grid container spacing={2}>
+        <Grid item lg={4} md={4} xs={4}>
+          <DetailCardItem />
         </Grid>
-        <Grid item lg={2} md={4} xs={4}>
-          <CardItem />
+        <Grid item lg={4} md={4} xs={4}>
+          <CastCardItem />
         </Grid>
-        <Grid item lg={2} md={4} xs={4}>
-          <CardItem />
-        </Grid>
-        <Grid item lg={2} md={4} xs={4}>
-          <CardItem />
-        </Grid>
-        <Grid item lg={2} md={4} xs={4}>
-          <CardItem />
-        </Grid>
-        <Grid item lg={2} md={4} xs={4}>
-          <CardItem />
+        <Grid item lg={4} md={4} xs={4}>
+          <CastCardItem />
         </Grid>
       </Grid>
     </Container>

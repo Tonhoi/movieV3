@@ -19,3 +19,6 @@ export { default as Image } from "./Image";
 export { default as Link } from "./Link";
 
 export { default as Spacing } from "./Spacing";
+
+// card
+export { default as CardItemBase } from "./Card/CardItemBase";

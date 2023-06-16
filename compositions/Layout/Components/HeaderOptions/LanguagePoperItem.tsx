@@ -1,4 +1,4 @@
-import React, { MouseEventHandler } from "react";
+import { MouseEventHandler } from "react";
 import { Box, Typography, styled } from "@mui/material";
 
 import PoperWrapper from "./PoperWrapper";
@@ -14,25 +14,25 @@ const MenuForLanguage = (props: menuForLanguageProps) => {
   return (
     <PoperWrapper className={openMenuOfLanguage ? "active" : ""}>
       <Container>
-        <Typography>English</Typography>
-        <Typography>Tiếng Việt</Typography>
+        <Typography className="title">English</Typography>
+        <Typography className="title">Tiếng Việt</Typography>
       </Container>
     </PoperWrapper>
   );
 };
 
-const Container = styled(Box)(() => {
+const Container = styled(Box)(({ theme }) => {
   return {
     minWidth: 282,
     padding: "16px 0",
     textAlign: "center",
 
-    ["& p"]: {
+    ["& .title"]: {
       lineHeight: "44px",
 
       ["&:hover"]: {
-        background: "rgba(255, 255, 255, 0.08)",
-        color: "rgb(28, 199, 73)",
+        background: theme.palette.opacity.white_008,
+        color: theme.palette.text_hover.main,
         transition: "all linear 0.2s",
       },
     },

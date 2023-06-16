@@ -3,10 +3,10 @@ import { Button, Stack, Typography, styled } from "@mui/material";
 
 import { ClockIcon, GlobeIcon, UserIcon, DownloadIcon } from "@/components";
 import {
-  MenuForHistory,
-  MenuForMe,
-  MenuForLanguage,
-  SearchForHeader,
+  AccountPoperItem,
+  HistoryPoperItem,
+  LanguagePoperItem,
+  HeaderSearch,
 } from "@/compositions";
 import { useToggle } from "@/hooks";
 import Overlay from "@/components/Overlay";
@@ -39,7 +39,7 @@ const MenuOptionsForHeader = () => {
   return (
     <Fragment>
       <StyledWrapper>
-        <SearchForHeader />
+        <HeaderSearch />
         <Overlay
           className={
             isOpenMenuForAccount || isOpenMenuForHistory || isOpenMenuForLanguage
@@ -53,7 +53,7 @@ const MenuOptionsForHeader = () => {
           <ClockIcon />
           <Typography variant="subtitle2">History</Typography>
 
-          <MenuForHistory
+          <HistoryPoperItem
             openMenuOfHistory={isOpenMenuForHistory}
             handleClose={handleCloseMenuForHistory}
           />
@@ -63,7 +63,7 @@ const MenuOptionsForHeader = () => {
           <GlobeIcon />
           <Typography variant="subtitle2">Language</Typography>
 
-          <MenuForLanguage
+          <LanguagePoperItem
             openMenuOfLanguage={isOpenMenuForLanguage}
             handleClose={handleCloseMenuForLanguage}
           />
@@ -74,7 +74,7 @@ const MenuOptionsForHeader = () => {
 
           <Typography variant="subtitle2">Me</Typography>
 
-          <MenuForMe
+          <AccountPoperItem
             openMenuOfAccount={isOpenMenuForAccount}
             handleClose={handleCloseMenuForAccount}
           />
@@ -88,14 +88,6 @@ const MenuOptionsForHeader = () => {
           <Typography variant={"body2"}>APP</Typography>
         </Button>
       </StyledWrapper>
-
-      {/* menu option */}
-
-      {/* <MenuForHistory
-        anchorEl={anchorEl}
-        openMenuOfLanguage={isOpenMenuForHistory}
-        handleClose={handleCloseMenuForHistory}
-      /> */}
     </Fragment>
   );
 };
@@ -107,10 +99,14 @@ const StyledWrapper = styled(Stack)(({ theme }) => {
     gap: 32,
 
     ["& .download-for-app"]: {
-      backgroundColor: "rgb(28, 199, 73)",
+      backgroundColor: theme.palette.text_hover.main,
+
+      [theme.breakpoints.down("sm")]: {
+        display: "none",
+      },
 
       ":hover": {
-        backgroundColor: "rgb(28, 199, 73)",
+        backgroundColor: theme.palette.text_hover.main,
         opacity: "0.8",
         transition: "opacity linear 0.3s",
       },
@@ -142,7 +138,7 @@ const StyledOption = styled(Stack)(({ theme }) => {
 
     "&:hover": {
       ["& > svg, & > h6"]: {
-        color: "rgb(28, 199, 73)",
+        color: theme.palette.text_hover.main,
         transition: "color linear 0.2s",
       },
     },

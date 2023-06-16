@@ -15,7 +15,7 @@ const MenuForMe = (props: menuForLanguageProps) => {
   return (
     <PoperWrapper className={openMenuOfAccount ? "active" : ""}>
       <Container>
-        <Typography variant={"body2"} color={"#A9A9AC"}>
+        <Typography variant={"body2"} className={"title"}>
           Login to watch trendy content
         </Typography>
         <Button
@@ -24,6 +24,7 @@ const MenuForMe = (props: menuForLanguageProps) => {
           href={ROUTES.login}
           color={"inherit"}
           onClick={handleClose}
+          className={"btn"}
         >
           Login
         </Button>
@@ -40,14 +41,18 @@ const Container = styled(Stack)(({ theme }) => {
     alignItems: "center",
     gap: 12,
 
-    ["& a"]: {
+    ["& .title"]: {
+      color: "#A9A9AC",
+    },
+
+    ["& .btn"]: {
       display: "block",
-      background: "rgb(28, 199, 73)",
+      background: theme.palette.text_hover.main,
       color: theme.palette.common.white,
       padding: "3px 36px",
 
       ["&:hover"]: {
-        background: "rgb(28, 199, 73)",
+        background: theme.palette.text_hover.main,
       },
     },
   };

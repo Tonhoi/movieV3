@@ -14,12 +14,12 @@ const HeaderItem = () => {
   const { isMdDown } = useMedia();
 
   return (
-    <StyledWrapper>
+    <Container>
       {isMdDown && <HeaderOnMobile />}
 
-      <StyledImageBlock ref={ref}>
+      <StyledImageWrapper ref={ref}>
         <Image src={logo} width={width} height={width} />
-      </StyledImageBlock>
+      </StyledImageWrapper>
 
       <StyledLink href={ROUTES.movie}>
         <Typography variant="subtitle1">Movie</Typography>
@@ -28,11 +28,11 @@ const HeaderItem = () => {
       <StyledLink href={ROUTES.tv}>
         <Typography variant="subtitle1">Tv</Typography>
       </StyledLink>
-    </StyledWrapper>
+    </Container>
   );
 };
 
-const StyledWrapper = styled(Stack)(() => {
+const Container = styled(Stack)(() => {
   return {
     flexDirection: "row",
     alignItems: "center",
@@ -40,24 +40,7 @@ const StyledWrapper = styled(Stack)(() => {
   };
 });
 
-const StyledLink = styled(Link)(({ theme }) => {
-  return {
-    textDecoration: "none",
-    opacity: 0.6,
-    color: theme.palette.common.white,
-
-    "&:hover": {
-      color: "rgb(28, 199, 73)",
-      transition: "color linear 0.2s",
-    },
-
-    [theme.breakpoints.down("md")]: {
-      display: "none",
-    },
-  };
-});
-
-const StyledImageBlock = styled(Box)(({ theme }) => {
+const StyledImageWrapper = styled(Box)(({ theme }) => {
   return {
     position: "relative",
 
@@ -82,6 +65,23 @@ const StyledImageBlock = styled(Box)(({ theme }) => {
     [theme.breakpoints.down("sm")]: {
       width: 170,
       height: 43,
+    },
+  };
+});
+
+const StyledLink = styled(Link)(({ theme }) => {
+  return {
+    textDecoration: "none",
+    opacity: 0.6,
+    color: theme.palette.common.white,
+
+    "&:hover": {
+      color: theme.palette.text_hover.main,
+      transition: "color linear 0.2s",
+    },
+
+    [theme.breakpoints.down("md")]: {
+      display: "none",
     },
   };
 });

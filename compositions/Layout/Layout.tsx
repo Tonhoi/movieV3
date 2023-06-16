@@ -1,9 +1,9 @@
 import { Fragment, ReactNode } from "react";
-
-import { Header, Footer, Slider } from "@/compositions";
-import { useRouter } from "next/router";
-import Login from "@/containers/Login";
 import { Box, styled } from "@mui/material";
+import { useRouter } from "next/router";
+
+import Login from "@/containers/Login/Login";
+import { Header, Footer, Slider } from "@/compositions";
 
 interface layoutProps {
   children: ReactNode;
@@ -28,10 +28,10 @@ const Layout = (props: layoutProps) => {
   );
 };
 
-const Container = styled(Box)(() => {
+const Container = styled(Box)(({ theme }) => {
   return {
-    minHeight: "100vh",
-    backgroundColor: "#111319",
+    minHeight: "300vh",
+    backgroundColor: theme.palette.primary.main,
   };
 });
 

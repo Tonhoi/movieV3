@@ -1,5 +1,5 @@
-import React, { Dispatch, SetStateAction } from "react";
-import { Box, Divider, Stack, Typography, styled } from "@mui/material";
+import { Dispatch, SetStateAction } from "react";
+import { Box, Divider, Stack, Typography, styled, useTheme } from "@mui/material";
 
 import { PlayIcon, SaveIcon, StarIcon } from "@/components";
 
@@ -15,6 +15,7 @@ interface ContentSliderHeaderprops {
 
 const ContentSliderHeader = (props: ContentSliderHeaderprops) => {
   const { slider1, slider3, setSlider2, setSlider3 } = props;
+  const theme = useTheme();
 
   return (
     <StyledWrapper>
@@ -43,7 +44,7 @@ const ContentSliderHeader = (props: ContentSliderHeaderprops) => {
 
               <StyledContentWrapper>
                 <StarIcon style={{ width: 12, height: 12 }} />
-                <Typography variant="body2" color={"rgb(28, 199, 73)"}>
+                <Typography variant="body2" color={theme.palette.text_hover.main}>
                   9.7
                 </Typography>
                 <StyledDivider orientation="vertical" light />
@@ -61,7 +62,7 @@ const ContentSliderHeader = (props: ContentSliderHeaderprops) => {
                 <StyledGenreMovie variant="h6">Chinese Mainland</StyledGenreMovie>
               </StyledContentWrapper>
 
-              <StyledDesctiption variant="h5">
+              <StyledDesctiption variant="h5" className="slider-description">
                 To buy a couture wedding dress for a customer, fashion buyer Gu Xixi
                 sneaks into a high-end party where she knows a bossy president Yin Sichen
                 with a series of lies and becomes his contracted wife for three months.
@@ -72,9 +73,9 @@ const ContentSliderHeader = (props: ContentSliderHeaderprops) => {
               </StyledDesctiption>
 
               <StyledContentWrapper>
-                <PlayIcon />
+                <PlayIcon className="icon play-icon" />
 
-                <SaveIcon />
+                <SaveIcon className="icon save-icon" />
               </StyledContentWrapper>
             </Stack>
           ))}
@@ -151,24 +152,24 @@ const StyledDesctiption = styled(Typography)(({ theme }) => {
   };
 });
 
-const StyledGenreMovie = styled(Typography)(() => {
+const StyledGenreMovie = styled(Typography)(({ theme }) => {
   return {
     padding: "5px",
-    background: "rgba(255, 255, 255, 0.08)",
+    background: theme.palette.opacity.white_008,
     borderRadius: "2px",
   };
 });
 
-const StyledDivider = styled(Divider)(() => {
+const StyledDivider = styled(Divider)(({ theme }) => {
   return {
     width: 2,
     height: 12,
 
-    background: "rgba(255, 255, 255, 0.2)",
+    background: theme.palette.opacity.white_02,
   };
 });
 
-const StyledSection = styled(Stack)(() => {
+const StyledSection = styled(Stack)(({ theme }) => {
   return {
     width: "fit-content",
     flexDirection: "row",
@@ -177,7 +178,7 @@ const StyledSection = styled(Stack)(() => {
 
     borderRadius: "2px",
     overflow: "hidden",
-    background: "rgba(255, 255, 255, 0.2)",
+    background: theme.palette.opacity.white_02,
 
     ["& span:first-of-type"]: {
       padding: "2px 6px",

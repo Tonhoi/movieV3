@@ -37,38 +37,62 @@ declare module "@mui/material/Typography" {
 
 declare module "@mui/material/styles/createPalette" {
   interface Palette {
-    //     brandColor: {
-    //       blue: string;
-    //       orange: string;
-    //     };
-    //     secondaryColor: {
-    //       lightBlue: string;
-    //       darkBlue: string;
-    //       background: string;
-    //     };
-    //     gradientColor: {
-    //       gradientOrange: string;
-    //       gradientBlue: string;
-    //       gradientBlue30: string;
-    //       gradientWhite50: string;
-    //     };
-    //   }
-    //   interface PaletteOptions {
-    //     brandColor: {
-    //       blue: string;
-    //       orange: string;
-    //     };
-    //     secondaryColor: {
-    //       lightBlue: string;
-    //       darkBlue: string;
-    //       background: string;
-    //     };
-    //     gradientColor: {
-    //       gradientOrange: string;
-    //       gradientBlue: string;
-    //       gradientBlue30: string;
-    //       gradientWhite50: string;
-    //     };
+    text_hover: {
+      main: string;
+    };
+    opacity: {
+      white_02: string;
+      white_07: string;
+      white_008: string;
+      white_025: string;
+      
+      dark_10: string;
+      dark_20: string;
+      dark_30: string;
+      dark_40: string;
+      dark_50: string;
+      dark_60: string;
+      dark_70: string;
+      dark_80: string;
+      dark_90: string;
+      dark_100: string;
+    };
+    gradientColor: {
+      gradient1: string;
+      gradient2: string;
+      gradient3: string;
+      gradient4: string;
+      gradient5: string;
+    };
+  }
+
+  interface PaletteOptions {
+    text_hover: {
+      main: string;
+    };
+    opacity: {
+      white_02: string;
+      white_07: string;
+      white_008: string;
+      white_025: string;
+      dark_10: string;
+      dark_20: string;
+      dark_30: string;
+      dark_40: string;
+      dark_50: string;
+      dark_60: string;
+      dark_70: string;
+      dark_80: string;
+      dark_90: string;
+      dark_100: string;
+    };
+    gradientColor: {
+      gradient1: string;
+      gradient2: string;
+      gradient3: string;
+      gradient4: string;
+      gradient5: string;
+    };
   }
 }
 

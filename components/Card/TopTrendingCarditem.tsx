@@ -1,18 +1,27 @@
 import { Box, Typography, styled } from "@mui/material";
 
 import cardImageDemo from "@/public/image/card_image_demo.webp";
+import CardItemBase from "./CardItemBase";
 
 const TopTrendingCarditem = () => {
   return (
     <Container>
-      <StyledCardImage position={"relative"}>
-        <Typography variant={"ryeTitle"}>TOP 1</Typography>
-        <Typography variant={"h6"}>2023-05-31</Typography>
-      </StyledCardImage>
+      <CardItemBase>
+        <StyledCardImage className="card-image" position={"relative"}>
+          <Typography variant={"ryeTitle"}>TOP 1</Typography>
+          <Typography variant={"h6"} className="card-image-badge">
+            2023-05-31
+          </Typography>
+        </StyledCardImage>
+      </CardItemBase>
 
       <StyledCardContent>
-        <Typography variant={"h5"}>My ID is Gangnam Beauty</Typography>
-        <Typography variant={"h6"}>16 Episodes</Typography>
+        <Typography variant={"h5"} className="card-title">
+          My ID is Gangnam Beauty
+        </Typography>
+        <Typography variant={"h6"} className="card-subtitle">
+          16 Episodes
+        </Typography>
       </StyledCardContent>
     </Container>
   );
@@ -27,14 +36,8 @@ const Container = styled(Box)(() => {
 
 const StyledCardImage = styled(Box)(({ theme }) => {
   return {
-    position: "relative",
-
-    aspectRatio: "180 / 240",
-
     backgroundImage: `url(${cardImageDemo.src})`,
-    backgroundRepeat: "no-repeat",
-    backgroundSize: "cover",
-    backgroundPosition: "center center",
+    aspectRatio: "180 / 240",
 
     ["& > span"]: {
       position: "absolute",
@@ -45,14 +48,14 @@ const StyledCardImage = styled(Box)(({ theme }) => {
       color: theme.palette.common.white,
     },
 
-    ["& > h6"]: {
+    ["& .card-image-badge"]: {
       position: "absolute",
       right: 0,
       top: 0,
 
       padding: "2px 4px",
 
-      color: "rgb(255, 255, 255)",
+      color: theme.palette.common.white,
       borderRadius: "2px",
       textAlign: "center",
       backgroundImage: "linear-gradient(90deg, rgb(0, 214, 57) 0%, rgb(0, 194, 52) 100%)",
@@ -77,13 +80,15 @@ const StyledCardContent = styled(Box)(({ theme }) => {
     color: theme.palette.common.white,
     padding: 10,
 
-    ["& > h5"]: {
-      marginBottom: 6,
-      maxWidth: "80%",
-    },
+    ["& > .card"]: {
+      ["&-title"]: {
+        marginBottom: 6,
+        maxWidth: "80%",
+      },
 
-    ["& > h6"]: {
-      color: "rgba(255, 255, 255, 0.7)",
+      ["&-subtitle"]: {
+        color: theme.palette.opacity.white_07,
+      },
     },
   };
 });

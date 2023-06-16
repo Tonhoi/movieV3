@@ -16,9 +16,10 @@ import FormControlForAutocomplete from "@/compositions/FormControl/FormControlFo
 import { CustomInput } from "@/compositions";
 import { top100Films } from "@/constant";
 
-const SearchForHeader = () => {
+const HeaderSearch = () => {
   const { control } = useForm();
   const [ref, { width }] = useMeasure<HTMLDivElement>();
+  const theme = useTheme();
 
   return (
     <StyledSearchBlock ref={ref}>
@@ -47,7 +48,7 @@ const SearchForHeader = () => {
           paper: {
             sx: {
               width: width,
-              backgroundColor: "#1a1c22",
+              backgroundColor: theme.palette.secondary.main,
               marginTop: "16px",
             },
           },
@@ -56,7 +57,7 @@ const SearchForHeader = () => {
           sx: {
             maxHeight: "470px",
             overflow: "hidden",
-            backgroundColor: "#1a1c22",
+            backgroundColor: theme.palette.secondary.main,
             color: "#bcbdbe",
           },
         }}
@@ -80,7 +81,7 @@ const LoadingText = () => {
   );
 };
 
-const StyledSearchBlock = styled(Stack)(() => {
+const StyledSearchBlock = styled(Stack)(({ theme }) => {
   return {
     flex: 1,
     flexDirection: "row",
@@ -89,7 +90,7 @@ const StyledSearchBlock = styled(Stack)(() => {
     padding: "2px 0",
 
     borderRadius: 4,
-    background: "rgba(255, 255, 255, 0.2)",
+    background: theme.palette.opacity.white_02,
   };
 });
 
@@ -136,7 +137,7 @@ const StyledFormControlForAutocomplete = styled(FormControlForAutocomplete)(
   }
 );
 
-const StyledCustomRenderOptions = styled(Stack)(() => {
+const StyledCustomRenderOptions = styled(Stack)(({ theme }) => {
   return {
     flexDirection: "row",
     alignItems: "center",
@@ -149,7 +150,7 @@ const StyledCustomRenderOptions = styled(Stack)(() => {
       transition: "all linear 0.2s",
 
       "& > h5": {
-        color: "#1cc749",
+        color: theme.palette.text_hover.main,
         transition: "all linear 0.2s",
       },
     },
@@ -162,4 +163,4 @@ const StyledDivider = styled(Divider)(() => {
   };
 });
 
-export default memo(SearchForHeader);
+export default memo(HeaderSearch);

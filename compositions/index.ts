@@ -4,14 +4,14 @@ export { default as Footer } from "./Layout/Footer";
 export { default as Slider } from "./Layout/Slider";
 
 // components of Layout
-export { default as HeaderItem } from "./Layout/Components/HeaderItem";
-export { default as SearchForHeader } from "./Layout/Components/SearchForHeader";
+export { default as HeaderNavigation } from "./Layout/Components/HeaderNavigation";
+export { default as HeaderSearch } from "./Layout/Components/HeaderSearch/HeaderSearch";
 
 // menu options
-export { default as HeaderOptions } from "./Layout/Components/HeaderOptions";
-export { default as MenuForHistory } from "./Layout/Components/HeaderOptions/MenuForHistory";
-export { default as MenuForLanguage } from "./Layout/Components/HeaderOptions/MenuForLanguage";
-export { default as MenuForMe } from "./Layout/Components/HeaderOptions/MenuForMe";
+export { default as HeaderOptions } from "./Layout/Components/HeaderOptions/HeaderOption";
+export { default as HistoryPoperItem } from "./Layout/Components/HeaderOptions/HistoryPoperItem";
+export { default as LanguagePoperItem } from "./Layout/Components/HeaderOptions/LanguagePoperItem";
+export { default as AccountPoperItem } from "./Layout/Components/HeaderOptions/AccountPoperItem";
 export { default as ProgressForMenuHistory } from "./Layout/Components/HeaderOptions/ProgressForMenuHistory";
 
 // form
@@ -20,4 +20,4 @@ export { default as FormControlForAutocomplete } from "./FormControl/FormControl
 export { default as FormControlForCheckbox } from "./FormControl/FormControlForCheckbox";
 
 // search for header
-export { default as CustomInput } from "./Layout/Components/SearchForHeader/CustomInput";
+export { default as CustomInput } from "./Layout/Components/HeaderSearch/CustomInput";

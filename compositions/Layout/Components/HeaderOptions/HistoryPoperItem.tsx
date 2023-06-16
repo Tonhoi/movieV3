@@ -1,10 +1,11 @@
-import React, { MouseEventHandler } from "react";
-import PoperWrapper from "./PoperWrapper";
-import { Box, Button, Typography, styled, useTheme } from "@mui/material";
+import { MouseEventHandler } from "react";
+import { Box, Button, Typography, styled } from "@mui/material";
+
 import { Image, Link } from "@/components";
+import PoperWrapper from "./PoperWrapper";
+import { ROUTES } from "@/routers";
 
 import image from "@/public/image/image1.png";
-import { ROUTES } from "@/routers";
 
 interface MenuForHistoryProps {
   openMenuOfHistory: boolean;
@@ -14,25 +15,22 @@ interface MenuForHistoryProps {
 const MenuForHistory = (props: MenuForHistoryProps) => {
   const { openMenuOfHistory, handleClose } = props;
 
-  const theme = useTheme();
-
-  console.log(theme);
   return (
     <PoperWrapper className={openMenuOfHistory ? "active" : ""}>
       <Container>
-        <Box position={"relative"} width={80} height={80} margin={"0 auto"}>
+        <Box className={"image-wrapper"}>
           <Image src={image.src} />
         </Box>
 
-        <Typography variant={"subtitle4"} fontWeight={400} color={"rgb(169, 169, 172)"}>
+        <Typography variant={"subtitle4"} className={"title"}>
           Login to track your watch history on multiple devices.
         </Typography>
 
         <Button
           variant={"contained"}
-          color={"inherit"}
           LinkComponent={Link}
           href={ROUTES.login}
+          className="btn"
         >
           Login
         </Button>
@@ -47,20 +45,31 @@ const Container = styled(Box)(({ theme }) => {
     minWidth: 280,
     padding: "16px 26px",
 
-    ["& span"]: {
+    ["& .image-wrapper"]: {
+      position: "relative",
+      width: 80,
+      height: 80,
+      margin: "0 auto",
+    },
+
+    ["& .title"]: {
       display: "block",
 
       marginTop: theme.spacing(1),
       marginBottom: theme.spacing(2),
+
+      fontWeight: 400,
+      color: "rgb(169, 169, 172)",
     },
 
-    ["& a"]: {
+    ["& .btn"]: {
       padding: "3px 26px",
+      color: "inherit",
 
-      background: "rgb(28, 199, 73)",
+      background: theme.palette.text_hover.main,
 
       ["&:hover"]: {
-        background: "rgb(28, 199, 73)",
+        background: theme.palette.text_hover.main,
       },
     },
   };

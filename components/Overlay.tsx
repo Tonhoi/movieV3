@@ -1,17 +1,17 @@
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 import { Box, BoxProps, styled } from "@mui/material";
 
 type backgroundColorType =
-  | "rgba(0, 0, 0, 0.1)"
-  | "rgba(0, 0, 0, 0.2)"
-  | "rgba(0, 0, 0, 0.3)"
-  | "rgba(0, 0, 0, 0.4)"
-  | "rgba(0, 0, 0, 0.5)"
-  | "rgba(0, 0, 0, 0.6)"
-  | "rgba(0, 0, 0, 0.7)"
-  | "rgba(0, 0, 0, 0.8)"
-  | "rgba(0, 0, 0, 0.9)"
-  | "rgba(0, 0, 0, 1)";
+  | "dark_10"
+  | "dark_20"
+  | "dark_30"
+  | "dark_40"
+  | "dark_50"
+  | "dark_60"
+  | "dark_70"
+  | "dark_80"
+  | "dark_90"
+  | "dark_100";
 
 interface OverlayProps extends BoxProps {
   children?: ReactNode;
@@ -19,7 +19,7 @@ interface OverlayProps extends BoxProps {
 }
 
 const Overlay = (props: OverlayProps) => {
-  const { children, backgroundColor } = props;
+  const { children, backgroundColor = "dark_10" } = props;
 
   return (
     <Container backgroundColor={backgroundColor} {...props}>
@@ -30,7 +30,7 @@ const Overlay = (props: OverlayProps) => {
 
 const Container = styled(Box, {
   shouldForwardProp: (propName) => propName !== "backgroundColor",
-})<Pick<OverlayProps, "backgroundColor">>(({ backgroundColor }) => {
+})<{ backgroundColor: backgroundColorType }>(({ backgroundColor, theme }) => {
   return {
     position: "fixed",
     inset: 0,
@@ -38,7 +38,7 @@ const Container = styled(Box, {
 
     display: "none",
 
-    backgroundColor,
+    backgroundColor: theme.palette.opacity[`${backgroundColor}`],
 
     "&.active": {
       display: "block",

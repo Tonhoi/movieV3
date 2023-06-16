@@ -2,20 +2,25 @@ import { Box, Typography, styled } from "@mui/material";
 import PlayIcon from "../Icons/PlayIcon";
 
 import cardImageDemo from "@/public/image/demoImageCard.jpg";
+import CardItemBase from "./CardItemBase";
 
 const CardItem2 = () => {
   return (
-    <Container>
-      <StyledCardImage>
-        <PlayIcon />
-      </StyledCardImage>
+    <CardItemBase>
+      <Container>
+        <StyledCardImage className="card-image">
+          <PlayIcon className="play-icon" />
+        </StyledCardImage>
 
-      <Typography variant={"h5"}>Hi Producer! Episode 1</Typography>
-    </Container>
+        <Typography variant={"h5"} className="card-title">
+          Hi Producer! Episode 1
+        </Typography>
+      </Container>
+    </CardItemBase>
   );
 };
 
-const Container = styled(Box)(() => {
+const Container = styled(Box)(({ theme }) => {
   return {
     width: "100%",
     transform: "scale(1)",
@@ -25,12 +30,12 @@ const Container = styled(Box)(() => {
     ["&:hover"]: {
       transform: "scale(1.05)",
 
-      ["& svg"]: {
+      ["& .play-icon"]: {
         display: "block",
       },
 
-      ["& > h5"]: {
-        color: "rgb(28, 199, 73)",
+      ["& .card-title"]: {
+        color: theme.palette.text_hover.main,
       },
     },
   };
@@ -38,17 +43,12 @@ const Container = styled(Box)(() => {
 
 const StyledCardImage = styled(Box)(() => {
   return {
-    position: "relative",
-
     backgroundImage: `url(${cardImageDemo.src})`,
-    backgroundRepeat: "no-repeat",
-    backgroundSize: "cover",
     aspectRatio: "300 / 170",
 
     borderRadius: "2px",
-    overflow: "hidden",
 
-    ["& svg"]: {
+    ["& .play-icon"]: {
       position: "absolute",
       bottom: 10,
       right: 10,
@@ -57,17 +57,6 @@ const StyledCardImage = styled(Box)(() => {
       display: "none",
       width: 34,
       height: 34,
-    },
-
-    ["&:after"]: {
-      content: '""',
-      position: "absolute",
-      bottom: 0,
-      left: 0,
-      right: 0,
-      backgroundImage:
-        " linear-gradient(0deg, rgba(10, 12, 15, 0.8) 0%, rgba(10, 12, 15, 0.74) 4%, rgba(10, 12, 15, 0.59) 17%, rgba(10, 12, 15, 0.4) 34%, rgba(10, 12, 15, 0.21) 55%, rgba(10, 12, 15, 0.06) 78%, rgba(10, 12, 15, 0) 100%)",
-      height: 60,
     },
   };
 });

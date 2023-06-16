@@ -41,14 +41,14 @@ const HeaderOnMobile = () => {
       />
 
       <Overlay
-        backgroundColor="rgba(0, 0, 0, 0.5)"
+        backgroundColor="dark_50"
         onClick={handleCloseHeaderMobile}
         className="overlay"
       />
 
       <StyledWrapper className="wrapper">
         <StyledHeaderHeading>
-          <Box position={"relative"}>
+          <Box className={"image-wrapper"} position={"relative"}>
             <Image src={avatar.src} />
           </Box>
           <Typography variant={"body2"}>Login/Signup</Typography>
@@ -129,8 +129,7 @@ const StyledHeaderHeading = styled(Stack)(({ theme }) => {
       width: "100%",
       height: 40,
 
-      backgroundImage:
-        "linear-gradient(rgba(26, 28, 34, 0) 0%, rgba(26, 28, 34, 0.06) 6%, rgba(26, 28, 34, 0.12) 12%, rgba(26, 28, 34, 0.19) 19%, rgba(26, 28, 34, 0.26) 26%, rgba(26, 28, 34, 0.34) 34%, rgba(26, 28, 34, 0.42) 42%, rgba(26, 28, 34, 0.5) 50%, rgba(26, 28, 34, 0.58) 58%, rgba(26, 28, 34, 0.66) 66%, rgba(26, 28, 34, 0.74) 74%, rgba(26, 28, 34, 0.81) 81%, rgba(26, 28, 34, 0.88) 88%, rgba(26, 28, 34, 0.94) 94%, rgb(26, 28, 34) 100%)",
+      backgroundImage: theme.palette.gradientColor.gradient1,
     },
 
     ["& > div"]: {
@@ -151,11 +150,11 @@ const StyledListItem = styled(ListItem)(({ theme }) => {
       position: "relative",
 
       ["& > a"]: {
-        backgroundColor: "rgb(28, 199, 73)",
+        backgroundColor: theme.palette.text_hover.main,
         cursor: "default",
 
         ["& > div"]: {
-          color: "#fff !important",
+          color: `${theme.palette.common.white} !important`,
         },
       },
 
@@ -174,7 +173,7 @@ const StyledListItem = styled(ListItem)(({ theme }) => {
 
     ["& > a"]: {
       ["&:hover > div"]: {
-        color: "rgb(28, 199, 73)",
+        color: theme.palette.text_hover.main,
       },
 
       ["& > div"]: {

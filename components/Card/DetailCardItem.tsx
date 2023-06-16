@@ -1,28 +1,36 @@
-import React from "react";
-import { Box, Divider, Stack, Typography, styled } from "@mui/material";
+import { Box, Divider, Stack, Typography, styled, useTheme } from "@mui/material";
 
-import PlayIcon from "../Icons/PlayIcon";
-import SaveIcon from "../Icons/SaveIcon";
-import StarIcon from "../Icons/StarIcon";
-import ArrowRightIcon from "../Icons/ArrowRightIcon";
-import Link from "../Link";
+import {
+  PlayIcon,
+  SaveIcon,
+  StarIcon,
+  ArrowRightIcon,
+  Link,
+  CardItemBase,
+} from "@/components";
 
 const DetailCardItem = () => {
+  const theme = useTheme();
+
   return (
     <Container>
-      <StyledCardImage position={"relative"}>
-        <StyledIconWrapper>
-          <PlayIcon />
-          <SaveIcon />
-        </StyledIconWrapper>
-      </StyledCardImage>
+      <CardItemBase>
+        <StyledCardImage className="card-image" position={"relative"}>
+          <Stack className={"card-image-icon"}>
+            <PlayIcon />
+            <SaveIcon />
+          </Stack>
+        </StyledCardImage>
+      </CardItemBase>
 
-      <StyledCardContent>
-        <Typography variant={"subtitle1"}>Our Secrets</Typography>
+      <StyledCardContent className="card-content">
+        <Typography variant={"subtitle1"} className="card-title">
+          Our Secrets
+        </Typography>
 
-        <StyledContentWrapper>
+        <Stack className="card-body">
           <StarIcon style={{ width: 12, height: 12 }} />
-          <Typography variant="body2" color={"rgb(28, 199, 73)"}>
+          <Typography variant="body2" color={theme.palette.text_hover.main}>
             9.7
           </Typography>
           <Divider orientation="vertical" light />
@@ -34,13 +42,11 @@ const DetailCardItem = () => {
           <Divider orientation="vertical" light />
 
           <Typography variant="h6">24 Episodes</Typography>
-        </StyledContentWrapper>
+        </Stack>
 
-        <StyledContentWrapper>
-          <StyledGenreMovie variant="h6">Chinese Mainland</StyledGenreMovie>
-        </StyledContentWrapper>
+        <StyledGenreMovie variant="h6">Chinese Mainland</StyledGenreMovie>
 
-        <StyledDesctiption variant="h6">
+        <Typography variant="h6" className="card-description">
           "Our Secret" (2021) - A story of a talented campus beau, Zhou Si Yue (Chen Zhe
           Yuan), and a determined Cinderella, Ding Xian (Xu Meng Jie), who accompany each
           other through the lows and lost of their youth and eventually become better
@@ -51,10 +57,10 @@ const DetailCardItem = () => {
           changed together. This drama is adapted from the novel of the same name by Er
           Dong Tu Zi. The male actor, Chen Zhe Yuan, starred in "Renascence" and "The
           Legend Of Zu 2" which have aired on the iQIYI website.
-        </StyledDesctiption>
+        </Typography>
 
         <Link href={"/"}>
-          <Stack className="btn-seeMore">
+          <Stack className="card-btn">
             <Typography variant={"h6"}>more info</Typography>
             <ArrowRightIcon style={{ width: 14, height: 14 }} />
           </Stack>
@@ -66,8 +72,6 @@ const DetailCardItem = () => {
 
 const Container = styled(Box)(() => {
   return {
-    // maxWidth: 284,
-
     borderRadius: "4px",
     overflow: "hidden",
 
@@ -79,32 +83,28 @@ const StyledCardImage = styled(Box)(() => {
   return {
     backgroundImage:
       "url(https://static2.vieon.vn/vieplay-image/carousel_web_v4/2022/05/24/g9mfrt9z_1920x1080-luananhhung6ebadcb417ca17c991478e11594f60a1.jpg)",
-    backgroundRepeat: "no-repeat",
-    backgroundSize: "cover",
-    backgroundPosition: "center center",
     aspectRatio: "284 / 159",
-  };
-});
 
-const StyledIconWrapper = styled(Stack)(() => {
-  return {
-    position: "absolute",
-    bottom: 8,
-    right: 8,
+    ["& .card-image-icon"]: {
+      position: "absolute",
+      bottom: 8,
+      right: 8,
+      zIndex: 2,
 
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
+      flexDirection: "row",
+      alignItems: "center",
+      gap: 8,
 
-    ["& svg"]: {
-      width: 32,
-      height: 32,
-      transform: "scale(1)",
-      transition: "transform linear 0.2s",
+      ["& svg"]: {
+        width: 32,
+        height: 32,
+        transform: "scale(1)",
+        transition: "transform linear 0.2s",
 
-      ["&:hover"]: {
-        cursor: "pointer",
-        transform: "scale(1.1)",
+        ["&:hover"]: {
+          cursor: "pointer",
+          transform: "scale(1.1)",
+        },
       },
     },
   };
@@ -112,9 +112,9 @@ const StyledIconWrapper = styled(Stack)(() => {
 
 const StyledCardContent = styled(Stack)(({ theme }) => {
   return {
-    background: "rgb(26, 28, 34)",
-    padding: "8px 8px",
-    gap: "6px",
+    background: theme.palette.secondary.main,
+    padding: 8,
+    gap: 6,
 
     color: theme.palette.common.white,
 
@@ -122,63 +122,62 @@ const StyledCardContent = styled(Stack)(({ theme }) => {
       width: 2,
       height: 12,
 
-      background: "rgba(255, 255, 255, 0.2)",
+      background: theme.palette.opacity.white_02,
     },
 
-    ["& > h6:first-child"]: {
-      ["&:hover"]: {
-        color: "rgb(28, 199, 73)",
+    ["& .card"]: {
+      ["&-title"]: {
+        ["&:hover"]: {
+          color: theme.palette.text_hover.main,
 
-        cursor: "pointer",
-        transition: "color linear 0.2s",
+          cursor: "pointer",
+          transition: "color linear 0.2s",
+        },
+      },
+
+      ["&-body"]: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 6,
+
+        ["& svg"]: {
+          width: 50,
+          height: 50,
+
+          cursor: "pointer",
+
+          ["&:hover"]: { opacity: 0.8, transition: "opacity linear 0.3s" },
+        },
+      },
+
+      ["&-description"]: {
+        display: "-webkit-box",
+        maxWidth: "100%",
+        WebkitLineClamp: 5,
+        WebkitBoxOrient: "vertical",
+        overflow: "hidden",
+      },
+
+      ["&-btn"]: {
+        flexDirection: "row",
+        justifyContent: "flex-end",
+        alignItems: "flex-end",
+        textAlign: "right",
+        marginTop: theme.spacing(1),
+        marginBottom: 4,
+
+        color: theme.palette.text_hover.main,
       },
     },
-
-    ["& .btn-seeMore"]: {
-      flexDirection: "row",
-      justifyContent: "flex-end",
-      alignItems: "flex-end",
-      textAlign: "right",
-      marginTop: theme.spacing(1),
-      marginBottom: 4,
-
-      color: "rgb(28, 199, 73)",
-    },
   };
 });
 
-const StyledContentWrapper = styled(Stack)(() => {
-  return {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: "6px",
-
-    "& svg": {
-      width: 50,
-      height: 50,
-
-      cursor: "pointer",
-
-      ":hover": { opacity: 0.8, transition: "opacity linear 0.3s" },
-    },
-  };
-});
-
-const StyledDesctiption = styled(Typography)(({ theme }) => {
-  return {
-    display: "-webkit-box",
-    maxWidth: "100%",
-    WebkitLineClamp: 5,
-    WebkitBoxOrient: "vertical",
-    overflow: "hidden",
-  };
-});
-
-const StyledGenreMovie = styled(Typography)(() => {
+const StyledGenreMovie = styled(Typography)(({ theme }) => {
   return {
     padding: "2px 4px",
+    width: "fit-content",
 
-    background: "rgba(255, 255, 255, 0.08)",
+    background: theme.palette.opacity.white_008,
     borderRadius: "2px",
   };
 });
