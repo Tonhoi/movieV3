@@ -10,7 +10,7 @@ interface ImageProps extends Omit<NextImageProps, OmitKey> {
   alt?: string;
 }
 
-const Image = forwardRef<any, ImageProps>(function Image(props: ImageProps) {
+const Image = forwardRef<any, ImageProps>(function Image(props: ImageProps, ref) {
   const { alt, fill = true, width, height, ...restProps } = props;
 
   return (
@@ -21,6 +21,7 @@ const Image = forwardRef<any, ImageProps>(function Image(props: ImageProps) {
       blurDataURL={defaultBlurDataURL}
       alt={alt || ""}
       {...restProps}
+      ref={ref}
     />
   );
 });

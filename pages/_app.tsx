@@ -7,9 +7,10 @@ import { Head } from "@/hocs";
 // import Setting from "@/contexts/Setting";
 // import { Layout } from "@/compositions";
 import { createEmotionCache } from "@/libs";
-// import { SWR, ThemeProvider } from "@/contexts";
 
 import { SWR } from "@/contexts";
+import Layout from "@/compositions/Layout/Layout";
+import ThemeProvider from "@/contexts/ThemeProvider";
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -25,15 +26,15 @@ export default function App(props: MyAppProps) {
     <CacheProvider value={emotionCache}>
       <Head />
 
-      {/* <ThemeProvider> */}
-      <SWR fallback={pageProps.fallback}>
-        {/* <Setting> */}
-        {/* <Layout> */}
-        <Component {...pageProps} />
-        {/* </Layout> */}
-        {/* </Setting> */}
-      </SWR>
-      {/* </ThemeProvider> */}
+      <ThemeProvider>
+        <SWR fallback={pageProps.fallback}>
+          {/* <Setting> */}
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+          {/* </Setting> */}
+        </SWR>
+      </ThemeProvider>
     </CacheProvider>
   );
 }
