@@ -47,16 +47,9 @@ const DetailCardItem = () => {
         <StyledGenreMovie variant="h6">Chinese Mainland</StyledGenreMovie>
 
         <Typography variant="h6" className="card-description">
-          "Our Secret" (2021) - A story of a talented campus beau, Zhou Si Yue (Chen Zhe
-          Yuan), and a determined Cinderella, Ding Xian (Xu Meng Jie), who accompany each
-          other through the lows and lost of their youth and eventually become better
-          selves. Zhou Si Yue is a handsome young man. He suffers from family changes but
-          still firmly pursues what is in his heart. Ding Xian is a diligent and positive
-          Little Sun. She explores what she loves. In the day-to-day campus life, the two
-          accompanied each other through a low and lost period, and finally grew and
-          changed together. This drama is adapted from the novel of the same name by Er
-          Dong Tu Zi. The male actor, Chen Zhe Yuan, starred in "Renascence" and "The
-          Legend Of Zu 2" which have aired on the iQIYI website.
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloremque earum nihil
+          magni soluta commodi, eveniet quae, maxime distinctio unde ratione quaerat
+          consequuntur saepe velit eligendi voluptatum culpa qui tenetur. Sequi.
         </Typography>
 
         <Link href={"/"}>
