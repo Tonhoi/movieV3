@@ -1,31 +1,19 @@
+import { Fragment } from "react";
 import { useRouter } from "next/router";
-import {
-  Box,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Stack,
-  Typography,
-  styled,
-  useTheme,
-} from "@mui/material";
+import { Box, Divider, Stack, Typography, styled, useTheme } from "@mui/material";
 import Hamburger from "hamburger-react";
 
-import { Image, Link } from "@/components";
+import { Image, Link, Overlay } from "@/components";
+import { NAVITEM } from "@/constant";
+import { useToggle } from "@/hooks";
+import { ROUTES } from "@/routers";
 
 import avatar from "@/public/image/avatar.png";
-import { HEADERITEM } from "@/constant";
-import { useToggle } from "@/hooks";
-import Overlay from "@/components/Overlay";
-
-import backgroundAvatar from "@/public/image/backgroundAvatar.png";
+import bgHeaderMobile from "@/public/image/backgroundAvatar.png";
 
 const HeaderOnMobile = () => {
-  const theme = useTheme();
   const { asPath } = useRouter();
-
+  const theme = useTheme();
   const {
     toggleOff: handleCloseHeaderMobile,
     on: isOpenHeaderMobile,
@@ -33,7 +21,7 @@ const HeaderOnMobile = () => {
   } = useToggle();
 
   return (
-    <Container className={isOpenHeaderMobile ? "active" : ""}>
+    <Fragment>
       <Hamburger
         toggled={isOpenHeaderMobile}
         toggle={toggleHeaderMobile}
@@ -43,149 +31,135 @@ const HeaderOnMobile = () => {
       <Overlay
         backgroundColor="dark_50"
         onClick={handleCloseHeaderMobile}
-        className="overlay"
+        className={isOpenHeaderMobile ? "active" : ""}
       />
 
-      <StyledWrapper className="wrapper">
-        <StyledHeaderHeading>
-          <Box className={"image-wrapper"} position={"relative"}>
+      <Container className={isOpenHeaderMobile ? "active" : ""}>
+        <Link href={ROUTES.login} className={"heading"}>
+          <Box className={"image-wrapper"}>
             <Image src={avatar.src} />
           </Box>
-          <Typography variant={"body2"}>Login/Signup</Typography>
-        </StyledHeaderHeading>
 
-        <List>
-          {HEADERITEM.map((el, idx: number) => (
-            <StyledListItem
-              disablePadding
-              key={idx}
-              className={el.href === asPath ? "active" : ""}
+          <Typography className={"heading-title"} variant={"body2"}>
+            Login/Signup
+          </Typography>
+        </Link>
+
+        {NAVITEM.map((item, idx: number) => (
+          <Box key={idx}>
+            {item.divider && <Divider light className={"divider"} />}
+            <StyledContent
+              href={item.href}
+              className={`nav-link ${asPath === item.href ? "active" : ""}`}
               onClick={handleCloseHeaderMobile}
             >
-              <ListItemButton disableRipple LinkComponent={Link} href={el.href}>
-                <ListItemIcon>
-                  <el.icon />
-                </ListItemIcon>
-                <ListItemText primary={el.title} />
-              </ListItemButton>
-            </StyledListItem>
-          ))}
-        </List>
-      </StyledWrapper>
-    </Container>
+              <Stack className={"nav-item"}>
+                <item.icon className={"nav-icon"} />
+                <Typography className={"nav-title"} variant={"body1"}>
+                  {item.title}
+                </Typography>
+              </Stack>
+            </StyledContent>
+          </Box>
+        ))}
+      </Container>
+    </Fragment>
   );
 };
 
-const Container = styled(Box)(() => {
-  return {
-    ["&.active"]: {
-      ["& .overlay"]: {
-        display: "block",
-      },
-      ["& .wrapper"]: {
-        transform: "translateX(0)",
-      },
-    },
-  };
-});
-
-const StyledWrapper = styled(Box)(({ theme }) => {
+const Container = styled(Box)(({ theme }) => {
   return {
     position: "fixed",
     top: 0,
     left: 0,
     bottom: 0,
-    zIndex: theme.zIndex.appBar,
-
-    width: 270,
-
+    zIndex: 99,
     transform: "translateX(-100%)",
-    transition: "transform linear 0.2s",
+    opacity: 0,
+    transition: "all linear 0.2s",
 
-    backgroundColor: "rgb(35, 37, 43)",
-  };
-});
+    width: "100%",
+    maxWidth: 270,
+    background: "rgb(35, 37, 43)",
 
-const StyledHeaderHeading = styled(Stack)(({ theme }) => {
-  return {
-    position: "relative",
-
-    flexDirection: "row",
-    alignItems: "center",
-    padding: "22px 24px",
-
-    backgroundImage: `url(${backgroundAvatar.src})`,
-    backgroundRepeat: "no-repeat",
-    backgroundSize: "cover",
-    backgroundPosition: "center center",
-
-    ["&::after"]: {
-      content: '""',
-
-      position: "absolute",
-      bottom: 0,
-      left: 0,
-
-      width: "100%",
-      height: 40,
-
-      backgroundImage: theme.palette.gradientColor.gradient1,
-    },
-
-    ["& > div"]: {
-      width: 40,
-      height: 40,
-    },
-
-    ["& > p"]: {
-      color: theme.palette.common.white,
-      marginLeft: 12,
-    },
-  };
-});
-
-const StyledListItem = styled(ListItem)(({ theme }) => {
-  return {
     ["&.active"]: {
+      transform: "translateX(0)",
+      opacity: 1,
+    },
+
+    ["& .heading"]: {
       position: "relative",
+      backgroundImage: `url(${bgHeaderMobile.src})`,
+      backgroundSize: "cover",
+      backgroundPosition: "center center",
+      aspectRatio: "270 / 88",
 
-      ["& > a"]: {
-        backgroundColor: theme.palette.text_hover.main,
-        cursor: "default",
+      display: "flex",
+      alignItems: "center",
+      padding: "22px 24px",
+      color: theme.palette.common.white,
 
-        ["& > div"]: {
-          color: `${theme.palette.common.white} !important`,
-        },
+      ["&:after"]: {
+        content: '""',
+        position: "absolute",
+        bottom: 0,
+        left: 0,
+        right: 0,
+        height: 40,
+        backgroundImage:
+          " linear-gradient(rgba(26, 28, 34, 0) 0%, rgba(26, 28, 34, 0.06) 6%, rgba(26, 28, 34, 0.12) 12%, rgba(26, 28, 34, 0.19) 19%, rgba(26, 28, 34, 0.26) 26%, rgba(26, 28, 34, 0.34) 34%, rgba(26, 28, 34, 0.42) 42%, rgba(26, 28, 34, 0.5) 50%, rgba(26, 28, 34, 0.58) 58%, rgba(26, 28, 34, 0.66) 66%, rgba(26, 28, 34, 0.74) 74%, rgba(26, 28, 34, 0.81) 81%, rgba(26, 28, 34, 0.88) 88%, rgba(26, 28, 34, 0.94) 94%, rgb(26, 28, 34) 100%)",
       },
 
-      ["&::after"]: {
-        content: '""',
+      ["& .image-wrapper"]: {
+        position: "relative",
+        width: 40,
+        height: 40,
+        borderRadius: "50%",
+        overflow: "hidden",
+        marginRight: 12,
+      },
+    },
 
+    ["& .divider"]: {
+      marginTop: theme.spacing(2),
+      marginBottom: theme.spacing(2),
+      height: 1,
+      backgroundColor: "#6d7485",
+    },
+  };
+});
+
+const StyledContent = styled(Link)(({ theme }) => {
+  return {
+    position: "relative",
+    display: "block",
+    padding: "12px 0px 12px 24px",
+
+    ["&.active"]: {
+      backgroundColor: "rgb(28, 199, 73)",
+      ["&:after"]: {
+        content: '""',
         position: "absolute",
         top: 0,
         left: 0,
         bottom: 0,
-
-        width: 3,
+        width: 4,
         backgroundColor: "rgb(0 255 67)",
       },
     },
 
-    ["& > a"]: {
-      ["&:hover > div"]: {
-        color: theme.palette.text_hover.main,
-      },
+    ["& .nav-item"]: {
+      flexDirection: "row",
+      alignItems: "center",
+      color: "#ECECEC",
 
-      ["& > div"]: {
-        minWidth: 0,
-        color: theme.palette.common.white,
-      },
-
-      ["& > div > svg"]: {
-        width: 28,
-        height: 28,
+      ["& .nav-icon"]: {
+        width: 20,
+        height: 20,
         marginRight: theme.spacing(1),
       },
+
+      ["& .nav-title"]: {},
     },
   };
 });

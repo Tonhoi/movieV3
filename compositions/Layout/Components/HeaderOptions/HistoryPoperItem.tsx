@@ -1,4 +1,3 @@
-import { MouseEventHandler } from "react";
 import { Box, Button, Typography, styled } from "@mui/material";
 
 import { Image, Link } from "@/components";
@@ -7,16 +6,9 @@ import { ROUTES } from "@/routers";
 
 import image from "@/public/image/image1.png";
 
-interface MenuForHistoryProps {
-  openMenuOfHistory: boolean;
-  handleClose: MouseEventHandler<HTMLLIElement> | undefined;
-}
-
-const MenuForHistory = (props: MenuForHistoryProps) => {
-  const { openMenuOfHistory, handleClose } = props;
-
+const HistoryPoperItem = () => {
   return (
-    <PoperWrapper className={openMenuOfHistory ? "active" : ""}>
+    <PoperWrapper className={"poper-wrapper"}>
       <Container>
         <Box className={"image-wrapper"}>
           <Image src={image.src} />
@@ -75,4 +67,4 @@ const Container = styled(Box)(({ theme }) => {
   };
 });
 
-export default MenuForHistory;
+export default HistoryPoperItem;

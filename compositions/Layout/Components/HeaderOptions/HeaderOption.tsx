@@ -1,152 +1,113 @@
-import { Fragment, useCallback, useState } from "react";
-import { Button, Stack, Typography, styled } from "@mui/material";
+import { Box, Button, Grid, Typography, styled } from "@mui/material";
 
-import { ClockIcon, GlobeIcon, UserIcon, DownloadIcon } from "@/components";
-import {
-  AccountPoperItem,
-  HistoryPoperItem,
-  LanguagePoperItem,
-  HeaderSearch,
-} from "@/compositions";
+import { ClockIcon, DownloadIcon, GlobeIcon, UserIcon, Overlay } from "@/components";
 import { useToggle } from "@/hooks";
-import Overlay from "@/components/Overlay";
+import AccountPoperItem from "./AccountPoperItem";
+import HistoryPoperItem from "./HistoryPoperItem";
+import LanguagePoperItem from "./LanguagePoperItem";
 
-const MenuOptionsForHeader = () => {
+const HeaderOption = () => {
   const {
-    on: isOpenMenuForHistory,
-    toggleOff: handleCloseMenuForHistory,
-    toggleOn: handleOpenMenuForHistory,
+    on: isOpenOverlay,
+    toggleOff: hanleCloseOvelay,
+    toggleOn: handleOpenOverlay,
   } = useToggle();
 
-  const {
-    on: isOpenMenuForLanguage,
-    toggleOff: handleCloseMenuForLanguage,
-    toggleOn: handleOpenMenuForLanguage,
-  } = useToggle();
+  const handleOpenPoper = (e: any) => {
+    if (e.target.parentElement) {
+      const poperElement = e.target.parentElement.querySelector(".poper-wrapper");
 
-  const {
-    on: isOpenMenuForAccount,
-    toggleOff: handleCloseMenuForAccount,
-    toggleOn: handleOpenMenuForAccount,
-  } = useToggle();
+      if (poperElement) {
+        poperElement.classList.add("active");
+        handleOpenOverlay();
+      }
+    }
+  };
 
-  const hanleClosePoper = useCallback(() => {
-    handleCloseMenuForHistory();
-    handleCloseMenuForLanguage();
-    handleCloseMenuForAccount();
-  }, []);
+  const handleClosePoper = () => {
+    document.querySelector(".poper-wrapper.active")?.classList.remove("active");
+    hanleCloseOvelay();
+  };
 
   return (
-    <Fragment>
-      <StyledWrapper>
-        <HeaderSearch />
-        <Overlay
-          className={
-            isOpenMenuForAccount || isOpenMenuForHistory || isOpenMenuForLanguage
-              ? "active"
-              : ""
-          }
-          onClick={hanleClosePoper}
-        />
+    <Container>
+      <Overlay className={isOpenOverlay ? "active" : ""} onClick={handleClosePoper} />
 
-        <StyledOption onClick={handleOpenMenuForHistory}>
-          <ClockIcon />
-          <Typography variant="subtitle2">History</Typography>
+      <Grid container>
+        <Grid item lg={3} md={3} sm={0} xs={0}>
+          <Box className={"option-wrapper"} onClick={handleOpenPoper}>
+            <ClockIcon className="icon" />
+            <Typography variant="subtitle2" className="title">
+              History
+            </Typography>
+            <HistoryPoperItem />
+          </Box>
+        </Grid>
 
-          <HistoryPoperItem
-            openMenuOfHistory={isOpenMenuForHistory}
-            handleClose={handleCloseMenuForHistory}
-          />
-        </StyledOption>
+        <Grid item lg={3} md={3} sm={0} xs={0}>
+          <Box className={"option-wrapper"} onClick={handleOpenPoper}>
+            <GlobeIcon className="icon" />
+            <Typography variant="subtitle2" className="title">
+              Language
+            </Typography>
+            <LanguagePoperItem />
+          </Box>
+        </Grid>
 
-        <StyledOption onClick={handleOpenMenuForLanguage}>
-          <GlobeIcon />
-          <Typography variant="subtitle2">Language</Typography>
+        <Grid item lg={3} md={3} sm={0} xs={0}>
+          <Box className={"option-wrapper"} onClick={handleOpenPoper}>
+            <UserIcon className="icon" />
+            <Typography variant="subtitle2" className="title">
+              Account
+            </Typography>
+            <AccountPoperItem />
+          </Box>
+        </Grid>
 
-          <LanguagePoperItem
-            openMenuOfLanguage={isOpenMenuForLanguage}
-            handleClose={handleCloseMenuForLanguage}
-          />
-        </StyledOption>
-
-        <StyledOption onClick={handleOpenMenuForAccount}>
-          <UserIcon />
-
-          <Typography variant="subtitle2">Me</Typography>
-
-          <AccountPoperItem
-            openMenuOfAccount={isOpenMenuForAccount}
-            handleClose={handleCloseMenuForAccount}
-          />
-        </StyledOption>
-
-        <Button
-          variant="contained"
-          startIcon={<DownloadIcon />}
-          className="download-for-app"
-        >
-          <Typography variant={"body2"}>APP</Typography>
-        </Button>
-      </StyledWrapper>
-    </Fragment>
+        <Grid item lg={3} md={3} sm={3} xs={3}>
+          <Button
+            variant={"contained"}
+            startIcon={<DownloadIcon />}
+            className="btn-download"
+          >
+            <Typography variant={"body2"}>app</Typography>
+          </Button>
+        </Grid>
+      </Grid>
+    </Container>
   );
 };
 
-const StyledWrapper = styled(Stack)(({ theme }) => {
+const Container = styled(Box)(({ theme }) => {
   return {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 32,
+    textAlign: "center",
 
-    ["& .download-for-app"]: {
-      backgroundColor: theme.palette.text_hover.main,
-
-      [theme.breakpoints.down("sm")]: {
-        display: "none",
-      },
-
-      ":hover": {
-        backgroundColor: theme.palette.text_hover.main,
-        opacity: "0.8",
-        transition: "opacity linear 0.3s",
-      },
-    },
-
-    [theme.breakpoints.down("md")]: {
-      gap: 12,
-    },
-  };
-});
-
-const StyledOption = styled(Stack)(({ theme }) => {
-  return {
-    position: "relative",
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection: "column",
-    padding: 0,
-    gap: "4px",
-
-    cursor: "pointer",
-    color: theme.palette.common.white,
-
-    minWidth: "unset",
-
-    ["& > span"]: {
-      margin: 0,
-    },
-
-    "&:hover": {
-      ["& > svg, & > h6"]: {
-        color: theme.palette.text_hover.main,
-        transition: "color linear 0.2s",
-      },
-    },
-
-    [theme.breakpoints.down("md")]: {
+    [theme.breakpoints.down("sm")]: {
       display: "none",
     },
+
+    ["& .option-wrapper"]: {
+      position: "relative",
+      cursor: "pointer",
+
+      ["&:hover > :where(.icon, .title)"]: {
+        color: "rgb(28, 199, 73)",
+      },
+
+      [theme.breakpoints.down("md")]: {
+        display: "none",
+      },
+    },
+
+    ["& .btn-download"]: {
+      backgroundColor: "rgb(28, 199, 73)",
+      padding: "10px 16px",
+
+      ["&:hover"]: {
+        backgroundColor: "rgb(28, 199, 73)",
+      },
+    },
   };
 });
 
-export default MenuOptionsForHeader;
+export default HeaderOption;

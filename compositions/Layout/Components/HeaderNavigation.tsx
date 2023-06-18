@@ -21,13 +21,13 @@ const HeaderItem = () => {
         <Image src={logo} width={width} height={width} />
       </StyledImageWrapper>
 
-      <StyledLink href={ROUTES.movie}>
+      <StyledNavLink href={ROUTES.movie}>
         <Typography variant="subtitle1">Movie</Typography>
-      </StyledLink>
+      </StyledNavLink>
 
-      <StyledLink href={ROUTES.tv}>
+      <StyledNavLink href={ROUTES.tv}>
         <Typography variant="subtitle1">Tv</Typography>
-      </StyledLink>
+      </StyledNavLink>
     </Container>
   );
 };
@@ -69,7 +69,7 @@ const StyledImageWrapper = styled(Box)(({ theme }) => {
   };
 });
 
-const StyledLink = styled(Link)(({ theme }) => {
+const StyledNavLink = styled(Link)(({ theme }) => {
   return {
     textDecoration: "none",
     opacity: 0.6,

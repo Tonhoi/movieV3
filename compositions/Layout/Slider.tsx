@@ -1,5 +1,5 @@
 import { SetStateAction, useState } from "react";
-import { Box, Container, Stack, styled } from "@mui/material";
+import { Box, Container as MuiContainer, Stack, styled } from "@mui/material";
 
 import SlideContentHeader from "./Components/Slider/SlideContentHeader";
 import SlickSlider from "../Slick/SlickSlider";
@@ -11,7 +11,7 @@ const Slider = () => {
   const [slider3, setSlider3] = useState(null);
 
   return (
-    <StyledContainer>
+    <Container>
       <StyledSlickWrapper>
         <SlickSlider
           variant="simple"
@@ -21,28 +21,28 @@ const Slider = () => {
           {Array(5)
             .fill(null)
             .map((el, idx: number) => (
-              <StyledThumbnailWrapper key={idx} className="thumbnail-wrapper">
+              <Box key={idx} className="thumbnail-wrapper">
                 <Box className="thumbnail" />
-              </StyledThumbnailWrapper>
+              </Box>
             ))}
         </SlickSlider>
       </StyledSlickWrapper>
 
-      <Container>
+      <MuiContainer>
         <SlideContentHeader
           slider1={slider1}
           slider3={slider3}
           setSlider2={setSlider2}
           setSlider3={setSlider3}
         />
-      </Container>
+      </MuiContainer>
 
       <SlideShadow />
-    </StyledContainer>
+    </Container>
   );
 };
 
-const StyledContainer = styled(Stack)(({ theme }) => {
+const Container = styled(Stack)(({ theme }) => {
   return {
     position: "relative",
     height: "100%",
@@ -67,39 +67,37 @@ const StyledContainer = styled(Stack)(({ theme }) => {
   };
 });
 
-const StyledSlickWrapper = styled(Box)(() => {
+const StyledSlickWrapper = styled(Box)(({ theme }) => {
   return {
     position: "absolute",
 
     width: "100%",
     height: "100%",
-  };
-});
 
-const StyledThumbnailWrapper = styled(Box)(({ theme }) => {
-  return {
-    position: "relative",
-
-    width: "100%",
-    aspectRatio: "2 / 1",
-    height: "100%",
-
-    [theme.breakpoints.down("sm")]: {
-      aspectRatio: "2 / 1.5",
-    },
-
-    ["& .thumbnail"]: {
-      position: "absolute",
-      zIndex: "1",
+    ["& .thumbnail-wrapper"]: {
+      position: "relative",
 
       width: "100%",
+      aspectRatio: "2 / 1",
       height: "100%",
 
-      backgroundImage:
-        "url(https://static2.vieon.vn/vieplay-image/carousel_web_v4/2022/05/24/g9mfrt9z_1920x1080-luananhhung6ebadcb417ca17c991478e11594f60a1.jpg)",
-      backgroundSize: "cover",
-      backgroundRepeat: "no-repeat",
-      backgroundPosition: "center center",
+      [theme.breakpoints.down("sm")]: {
+        aspectRatio: "2 / 1.5",
+      },
+
+      ["& .thumbnail"]: {
+        position: "absolute",
+        zIndex: "1",
+
+        width: "100%",
+        height: "100%",
+
+        backgroundImage:
+          "url(https://static2.vieon.vn/vieplay-image/carousel_web_v4/2022/05/24/g9mfrt9z_1920x1080-luananhhung6ebadcb417ca17c991478e11594f60a1.jpg)",
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center center",
+      },
     },
   };
 });
