@@ -1,18 +1,10 @@
-import { MouseEventHandler } from "react";
 import { Box, Typography, styled } from "@mui/material";
 
 import PoperWrapper from "./PoperWrapper";
 
-interface menuForLanguageProps {
-  openMenuOfLanguage: boolean;
-  handleClose: MouseEventHandler<HTMLLIElement> | undefined;
-}
-
-const MenuForLanguage = (props: menuForLanguageProps) => {
-  const { openMenuOfLanguage, handleClose } = props;
-
+const LanguagePoperItem = () => {
   return (
-    <PoperWrapper className={openMenuOfLanguage ? "active" : ""}>
+    <PoperWrapper className={"poper-wrapper"}>
       <Container>
         <Typography className="title">English</Typography>
         <Typography className="title">Tiếng Việt</Typography>
@@ -39,4 +31,4 @@ const Container = styled(Box)(({ theme }) => {
   };
 });
 
-export default MenuForLanguage;
+export default LanguagePoperItem;

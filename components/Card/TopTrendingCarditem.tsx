@@ -8,7 +8,9 @@ const TopTrendingCarditem = () => {
     <Container>
       <CardItemBase>
         <StyledCardImage className="card-image" position={"relative"}>
-          <Typography variant={"ryeTitle"}>TOP 1</Typography>
+          <Typography variant={"ryeTitle"} className={"rank-movie"}>
+            TOP 1
+          </Typography>
           <Typography variant={"h6"} className="card-image-badge">
             2023-05-31
           </Typography>
@@ -39,7 +41,7 @@ const StyledCardImage = styled(Box)(({ theme }) => {
     backgroundImage: `url(${cardImageDemo.src})`,
     aspectRatio: "180 / 240",
 
-    ["& > span"]: {
+    ["& .rank-movie"]: {
       position: "absolute",
       bottom: 10,
       left: 10,
@@ -80,7 +82,7 @@ const StyledCardContent = styled(Box)(({ theme }) => {
     color: theme.palette.common.white,
     padding: 10,
 
-    ["& > .card"]: {
+    ["& .card"]: {
       ["&-title"]: {
         marginBottom: 6,
         maxWidth: "80%",

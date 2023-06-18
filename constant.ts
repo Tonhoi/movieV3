@@ -128,7 +128,7 @@ export const top100Films = [
   { label: "Monty Python and the Holy Grail", year: 1975 },
 ];
 
-export const HEADERITEM = [
+export const NAVITEM = [
   {
     icon: FilmIcon,
     href: ROUTES.movie,
@@ -143,6 +143,7 @@ export const HEADERITEM = [
     icon: ClockIcon,
     href: ROUTES.history,
     title: "History",
+    divider: true,
   },
   {
     icon: GlobeIcon,

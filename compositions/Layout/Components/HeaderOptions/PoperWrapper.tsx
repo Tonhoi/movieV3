@@ -15,6 +15,7 @@ const Container = styled(Box)(({ theme }) => {
   return {
     position: "absolute",
     top: "calc(100% + 18px)",
+    left: "50%",
     zIndex: theme.zIndex.tooltip,
 
     transform: "scale(0)",
@@ -26,8 +27,9 @@ const Container = styled(Box)(({ theme }) => {
     borderRadius: 4,
 
     ["&.active"]: {
-      transform: "scale(1)",
+      transform: "scale(1) translateX(-50%)",
       opacity: 1,
+      transformOrigin: "top left",
 
       ["&:after"]: {
         content: '""',

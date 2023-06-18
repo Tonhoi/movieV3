@@ -1,10 +1,10 @@
 import { Dispatch, SetStateAction } from "react";
-import { Box, Divider, Stack, Typography, styled, useTheme } from "@mui/material";
+import { Box, Stack, Typography, styled } from "@mui/material";
 
-import { PlayIcon, SaveIcon, StarIcon } from "@/components";
-
-import SlideCardItem from "./SlideCardItem";
+import { PlayIcon, SaveIcon } from "@/components";
 import SlickSlider from "@/compositions/Slick/SlickSlider";
+import InfoMovie from "@/components/InfoMovie";
+import CardItem3 from "@/components/Card/CardItem3";
 
 interface ContentSliderHeaderprops {
   slider1: any;
@@ -15,7 +15,6 @@ interface ContentSliderHeaderprops {
 
 const ContentSliderHeader = (props: ContentSliderHeaderprops) => {
   const { slider1, slider3, setSlider2, setSlider3 } = props;
-  const theme = useTheme();
 
   return (
     <StyledWrapper>
@@ -42,35 +41,7 @@ const ContentSliderHeader = (props: ContentSliderHeaderprops) => {
                 </Typography>
               </StyledSection>
 
-              <StyledContentWrapper>
-                <StarIcon style={{ width: 12, height: 12 }} />
-                <Typography variant="body2" color={theme.palette.text_hover.main}>
-                  9.7
-                </Typography>
-                <StyledDivider orientation="vertical" light />
-
-                <Typography variant="h6">2017</Typography>
-                <StyledDivider orientation="vertical" light />
-
-                <Typography variant="h6">C13</Typography>
-                <StyledDivider orientation="vertical" light />
-
-                <Typography variant="h6">24 Episodes</Typography>
-              </StyledContentWrapper>
-
-              <StyledContentWrapper>
-                <StyledGenreMovie variant="h6">Chinese Mainland</StyledGenreMovie>
-              </StyledContentWrapper>
-
-              <StyledDesctiption variant="h5" className="slider-description">
-                To buy a couture wedding dress for a customer, fashion buyer Gu Xixi
-                sneaks into a high-end party where she knows a bossy president Yin Sichen
-                with a series of lies and becomes his contracted wife for three months.
-                The inexperienced bossy president and the cute and cunning girl start a
-                love game. Through all kinds of tests, Yin Sichen helps Gu Xixi realize
-                her dream of becoming a designer and establish her own fashion brand,
-                making her as outstanding as him.
-              </StyledDesctiption>
+              <InfoMovie />
 
               <StyledContentWrapper>
                 <PlayIcon className="icon play-icon" />
@@ -92,7 +63,7 @@ const ContentSliderHeader = (props: ContentSliderHeaderprops) => {
           {Array(5)
             .fill(null)
             .map((el, idx) => (
-              <SlideCardItem key={idx} />
+              <CardItem3 key={idx} />
             ))}
         </SlickSlider>
       </Box>
@@ -104,7 +75,6 @@ const StyledWrapper = styled(Box)(({ theme }) => {
   return {
     position: "relative",
     marginTop: theme.spacing(10),
-    // transform: "translateY(-50%)",
     zIndex: 4,
 
     color: "#ECECEC",
@@ -133,39 +103,6 @@ const StyledContentWrapper = styled(Stack)(() => {
 
       ":hover": { opacity: 0.8, transition: "opacity linear 0.3s" },
     },
-  };
-});
-
-const StyledDesctiption = styled(Typography)(({ theme }) => {
-  return {
-    maxWidth: "80%",
-    display: "-webkit-box",
-    WebkitLineClamp: 3,
-    WebkitBoxOrient: "vertical",
-    overflow: "hidden",
-
-    textAlign: "justify",
-
-    [theme.breakpoints.down("sm")]: {
-      maxWidth: "100%",
-    },
-  };
-});
-
-const StyledGenreMovie = styled(Typography)(({ theme }) => {
-  return {
-    padding: "5px",
-    background: theme.palette.opacity.white_008,
-    borderRadius: "2px",
-  };
-});
-
-const StyledDivider = styled(Divider)(({ theme }) => {
-  return {
-    width: 2,
-    height: 12,
-
-    background: theme.palette.opacity.white_02,
   };
 });
 

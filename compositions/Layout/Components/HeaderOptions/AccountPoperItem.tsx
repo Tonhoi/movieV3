@@ -1,19 +1,11 @@
-import React, { MouseEventHandler } from "react";
-
 import { Button, Stack, Typography, styled } from "@mui/material";
 import { Link } from "@/components";
 import { ROUTES } from "@/routers";
 import PoperWrapper from "./PoperWrapper";
 
-interface menuForLanguageProps {
-  openMenuOfAccount: boolean;
-  handleClose: MouseEventHandler<HTMLAnchorElement> | undefined;
-}
-
-const MenuForMe = (props: menuForLanguageProps) => {
-  const { openMenuOfAccount, handleClose } = props;
+const AccountPoperItem = () => {
   return (
-    <PoperWrapper className={openMenuOfAccount ? "active" : ""}>
+    <PoperWrapper className={"poper-wrapper"}>
       <Container>
         <Typography variant={"body2"} className={"title"}>
           Login to watch trendy content
@@ -23,7 +15,6 @@ const MenuForMe = (props: menuForLanguageProps) => {
           LinkComponent={Link}
           href={ROUTES.login}
           color={"inherit"}
-          onClick={handleClose}
           className={"btn"}
         >
           Login
@@ -58,4 +49,4 @@ const Container = styled(Stack)(({ theme }) => {
   };
 });
 
-export default MenuForMe;
+export default AccountPoperItem;

@@ -22,16 +22,27 @@ const Layout = (props: layoutProps) => {
         <Slider />
 
         {children}
+
+        <Box className={"footer"}>
+          <Footer />
+        </Box>
       </Container>
-      <Footer />
     </Fragment>
   );
 };
 
 const Container = styled(Box)(({ theme }) => {
   return {
-    minHeight: "300vh",
+    minHeight: "100vh",
     backgroundColor: theme.palette.primary.main,
+    color: "#ECECEC",
+
+    ["& .footer"]: {
+      padding: "32px 0px",
+      marginTop: 50,
+      backgroundColor: "rgb(10, 12, 15)",
+      borderTop: "1px solid rgb(45, 47, 52)",
+    },
   };
 });
 

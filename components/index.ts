@@ -13,6 +13,9 @@ export { default as ArrowRightIcon } from "./Icons/ArrowRightIcon";
 export { default as PlayIcon } from "./Icons/PlayIcon";
 export { default as SaveIcon } from "./Icons/SaveIcon";
 export { default as StarIcon } from "./Icons/StarIcon";
+export { default as FacebookIcon } from "./Icons/FacebookIcon";
+export { default as TwitterIcon } from "./Icons/TwitterIcon";
+export { default as LinkedinIcon } from "./Icons/LinkedinIcon";
 
 export { default as Image } from "./Image";
 
@@ -22,3 +25,5 @@ export { default as Spacing } from "./Spacing";
 
 // card
 export { default as CardItemBase } from "./Card/CardItemBase";
+
+export { default as Overlay } from "./Overlay";

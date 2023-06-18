@@ -1,8 +1,7 @@
 import { Box, Typography, styled } from "@mui/material";
-import PlayIcon from "../Icons/PlayIcon";
+import { PlayIcon, CardItemBase } from "@/components";
 
 import cardImageDemo from "@/public/image/demoImageCard.jpg";
-import CardItemBase from "./CardItemBase";
 
 const CardItem2 = () => {
   return (

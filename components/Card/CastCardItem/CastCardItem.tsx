@@ -1,7 +1,7 @@
 import { Box, Divider, Grid, styled } from "@mui/material";
 
 import HeadingCastCardItem from "./HeadingCastCardItem";
-import ContentCastCardItem from "./ContentCastCardItem";
+import CardItem from "../CardItem";
 
 const CastCardItem = () => {
   return (
@@ -12,10 +12,10 @@ const CastCardItem = () => {
 
       <Grid container spacing={1}>
         <Grid item lg={6} md={6} xs={6}>
-          <ContentCastCardItem />
+          <CardItem animation />
         </Grid>
         <Grid item lg={6} md={6} xs={6}>
-          <ContentCastCardItem />
+          <CardItem />
         </Grid>
       </Grid>
     </Container>
