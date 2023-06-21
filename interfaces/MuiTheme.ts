@@ -8,6 +8,7 @@ declare module "@mui/material/styles/createTypography" {
     ryeTitle?: TypographyStyle;
     subtitle3?: TypographyStyle;
     subtitle4?: TypographyStyle;
+    subtitle5?: TypographyStyle;
   }
 
   interface TypographyOptions {
@@ -19,6 +20,7 @@ declare module "@mui/material/styles/createTypography" {
     ryeTitle?: TypographyStyle;
     subtitle3?: TypographyStyle;
     subtitle4?: TypographyStyle;
+    subtitle5?: TypographyStyle;
   }
 }
 
@@ -32,6 +34,7 @@ declare module "@mui/material/Typography" {
     ryeTitle: true;
     subtitle3: true;
     subtitle4: true;
+    subtitle5: true;
   }
 }
 

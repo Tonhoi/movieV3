@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 
 import Login from "@/containers/Login/Login";
 import { Header, Footer, Slider } from "@/compositions";
+import PlayMovie from "@/containers/PlayMovie/PlayMovie";
 
 interface layoutProps {
   children: ReactNode;
@@ -15,11 +16,14 @@ const Layout = (props: layoutProps) => {
 
   if (asPath === "/login") return <Login />;
 
+  const isSLider = asPath.startsWith("/detail") || asPath.startsWith("/play");
+
   return (
     <Fragment>
       <Container>
         <Header />
-        <Slider />
+
+        {!isSLider && <Slider />}
 
         {children}
 

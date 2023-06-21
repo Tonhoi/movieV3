@@ -1,12 +1,12 @@
 import { Box, TextField, Typography, styled } from "@mui/material";
+import { useMeasure } from "react-use";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
-import { useMeasure } from "react-use";
 
 import SearchPoper from "./SearchPoper";
 
 const HeaderSearch = () => {
-  const [ref, { width }] = useMeasure<any>();
+  const [ref, { width }] = useMeasure();
 
   return (
     <Container ref={ref}>
@@ -16,6 +16,9 @@ const HeaderSearch = () => {
         placement="bottom-start"
         interactive
         maxWidth={width}
+        onHide={() => {
+          console.log("đã trigger");
+        }}
       >
         <TextField
           label={

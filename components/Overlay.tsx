@@ -22,7 +22,7 @@ const Overlay = (props: OverlayProps) => {
   const { children, backgroundColor = "dark_10" } = props;
 
   return (
-    <Container backgroundColor={backgroundColor} {...props}>
+    <Container backgroundColor={backgroundColor} position={"fixed"} {...props}>
       {children}
     </Container>
   );
@@ -32,7 +32,6 @@ const Container = styled(Box, {
   shouldForwardProp: (propName) => propName !== "backgroundColor",
 })<{ backgroundColor: backgroundColorType }>(({ backgroundColor, theme }) => {
   return {
-    position: "fixed",
     inset: 0,
     zIndex: 10,
 

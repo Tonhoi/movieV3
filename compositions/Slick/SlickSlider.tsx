@@ -109,6 +109,24 @@ const StyledWrapper = styled(Box, {
 
     "& .slick-next": {
       top: "45%",
+      right: -20,
+      zIndex: 9,
+    },
+
+    ["& .slick-prev"]: {
+      top: "45%",
+      left: -20,
+      zIndex: 9,
+    },
+
+    [theme.breakpoints.down("sm")]: {
+      "& .slick-next": {
+        right: -15,
+      },
+
+      ["& .slick-prev"]: {
+        left: -15,
+      },
     },
 
     "&  .slick-active button": {

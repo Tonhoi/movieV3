@@ -8,7 +8,6 @@ import SlideShadow from "./Components/Slider/SlideShadow";
 const Slider = () => {
   const [slider1, setSlider1] = useState(null);
   const [slider2, setSlider2] = useState(null);
-  const [slider3, setSlider3] = useState(null);
 
   return (
     <Container>
@@ -17,6 +16,9 @@ const Slider = () => {
           variant="simple"
           asNavFor={slider2}
           refSlick={(slider: SetStateAction<null>) => setSlider1(slider)}
+          props={{
+            fade: true,
+          }}
         >
           {Array(5)
             .fill(null)
@@ -29,12 +31,7 @@ const Slider = () => {
       </StyledSlickWrapper>
 
       <MuiContainer>
-        <SlideContentHeader
-          slider1={slider1}
-          slider3={slider3}
-          setSlider2={setSlider2}
-          setSlider3={setSlider3}
-        />
+        <SlideContentHeader slider1={slider1} setSlider2={setSlider2} />
       </MuiContainer>
 
       <SlideShadow />

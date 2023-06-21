@@ -4,8 +4,8 @@ import { CardItemBase, PlayIcon } from "@/components";
 
 const CardItem3 = () => {
   return (
-    <CardItemBase>
-      <Container>
+    <Container>
+      <CardItemBase>
         <Box className={"card-image"}>
           <PlayIcon className="play-icon" />
 
@@ -18,8 +18,8 @@ const CardItem3 = () => {
             </Typography>
           </Stack>
         </Box>
-      </Container>
-    </CardItemBase>
+      </CardItemBase>
+    </Container>
   );
 };
 

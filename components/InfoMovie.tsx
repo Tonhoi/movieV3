@@ -2,7 +2,12 @@ import { Box, Divider, Stack, Typography, styled, useTheme } from "@mui/material
 
 import StarIcon from "./Icons/StarIcon";
 
-const InfoMovie = () => {
+interface InfoMovieProps {
+  isDescription?: boolean;
+}
+
+const InfoMovie = (props: InfoMovieProps) => {
+  const { isDescription = false } = props;
   const theme = useTheme();
 
   return (
@@ -25,7 +30,7 @@ const InfoMovie = () => {
 
       <StyledGenreMovie variant="h6">Chinese Mainland</StyledGenreMovie>
 
-      <Typography variant="h6" className="description">
+      <Typography variant="h6" className={`description ${isDescription ? "active" : ""}`}>
         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloremque earum nihil
         magni soluta commodi, eveniet quae, maxime distinctio unde ratione quaerat
         consequuntur saepe velit eligendi voluptatum culpa qui tenetur. Sequi.
@@ -59,6 +64,10 @@ const Container = styled(Box)(({ theme }) => {
       WebkitLineClamp: 5,
       WebkitBoxOrient: "vertical",
       overflow: "hidden",
+
+      ["&.active"]: {
+        display: "none",
+      },
     },
   };
 });
