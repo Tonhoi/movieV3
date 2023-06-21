@@ -1,13 +1,15 @@
 import { Box, Container as MuiContainer, Grid, styled } from "@mui/material";
+import { useWindowScroll } from "react-use";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 import { HeaderNavigation, HeaderOptions, HeaderSearch } from "@/compositions";
-import { useWindowScroll } from "react-use";
-import { useEffect } from "react";
 import { useToggle } from "@/hooks";
 
 const Header = () => {
   const { y } = useWindowScroll();
   const { toggleOff, toggleOn, on } = useToggle();
+  const { asPath } = useRouter();
 
   useEffect(() => {
     if (y >= 200 && !on) {
@@ -18,7 +20,7 @@ const Header = () => {
   }, [y]);
 
   return (
-    <Container className={on ? "active" : ""}>
+    <Container className={on || asPath.startsWith("/play") ? "active" : ""}>
       <MuiContainer>
         <Grid
           container

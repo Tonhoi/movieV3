@@ -15,5 +15,4 @@ export { default as AccountPoperItem } from "./Layout/Components/HeaderOptions/A
 
 // form
 export { default as FormControl } from "./FormControl/FormControl";
-export { default as FormControlForAutocomplete } from "./FormControl/FormControlForAutocomplete";
 export { default as FormControlForCheckbox } from "./FormControl/FormControlForCheckbox";

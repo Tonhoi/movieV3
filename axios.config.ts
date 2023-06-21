@@ -1,7 +1,11 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+  // baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+  baseURL: "https://api.themoviedb.org/3",
+  params: {
+    api_key: "9568cdb91fe0c79af33b87e59bb90d25",
+  },
 });
 
 instance.interceptors.request.use(
@@ -18,7 +22,7 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   function (response) {
-    return response;
+    return response.data;
   },
   async function (err) {
     return Promise.reject(err);

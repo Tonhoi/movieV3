@@ -1,4 +1,5 @@
 import { styled, Stack, Typography, StackProps } from "@mui/material";
+import { Fragment } from "react";
 
 interface SearchPoperProps extends StackProps {}
 
@@ -6,12 +7,14 @@ const SearchPoper = (props: SearchPoperProps) => {
   const { ...restProps } = props;
 
   return (
-    <Container {...restProps}>
-      <Typography>1</Typography>
-      <Typography variant={"h5"} className="title">
-        phim hay
-      </Typography>
-    </Container>
+    <Fragment>
+      <Container {...restProps}>
+        <Typography>1</Typography>
+        <Typography variant={"h5"} className="title">
+          phim hay
+        </Typography>
+      </Container>
+    </Fragment>
   );
 };
 

@@ -1,25 +1,47 @@
-import { Box, Typography, styled } from "@mui/material";
+import { Box, Stack, Typography, styled } from "@mui/material";
 
 import cardImageDemo from "@/public/image/card_image_demo.webp";
 import CardItemBase from "./CardItemBase";
+import { TrendingMovie } from "@/interfaces/responseSchema/trendingMovie";
+import Link from "../Link";
+import { useEffect } from "react";
 
-const TopTrendingCarditem = () => {
+interface TopTrendingCarditemprops {
+  data: TrendingMovie;
+  idx: number;
+}
+
+const TopTrendingCarditem = ({ data, idx }: TopTrendingCarditemprops) => {
+  const {
+    id,
+    title,
+    poster_path,
+    release_date,
+    first_air_date,
+    original_title,
+    original_name,
+  } = data;
+
   return (
-    <Container>
+    <Container href={`/detail/${id}`}>
       <CardItemBase>
-        <StyledCardImage className="card-image" position={"relative"}>
+        <StyledCardImage
+          poster_path={poster_path}
+          className="card-image"
+          position={"relative"}
+        >
           <Typography variant={"ryeTitle"} className={"rank-movie"}>
-            TOP 1
+            TOP {idx}
           </Typography>
           <Typography variant={"h6"} className="card-image-badge">
-            2023-05-31
+            {release_date ?? first_air_date}
           </Typography>
         </StyledCardImage>
       </CardItemBase>
 
       <StyledCardContent>
         <Typography variant={"h5"} className="card-title">
-          My ID is Gangnam Beauty
+          {title ?? original_title ?? original_name}
         </Typography>
         <Typography variant={"h6"} className="card-subtitle">
           16 Episodes
@@ -29,16 +51,19 @@ const TopTrendingCarditem = () => {
   );
 };
 
-const Container = styled(Box)(() => {
+const Container = styled(Link)(() => {
   return {
+    display: "block",
     borderRadius: "4px",
     overflow: "hidden",
   };
 });
 
-const StyledCardImage = styled(Box)(({ theme }) => {
+const StyledCardImage = styled(Box, {
+  shouldForwardProp: (propName) => propName !== "poster_path",
+})<any>(({ theme, poster_path }) => {
   return {
-    backgroundImage: `url(${cardImageDemo.src})`,
+    backgroundImage: `url(https://image.tmdb.org/t/p/w300${poster_path})`,
     aspectRatio: "180 / 240",
 
     ["& .rank-movie"]: {
@@ -76,16 +101,48 @@ const StyledCardImage = styled(Box)(({ theme }) => {
   };
 });
 
-const StyledCardContent = styled(Box)(({ theme }) => {
+const StyledCardContent = styled(Stack)(({ theme }) => {
+  const colors = [
+    "rgb(51, 47, 20)",
+    "rgb(20, 25, 51)",
+    "rgb(20, 35, 51)",
+    "rgb(20, 31, 51)",
+    "rgb(51, 26, 20)",
+    "rgb(20, 45, 51)",
+    "rgb(51, 35, 20)",
+    "rgb(51, 20, 37)",
+    "rgb(51, 36, 20)",
+    "rgb(51, 27, 20)",
+    "rgb(51, 45, 20)",
+    "rgb(48, 51, 20)",
+    "rgb(51, 36, 20)",
+    "rgb(51, 20, 31)",
+    "rgb(20, 51, 51)",
+    "rgb(51, 30, 20)",
+    "rgb(20, 32, 51)",
+    "rgb(51, 22, 20)",
+    "rgb(51, 20, 28)",
+    "rgb(20, 38, 51)",
+  ];
+
+  const randomIndex = Math.floor(Math.random() * colors.length);
+
   return {
-    backgroundColor: "rgb(34, 20, 51)",
+    backgroundColor: colors[randomIndex],
     color: theme.palette.common.white,
     padding: 10,
+
+    minHeight: 74,
+    justifyContent: "space-between",
 
     ["& .card"]: {
       ["&-title"]: {
         marginBottom: 6,
         maxWidth: "80%",
+        display: "-webkit-box",
+        WebkitLineClamp: 2,
+        WebkitBoxOrient: "vertical",
+        overflow: "hidden",
       },
 
       ["&-subtitle"]: {
