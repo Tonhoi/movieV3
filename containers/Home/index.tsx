@@ -1,89 +1,125 @@
-import { TopTrendingCarditem } from "@/components";
-import SlickSlider from "@/compositions/Slick/SlickSlider";
-import { IPage, responseSchema } from "@/interfaces";
-import { PopularMovie } from "@/interfaces/responseSchema/popularMovie";
-import { PopularTv } from "@/interfaces/responseSchema/popularTv";
-import { TopRateMovie } from "@/interfaces/responseSchema/topRateMovie";
-import { TopRateTv } from "@/interfaces/responseSchema/topRateTv";
-import { TrendingMovie } from "@/interfaces/responseSchema/trendingMovie";
-import { UpComingMovie } from "@/interfaces/responseSchema/upComingMovie";
-import { Grid, Container as MuiContainer, Typography } from "@mui/material";
+import { Fragment, ReactNode, useMemo } from "react";
+import { Container as MuiContainer, Typography, styled } from "@mui/material";
 import { get } from "lodash";
-import { useMemo } from "react";
+
+import { CardItem, TopTrendingCarditem } from "@/components";
+import SlickSlider from "@/compositions/Slick/SlickSlider";
+import {
+  IPage,
+  responseSchema,
+  TopRateMovie,
+  TopRateTv,
+  TrendingMovie,
+  UpComingMovie,
+} from "@/interfaces";
+import { AiringToday } from "@/interfaces/responseSchema/airingToday";
+import { NowPlaing } from "@/interfaces/responseSchema/nowPlaying";
 
 export type HomePageProps = IPage<
   [
-    responseSchema<PopularMovie>,
-    responseSchema<PopularTv>,
     responseSchema<TrendingMovie>,
     responseSchema<TopRateMovie>,
     responseSchema<TopRateTv>,
-    responseSchema<UpComingMovie>
+    responseSchema<UpComingMovie>,
+    responseSchema<AiringToday>,
+    responseSchema<NowPlaing>
   ]
 >;
 
-const Home = (props: HomePageProps) => {
-  const { initData } = props;
+const createSettingsSlide = {
+  arrows: true,
+  slidesToShow: 5,
+  slidesToScroll: 1,
 
-  const resPopularMovie = get(initData[0], "results");
-  const resPopularTv = get(initData[1], "results");
-  const resTrendingMovie = get(initData[2], "results");
-  const resTopRateTv = get(initData[3], "results");
-  const resTopRateMovie = get(initData[4], "results");
-  const resUpcoming = get(initData[5], "results");
+  responsive: [
+    {
+      breakpoint: 900,
+      settings: {
+        slidesToShow: 4,
+      },
+    },
+    {
+      breakpoint: 650,
+      settings: {
+        slidesToShow: 3,
+      },
+    },
+    {
+      breakpoint: 450,
+      settings: {
+        slidesToShow: 2,
+      },
+    },
+  ],
+};
 
-  console.log(resTrendingMovie);
+const Home = ({ initData }: HomePageProps) => {
+  const dataTrendingMovie = get(initData[0], "results");
+  const dataTopRateTv = get(initData[1], "results");
+  const dataTopRateMovie = get(initData[2], "results");
+  const dataUpcoming = get(initData[3], "results");
+  const dataAiringToday = get(initData[4], "results");
+  const dataNowPlaying = get(initData[5], "results");
 
-  const renderTrendingMovie = useMemo(() => {
-    if (typeof resTrendingMovie == "undefined") return null;
+  const useRender = (data: any, RenderCard: any) => {
+    return useMemo(() => {
+      if (typeof data === "undefined") return null;
 
-    return resTrendingMovie.map((data: TrendingMovie, idx: number) => (
-      <TopTrendingCarditem key={data.id} data={data} idx={idx + 1} />
-    ));
-  }, [resTrendingMovie]);
+      return data.map((data: any) => <RenderCard key={data.id} data={data} />);
+    }, [data]);
+  };
 
   return (
-    <MuiContainer>
-      <Typography
-        variant={"h3"}
-        marginLeft={"9.6px"}
-        marginBottom={"6px"}
-        marginTop={"24px"}
-      >
-        Trending
-      </Typography>
-      <SlickSlider
-        variant="multiple"
-        props={{
-          slidesToShow: 5,
-          slidesToScroll: 1,
+    <Container>
+      <HomeComponents title={"Trending"}>
+        {useRender(dataTrendingMovie, TopTrendingCarditem)}
+      </HomeComponents>
 
-          responsive: [
-            {
-              breakpoint: 900,
-              settings: {
-                slidesToShow: 4,
-              },
-            },
-            {
-              breakpoint: 650,
-              settings: {
-                slidesToShow: 3,
-              },
-            },
-            {
-              breakpoint: 450,
-              settings: {
-                slidesToShow: 2,
-              },
-            },
-          ],
-        }}
-      >
-        {renderTrendingMovie}
-      </SlickSlider>
-    </MuiContainer>
+      <HomeComponents title={"Top Rate Movie"}>
+        {useRender(dataTopRateMovie, CardItem)}
+      </HomeComponents>
+
+      <HomeComponents title={"Top Rate Tv"}>
+        {useRender(dataTopRateTv, CardItem)}
+      </HomeComponents>
+
+      <HomeComponents title={"Upcoming"}>
+        {useRender(dataUpcoming, TopTrendingCarditem)}
+      </HomeComponents>
+
+      <HomeComponents title={"Airing Today"}>
+        {useRender(dataAiringToday, CardItem)}
+      </HomeComponents>
+
+      <HomeComponents title={"Now Playing"}>
+        {useRender(dataNowPlaying, CardItem)}
+      </HomeComponents>
+    </Container>
   );
 };
+
+const HomeComponents = ({ title, children }: { title: string; children: ReactNode }) => {
+  return (
+    <Fragment>
+      <Typography variant={"h3"} className={"title"}>
+        {title}
+      </Typography>
+
+      <SlickSlider variant="multiple" props={createSettingsSlide}>
+        {children}
+      </SlickSlider>
+    </Fragment>
+  );
+};
+
+const Container = styled(MuiContainer)(() => {
+  return {
+    ["& .title"]: {
+      marginLeft: 9.6,
+      marginBottom: 6,
+      marginTop: 24,
+    },
+  };
+});
 
 export default Home;

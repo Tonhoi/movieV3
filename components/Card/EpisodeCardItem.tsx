@@ -3,28 +3,39 @@ import CardItemBase from "./CardItemBase";
 import Image from "../Image";
 
 import cardImageDemo from "@/public/image/demoImageCard.jpg";
+import usePoster from "@/hooks/usePoster";
 
-const EpisodeCardItem = () => {
+interface EpisodeCardItemProps {
+  data: any;
+}
+
+const EpisodeCardItem = ({ data }: EpisodeCardItemProps) => {
+  const posterPath = usePoster(data?.still_path);
+  console.log(
+    "🚀 ~ file: EpisodeCardItem.tsx:14 ~ EpisodeCardItem ~ posterPath:",
+    posterPath
+  );
+
   return (
     <Container>
       <CardItemBase>
         <Box className={"card-image"}>
-          <Image src={cardImageDemo} />
+          <Image src={posterPath} alt={""} />
         </Box>
       </CardItemBase>
 
       <Stack className={"card-content"}>
         <Typography variant={"body2"} className={"card-title"}>
-          Episode 1
+          Episode {data.episode_number}
         </Typography>
         <Typography variant={"h5"} className={"card-subtitle"}>
-          Meet the Self-dependent Sahiba.
+          {data.name}
         </Typography>
         <Typography variant={"subtitle2"} className={"card-vote"}>
-          vote count: 0
+          vote count: {data.vote_count}
         </Typography>
         <Typography variant={"subtitle2"} className={"card-date"}>
-          2023-01-04
+          {data.air_date}
         </Typography>
       </Stack>
     </Container>

@@ -2,17 +2,29 @@ import { Box, Typography, styled } from "@mui/material";
 import { PlayIcon, CardItemBase } from "@/components";
 
 import cardImageDemo from "@/public/image/demoImageCard.jpg";
+import useThumbnail from "@/hooks/useThumbnail";
+import { memo } from "react";
 
-const CardItem2 = () => {
+import imageNotAvailable from "@/public/image/image_not_available.png";
+
+interface CardItem2Props {
+  data: any;
+}
+
+const CardItem2 = ({ data }: CardItem2Props) => {
+  const { still_path, name, episode_number } = data;
+
+  const stillPath = useThumbnail(still_path);
+
   return (
     <CardItemBase>
       <Container>
-        <StyledCardImage className="card-image">
+        <StyledCardImage className="card-image" stillPath={stillPath}>
           <PlayIcon className="play-icon" />
         </StyledCardImage>
 
         <Typography variant={"h5"} className="card-title">
-          Hi Producer! Episode 1
+          {name} Episode {episode_number}
         </Typography>
       </Container>
     </CardItemBase>
@@ -40,9 +52,11 @@ const Container = styled(Box)(({ theme }) => {
   };
 });
 
-const StyledCardImage = styled(Box)(() => {
+const StyledCardImage = styled(Box, {
+  shouldForwardProp: (propName) => propName !== "stillPath",
+})<{ stillPath: string }>(({ stillPath, theme }) => {
   return {
-    backgroundImage: `url(${cardImageDemo.src})`,
+    backgroundImage: `url(${stillPath}), url(${imageNotAvailable.src})`,
     aspectRatio: "300 / 170",
 
     borderRadius: "2px",
@@ -60,4 +74,4 @@ const StyledCardImage = styled(Box)(() => {
   };
 });
 
-export default CardItem2;
+export default memo(CardItem2);

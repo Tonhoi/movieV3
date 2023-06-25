@@ -14,7 +14,7 @@ const StarIcon = (props: SvgIconProps) => {
         <g
           id="4391-6_1920_info"
           transform="translate(-948.000000, -906.000000)"
-          fill="#1CC749"
+          fill="currentColor"
           fillRule="nonzero"
         >
           <g id="Group-10-Copy-10" transform="translate(906.000000, 880.000000)">

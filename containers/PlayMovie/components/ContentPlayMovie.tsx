@@ -1,9 +1,13 @@
+import { useMemo } from "react";
+import { Box, Typography, styled } from "@mui/material";
+
 import { CardItem } from "@/components";
 import InfoMovie from "@/components/InfoMovie";
 import ArrowLeft from "@/compositions/Slick/ArrowLeft";
 import ArrowRight from "@/compositions/Slick/ArrowRight";
 import SlickSlider from "@/compositions/Slick/SlickSlider";
-import { Box, Typography, styled } from "@mui/material";
+import { PopularMovie } from "@/interfaces";
+import { PlayMoviePageProps } from "../PlayMovie";
 
 const reponsiveSlider = [
   {
@@ -29,15 +33,28 @@ const reponsiveSlider = [
   },
 ];
 
-const ContentPlayMovie = () => {
+interface ContentPlayMovieProps {
+  data: PopularMovie[];
+  dataDetail: any;
+}
+
+const ContentPlayMovie = ({ data, dataDetail }: ContentPlayMovieProps) => {
+  const renderRecomendationsMovie = useMemo(() => {
+    if (typeof data == "undefined") return null;
+
+    return data.map((data: any, idx: number) => (
+      <CardItem animation key={idx} data={data} />
+    ));
+  }, [data]);
+
   return (
     <Container>
       <Typography variant={"h3"} className={"title"}>
-        Naruto
+        {dataDetail.title ?? data.original_title}
       </Typography>
 
       <Box className={"content"}>
-        <InfoMovie />
+        <InfoMovie data={dataDetail} />
 
         <Box className={"recommended-movie"}>
           <Typography variant={"h3"} className={"name"}>
@@ -55,11 +72,7 @@ const ContentPlayMovie = () => {
               responsive: reponsiveSlider,
             }}
           >
-            {Array(6)
-              .fill(null)
-              .map((el, idx: number) => (
-                <CardItem animation key={idx} />
-              ))}
+            {renderRecomendationsMovie}
           </SlickSlider>
         </Box>
       </Box>

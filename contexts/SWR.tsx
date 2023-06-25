@@ -18,7 +18,7 @@ const SWR = ({ children, fallback }: SWRProps) => {
         fetcher: async (resource) => {
           return axios
             .get(resource)
-            .then(async (res) => res.data)
+            .then(async (res) => res)
             .catch(async (err) => {
               throw err;
             });

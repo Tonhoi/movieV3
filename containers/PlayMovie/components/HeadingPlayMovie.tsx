@@ -1,18 +1,59 @@
 import { Box, Stack, Typography, styled } from "@mui/material";
 import { ChatIcon, HeartIcon, MenuIcon, SaveV2Icon, ShareIcon } from "@/components";
 
-import Embeded from "./Embeded";
 import { useToggle } from "@/hooks";
 import EpisodeCardItem from "@/components/Card/EpisodeCardItem";
 import MenuV2Icon from "@/components/Icons/MenuV2Icon";
+import Embeded from "@/components/Embeded";
+import { useParams } from "@/hooks/useParams";
+import { useEffect, useMemo } from "react";
 
-const HeadingPlayMovie = () => {
+interface HeadingPlayMovieProps {
+  episodes: any;
+}
+
+const HeadingPlayMovie = ({ episodes }: HeadingPlayMovieProps) => {
   const { on, toggleOff, toggleOn } = useToggle();
+
+  const { params, setParams, router, resetParams } = useParams({
+    initState: {
+      season: 1,
+      episode: 1,
+    },
+    excludeKeys: ["type", "id"],
+    isUpdateRouter: true,
+
+    callback(params) {
+      if (router.query.type == "movie") {
+        resetParams();
+      }
+    },
+  });
+
+  const renderEpisodes = useMemo(() => {
+    if (typeof episodes == "undefined") return null;
+
+    return episodes.map((data, idx: number) => <EpisodeCardItem key={idx} data={data} />);
+  }, [episodes]);
+
+  const renderEpisodes2 = useMemo(() => {
+    if (typeof episodes == "undefined") return null;
+
+    return episodes.map((data, idx: number) => (
+      <Stack className={"episode"} key={idx}>
+        <Typography variant={"body2"}>{idx + 1}</Typography>
+      </Stack>
+    ));
+  }, [episodes]);
 
   return (
     <Container>
       <Box width={"100%"}>
-        <Embeded />
+        <Box className={"embeded-wrapper"}>
+          <Embeded
+            src={`https://autoembed.to/${router.query.type}/tmdb/${router.query.id}-${params?.season}-${params?.episode}`}
+          />
+        </Box>
 
         <Stack className={"menu-options"}>
           <Stack className={"menu-options-item"}>
@@ -44,19 +85,7 @@ const HeadingPlayMovie = () => {
           {on ? <MenuIcon onClick={toggleOff} /> : <MenuV2Icon onClick={toggleOn} />}
         </Stack>
 
-        <Stack className={"play-content"}>
-          {on
-            ? Array(20)
-                .fill(null)
-                .map((el, idx: number) => (
-                  <Stack className={"episode"}>
-                    <Typography variant={"body2"}>{idx + 1}</Typography>
-                  </Stack>
-                ))
-            : Array(20)
-                .fill(null)
-                .map((el, idx: number) => <EpisodeCardItem key={idx} />)}
-        </Stack>
+        <Stack className={"play-content"}>{on ? renderEpisodes2 : renderEpisodes}</Stack>
       </Box>
     </Container>
   );
@@ -73,6 +102,11 @@ const Container = styled(Stack)(({ theme }) => {
     [theme.breakpoints.down("md")]: {
       flexDirection: "column",
       maxHeight: "100%",
+    },
+
+    ["& .embeded-wrapper"]: {
+      position: "relative",
+      height: 400,
     },
 
     ["& .menu-options"]: {

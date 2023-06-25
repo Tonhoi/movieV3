@@ -107,6 +107,7 @@ export const useParams = (props: UseParamsProps) => {
   }, []);
 
   return {
+    router,
     params,
     setParams: setParamsHandler,
     resetParams,

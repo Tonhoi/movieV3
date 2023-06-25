@@ -1,21 +1,57 @@
 import { styled, Box, Typography, Stack, Button } from "@mui/material";
 
-import { Image, Overlay, TvIcon, PlayV2Icon, SaveV2Icon } from "@/components";
+import { Image, Overlay, TvIcon, PlayV2Icon, SaveV2Icon, Link } from "@/components";
+import usePoster from "@/hooks/usePoster";
+import useThumbnail from "@/hooks/useThumbnail";
+import { useMemo } from "react";
+import { Credit } from "@/interfaces/responseSchema/credits";
+import { DetailMovie } from "@/interfaces/responseSchema/DetailMovie";
+import { useRouter } from "next/router";
 
-const loader = ({ src }: any) => {
-  return src;
-};
+interface HeadingDetailMovieProps {
+  dataDetailMovie: DetailMovie;
+  dataCreditMovie: Credit;
+  handleOpenTrailerMovie: () => void;
+}
 
-const HeadingDetailMovie = () => {
+const HeadingDetailMovie = (props: HeadingDetailMovieProps) => {
+  const { dataDetailMovie, dataCreditMovie, handleOpenTrailerMovie } = props;
+
+  const { query } = useRouter();
+
+  const poster = usePoster(dataDetailMovie?.poster_path);
+  const thumbnail = useThumbnail(dataDetailMovie?.backdrop_path);
+
+  const renderGenreMovie = useMemo(() => {
+    if (typeof dataDetailMovie?.genres == "undefined") return null;
+
+    return dataDetailMovie?.genres.map((data, idx: number) => {
+      return (
+        <Typography variant={"body1"} className="genre" key={idx}>
+          {data.name}
+        </Typography>
+      );
+    });
+  }, [dataDetailMovie]);
+
+  const renderCastMovie = useMemo(() => {
+    if (typeof dataCreditMovie?.cast == "undefined") return null;
+
+    return dataCreditMovie.cast.map((data, idx: number) => (
+      <Typography variant={"body1"} className="artist" key={idx}>
+        {data.name}
+      </Typography>
+    ));
+  }, [dataCreditMovie]);
+
   return (
-    <Container className={"thumbnail"}>
+    <Container className={"thumbnail"} thumbnail={thumbnail}>
       <Overlay className={"overlay active"} />
 
       <StyledContent className={"content"}>
         <Box className={"poster"}>
           <Image
-            loader={loader}
-            src={"https://image.tmdb.org/t/p/w500/sv9rRFekgw3sz0Ce7pkFqwThAf0.jpg"}
+            src={poster}
             style={{
               objectFit: "cover",
             }}
@@ -24,36 +60,29 @@ const HeadingDetailMovie = () => {
 
         <Stack gap={"20px"}>
           <Typography className={"title"} variant={"subtitle5"}>
-            Quái vật đen
+            {dataDetailMovie?.title ??
+              dataDetailMovie?.original_title ??
+              dataDetailMovie?.name}
           </Typography>
 
           <Typography className={"description"} variant={"body1"}>
-            Quái Vật Đen xoay quanh câu chuyện khi kỳ nghỉ bình dị của gia đình Oilman
-            Paul Sturges biến thành cơn ác mộng. Bởi họ đã gặp phải một con cá mập
-            Megalodon hung dữ, không từ bất kỳ khoảnh khắc nào để bảo vệ lãnh thổ của
-            mình. Bị mắc kẹt và tấn công liên tục, Paul và gia đình của mình phải tìm cách
-            để an toàn sống sót trở về bờ trước khi con cá mập khát máu này tấn công lần
-            nữa.
+            {dataDetailMovie?.overview}
           </Typography>
 
           <Stack className="artist-list">
             Cast:
-            <Typography variant={"body1"} className="artist">
-              Omar Patin
-            </Typography>
+            {renderCastMovie}
           </Stack>
 
-          <Stack className={"genre-list"}>
-            <Typography variant={"body1"} className="genre">
-              Phim Kinh Dị
-            </Typography>
-          </Stack>
+          <Stack className={"genre-list"}>{renderGenreMovie}</Stack>
 
           <Box className={"btn-wrapper"}>
             <Button
               variant={"contained"}
               className="btn btn-play"
               startIcon={<PlayV2Icon />}
+              LinkComponent={Link}
+              href={`/play/${query.type}/${query.id}`}
             >
               <Typography variant={"h5"}>Play</Typography>
             </Button>
@@ -61,6 +90,7 @@ const HeadingDetailMovie = () => {
               variant={"contained"}
               className="btn btn-trailer"
               startIcon={<TvIcon />}
+              onClick={handleOpenTrailerMovie}
             >
               <Typography variant={"h5"}>Watch Trailer</Typography>
             </Button>
@@ -75,15 +105,16 @@ const HeadingDetailMovie = () => {
   );
 };
 
-const Container = styled(Box)(() => {
+const Container = styled(Box, {
+  shouldForwardProp: (propName) => propName !== "thumbnail",
+})<{ thumbnail: string }>(({ thumbnail }) => {
   return {
     position: "relative",
     width: "100%",
     maxHeight: "100vh",
     aspectRatio: "1 / 1",
 
-    backgroundImage:
-      "url(https://image.tmdb.org/t/p/original//9t0tJXcOdWwwxmGTk112HGDaT0Q.jpg)",
+    backgroundImage: `url(${thumbnail})`,
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center center",
@@ -158,7 +189,6 @@ const StyledContent = styled(Stack)(({ theme }) => {
           transition: "all linear 0.2s",
         },
       },
-
       ["& .artist"]: {
         cursor: "pointer",
         width: "fit-content",
@@ -167,6 +197,38 @@ const StyledContent = styled(Stack)(({ theme }) => {
           textDecoration: "underline",
           color: "rgb(0, 194, 52)",
           transition: "color linear 0.2s",
+        },
+      },
+
+      ["&.artist-list"]: {
+        overflowY: "scroll",
+        maxHeight: 140,
+
+        ["::-webkit-scrollbar"]: {
+          width: 5,
+        },
+
+        /* Track */
+        ["::-webkit-scrollbar-track"]: {
+          backgroundColor: "#fafafa",
+          // display: "none",
+          visibility: "hidden",
+        },
+
+        /* Handle */
+        ["::-webkit-scrollbar-thumb"]: {
+          backgroundImage: "linear-gradient(-45deg, #6a5af9, #d66efd)",
+          borderRadius: 50,
+          // display: "none",
+          visibility: "hidden",
+        },
+
+        ["&:hover "]: {
+          ["::-webkit-scrollbar-track, ::-webkit-scrollbar-thumb"]: {
+            // display: "block",
+            visibility: "visible",
+            transition: "all linear 0.2s",
+          },
         },
       },
     },

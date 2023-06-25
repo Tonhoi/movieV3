@@ -3,21 +3,15 @@ import { Box, Button, Stack, Typography, styled } from "@mui/material";
 import ArrowRightIcon from "@/components/Icons/ArrowRightIcon";
 import Image from "@/components/Image";
 
-const loader = ({ src }: any) => {
-  return src;
-};
+interface HeadingCastCardItemProps {
+  profile_path: string;
+}
 
-const HeadingCastCardItem = () => {
+const HeadingCastCardItem = ({ profile_path }: HeadingCastCardItemProps) => {
   return (
     <Container>
       <StyledImageWrapper>
-        <Image
-          loader={loader}
-          src={
-            "https://pic4.iqiyipic.com/image/20230201/b3/ab/p_5318277_m_601_300_300.jpg"
-          }
-          alt=""
-        />
+        <Image src={profile_path} alt="" />
       </StyledImageWrapper>
 
       <StyledContentWrapper>

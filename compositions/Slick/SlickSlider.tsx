@@ -23,7 +23,7 @@ const createSettings = (variant: string) => {
       dots: false,
       infinite: true,
       speed: 500,
-      slidesToShow: 3,
+      slidesToShow: 4,
       slidesToScroll: 1,
       arrows: false,
       autoplay: true,
@@ -31,7 +31,7 @@ const createSettings = (variant: string) => {
         {
           breakpoint: 900,
           settings: {
-            slidesToShow: 2,
+            slidesToShow: 4,
             slidesToScroll: 1,
           },
         },
@@ -39,7 +39,7 @@ const createSettings = (variant: string) => {
         {
           breakpoint: 650,
           settings: {
-            slidesToShow: 2,
+            slidesToShow: 3,
             slidesToScroll: 1,
           },
         },
@@ -57,7 +57,7 @@ const createSettings = (variant: string) => {
           settings: {
             dots: false,
             arrows: false,
-            slidesToShow: 1,
+            slidesToShow: 2,
             slidesToScroll: 1,
           },
         },

@@ -5,6 +5,8 @@ import CardItemBase from "./CardItemBase";
 import { TrendingMovie } from "@/interfaces/responseSchema/trendingMovie";
 import Link from "../Link";
 import { useEffect } from "react";
+import { useRouter } from "next/router";
+import { UpComingMovie } from "@/interfaces/responseSchema/upComingMovie";
 
 interface TopTrendingCarditemprops {
   data: TrendingMovie;
@@ -22,8 +24,10 @@ const TopTrendingCarditem = ({ data, idx }: TopTrendingCarditemprops) => {
     original_name,
   } = data;
 
+  const router = useRouter();
+
   return (
-    <Container href={`/detail/${id}`}>
+    <Container onClick={() => router.push(`/detail/${!!title ? "movie" : "tv"}/${id}`)}>
       <CardItemBase>
         <StyledCardImage
           poster_path={poster_path}
@@ -51,9 +55,8 @@ const TopTrendingCarditem = ({ data, idx }: TopTrendingCarditemprops) => {
   );
 };
 
-const Container = styled(Link)(() => {
+const Container = styled(Box)(() => {
   return {
-    display: "block",
     borderRadius: "4px",
     overflow: "hidden",
   };
@@ -61,7 +64,7 @@ const Container = styled(Link)(() => {
 
 const StyledCardImage = styled(Box, {
   shouldForwardProp: (propName) => propName !== "poster_path",
-})<any>(({ theme, poster_path }) => {
+})<{ poster_path: string }>(({ theme, poster_path }) => {
   return {
     backgroundImage: `url(https://image.tmdb.org/t/p/w300${poster_path})`,
     aspectRatio: "180 / 240",

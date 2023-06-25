@@ -8,22 +8,22 @@ export default function home(props: HomePageProps) {
 
 export const getStaticProps: GetStaticProps = async () => {
   try {
-    const resPopularMovie = await axios.get("/movie/popular");
-    const resPopularTv = await axios.get("/tv/popular");
     const resTrendingMovie = await axios.get("/trending/all/day");
     const resTopRateTv = await axios.get("/tv/top_rated");
     const resTopRateMovie = await axios.get("/movie/top_rated");
     const resUpcoming = await axios.get("/movie/upcoming");
+    const resAiringToday = await axios.get("/tv/airing_today");
+    const resNowPlaying = await axios.get("/movie/now_playing");
 
     return {
       props: {
         initData: [
-          resPopularMovie,
-          resPopularTv,
           resTrendingMovie,
           resTopRateTv,
           resTopRateMovie,
           resUpcoming,
+          resAiringToday,
+          resNowPlaying,
         ],
         fallback: true,
       },
