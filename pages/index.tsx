@@ -1,5 +1,6 @@
-import { GetStaticProps, InferGetStaticPropsType } from "next";
+import { GetStaticProps } from "next";
 import axios from "@/axios.config";
+
 import Home, { HomePageProps } from "@/containers/Home";
 
 export default function home(props: HomePageProps) {
@@ -9,20 +10,18 @@ export default function home(props: HomePageProps) {
 export const getStaticProps: GetStaticProps = async () => {
   try {
     const resTrendingMovie = await axios.get("/trending/all/day");
-    const resTopRateTv = await axios.get("/tv/top_rated");
-    const resTopRateMovie = await axios.get("/movie/top_rated");
     const resUpcoming = await axios.get("/movie/upcoming");
     const resAiringToday = await axios.get("/tv/airing_today");
+    const resTrendingPerson = await axios.get("/trending/person/day");
     const resNowPlaying = await axios.get("/movie/now_playing");
 
     return {
       props: {
         initData: [
           resTrendingMovie,
-          resTopRateTv,
-          resTopRateMovie,
           resUpcoming,
           resAiringToday,
+          resTrendingPerson,
           resNowPlaying,
         ],
         fallback: true,

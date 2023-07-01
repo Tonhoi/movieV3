@@ -40,9 +40,14 @@ const BodyDetailMovie = ({ dataCreditMovie, dataDetailMovie }: BodyDetailMoviePr
   });
 
   const { data } = useSWR(
-    transformUrl(`/tv/${dataDetailMovie?.id}/season/${selectedOptions?.season_number}`, {
-      language: "en-US",
-    })
+    typeof dataDetailMovie?.id !== "undefined"
+      ? transformUrl(
+          `/tv/${dataDetailMovie.id}/season/${selectedOptions?.season_number}`,
+          {
+            language: "en-US",
+          }
+        )
+      : null
   );
 
   const renderCastCardItem = useMemo(() => {
@@ -59,7 +64,7 @@ const BodyDetailMovie = ({ dataCreditMovie, dataDetailMovie }: BodyDetailMoviePr
     if (typeof data == "undefined") return null;
 
     return data.episodes.map((data: any, idx: number) => (
-      <Grid item lg={3} md={3} key={idx}>
+      <Grid item lg={3} md={3} sm={4} xs={6} key={idx}>
         <CardItem2 data={data} />
       </Grid>
     ));

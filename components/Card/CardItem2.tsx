@@ -1,9 +1,8 @@
 import { Box, Typography, styled } from "@mui/material";
-import { PlayIcon, CardItemBase } from "@/components";
-
-import cardImageDemo from "@/public/image/demoImageCard.jpg";
-import useThumbnail from "@/hooks/useThumbnail";
 import { memo } from "react";
+
+import { PlayIcon, CardItemBase } from "@/components";
+import useThumbnail from "@/hooks/useThumbnail";
 
 import imageNotAvailable from "@/public/image/image_not_available.png";
 
@@ -34,13 +33,9 @@ const CardItem2 = ({ data }: CardItem2Props) => {
 const Container = styled(Box)(({ theme }) => {
   return {
     width: "100%",
-    transform: "scale(1)",
     cursor: "pointer",
-    transition: "transform linear 0.2s",
 
     ["&:hover"]: {
-      transform: "scale(1.05)",
-
       ["& .play-icon"]: {
         display: "block",
       },

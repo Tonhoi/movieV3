@@ -4,13 +4,14 @@ import { CardItemBase, PlayIcon } from "@/components";
 import { PopularMovie } from "@/interfaces/responseSchema/popularMovie";
 import usePoster from "@/hooks/usePoster";
 import { useRouter } from "next/router";
+import { AiringToday } from "@/interfaces/responseSchema/airingToday";
 
 interface CardItem3Props extends BoxProps {
-  data: PopularMovie;
+  data: any;
 }
 
 const CardItem3 = ({ data, ...restProps }: CardItem3Props) => {
-  const { poster_path, title, vote_count, id } = data;
+  const { poster_path, title, popularity, id, original_name, name } = data;
   const router = useRouter();
   const poster = usePoster(poster_path);
 
@@ -26,10 +27,10 @@ const CardItem3 = ({ data, ...restProps }: CardItem3Props) => {
 
           <Stack className="card-content">
             <Typography variant={"subtitle1"} className="title">
-              {title}
+              {title ?? original_name ?? name}
             </Typography>
             <Typography variant={"subtitle2"} className={"subtitle"}>
-              {vote_count} Viewer
+              {popularity} Viewer
             </Typography>
           </Stack>
         </Box>
@@ -48,11 +49,7 @@ const Container = styled(Box, {
 
       backgroundImage: `url(${poster_path})`,
 
-      transform: "scale(1)",
-      transition: "all linear 0.2s",
-
       [":hover"]: {
-        transform: "scale(1.05)",
         filter: "contrast(0.9)",
 
         ["& .play-icon"]: {
@@ -84,6 +81,13 @@ const Container = styled(Box, {
 
         backgroundImage:
           "linear-gradient(transparent, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9))",
+
+        ["& .title"]: {
+          display: "-webkit-box",
+          WebkitLineClamp: 1,
+          WebkitBoxOrient: "vertical",
+          overflow: "hidden",
+        },
       },
     },
   };

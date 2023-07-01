@@ -49,18 +49,27 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }: any) {
-  const { type, id } = params;
-  const resRecomendations = await axios.get(`/movie/${id}/recommendations`, {
-    params: {
-      language: "en-US",
-      page: "1",
-    },
-  });
-  const resDetailMovie = await axios.get(`/${type}/${id}?language=en-US`);
+  try {
+    const { type, id } = params;
+    const resRecomendations = await axios.get(`/movie/${id}/recommendations`, {
+      params: {
+        language: "en-US",
+        page: "1",
+      },
+    });
+    const resDetailMovie = await axios.get(`/${type}/${id}?language=en-US`);
 
-  return {
-    props: { initData: [resRecomendations, resDetailMovie] },
-  };
+    return {
+      props: { initData: [resRecomendations, resDetailMovie], fallback: true },
+    };
+  } catch (error) {
+    return {
+      redirect: {
+        destination: "/404",
+        permanent: false,
+      },
+    };
+  }
 }
 
 export default index;

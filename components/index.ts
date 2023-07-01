@@ -35,7 +35,6 @@ export { default as CardItemBase } from "./Card/CardItemBase";
 export { default as CardItem } from "./Card/CardItem";
 export { default as CardItem2 } from "./Card/CardItem2";
 export { default as CardItem3 } from "./Card/CardItem3";
-export { default as DetailCardItem } from "./Card/DetailCardItem";
 export { default as TopTrendingCarditem } from "./Card/TopTrendingCarditem";
 export { default as CastCardItem } from "./Card/CastCardItem/CastCardItem";
 

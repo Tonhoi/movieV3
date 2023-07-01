@@ -24,7 +24,6 @@ const PlayMovie = ({ initData }: PlayMoviePageProps) => {
   const { data } = useSWR(
     `/${router.query.type}/${router.query.id}/season/${router.query.season}?language=en-US`
   );
-  console.log("🚀 ~ file: PlayMovie.tsx:25 ~ PlayMovie ~ data:", data);
 
   if (router.isFallback) {
     return <CircularProgress />;

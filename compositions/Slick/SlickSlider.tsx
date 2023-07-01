@@ -3,6 +3,7 @@ import { Box, styled, BoxProps } from "@mui/material";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { memo } from "react";
 
 interface StyledWrapperProps extends BoxProps {
   variant: string;
@@ -27,6 +28,7 @@ const createSettings = (variant: string) => {
       slidesToScroll: 1,
       arrows: false,
       autoplay: true,
+
       responsive: [
         {
           breakpoint: 900,
@@ -66,7 +68,7 @@ const createSettings = (variant: string) => {
   }
 };
 
-export default function SlickSlider({
+const SlickSlider = ({
   children,
   props,
   variant = "simple",
@@ -78,7 +80,7 @@ export default function SlickSlider({
   variant?: "simple" | "multiple";
   refSlick?: any;
   asNavFor?: any;
-}) {
+}) => {
   return (
     <StyledWrapper variant={variant}>
       <Slider {...createSettings(variant)} ref={refSlick} asNavFor={asNavFor} {...props}>
@@ -86,7 +88,7 @@ export default function SlickSlider({
       </Slider>
     </StyledWrapper>
   );
-}
+};
 
 const StyledWrapper = styled(Box, {
   shouldForwardProp: (propName) => {
@@ -198,3 +200,5 @@ const StyledWrapper = styled(Box, {
     },
   };
 });
+
+export default memo(SlickSlider);

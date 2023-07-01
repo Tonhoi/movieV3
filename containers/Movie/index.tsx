@@ -1,5 +1,12 @@
-import { useCallback, useMemo } from "react";
-import { Box, Grid, styled, Container as MuiContainer } from "@mui/material";
+import { useCallback, useMemo, useState } from "react";
+import {
+  Box,
+  Grid,
+  styled,
+  Container as MuiContainer,
+  Typography,
+  Stack,
+} from "@mui/material";
 import useSWR from "swr";
 import { get } from "lodash";
 
@@ -7,31 +14,49 @@ import { CardItem } from "@/components";
 import { IPage, UpComingMovie, responseSchema } from "@/interfaces";
 import { useParams } from "@/hooks/useParams";
 import Pagination from "@/components/Pagination";
-import { PAGES_API, TYPE_PARAMS } from "@/apis";
+import { TYPE_PARAMS } from "@/apis";
 import { transformUrl } from "@/libs";
 
-export type MoviePageProps = IPage<[responseSchema<UpComingMovie>]>;
+export type MoviePageProps = IPage<[responseSchema<UpComingMovie>, responseSchema<any>]>;
 
 const Movie = ({ initData }: MoviePageProps) => {
   const dataDiscoverMovie = get(initData, "0");
+  const dataGenres = get(initData[1], "genres");
+
+  const [genresId, setGenresId] = useState<any>(dataGenres && dataGenres[0].id);
 
   const { total_pages, page } = dataDiscoverMovie;
 
   const { params, setParams } = useParams({
     initState: {
       page,
+      ["release_date.gte"]: "",
+      ["release_date.lte"]: "",
+      ["vote_average.gte"]: "",
+      ["vote_average.lte"]: "",
+      ["with_genres"]: dataGenres && dataGenres[0].id,
+      ["with_original_language"]: "",
     },
   });
 
+  // release_date.gte=2002-03-09&release_date.lte=2023-07-01&vote_average.gte=0&vote_average.lte=10&with_genres=10759&with_original_language=en
+
   const { data, isLoading } = useSWR(
     transformUrl(TYPE_PARAMS["discover_movie"], {
-      include_adult: false,
-      include_video: false,
-      language: "en-US",
+      language: "vi-VN",
+      // ["sort_by"]: "popularity.desc",
       page: params.page,
-      sort_by: "popularity.desc",
+      ["release_date.gte"]: "2002-03-09",
+      ["release_date.lte"]: "2023-07-01",
+      ["vote_average.gte"]: 0,
+      ["vote_average.lte"]: 10,
+      ["with_genres"]: 12,
+      ["with_original_language"]: "en",
+      // include_adult: false,
+      // include_video: false,
     })
   );
+  console.log(data);
 
   const renderMovie = useMemo(() => {
     if (typeof data == "undefined") return null;
@@ -42,6 +67,24 @@ const Movie = ({ initData }: MoviePageProps) => {
       </Grid>
     ));
   }, [data]);
+
+  const renderGenres = useMemo(() => {
+    if (typeof dataGenres == "undefined") return null;
+    return dataGenres.map((data, idx: number) => (
+      <Typography
+        variant="subtitle2"
+        className={"title-filter"}
+        key={idx}
+        onClick={() =>
+          setParams({
+            ["with_genres"]: data.id,
+          })
+        }
+      >
+        {data.name}
+      </Typography>
+    ));
+  }, [dataGenres]);
 
   const handlePagination = useCallback(
     (event: React.ChangeEvent<unknown>, page: number) => {
@@ -55,6 +98,10 @@ const Movie = ({ initData }: MoviePageProps) => {
   return (
     <MuiContainer>
       <Container>
+        <Stack direction={"row"} alignItems={"center"} gap={2} flexWrap={"wrap"}>
+          {renderGenres}
+        </Stack>
+
         <Grid container columns={15} spacing={3}>
           {renderMovie}
         </Grid>
@@ -72,6 +119,22 @@ const Movie = ({ initData }: MoviePageProps) => {
 const Container = styled(Box)(({ theme }) => {
   return {
     marginTop: theme.spacing(10),
+
+    ["& .title-filter"]: {
+      cursor: "pointer",
+      padding: "9px 8px",
+      backgroundColor: "#EF4444",
+      color: theme.palette.common.white,
+      borderRadius: "4px",
+      width: "100%",
+      maxWidth: 90,
+      textAlign: "center",
+
+      ["&:hover"]: {
+        opacity: 0.8,
+        transition: "opacity linear 0.2s",
+      },
+    },
   };
 });
 

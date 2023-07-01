@@ -21,9 +21,15 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
       },
     });
 
+    const resGenres = await axios.get("/genre/tv/list", {
+      params: {
+        language: "vi",
+      },
+    });
+
     return {
       props: {
-        initData: [resDiscoverMovie],
+        initData: [resDiscoverMovie, resGenres],
         fallback: {
           [`/discover/movie?include_adult=false&include_video=false&language=en-US&page=${serverRouter}&sort_by=popularity.desc`]:
             resDiscoverMovie,

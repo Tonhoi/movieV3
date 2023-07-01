@@ -1,12 +1,12 @@
 import { Box, Stack, Typography, styled } from "@mui/material";
-import { ChatIcon, HeartIcon, MenuIcon, SaveV2Icon, ShareIcon } from "@/components";
+import { useMemo } from "react";
 
+import { ChatIcon, HeartIcon, MenuIcon, SaveV2Icon, ShareIcon } from "@/components";
 import { useToggle } from "@/hooks";
 import EpisodeCardItem from "@/components/Card/EpisodeCardItem";
 import MenuV2Icon from "@/components/Icons/MenuV2Icon";
 import Embeded from "@/components/Embeded";
 import { useParams } from "@/hooks/useParams";
-import { useEffect, useMemo } from "react";
 
 interface HeadingPlayMovieProps {
   episodes: any;
@@ -33,13 +33,15 @@ const HeadingPlayMovie = ({ episodes }: HeadingPlayMovieProps) => {
   const renderEpisodes = useMemo(() => {
     if (typeof episodes == "undefined") return null;
 
-    return episodes.map((data, idx: number) => <EpisodeCardItem key={idx} data={data} />);
+    return episodes.map((data: any, idx: number) => (
+      <EpisodeCardItem key={idx} data={data} />
+    ));
   }, [episodes]);
 
   const renderEpisodes2 = useMemo(() => {
     if (typeof episodes == "undefined") return null;
 
-    return episodes.map((data, idx: number) => (
+    return episodes.map((data: any, idx: number) => (
       <Stack className={"episode"} key={idx}>
         <Typography variant={"body2"}>{idx + 1}</Typography>
       </Stack>
@@ -85,7 +87,9 @@ const HeadingPlayMovie = ({ episodes }: HeadingPlayMovieProps) => {
           {on ? <MenuIcon onClick={toggleOff} /> : <MenuV2Icon onClick={toggleOn} />}
         </Stack>
 
-        <Stack className={"play-content"}>{on ? renderEpisodes2 : renderEpisodes}</Stack>
+        <Stack className={"play-content custom-scroll"}>
+          {on ? renderEpisodes2 : renderEpisodes}
+        </Stack>
       </Box>
     </Container>
   );
@@ -164,29 +168,6 @@ const Container = styled(Stack)(({ theme }) => {
         maxHeight: "100%",
 
         overflow: "overlay",
-
-        ["&::-webkit-scrollbar"]: {
-          width: 5,
-        },
-
-        ["&::-webkit-scrollbar-track"]: {
-          backgroundColor: "#fafafa",
-          visibility: "hidden",
-          transition: "all linear 0.2s",
-        },
-
-        ["&::-webkit-scrollbar-thumb"]: {
-          backgroundImage: "linear-gradient(-45deg, #6a5af9, #d66efd)",
-          borderRadius: 50,
-          visibility: "hidden",
-        },
-
-        ["&:hover"]: {
-          ["&::-webkit-scrollbar-thumb, &::-webkit-scrollbar-track"]: {
-            visibility: "visible",
-            transition: "visibility linear 0.2s",
-          },
-        },
       },
 
       ["& .episode"]: {

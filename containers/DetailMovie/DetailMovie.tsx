@@ -20,7 +20,8 @@ const DetailMovie = ({ initData }: DetailPageProps) => {
     toggleOff: handleCloseTrailerMovie,
     toggleOn: handleOpenTrailerMovie,
   } = useToggle();
-
+  
+  
   const dataDetailMovie = get(initData, "0");
   const dataCreditMovie = get(initData, "1");
 

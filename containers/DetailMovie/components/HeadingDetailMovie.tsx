@@ -69,7 +69,7 @@ const HeadingDetailMovie = (props: HeadingDetailMovieProps) => {
             {dataDetailMovie?.overview}
           </Typography>
 
-          <Stack className="artist-list">
+          <Stack className="artist-list custom-scroll">
             Cast:
             {renderCastMovie}
           </Stack>
@@ -203,33 +203,6 @@ const StyledContent = styled(Stack)(({ theme }) => {
       ["&.artist-list"]: {
         overflowY: "scroll",
         maxHeight: 140,
-
-        ["::-webkit-scrollbar"]: {
-          width: 5,
-        },
-
-        /* Track */
-        ["::-webkit-scrollbar-track"]: {
-          backgroundColor: "#fafafa",
-          // display: "none",
-          visibility: "hidden",
-        },
-
-        /* Handle */
-        ["::-webkit-scrollbar-thumb"]: {
-          backgroundImage: "linear-gradient(-45deg, #6a5af9, #d66efd)",
-          borderRadius: 50,
-          // display: "none",
-          visibility: "hidden",
-        },
-
-        ["&:hover "]: {
-          ["::-webkit-scrollbar-track, ::-webkit-scrollbar-thumb"]: {
-            // display: "block",
-            visibility: "visible",
-            transition: "all linear 0.2s",
-          },
-        },
       },
     },
 

@@ -1,12 +1,9 @@
-import { Box, BoxProps, Stack, Typography, styled } from "@mui/material";
-
-import CardItemBase from "./CardItemBase";
-import PlayIcon from "../Icons/PlayIcon";
-import SaveIcon from "../Icons/SaveIcon";
-import StarIcon from "../Icons/StarIcon";
-import usePoster from "@/hooks/usePoster";
-import { useRouter } from "next/router";
 import { memo } from "react";
+import { Box, BoxProps, Stack, Typography, styled } from "@mui/material";
+import { useRouter } from "next/router";
+
+import { PlayIcon, SaveIcon, StarIcon, CardItemBase } from "@/components";
+import usePoster from "@/hooks/usePoster";
 
 interface CardItemProps extends BoxProps {
   animation?: boolean;
@@ -49,11 +46,13 @@ const CardItem = ({ animation = false, data, ...resProps }: CardItemProps) => {
 const Container = styled(Box)(({ theme }) => {
   return {
     position: "relative",
-    transform: "scale(1)",
-    transition: "transform linear 0.2s",
 
     ["& .card-title"]: {
       marginTop: theme.spacing(1),
+      display: "-webkit-box",
+      WebkitLineClamp: 2,
+      WebkitBoxOrient: "vertical",
+      overflow: "hidden",
     },
 
     ["&:hover"]: {
@@ -63,10 +62,6 @@ const Container = styled(Box)(({ theme }) => {
 
       ["& .icon.active"]: {
         display: "block",
-      },
-
-      ["&.active"]: {
-        transform: "scale(1.05)",
       },
     },
   };

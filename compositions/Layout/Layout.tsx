@@ -4,8 +4,8 @@ import { useRouter } from "next/router";
 
 import Login from "@/containers/Login/Login";
 import { Header, Footer, Slider } from "@/compositions";
-import PlayMovie from "@/containers/PlayMovie/PlayMovie";
 import LoadingScreen from "../LoadingScreen";
+import ErrorPage from "@/pages/404";
 
 interface layoutProps {
   children: ReactNode;
@@ -17,6 +17,7 @@ const Layout = (props: layoutProps) => {
   const [fadeOut, setFadeOut] = useState(false);
 
   if (asPath === "/login") return <Login />;
+  if (asPath === "/404") return <ErrorPage />;
 
   const isSLider = asPath.startsWith("/detail") || asPath.startsWith("/play");
 
@@ -25,6 +26,7 @@ const Layout = (props: layoutProps) => {
       setFadeOut(true);
       document.body.style.overflow = "unset";
     }, 2000);
+
     return () => {
       clearTimeout(timer);
     };

@@ -11,16 +11,12 @@ interface EpisodeCardItemProps {
 
 const EpisodeCardItem = ({ data }: EpisodeCardItemProps) => {
   const posterPath = usePoster(data?.still_path);
-  console.log(
-    "🚀 ~ file: EpisodeCardItem.tsx:14 ~ EpisodeCardItem ~ posterPath:",
-    posterPath
-  );
 
   return (
     <Container>
       <CardItemBase>
         <Box className={"card-image"}>
-          <Image src={posterPath} alt={""} />
+          <Image src={posterPath} alt={""} loading="lazy" />
         </Box>
       </CardItemBase>
 
@@ -42,11 +38,15 @@ const EpisodeCardItem = ({ data }: EpisodeCardItemProps) => {
   );
 };
 
-const Container = styled(Stack)(() => {
+const Container = styled(Stack)(({ theme }) => {
   return {
     flexDirection: "row",
     gap: "12px",
     cursor: "pointer",
+
+    [theme.breakpoints.down("md")]: {
+      minWidth: 370,
+    },
 
     ["&:hover"]: {
       opacity: 0.9,
