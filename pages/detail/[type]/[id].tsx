@@ -7,8 +7,9 @@ const index = (props: DetailPageProps) => {
   return <DetailMovie {...props} />;
 };
 
-export async function getStaticPaths() {
+export async function getStaticPaths(context: any) {
   const paths: any = [];
+
   try {
     const detailTv: ResponseData = await axios.get(TYPE_PARAMS["discover_tv"], {
       params: {
@@ -51,11 +52,17 @@ export async function getStaticProps({ params }: any) {
   try {
     const { type, id } = params;
     const resDetailMovie = await axios.get(`/${type}/${id}?language=en-US`);
-
     const resCredit = await axios.get(`/${type}/${id}/credits`);
+    const resReviews = await axios.get(`/${type}/${id}/reviews?language=en-US&page=1`);
+    const resRecommendations = await axios.get(
+      `/${type}/${id}/recommendations?language=en-US&page=1`
+    );
 
     return {
-      props: { initData: [resDetailMovie, resCredit], fallback: true },
+      props: {
+        initData: [resDetailMovie, resCredit, resReviews, resRecommendations],
+        fallback: true,
+      },
     };
   } catch (error) {
     return {

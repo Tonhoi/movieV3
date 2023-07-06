@@ -6,6 +6,7 @@ import Login from "@/containers/Login/Login";
 import { Header, Footer, Slider } from "@/compositions";
 import LoadingScreen from "../LoadingScreen";
 import ErrorPage from "@/pages/404";
+import Search from "@/containers/Search/Search";
 
 interface layoutProps {
   children: ReactNode;
@@ -15,11 +16,6 @@ const Layout = (props: layoutProps) => {
   const { children } = props;
   const { asPath } = useRouter();
   const [fadeOut, setFadeOut] = useState(false);
-
-  if (asPath === "/login") return <Login />;
-  if (asPath === "/404") return <ErrorPage />;
-
-  const isSLider = asPath.startsWith("/detail") || asPath.startsWith("/play");
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -31,6 +27,14 @@ const Layout = (props: layoutProps) => {
       clearTimeout(timer);
     };
   }, []);
+
+  if (asPath === "/login") return <Login />;
+  if (asPath === "/404") return <ErrorPage />;
+
+  const isSLider =
+    asPath.startsWith("/detail") ||
+    asPath.startsWith("/play") ||
+    asPath.startsWith("/search");
 
   return (
     <Fragment>

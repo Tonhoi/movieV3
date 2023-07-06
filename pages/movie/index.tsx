@@ -21,7 +21,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
       },
     });
 
-    const resGenres = await axios.get("/genre/tv/list", {
+    const resGenres = await axios.get("/genre/movie/list", {
       params: {
         language: "vi",
       },

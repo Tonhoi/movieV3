@@ -1,12 +1,12 @@
 import { styled, Box, Typography, Stack, Button } from "@mui/material";
+import { useMemo } from "react";
+import { useRouter } from "next/router";
 
 import { Image, Overlay, TvIcon, PlayV2Icon, SaveV2Icon, Link } from "@/components";
 import usePoster from "@/hooks/usePoster";
 import useThumbnail from "@/hooks/useThumbnail";
-import { useMemo } from "react";
 import { Credit } from "@/interfaces/responseSchema/credits";
 import { DetailMovie } from "@/interfaces/responseSchema/DetailMovie";
-import { useRouter } from "next/router";
 
 interface HeadingDetailMovieProps {
   dataDetailMovie: DetailMovie;
@@ -177,27 +177,10 @@ const StyledContent = styled(Stack)(({ theme }) => {
       width: "fit-content",
 
       ["& .genre"]: {
-        cursor: "pointer",
         padding: "6px 16px",
         border: "1px solid #fff",
         borderRadius: "50px",
         width: "fit-content",
-
-        ["&:hover"]: {
-          borderColor: "rgb(0, 194, 52)",
-          color: "rgb(0, 194, 52)",
-          transition: "all linear 0.2s",
-        },
-      },
-      ["& .artist"]: {
-        cursor: "pointer",
-        width: "fit-content",
-
-        ["&:hover"]: {
-          textDecoration: "underline",
-          color: "rgb(0, 194, 52)",
-          transition: "color linear 0.2s",
-        },
       },
 
       ["&.artist-list"]: {

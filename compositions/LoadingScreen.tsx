@@ -40,6 +40,7 @@ const Container = styled(Box, {
   shouldForwardProp: (propName) => propName !== "fadeOut",
 })<{ fadeOut: boolean }>(({ fadeOut }) => {
   return {
+    // display: "none",
     position: "fixed",
     top: 0,
     left: 0,

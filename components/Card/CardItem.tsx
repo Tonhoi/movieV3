@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { forwardRef, memo } from "react";
 import { Box, BoxProps, Stack, Typography, styled } from "@mui/material";
 import { useRouter } from "next/router";
 
@@ -10,7 +10,8 @@ interface CardItemProps extends BoxProps {
   data: any;
 }
 
-const CardItem = ({ animation = false, data, ...resProps }: CardItemProps) => {
+const CardItem = forwardRef<HTMLDivElement, CardItemProps>((props, ref) => {
+  const { animation = false, data, ...resProps } = props;
   const { original_name, name, vote_average, poster_path, title, id } = data;
 
   const poster = usePoster(poster_path);
@@ -21,6 +22,7 @@ const CardItem = ({ animation = false, data, ...resProps }: CardItemProps) => {
       <Container
         className={animation ? "active" : ""}
         onClick={() => router.push(`/detail/${title ? "movie" : "tv"}/${id}`)}
+        ref={ref}
         {...resProps}
       >
         <StyledCardImage className="card-image" poster_path={poster}>
@@ -41,7 +43,7 @@ const CardItem = ({ animation = false, data, ...resProps }: CardItemProps) => {
       </Container>
     </CardItemBase>
   );
-};
+});
 
 const Container = styled(Box)(({ theme }) => {
   return {
@@ -111,5 +113,7 @@ const StyledCardImage = styled(Box, {
     },
   };
 });
+
+CardItem.displayName = "CardItem";
 
 export default memo(CardItem);

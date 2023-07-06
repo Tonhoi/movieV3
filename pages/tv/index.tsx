@@ -21,9 +21,15 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
       },
     });
 
+    const resGenres = await axios.get("/genre/tv/list", {
+      params: {
+        language: "vi",
+      },
+    });
+
     return {
       props: {
-        initData: [resDiscoverTv],
+        initData: [resDiscoverTv, resGenres],
         fallback: {
           [`${TYPE_PARAMS["discover_tv"]}?include_adult=false&include_null_first_air_dates=false&language=en-US&page=${serverRouter}&sort_by=popularity.desc`]:
             resDiscoverTv,

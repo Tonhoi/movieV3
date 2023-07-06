@@ -21,13 +21,11 @@ const PlayMovie = ({ initData }: PlayMoviePageProps) => {
   const dataRecomendationsMovie = get(initData, "0");
   const dataDetail = get(initData, "1");
 
+  if (router.isFallback) return <Box>Loading...</Box>;
+
   const { data } = useSWR(
     `/${router.query.type}/${router.query.id}/season/${router.query.season}?language=en-US`
   );
-
-  if (router.isFallback) {
-    return <CircularProgress />;
-  }
 
   return (
     <Container>

@@ -4,3 +4,8 @@ export interface RESPONSEDATA {
   total_pages: number;
   total_results: number;
 }
+
+export interface GENRES {
+  id: number;
+  name: string;
+}

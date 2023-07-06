@@ -51,7 +51,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }: any) {
   try {
     const { type, id } = params;
-    const resRecomendations = await axios.get(`/movie/${id}/recommendations`, {
+    const resRecomendations = await axios.get(`/${type}/${id}/recommendations`, {
       params: {
         language: "en-US",
         page: "1",

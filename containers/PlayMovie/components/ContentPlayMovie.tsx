@@ -50,7 +50,8 @@ const ContentPlayMovie = ({ data, dataDetail }: ContentPlayMovieProps) => {
   return (
     <Container>
       <Typography variant={"h3"} className={"title"}>
-        {dataDetail.title ?? data.original_title}
+        {/* {dataDetail.title ?? data.original_title} */}
+        {dataDetail.title}
       </Typography>
 
       <Box className={"content"}>

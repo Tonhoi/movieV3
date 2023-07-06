@@ -1,13 +1,7 @@
-import { useCallback, useMemo, useState } from "react";
-import {
-  Box,
-  Grid,
-  styled,
-  Container as MuiContainer,
-  Typography,
-  Stack,
-} from "@mui/material";
+import { useCallback, useMemo } from "react";
+import { Box, Grid, styled, Container as MuiContainer, Typography } from "@mui/material";
 import useSWR from "swr";
+import { useMeasure } from "react-use";
 import { get } from "lodash";
 
 import { CardItem } from "@/components";
@@ -16,75 +10,43 @@ import { useParams } from "@/hooks/useParams";
 import Pagination from "@/components/Pagination";
 import { TYPE_PARAMS } from "@/apis";
 import { transformUrl } from "@/libs";
+import Skeleton from "@/containers/Movie/Components/Skeleton";
+import GenresFilter from "./Components/GenresFilter";
+import Filter from "./Components/Filter";
+import { GENRES } from "@/interfaces/responseSchema/utils";
 
-export type MoviePageProps = IPage<[responseSchema<UpComingMovie>, responseSchema<any>]>;
+export type MoviePageProps = IPage<
+  [responseSchema<UpComingMovie>, responseSchema<GENRES>]
+>;
 
 const Movie = ({ initData }: MoviePageProps) => {
-  const dataDiscoverMovie = get(initData, "0");
-  const dataGenres = get(initData[1], "genres");
-
-  const [genresId, setGenresId] = useState<any>(dataGenres && dataGenres[0].id);
-
-  const { total_pages, page } = dataDiscoverMovie;
+  const { total_pages, page } = get(initData, "0");
+  const dataGenres: Array<GENRES> = get(initData[1], "genres") || [];
+  const [ref, { height }] = useMeasure<HTMLDivElement>();
 
   const { params, setParams } = useParams({
     initState: {
-      page,
-      ["release_date.gte"]: "",
-      ["release_date.lte"]: "",
+      ["page"]: 1,
+      ["language"]: "",
+      ["with_original_language"]: "",
+      ["with_genres"]: "",
+      ["year"]: "",
       ["vote_average.gte"]: "",
       ["vote_average.lte"]: "",
-      ["with_genres"]: dataGenres && dataGenres[0].id,
-      ["with_original_language"]: "",
     },
   });
 
-  // release_date.gte=2002-03-09&release_date.lte=2023-07-01&vote_average.gte=0&vote_average.lte=10&with_genres=10759&with_original_language=en
-
   const { data, isLoading } = useSWR(
     transformUrl(TYPE_PARAMS["discover_movie"], {
-      language: "vi-VN",
-      // ["sort_by"]: "popularity.desc",
       page: params.page,
-      ["release_date.gte"]: "2002-03-09",
-      ["release_date.lte"]: "2023-07-01",
-      ["vote_average.gte"]: 0,
-      ["vote_average.lte"]: 10,
-      ["with_genres"]: 12,
-      ["with_original_language"]: "en",
-      // include_adult: false,
-      // include_video: false,
+      language: params["language"],
+      with_original_language: params["language"]?.slice(0, 2),
+      with_genres: params.with_genres,
+      year: params.year,
+      ["vote_average.gte"]: params["vote_average.gte"],
+      ["vote_average.lte"]: params["vote_average.lte"],
     })
   );
-  console.log(data);
-
-  const renderMovie = useMemo(() => {
-    if (typeof data == "undefined") return null;
-
-    return data.results.map((data: any) => (
-      <Grid item lg={3} md={3} sm={5} xs={7.5} key={data.id} margin={"20px 0"}>
-        <CardItem data={data} animation />
-      </Grid>
-    ));
-  }, [data]);
-
-  const renderGenres = useMemo(() => {
-    if (typeof dataGenres == "undefined") return null;
-    return dataGenres.map((data, idx: number) => (
-      <Typography
-        variant="subtitle2"
-        className={"title-filter"}
-        key={idx}
-        onClick={() =>
-          setParams({
-            ["with_genres"]: data.id,
-          })
-        }
-      >
-        {data.name}
-      </Typography>
-    ));
-  }, [dataGenres]);
 
   const handlePagination = useCallback(
     (event: React.ChangeEvent<unknown>, page: number) => {
@@ -95,21 +57,73 @@ const Movie = ({ initData }: MoviePageProps) => {
     []
   );
 
+  const handleResetFilter = () => {
+    setParams({
+      page,
+      ["language"]: undefined,
+      ["with_genres"]: undefined,
+      ["year"]: undefined,
+      ["vote_average.gte"]: undefined,
+      ["vote_average.lte"]: undefined,
+    });
+  };
+
+  const renderMovie = useMemo(() => {
+    if (typeof data == "undefined") return null;
+
+    return data.results.map((data: any) => (
+      <Grid item lg={3} md={3} sm={5} xs={7.5} key={data.id} margin={"20px 0"}>
+        <CardItem data={data} animation ref={ref} />
+      </Grid>
+    ));
+  }, [data, params]);
+
+  const renderGenres = useMemo(() => {
+    if (typeof dataGenres == "undefined") return null;
+
+    return dataGenres.map((data: GENRES, idx: number) => (
+      <GenresFilter
+        key={idx}
+        onClick={() =>
+          setParams({
+            ["with_genres"]: data.id,
+          })
+        }
+        id={data.id}
+        name={data.name}
+      />
+    ));
+  }, [dataGenres]);
+
   return (
     <MuiContainer>
       <Container>
-        <Stack direction={"row"} alignItems={"center"} gap={2} flexWrap={"wrap"}>
+        <Box className={"filter-wrapper"}>
+          <Typography
+            variant="subtitle2"
+            className={"all-movie-btn"}
+            onClick={handleResetFilter}
+          >
+            Tất cả phim
+          </Typography>
           {renderGenres}
-        </Stack>
+        </Box>
 
-        <Grid container columns={15} spacing={3}>
-          {renderMovie}
-        </Grid>
+        <Filter setParams={setParams} />
+
+        {isLoading ? (
+          <Skeleton height={height} count={10} inline />
+        ) : (
+          <Grid container columns={15} spacing={3}>
+            {renderMovie}
+          </Grid>
+        )}
 
         <Pagination
           count={total_pages as number}
           onChange={handlePagination}
           defaultPage={+params.page}
+          className={data?.results.length == 0 ? "active" : ""}
         />
       </Container>
     </MuiContainer>
@@ -120,19 +134,25 @@ const Container = styled(Box)(({ theme }) => {
   return {
     marginTop: theme.spacing(10),
 
-    ["& .title-filter"]: {
-      cursor: "pointer",
-      padding: "9px 8px",
-      backgroundColor: "#EF4444",
-      color: theme.palette.common.white,
-      borderRadius: "4px",
-      width: "100%",
-      maxWidth: 90,
-      textAlign: "center",
+    ["& .filter-wrapper"]: {
+      display: "grid",
+      gridTemplateColumns: "repeat(8, 1fr)",
+      gap: 16,
 
-      ["&:hover"]: {
-        opacity: 0.8,
-        transition: "opacity linear 0.2s",
+      [theme.breakpoints.down("md")]: {
+        display: "flex",
+        flexDirection: "row",
+        overflowX: "auto",
+        overflowY: "hidden",
+        scrollSnapType: "x mandatory",
+      },
+
+      ["& .all-movie-btn"]: {
+        textAlign: "center",
+        padding: "9px 8px",
+        backgroundColor: "#8a84e9",
+        cursor: "pointer",
+        borderRadius: "4px",
       },
     },
   };

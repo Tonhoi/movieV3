@@ -32,6 +32,10 @@ const StyledPagination = styled(MuiPagination)(({ theme }) => {
         background: "-webkit-gradient(linear,0 0,0 100%,from(#cd881e),to(#674614))",
       },
     },
+
+    ["&.active"]: {
+      display: "none",
+    },
   };
 });
 
