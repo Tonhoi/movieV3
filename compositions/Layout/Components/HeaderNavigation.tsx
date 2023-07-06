@@ -7,17 +7,19 @@ import { useMedia } from "@/hooks";
 import HeaderOnMobile from "./HeaderOnMobile";
 
 import logo from "@/public/image/logo.png";
+import { useRouter } from "next/router";
 
 const HeaderItem = () => {
   const [ref, { width }] = useMeasure();
 
   const { isMdDown } = useMedia();
+  const router = useRouter();
 
   return (
     <Container>
       {isMdDown && <HeaderOnMobile />}
 
-      <StyledImageWrapper ref={ref}>
+      <StyledImageWrapper ref={ref} onClick={() => router.push(ROUTES.home)}>
         <Image src={logo} width={width} height={width} />
       </StyledImageWrapper>
 

@@ -1,11 +1,8 @@
 type responseSchema<T> = {
-  meta: {
-    total_count: number;
-    [key: string]: any;
-  };
-  next: string | null;
-  previous: string | null;
-  items: T[];
+  page: number | null;
+  results: T[];
+  total_pages: number | null;
+  total_results: number | null;
 };
 
 interface IPage<T extends unknown[]> {
@@ -16,3 +13,9 @@ interface IPage<T extends unknown[]> {
 }
 
 export type { responseSchema, IPage };
+export * from "./popularMovie";
+export * from "./popularTv";
+export * from "./topRateMovie";
+export * from "./topRateTv";
+export * from "./trendingMovie";
+export * from "./upComingMovie";

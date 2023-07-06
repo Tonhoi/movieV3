@@ -1,41 +1,55 @@
-import { Box, Stack, Typography, styled } from "@mui/material";
+import { Box, BoxProps, Stack, Typography, styled } from "@mui/material";
 
 import { CardItemBase, PlayIcon } from "@/components";
+import { PopularMovie } from "@/interfaces/responseSchema/popularMovie";
+import usePoster from "@/hooks/usePoster";
+import { useRouter } from "next/router";
+import { AiringToday } from "@/interfaces/responseSchema/airingToday";
 
-const CardItem3 = () => {
+interface CardItem3Props extends BoxProps {
+  data: any;
+}
+
+const CardItem3 = ({ data, ...restProps }: CardItem3Props) => {
+  const { poster_path, title, popularity, id, original_name, name } = data;
+  const router = useRouter();
+  const poster = usePoster(poster_path);
+
   return (
-    <CardItemBase>
-      <Container>
+    <Container
+      poster_path={poster}
+      onClick={() => router.push(`/detail/${title ? "movie" : "tv"}/${id}`)}
+      {...restProps}
+    >
+      <CardItemBase>
         <Box className={"card-image"}>
           <PlayIcon className="play-icon" />
 
           <Stack className="card-content">
             <Typography variant={"subtitle1"} className="title">
-              Danh Sách Schindler
+              {title ?? original_name ?? name}
             </Typography>
             <Typography variant={"subtitle2"} className={"subtitle"}>
-              121.225 Viewer
+              {popularity} Viewer
             </Typography>
           </Stack>
         </Box>
-      </Container>
-    </CardItemBase>
+      </CardItemBase>
+    </Container>
   );
 };
 
-const Container = styled(Box)(() => {
+const Container = styled(Box, {
+  shouldForwardProp: (propName) => propName !== "poster_path",
+})<{ poster_path: string }>(({ poster_path }) => {
   return {
     ["& .card-image"]: {
       aspectRatio: "300 / 160",
       borderRadius: "12px",
 
-      backgroundImage: `url(https://pic3.iqiyipic.com/image/20230215/63/88/v_171232517_m_601_zh-CN_m2_480_270.webp)`,
-
-      transform: "scale(1)",
-      transition: "all linear 0.2s",
+      backgroundImage: `url(${poster_path})`,
 
       [":hover"]: {
-        transform: "scale(1.05)",
         filter: "contrast(0.9)",
 
         ["& .play-icon"]: {
@@ -67,6 +81,13 @@ const Container = styled(Box)(() => {
 
         backgroundImage:
           "linear-gradient(transparent, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9))",
+
+        ["& .title"]: {
+          display: "-webkit-box",
+          WebkitLineClamp: 1,
+          WebkitBoxOrient: "vertical",
+          overflow: "hidden",
+        },
       },
     },
   };

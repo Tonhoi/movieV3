@@ -3,6 +3,7 @@ import { Box, styled, BoxProps } from "@mui/material";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { memo } from "react";
 
 interface StyledWrapperProps extends BoxProps {
   variant: string;
@@ -23,15 +24,16 @@ const createSettings = (variant: string) => {
       dots: false,
       infinite: true,
       speed: 500,
-      slidesToShow: 3,
+      slidesToShow: 4,
       slidesToScroll: 1,
       arrows: false,
       autoplay: true,
+
       responsive: [
         {
           breakpoint: 900,
           settings: {
-            slidesToShow: 2,
+            slidesToShow: 4,
             slidesToScroll: 1,
           },
         },
@@ -39,7 +41,7 @@ const createSettings = (variant: string) => {
         {
           breakpoint: 650,
           settings: {
-            slidesToShow: 2,
+            slidesToShow: 3,
             slidesToScroll: 1,
           },
         },
@@ -57,7 +59,7 @@ const createSettings = (variant: string) => {
           settings: {
             dots: false,
             arrows: false,
-            slidesToShow: 1,
+            slidesToShow: 2,
             slidesToScroll: 1,
           },
         },
@@ -66,7 +68,7 @@ const createSettings = (variant: string) => {
   }
 };
 
-export default function SlickSlider({
+const SlickSlider = ({
   children,
   props,
   variant = "simple",
@@ -78,7 +80,7 @@ export default function SlickSlider({
   variant?: "simple" | "multiple";
   refSlick?: any;
   asNavFor?: any;
-}) {
+}) => {
   return (
     <StyledWrapper variant={variant}>
       <Slider {...createSettings(variant)} ref={refSlick} asNavFor={asNavFor} {...props}>
@@ -86,7 +88,7 @@ export default function SlickSlider({
       </Slider>
     </StyledWrapper>
   );
-}
+};
 
 const StyledWrapper = styled(Box, {
   shouldForwardProp: (propName) => {
@@ -109,6 +111,24 @@ const StyledWrapper = styled(Box, {
 
     "& .slick-next": {
       top: "45%",
+      right: -20,
+      zIndex: 9,
+    },
+
+    ["& .slick-prev"]: {
+      top: "45%",
+      left: -20,
+      zIndex: 9,
+    },
+
+    [theme.breakpoints.down("sm")]: {
+      "& .slick-next": {
+        right: -15,
+      },
+
+      ["& .slick-prev"]: {
+        left: -15,
+      },
     },
 
     "&  .slick-active button": {
@@ -180,3 +200,5 @@ const StyledWrapper = styled(Box, {
     },
   };
 });
+
+export default memo(SlickSlider);

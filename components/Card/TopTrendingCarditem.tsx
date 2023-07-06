@@ -1,60 +1,84 @@
 import { Box, Typography, styled } from "@mui/material";
+import { useRouter } from "next/router";
 
-import cardImageDemo from "@/public/image/card_image_demo.webp";
 import CardItemBase from "./CardItemBase";
+import { TrendingMovie } from "@/interfaces/responseSchema/trendingMovie";
+import { memo } from "react";
+import useThumbnail from "@/hooks/useThumbnail";
 
-const TopTrendingCarditem = () => {
+interface TopTrendingCarditemprops {
+  data: TrendingMovie;
+  idx: number;
+}
+
+const TopTrendingCarditem = ({ data, idx }: TopTrendingCarditemprops) => {
+  const {
+    id,
+    title,
+    release_date,
+    first_air_date,
+    backdrop_path,
+    original_title,
+    original_name,
+  } = data;
+
+  const router = useRouter();
+  const thumbnail = useThumbnail(backdrop_path);
+
   return (
-    <Container>
-      <CardItemBase>
-        <StyledCardImage className="card-image" position={"relative"}>
-          <Typography variant={"ryeTitle"} className={"rank-movie"}>
-            TOP 1
-          </Typography>
+    <Container
+      className={"topTrending-container"}
+      onClick={() => router.push(`/detail/${!!title ? "movie" : "tv"}/${id}`)}
+    >
+      <CardItemBase height={"100%"}>
+        <StyledCardImage
+          thumbnail={thumbnail}
+          className="card-image"
+          position={"relative"}
+        >
           <Typography variant={"h6"} className="card-image-badge">
-            2023-05-31
+            {release_date ?? first_air_date}
           </Typography>
+
+          <Box className={"card-content"}>
+            <Typography variant={"ryeTitle"} className={"rank-movie"}>
+              TOP {idx + 1}
+            </Typography>
+            <Typography variant={"h5"} className="card-title">
+              {title ?? original_title ?? original_name}
+            </Typography>
+          </Box>
         </StyledCardImage>
       </CardItemBase>
-
-      <StyledCardContent>
-        <Typography variant={"h5"} className="card-title">
-          My ID is Gangnam Beauty
-        </Typography>
-        <Typography variant={"h6"} className="card-subtitle">
-          16 Episodes
-        </Typography>
-      </StyledCardContent>
     </Container>
   );
 };
 
-const Container = styled(Box)(() => {
+const Container = styled(Box)(({ theme }) => {
   return {
     borderRadius: "4px",
-    overflow: "hidden",
+
+    [theme.breakpoints.down("md")]: {
+      width: "50%",
+      flexShrink: 0,
+      scrollSnapAlign: "center",
+    },
   };
 });
 
-const StyledCardImage = styled(Box)(({ theme }) => {
+const StyledCardImage = styled(Box, {
+  shouldForwardProp: (propName) => propName !== "thumbnail",
+})<{ thumbnail: string }>(({ theme, thumbnail }) => {
   return {
-    backgroundImage: `url(${cardImageDemo.src})`,
-    aspectRatio: "180 / 240",
-
-    ["& .rank-movie"]: {
-      position: "absolute",
-      bottom: 10,
-      left: 10,
-      zIndex: 2,
-
-      color: theme.palette.common.white,
-    },
+    backgroundImage: `url(${thumbnail})`,
+    aspectRatio: "430 / 258",
+    height: "100%",
+    width: "100%",
 
     ["& .card-image-badge"]: {
       position: "absolute",
       right: 0,
       top: 0,
-
       padding: "2px 4px",
 
       color: theme.palette.common.white,
@@ -62,37 +86,23 @@ const StyledCardImage = styled(Box)(({ theme }) => {
       textAlign: "center",
       backgroundImage: "linear-gradient(90deg, rgb(0, 214, 57) 0%, rgb(0, 194, 52) 100%)",
     },
-
-    ["&:after"]: {
-      content: '""',
+    ["& .card-content"]: {
       position: "absolute",
-      bottom: 0,
-      left: 0,
-      right: 0,
-      height: 60,
+      bottom: 10,
+      left: 10,
+      zIndex: 2,
 
-      backgroundImage: "linear-gradient(rgba(20, 30, 51, 0) 1%, rgb(20, 30, 51) 100%)",
-    },
-  };
-});
+      ["& .card-title"]: {
+        bottom: 0,
+        zIndex: 2,
 
-const StyledCardContent = styled(Box)(({ theme }) => {
-  return {
-    backgroundColor: "rgb(34, 20, 51)",
-    color: theme.palette.common.white,
-    padding: 10,
-
-    ["& .card"]: {
-      ["&-title"]: {
-        marginBottom: 6,
-        maxWidth: "80%",
-      },
-
-      ["&-subtitle"]: {
-        color: theme.palette.opacity.white_07,
+        display: "-webkit-box",
+        WebkitLineClamp: 1,
+        WebkitBoxOrient: "vertical",
+        overflow: "hidden",
       },
     },
   };
 });
 
-export default TopTrendingCarditem;
+export default memo(TopTrendingCarditem);

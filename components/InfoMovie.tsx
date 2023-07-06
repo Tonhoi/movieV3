@@ -2,7 +2,13 @@ import { Box, Divider, Stack, Typography, styled, useTheme } from "@mui/material
 
 import StarIcon from "./Icons/StarIcon";
 
-const InfoMovie = () => {
+interface InfoMovieProps {
+  isDescription?: boolean;
+  data: any;
+}
+
+const InfoMovie = (props: InfoMovieProps) => {
+  const { isDescription = false, data } = props;
   const theme = useTheme();
 
   return (
@@ -10,25 +16,23 @@ const InfoMovie = () => {
       <Stack className="info-wrapper">
         <StarIcon className={"star-icon"} />
         <Typography variant="body2" color={theme.palette.text_hover.main}>
-          9.7
+          {data.vote_average}
         </Typography>
         <Divider orientation="vertical" light />
 
-        <Typography variant="h6">2017</Typography>
-        <Divider orientation="vertical" light />
+        <Typography variant="h6">{data.release_date}</Typography>
+        {/* <Divider orientation="vertical" light />
 
         <Typography variant="h6">C13</Typography>
         <Divider orientation="vertical" light />
 
-        <Typography variant="h6">24 Episodes</Typography>
+        <Typography variant="h6">24 Episodes</Typography> */}
       </Stack>
 
-      <StyledGenreMovie variant="h6">Chinese Mainland</StyledGenreMovie>
+      {/* <StyledGenreMovie variant="h6">Chinese Mainland</StyledGenreMovie> */}
 
-      <Typography variant="h6" className="description">
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloremque earum nihil
-        magni soluta commodi, eveniet quae, maxime distinctio unde ratione quaerat
-        consequuntur saepe velit eligendi voluptatum culpa qui tenetur. Sequi.
+      <Typography variant="h6" className={`description ${isDescription ? "active" : ""}`}>
+        {data.overview}
       </Typography>
     </Container>
   );
@@ -59,6 +63,10 @@ const Container = styled(Box)(({ theme }) => {
       WebkitLineClamp: 5,
       WebkitBoxOrient: "vertical",
       overflow: "hidden",
+
+      ["&.active"]: {
+        display: "none",
+      },
     },
   };
 });

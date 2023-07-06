@@ -2,6 +2,7 @@ import "@/styles/globals.css";
 import { CacheProvider, type EmotionCache } from "@emotion/react";
 
 import type { AppProps } from "next/app";
+import NextNProgress from "nextjs-progressbar";
 
 import { Head } from "@/hocs";
 // import Setting from "@/contexts/Setting";
@@ -23,18 +24,21 @@ export default function App(props: MyAppProps) {
   const { emotionCache = clientSideEmotionCache, pageProps, Component } = props;
 
   return (
-    <CacheProvider value={emotionCache}>
-      <Head />
+    <>
+      <NextNProgress />
+      <CacheProvider value={emotionCache}>
+        <Head />
 
-      <ThemeProvider>
-        <SWR fallback={pageProps.fallback}>
-          {/* <Setting> */}
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-          {/* </Setting> */}
-        </SWR>
-      </ThemeProvider>
-    </CacheProvider>
+        <ThemeProvider>
+          <SWR fallback={pageProps.fallback}>
+            {/* <Setting> */}
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+            {/* </Setting> */}
+          </SWR>
+        </ThemeProvider>
+      </CacheProvider>
+    </>
   );
 }

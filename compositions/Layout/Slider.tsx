@@ -1,14 +1,57 @@
-import { SetStateAction, useState } from "react";
-import { Box, Container as MuiContainer, Stack, styled } from "@mui/material";
+import { SetStateAction, useEffect, useMemo, useState } from "react";
+import { Box, Container as MuiContainer, Stack, Typography, styled } from "@mui/material";
+import useSWR from "swr";
 
-import SlideContentHeader from "./Components/Slider/SlideContentHeader";
 import SlickSlider from "../Slick/SlickSlider";
 import SlideShadow from "./Components/Slider/SlideShadow";
+import { CardItem3 } from "@/components";
+import { PopularMovie } from "@/interfaces/responseSchema/popularMovie";
+import { RESPONSEDATA as ResponseData } from "@/interfaces/responseSchema/utils";
+import { transformUrl } from "@/libs";
+import { TYPE_PARAMS } from "@/apis";
 
 const Slider = () => {
   const [slider1, setSlider1] = useState(null);
   const [slider2, setSlider2] = useState(null);
-  const [slider3, setSlider3] = useState(null);
+
+  const { data: dataPopularMovie } = useSWR(
+    transformUrl(TYPE_PARAMS["movie_popular"], {
+      language: "en-US",
+      page: 1,
+    })
+  );
+  const renderThumbnail = useMemo(() => {
+    if (typeof dataPopularMovie == "undefined") return null;
+
+    return dataPopularMovie.results.map((data: PopularMovie) => {
+      const { backdrop_path, id } = data;
+
+      return (
+        <StyledThumbnailWrapper
+          className="thumbnail-wrapper"
+          backdrop_path={backdrop_path}
+          key={id}
+        >
+          <Box className="thumbnail" />;
+        </StyledThumbnailWrapper>
+      );
+    });
+  }, [dataPopularMovie]);
+
+  const renderSlideContent = useMemo(() => {
+    if (typeof dataPopularMovie?.results == "undefined") return null;
+    return dataPopularMovie?.results.map((data: PopularMovie) => (
+      <CardItem3
+        key={data.id}
+        data={data}
+        sx={{
+          ["& .card-image"]: {
+            aspectRatio: "302 / 400",
+          },
+        }}
+      />
+    ));
+  }, [dataPopularMovie?.results]);
 
   return (
     <Container>
@@ -17,24 +60,29 @@ const Slider = () => {
           variant="simple"
           asNavFor={slider2}
           refSlick={(slider: SetStateAction<null>) => setSlider1(slider)}
+          props={{
+            fade: true,
+          }}
         >
-          {Array(5)
-            .fill(null)
-            .map((el, idx: number) => (
-              <Box key={idx} className="thumbnail-wrapper">
-                <Box className="thumbnail" />
-              </Box>
-            ))}
+          {renderThumbnail}
         </SlickSlider>
       </StyledSlickWrapper>
 
       <MuiContainer>
-        <SlideContentHeader
-          slider1={slider1}
-          slider3={slider3}
-          setSlider2={setSlider2}
-          setSlider3={setSlider3}
-        />
+        <Box className={"sub-slide"}>
+          <Typography variant={"h3"} marginLeft={"9.6px"}>
+            Popular
+          </Typography>
+
+          <SlickSlider
+            variant="multiple"
+            asNavFor={slider1}
+            refSlick={(slider: SetStateAction<null>) => setSlider2(slider)}
+            props={{ arrows: true }}
+          >
+            {renderSlideContent}
+          </SlickSlider>
+        </Box>
       </MuiContainer>
 
       <SlideShadow />
@@ -45,12 +93,16 @@ const Slider = () => {
 const Container = styled(Stack)(({ theme }) => {
   return {
     position: "relative",
-    height: "100%",
+
     justifyContent: "center",
-    aspectRatio: "2 / 1",
+    height: 700,
+
+    [theme.breakpoints.down("md")]: {
+      height: 500,
+    },
 
     [theme.breakpoints.down("sm")]: {
-      aspectRatio: "2 / 1.5",
+      height: 400,
     },
 
     ["&::after"]: {
@@ -64,40 +116,50 @@ const Container = styled(Stack)(({ theme }) => {
 
       background: "linear-gradient(rgba(52,73,94,.255),#333 90%)",
     },
+
+    ["& .sub-slide"]: {
+      position: "relative",
+      zIndex: 4,
+    },
   };
 });
 
-const StyledSlickWrapper = styled(Box)(({ theme }) => {
+const StyledSlickWrapper = styled(Box)(() => {
   return {
     position: "absolute",
 
     width: "100%",
     height: "100%",
+  };
+});
 
-    ["& .thumbnail-wrapper"]: {
-      position: "relative",
+const StyledThumbnailWrapper = styled(Box, {
+  shouldForwardProp: (propName) => propName !== "backdrop_path",
+})<{ backdrop_path: string }>(({ backdrop_path, theme }) => {
+  return {
+    position: "relative",
+
+    height: 700,
+
+    [theme.breakpoints.down("md")]: {
+      height: 500,
+    },
+
+    [theme.breakpoints.down("sm")]: {
+      height: 400,
+    },
+
+    ["& .thumbnail"]: {
+      position: "absolute",
+      zIndex: 1,
 
       width: "100%",
-      aspectRatio: "2 / 1",
       height: "100%",
 
-      [theme.breakpoints.down("sm")]: {
-        aspectRatio: "2 / 1.5",
-      },
-
-      ["& .thumbnail"]: {
-        position: "absolute",
-        zIndex: "1",
-
-        width: "100%",
-        height: "100%",
-
-        backgroundImage:
-          "url(https://static2.vieon.vn/vieplay-image/carousel_web_v4/2022/05/24/g9mfrt9z_1920x1080-luananhhung6ebadcb417ca17c991478e11594f60a1.jpg)",
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "center center",
-      },
+      backgroundImage: `url(https://image.tmdb.org/t/p//w1280${backdrop_path})`,
+      backgroundSize: "cover",
+      backgroundRepeat: "no-repeat",
+      backgroundPosition: "center center",
     },
   };
 });
