@@ -55,7 +55,7 @@ const defaultTheme = createTheme({
     grey: {},
 
     error: {
-      main: PALETTE_COLOR.primary,
+      main: "#F44336",
     },
 
     text: {
@@ -172,6 +172,12 @@ const defaultTheme = createTheme({
       fontWeight: 700,
       fontSize: 28,
       lineHeight: 1.2,
+    }),
+    subtitle6: createTypographyProperties({
+      fontFamily: sanProRegular.style.fontFamily,
+      fontWeight: 500,
+      fontSize: 24,
+      lineHeight: "30px",
     }),
 
     netflixtitle1: createTypographyProperties({

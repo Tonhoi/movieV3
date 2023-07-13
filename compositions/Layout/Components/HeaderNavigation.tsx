@@ -4,7 +4,7 @@ import { useMeasure } from "react-use";
 import { Link, Image } from "@/components";
 import { ROUTES } from "@/routers";
 import { useMedia } from "@/hooks";
-import HeaderOnMobile from "./HeaderOnMobile";
+import HeaderOnMobile from "./HeaderOnMobile/HeaderOnMobile";
 
 import logo from "@/public/image/logo.png";
 import { useRouter } from "next/router";

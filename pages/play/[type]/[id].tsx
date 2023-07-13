@@ -1,6 +1,11 @@
 import PlayMovie, { PlayMoviePageProps } from "@/containers/PlayMovie/PlayMovie";
 import axios from "@/axios.config";
-import { RESPONSEDATA as ResponseData } from "@/interfaces/responseSchema/utils";
+import {
+  MOVIESCHEMA,
+  Paths,
+  RESPONSEDATA as ResponseData,
+  TVSCHEMA,
+} from "@/interfaces/responseSchema/utils";
 import { TYPE_PARAMS } from "@/apis";
 
 const index = (props: PlayMoviePageProps) => {
@@ -8,7 +13,7 @@ const index = (props: PlayMoviePageProps) => {
 };
 
 export async function getStaticPaths() {
-  const paths: any = [];
+  const paths: Array<Paths> = [];
   try {
     const detailTv: ResponseData = await axios.get(TYPE_PARAMS["discover_tv"], {
       params: {
@@ -30,14 +35,13 @@ export async function getStaticPaths() {
       },
     });
 
-    detailTv.results.map((movie: any) => {
+    detailTv.results.map((movie: TVSCHEMA) => {
       paths.push({ params: { type: "tv", id: `${movie.id}` } });
     });
 
-    detailMovie.results.map((movie: any) => {
+    detailMovie.results.map((movie: MOVIESCHEMA) => {
       paths.push({ params: { type: "movie", id: `${movie.id}` } });
     });
-    // console.log("🚀 ~ file: [id].tsx:12 ~ getStaticPaths ~ paths:", paths);
   } catch (error) {
     console.log("không đúng đường dẫn");
   }
@@ -48,7 +52,14 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getStaticProps({ params }: any) {
+interface ParamsProps {
+  params: {
+    type: string;
+    id: string;
+  };
+}
+
+export async function getStaticProps({ params }: ParamsProps) {
   try {
     const { type, id } = params;
     const resRecomendations = await axios.get(`/${type}/${id}/recommendations`, {

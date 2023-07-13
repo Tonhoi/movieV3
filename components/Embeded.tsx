@@ -1,3 +1,6 @@
+import { useParams } from "@/hooks/useParams";
+import { useRouter } from "next/router";
+
 interface EmbededProps {
   src: string;
   className?: string;

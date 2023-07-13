@@ -2,20 +2,20 @@ import { Fragment, ReactNode, useMemo } from "react";
 import { Box, Grid, Container as MuiContainer, Typography, styled } from "@mui/material";
 import { get } from "lodash";
 
-import { CardItem, CardItem3, TopTrendingCarditem } from "@/components";
-import { IPage, responseSchema, TrendingMovie, UpComingMovie } from "@/interfaces";
-import { AiringToday } from "@/interfaces/responseSchema/airingToday";
-import { NowPlaing } from "@/interfaces/responseSchema/nowPlaying";
+import { CardItem, CardItem2, TopTrendingCarditem } from "@/components";
+import { IPage, responseSchema } from "@/interfaces";
 import UpcomingCardItem from "@/components/Card/UpcomingCardItem";
 import ArtistCardItem from "@/components/Card/ArtistCardItem";
+import { MOVIESCHEMA, TVSCHEMA } from "@/interfaces/responseSchema/utils";
+import { PEOPLELISTSCHEMA } from "@/interfaces/responseSchema/peopleList";
 
 export type HomePageProps = IPage<
   [
-    responseSchema<TrendingMovie>,
-    responseSchema<UpComingMovie>,
-    responseSchema<AiringToday>,
-    responseSchema<any>,
-    responseSchema<NowPlaing>
+    responseSchema<MOVIESCHEMA>,
+    responseSchema<MOVIESCHEMA>,
+    responseSchema<TVSCHEMA>,
+    responseSchema<PEOPLELISTSCHEMA>,
+    responseSchema<MOVIESCHEMA>
   ]
 >;
 
@@ -29,7 +29,7 @@ const Home = ({ initData }: HomePageProps) => {
   const renderTredingMovie = useMemo(() => {
     if (typeof dataTrendingMovie === "undefined") return null;
 
-    return dataTrendingMovie.map((data: any, idx: number) => {
+    return dataTrendingMovie.map((data, idx: number) => {
       return <TopTrendingCarditem key={data.id} data={data} idx={idx} />;
     });
   }, [dataTrendingMovie]);
@@ -37,28 +37,44 @@ const Home = ({ initData }: HomePageProps) => {
   const renderAiringToday = useMemo(() => {
     if (typeof dataAiringToday == "undefined") return null;
 
-    return dataAiringToday.map((data, idx: number) => (
-      <Grid item lg={2} md={2} sm={4} xs={6} key={idx}>
-        <CardItem3
-          data={data}
-          sx={{
-            ["& .card-image"]: {
-              aspectRatio: "210 / 290",
-            },
-          }}
-        />
-      </Grid>
-    ));
+    return dataAiringToday.map((data, idx: number) => {
+      const { poster_path, popularity, id, original_name, name } = data;
+
+      return (
+        <Grid item lg={2} md={2} sm={4} xs={6} key={idx}>
+          <CardItem2
+            poster_path={poster_path}
+            popularity={popularity}
+            id={id}
+            original_name={original_name}
+            name={name}
+            sx={{
+              ["& .card-image"]: {
+                aspectRatio: "210 / 290",
+              },
+            }}
+          />
+        </Grid>
+      );
+    });
   }, [dataAiringToday]);
 
   const renderNowPlaying = useMemo(() => {
     if (typeof dataNowPlaying == "undefined") return null;
 
-    return dataNowPlaying.map((data, idx: number) => (
-      <Grid item lg={2} md={2} sm={3} xs={4} key={idx}>
-        <CardItem data={data} />
-      </Grid>
-    ));
+    return dataNowPlaying.map((data, idx: number) => {
+      const { vote_average, poster_path, title, id } = data;
+      return (
+        <Grid item lg={2} md={2} sm={3} xs={4} key={idx}>
+          <CardItem
+            vote_average={vote_average}
+            poster_path={poster_path}
+            title={title}
+            id={id}
+          />
+        </Grid>
+      );
+    });
   }, [dataNowPlaying]);
 
   const renderTrendingPerson = useMemo(() => {
@@ -73,11 +89,22 @@ const Home = ({ initData }: HomePageProps) => {
 
   const renderUpComingMovie = useMemo(() => {
     if (typeof dataUpComingMovie == "undefined") return null;
-    return dataUpComingMovie.map((data, idx: number) => (
-      <Grid item lg={3} md={4} sm={6} xs={12} key={idx}>
-        <UpcomingCardItem data={data} />
-      </Grid>
-    ));
+    return dataUpComingMovie.map((data, idx: number) => {
+      const { backdrop_path, title, original_title, vote_average, popularity, id } = data;
+
+      return (
+        <Grid item lg={3} md={4} sm={6} xs={12} key={idx}>
+          <UpcomingCardItem
+            backdrop_path={backdrop_path}
+            title={title}
+            original_title={original_title}
+            vote_average={vote_average}
+            popularity={popularity}
+            id={id}
+          />
+        </Grid>
+      );
+    });
   }, [dataUpComingMovie]);
 
   return (

@@ -1,10 +1,11 @@
 import { Box, Divider, Stack, Typography, styled, useTheme } from "@mui/material";
 
 import StarIcon from "./Icons/StarIcon";
+import { EPISODESCHEMA } from "@/interfaces/responseSchema/episode";
 
 interface InfoMovieProps {
   isDescription?: boolean;
-  data: any;
+  data: EPISODESCHEMA;
 }
 
 const InfoMovie = (props: InfoMovieProps) => {
@@ -13,23 +14,16 @@ const InfoMovie = (props: InfoMovieProps) => {
 
   return (
     <Container>
+      <Typography variant="subtitle1">{data.name}</Typography>
+
       <Stack className="info-wrapper">
-        <StarIcon className={"star-icon"} />
+        <StarIcon className={"star-icon"} color={"inherit"} />
         <Typography variant="body2" color={theme.palette.text_hover.main}>
           {data.vote_average}
         </Typography>
+
         <Divider orientation="vertical" light />
-
-        <Typography variant="h6">{data.release_date}</Typography>
-        {/* <Divider orientation="vertical" light />
-
-        <Typography variant="h6">C13</Typography>
-        <Divider orientation="vertical" light />
-
-        <Typography variant="h6">24 Episodes</Typography> */}
       </Stack>
-
-      {/* <StyledGenreMovie variant="h6">Chinese Mainland</StyledGenreMovie> */}
 
       <Typography variant="h6" className={`description ${isDescription ? "active" : ""}`}>
         {data.overview}
@@ -44,6 +38,8 @@ const Container = styled(Box)(({ theme }) => {
       flexDirection: "row",
       alignItems: "center",
       gap: 6,
+      marginTop: 8,
+      color: "#1CC749",
 
       ["& .star-icon"]: {
         width: 12,
@@ -68,17 +64,6 @@ const Container = styled(Box)(({ theme }) => {
         display: "none",
       },
     },
-  };
-});
-
-const StyledGenreMovie = styled(Typography)(({ theme }) => {
-  return {
-    marginTop: theme.spacing(1),
-    padding: "2px 4px",
-    width: "fit-content",
-
-    background: theme.palette.opacity.white_008,
-    borderRadius: "2px",
   };
 });
 

@@ -9,16 +9,40 @@ import {
   useTheme,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
+import { toast, ToastContainer } from "react-toastify";
+import { signInWithEmailAndPassword } from "firebase/auth";
+
+import { auth } from "@/firebase/firebase-config";
 
 import { Link } from "@/components";
 import { FormControl as FormInput } from "@/compositions";
+import { ROUTES } from "@/routers";
+import { useRouter } from "next/router";
+import { defaultValue } from "@/yups/login/defaultValue";
+import { Login as YupLogin } from "@/yups/login/login";
 
 const Login = () => {
-  const { control } = useForm();
+  const { control, handleSubmit } = useForm({
+    resolver: YupLogin,
+    defaultValues: defaultValue,
+  });
   const theme = useTheme();
+  const router = useRouter();
+
+  const onSubmit = async (data: any) => {
+    try {
+      await signInWithEmailAndPassword(auth, data.email, data.password);
+      toast.success("Đăng Nhập thành công");
+      router.push(ROUTES.home);
+    } catch (error) {
+      toast.error("Đăng Nhập thất bại");
+    }
+  };
 
   return (
     <Container>
+      <ToastContainer theme="colored" />
+
       <Box className={"form-control"} component={"form"}>
         <Typography variant={"netflixtitle1"} className="form-heading">
           Đăng nhập
@@ -45,10 +69,17 @@ const Login = () => {
               ...theme.typography.netflixtitle5,
               backgroundColor: "#333333",
             },
+            type: "password",
           }}
         />
 
-        <Button variant={"contained"} className={"btn-submit"} fullWidth color="inherit">
+        <Button
+          variant={"contained"}
+          className={"btn-submit"}
+          fullWidth
+          color="inherit"
+          onClick={handleSubmit(onSubmit)}
+        >
           <Typography variant={"netflixtitle4"}>Đăng nhập</Typography>
         </Button>
 
@@ -70,7 +101,7 @@ const Login = () => {
         <Typography textAlign={"center"} color={"#B3B3B3"}>
           Bạn chưa có tài khoản?{" "}
           <Link
-            href={"dang-ky"}
+            href={ROUTES.register}
             variant={"netflixtitle4"}
             color={theme.palette.common.white}
             underline={"hover"}
@@ -91,11 +122,15 @@ const Container = styled(Stack)(({ theme }) => {
     backgroundImage: `url(https://assets.nflxext.com/ffe/siteui/vlv3/51e53f54-0d9f-40ec-9e05-c030def06ac9/59fd5bf8-0338-47a5-abb2-c78d169fcd8f/VN-vi-20230515-popsignuptwoweeks-perspective_alpha_website_medium.jpg)`,
 
     ["& .form-control"]: {
-      width: "100%",
-      maxWidth: 450,
+      width: 450,
+      maxWidth: "calc(100% - 20px)",
       backgroundColor: "rgba(0,0,0,.75)",
       padding: "60px 68px 40px",
       borderRadius: 4,
+
+      [theme.breakpoints.down("sm")]: {
+        padding: "60px 40px 40px",
+      },
 
       ["& .form-heading"]: {
         color: theme.palette.common.white,

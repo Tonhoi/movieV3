@@ -1,23 +1,34 @@
 import { styled, Stack, Typography, StackProps, Box } from "@mui/material";
+import { useState } from "react";
 
 import { Image } from "@/components";
 import usePoster from "@/hooks/usePoster";
+import { MOVIESCHEMA, TVSCHEMA } from "@/interfaces/responseSchema/utils";
+import image_not_available from "@/public/image/image_not_available.png";
+
+export interface media_type {
+  media_type: string;
+}
 
 interface SearchItemProps extends Omit<StackProps, "onClick"> {
-  data: any;
+  data: TVSCHEMA & MOVIESCHEMA & media_type;
   onClick?: (id: string, media_type: string) => void;
 }
 
 const SearchItem = (props: SearchItemProps) => {
   const { data, onClick = () => {}, ...restProps } = props;
   const { name, title, original_title, id, poster_path, media_type } = data;
-
   const poster = usePoster(poster_path);
+  const [src, setSrc] = useState<string>(poster);
 
   return (
     <Container onClick={() => onClick(id, media_type)} {...restProps}>
       <Box className={"image-wrapper"}>
-        <Image src={poster} style={{ objectFit: "cover" }} />
+        <Image
+          src={src}
+          style={{ objectFit: "cover" }}
+          onError={() => setSrc(image_not_available.src)}
+        />
       </Box>
       <Typography variant={"h5"} className="title">
         {name ?? title ?? original_title}

@@ -32,11 +32,11 @@ const Header = () => {
             <HeaderNavigation />
           </Grid>
 
-          <Grid item lg={4} md={4} sm={6.5} xs={12}>
+          <Grid item lg={5} md={4} sm={6.5} xs={12}>
             <HeaderSearch />
           </Grid>
 
-          <Grid item lg={4} md={4} sm={1.5} xs={12}>
+          <Grid item lg={3} md={4} sm={1.5} xs={12}>
             <HeaderOptions />
           </Grid>
         </Grid>
@@ -57,6 +57,10 @@ const Container = styled(Box)(({ theme }) => {
 
     ["&.active"]: {
       backgroundColor: "rgb(10, 12, 15)",
+
+      // ["& .icon-wrapper"]: {
+      //   backgroundColor: "#444444",
+      // },
     },
 
     [theme.breakpoints.down("sm")]: {

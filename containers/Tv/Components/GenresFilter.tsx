@@ -1,13 +1,13 @@
 import { Typography, styled } from "@mui/material";
 import { useRouter } from "next/router";
 
-interface Filterprops {
+interface GenresFilterProps {
   onClick: () => void;
   name: string;
   id: number;
 }
 
-const GenresFilter = ({ onClick, name, id }: Filterprops) => {
+const GenresFilter = ({ onClick, name, id }: GenresFilterProps) => {
   const { query } = useRouter();
   return (
     <Container

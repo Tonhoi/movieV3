@@ -1,14 +1,15 @@
-import { Image } from "@/components";
 import { Box, Stack, Typography, styled } from "@mui/material";
 
-import image from "@/public/image/avatar.png";
 import usePoster from "@/hooks/usePoster";
+import { REVIEWSCHEMA } from "@/interfaces/responseSchema/reviews";
 
-interface ReviewerProps {
-  data: any;
+import image from "@/public/image/avatar.png";
+
+interface ReviewsProps {
+  data: REVIEWSCHEMA;
 }
 
-const Reviewer = ({ data }: ReviewerProps) => {
+const Reviews = ({ data }: ReviewsProps) => {
   const { author, content, created_at, author_details } = data;
 
   const poster = usePoster(author_details.avatar_path);
@@ -17,7 +18,7 @@ const Reviewer = ({ data }: ReviewerProps) => {
       <Stack className={"card-wrapper"}>
         <Box className={"image-wrapper"} />
 
-        <Stack gap={1}>
+        <Stack gap={1} flex={1}>
           <Stack direction={"row"} gap={"4px"}>
             <Typography variant={"h5"} className={"description"}>
               {content}
@@ -66,6 +67,7 @@ const Container = styled(Box, {
         WebkitLineClamp: 3,
         WebkitBoxOrient: "vertical",
         overflow: "hidden",
+        flex: 1,
       },
 
       ["& .vote-average"]: {
@@ -83,4 +85,4 @@ const Container = styled(Box, {
   };
 });
 
-export default Reviewer;
+export default Reviews;

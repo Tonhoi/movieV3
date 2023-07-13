@@ -13,9 +13,3 @@ interface IPage<T extends unknown[]> {
 }
 
 export type { responseSchema, IPage };
-export * from "./popularMovie";
-export * from "./popularTv";
-export * from "./topRateMovie";
-export * from "./topRateTv";
-export * from "./trendingMovie";
-export * from "./upComingMovie";

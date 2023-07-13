@@ -1,4 +1,3 @@
-import React from "react";
 import SVGIconBase, { SvgIconProps } from "./SVGIconBase";
 
 const StarIcon = (props: SvgIconProps) => {

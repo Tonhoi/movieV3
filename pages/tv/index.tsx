@@ -1,9 +1,9 @@
-import Tv from "@/containers/Tv";
+import Tv, { TvPageProps } from "@/containers/Tv";
 import { GetServerSidePropsContext } from "next";
 import axios from "@/axios.config";
 import { TYPE_PARAMS } from "@/apis";
 
-const tv = (props: any) => {
+const tv = (props: TvPageProps) => {
   return <Tv {...props} />;
 };
 

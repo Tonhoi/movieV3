@@ -1,15 +1,16 @@
-import { Box, Stack, Typography, styled } from "@mui/material";
 import { useMemo } from "react";
+import { Box, Stack, Typography, styled } from "@mui/material";
 
-import { ChatIcon, HeartIcon, MenuIcon, SaveV2Icon, ShareIcon } from "@/components";
+import { ChatIcon, HeartIcon, Link, MenuIcon, SaveV2Icon, ShareIcon } from "@/components";
 import { useToggle } from "@/hooks";
 import EpisodeCardItem from "@/components/Card/EpisodeCardItem";
 import MenuV2Icon from "@/components/Icons/MenuV2Icon";
 import Embeded from "@/components/Embeded";
 import { useParams } from "@/hooks/useParams";
+import { EPISODESCHEMA } from "@/interfaces/responseSchema/episode";
 
 interface HeadingPlayMovieProps {
-  episodes: any;
+  episodes: Array<EPISODESCHEMA>;
 }
 
 const HeadingPlayMovie = ({ episodes }: HeadingPlayMovieProps) => {
@@ -21,7 +22,7 @@ const HeadingPlayMovie = ({ episodes }: HeadingPlayMovieProps) => {
       episode: 1,
     },
     excludeKeys: ["type", "id"],
-    isUpdateRouter: true,
+    // isUpdateRouter: true,
 
     callback(params) {
       if (router.query.type == "movie") {
@@ -29,31 +30,47 @@ const HeadingPlayMovie = ({ episodes }: HeadingPlayMovieProps) => {
       }
     },
   });
-
   const renderEpisodes = useMemo(() => {
     if (typeof episodes == "undefined") return null;
 
-    return episodes.map((data: any, idx: number) => (
-      <EpisodeCardItem key={idx} data={data} />
-    ));
+    return episodes.map((data: EPISODESCHEMA, idx: number) => {
+      const { still_path, episode_number, name, vote_count, air_date } = data;
+      return (
+        <EpisodeCardItem
+          key={idx}
+          idx={idx + 1}
+          still_path={still_path}
+          episode_number={episode_number}
+          name={name}
+          vote_count={vote_count}
+          air_date={air_date}
+        />
+      );
+    });
   }, [episodes]);
 
   const renderEpisodes2 = useMemo(() => {
     if (typeof episodes == "undefined") return null;
 
     return episodes.map((data: any, idx: number) => (
-      <Stack className={"episode"} key={idx}>
+      <Link
+        href={`/play/${router.query.type}/${router.query.id}?episode=${data.episode_number}&season=${router.query.season}`}
+        className={`episode ${
+          data.episode_number == router.query.episode ? "active" : ""
+        }`}
+        key={idx}
+      >
         <Typography variant={"body2"}>{idx + 1}</Typography>
-      </Stack>
+      </Link>
     ));
-  }, [episodes]);
+  }, [episodes, router]);
 
   return (
     <Container>
       <Box width={"100%"}>
         <Box className={"embeded-wrapper"}>
           <Embeded
-            src={`https://autoembed.to/${router.query.type}/tmdb/${router.query.id}-${params?.season}-${params?.episode}`}
+            src={`https://autoembed.to/${router.query.type}/tmdb/${router.query.id}-${router.query.season}-${router.query.episode}`}
           />
         </Box>
 
@@ -82,7 +99,9 @@ const HeadingPlayMovie = ({ episodes }: HeadingPlayMovieProps) => {
 
       <Box className={"episodes-list"}>
         <Stack className={"episodes-filter-wrap"}>
-          <Typography variant={"subtitle2"}>Episodes 1-30</Typography>
+          <Typography variant={"subtitle2"}>
+            Episodes {router.query.episode}-{episodes?.length}
+          </Typography>
 
           {on ? <MenuIcon onClick={toggleOff} /> : <MenuV2Icon onClick={toggleOn} />}
         </Stack>
@@ -166,18 +185,21 @@ const Container = styled(Stack)(({ theme }) => {
         flexWrap: "wrap",
         gap: 8,
         maxHeight: "100%",
+        width: "calc(100% + 5px)",
 
-        overflow: "overlay",
+        overflowY: "scroll",
       },
 
       ["& .episode"]: {
         width: 40,
         height: 40,
+        display: "flex",
         alignItems: "center",
         justifyContent: "center",
         borderRadius: "4px",
         backgroundColor: "#23252B",
         cursor: "pointer",
+        color: theme.palette.common.white,
 
         ["&:hover"]: {
           background: "#1CC749",

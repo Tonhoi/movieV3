@@ -1,12 +1,11 @@
-import { SetStateAction, useEffect, useMemo, useState } from "react";
+import { SetStateAction, useMemo, useState } from "react";
 import { Box, Container as MuiContainer, Stack, Typography, styled } from "@mui/material";
 import useSWR from "swr";
 
 import SlickSlider from "../Slick/SlickSlider";
 import SlideShadow from "./Components/Slider/SlideShadow";
-import { CardItem3 } from "@/components";
-import { PopularMovie } from "@/interfaces/responseSchema/popularMovie";
-import { RESPONSEDATA as ResponseData } from "@/interfaces/responseSchema/utils";
+import { CardItem2 } from "@/components";
+import { MOVIESCHEMA } from "@/interfaces/responseSchema/utils";
 import { transformUrl } from "@/libs";
 import { TYPE_PARAMS } from "@/apis";
 
@@ -23,7 +22,7 @@ const Slider = () => {
   const renderThumbnail = useMemo(() => {
     if (typeof dataPopularMovie == "undefined") return null;
 
-    return dataPopularMovie.results.map((data: PopularMovie) => {
+    return dataPopularMovie.results.map((data: MOVIESCHEMA) => {
       const { backdrop_path, id } = data;
 
       return (
@@ -40,17 +39,24 @@ const Slider = () => {
 
   const renderSlideContent = useMemo(() => {
     if (typeof dataPopularMovie?.results == "undefined") return null;
-    return dataPopularMovie?.results.map((data: PopularMovie) => (
-      <CardItem3
-        key={data.id}
-        data={data}
-        sx={{
-          ["& .card-image"]: {
-            aspectRatio: "302 / 400",
-          },
-        }}
-      />
-    ));
+
+    return dataPopularMovie?.results.map((data: MOVIESCHEMA) => {
+      const { poster_path, title, popularity, id } = data;
+      return (
+        <CardItem2
+          key={data.id}
+          poster_path={poster_path}
+          title={title}
+          popularity={popularity}
+          id={id}
+          sx={{
+            ["& .card-image"]: {
+              aspectRatio: "302 / 400",
+            },
+          }}
+        />
+      );
+    });
   }, [dataPopularMovie?.results]);
 
   return (
@@ -71,7 +77,7 @@ const Slider = () => {
       <MuiContainer>
         <Box className={"sub-slide"}>
           <Typography variant={"h3"} marginLeft={"9.6px"}>
-            Popular
+            Phổ biến
           </Typography>
 
           <SlickSlider

@@ -5,14 +5,29 @@ import { useRouter } from "next/router";
 import { PlayIcon, SaveIcon, StarIcon, CardItemBase } from "@/components";
 import usePoster from "@/hooks/usePoster";
 
+import posterAvailable from "@/public/image/no-poster-available.jpg";
+
 interface CardItemProps extends BoxProps {
   animation?: boolean;
-  data: any;
-}
 
+  original_name?: string;
+  name?: string;
+  vote_average: number;
+  poster_path: string;
+  title?: string;
+  id: string;
+}
 const CardItem = forwardRef<HTMLDivElement, CardItemProps>((props, ref) => {
-  const { animation = false, data, ...resProps } = props;
-  const { original_name, name, vote_average, poster_path, title, id } = data;
+  const {
+    animation = false,
+    original_name,
+    name,
+    vote_average,
+    poster_path,
+    title,
+    id,
+    ...resProps
+  } = props;
 
   const poster = usePoster(poster_path);
   const router = useRouter();
@@ -73,7 +88,7 @@ const StyledCardImage = styled(Box, {
   shouldForwardProp: (propName) => propName !== "poster_path",
 })<{ poster_path: string }>(({ poster_path, theme }) => {
   return {
-    backgroundImage: `url(${poster_path})`,
+    backgroundImage: `url(${poster_path}), url(${posterAvailable.src})`,
     aspectRatio: "172 / 230",
     borderRadius: "4px",
     ["& .star-icon"]: {

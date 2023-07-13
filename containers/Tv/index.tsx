@@ -5,7 +5,7 @@ import { useMeasure } from "react-use";
 import { get } from "lodash";
 
 import { CardItem } from "@/components";
-import { IPage, UpComingMovie, responseSchema } from "@/interfaces";
+import { IPage, responseSchema } from "@/interfaces";
 import { useParams } from "@/hooks/useParams";
 import Pagination from "@/components/Pagination";
 import { TYPE_PARAMS } from "@/apis";
@@ -13,13 +13,11 @@ import { transformUrl } from "@/libs";
 import Skeleton from "@/containers/Movie/Components/Skeleton";
 import GenresFilter from "./Components/GenresFilter";
 import Filter from "./Components/Filter";
-import { GENRES } from "@/interfaces/responseSchema/utils";
+import { GENRES, TVSCHEMA } from "@/interfaces/responseSchema/utils";
 
-export type MoviePageProps = IPage<
-  [responseSchema<UpComingMovie>, responseSchema<GENRES>]
->;
+export type TvPageProps = IPage<[responseSchema<TVSCHEMA>, responseSchema<GENRES>]>;
 
-const Tv = ({ initData }: MoviePageProps) => {
+const Tv = ({ initData }: TvPageProps) => {
   const { total_pages, page } = get(initData, "0");
   const dataGenres: Array<GENRES> = get(initData[1], "genres") || [];
   const [ref, { height }] = useMeasure<HTMLDivElement>();
@@ -71,11 +69,22 @@ const Tv = ({ initData }: MoviePageProps) => {
   const renderTv = useMemo(() => {
     if (typeof data == "undefined") return null;
 
-    return data.results.map((data: any) => (
-      <Grid item lg={3} md={3} sm={5} xs={7.5} key={data.id} margin={"20px 0"}>
-        <CardItem data={data} animation ref={ref} />
-      </Grid>
-    ));
+    return data.results.map((data: TVSCHEMA) => {
+      const { id, name, original_name, poster_path, vote_average } = data;
+      return (
+        <Grid item lg={3} md={3} sm={5} xs={7.5} key={data.id} margin={"20px 0"}>
+          <CardItem
+            id={id}
+            name={name}
+            original_name={original_name}
+            poster_path={poster_path}
+            vote_average={vote_average}
+            animation
+            ref={ref}
+          />
+        </Grid>
+      );
+    });
   }, [data, params]);
 
   const renderGenres = useMemo(() => {
@@ -101,7 +110,7 @@ const Tv = ({ initData }: MoviePageProps) => {
         <Box className={"filter-wrapper"}>
           <Typography
             variant="subtitle2"
-            className={"all-movie-btn"}
+            className={`all-movie-btn ${!params.with_genres ? "active" : ""}`}
             onClick={handleResetFilter}
           >
             Tất cả phim
@@ -153,6 +162,11 @@ const Container = styled(Box)(({ theme }) => {
         backgroundColor: "#8a84e9",
         cursor: "pointer",
         borderRadius: "4px",
+
+        ["&.active"]: {
+          backgroundColor: "#443ae7",
+          transition: "all linear 0.2s",
+        },
       },
     },
   };

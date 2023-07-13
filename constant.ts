@@ -1,4 +1,4 @@
-import { ClockIcon, FilmIcon, GlobeIcon, TvIcon, UserIcon } from "./components";
+import { FilmIcon, GlobeIcon, TvIcon, UserIcon } from "./components";
 import { ROUTES } from "./routers";
 
 export const NAVITEM = [
@@ -13,20 +13,15 @@ export const NAVITEM = [
     title: "Tv",
   },
   {
-    icon: ClockIcon,
-    href: ROUTES.history,
-    title: "History",
+    icon: UserIcon,
+    href: ROUTES.personal,
+    title: "Trang cá nhân",
     divider: true,
   },
   {
     icon: GlobeIcon,
-    href: "/",
+    href: "/language",
     title: "Language",
-  },
-  {
-    icon: UserIcon,
-    href: ROUTES.me,
-    title: "Me",
   },
 ];
 
