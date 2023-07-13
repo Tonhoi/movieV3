@@ -12,11 +12,12 @@ export const TYPE_PARAMS = {
   ["discover_movie"]: "/discover/movie",
   ["discover_tv"]: "/discover/tv",
   ["movie_popular"]: "/movie/popular",
-
-  "library.LibraryListingPage": "library.LibraryListingPage",
-  "library.LibraryDetailPage": "library.LibraryDetailPage",
-
-  "faq.FAQPage": "faq.FAQPage",
+  ["upcoming"]: "/movie/upcoming",
+  ["trending_movie"]: "/trending/all/day",
+  ["trending_person"]: "/trending/person/day",
+  ["airing_today"]: "/tv/airing_today",
+  ["now_playing"]: "/movie/now_playing",
+  ["search_multi"]: "/search/multi",
 } as const;
 
 export const PAGES_API = generatePathname([PAGES]);

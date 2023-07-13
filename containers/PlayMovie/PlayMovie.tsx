@@ -1,10 +1,4 @@
-import {
-  Box,
-  styled,
-  Container as MuiContainer,
-  Grid,
-  CircularProgress,
-} from "@mui/material";
+import { Box, styled, Container as MuiContainer, Grid } from "@mui/material";
 import { get } from "lodash";
 import { useRouter } from "next/router";
 import useSWR from "swr";
@@ -12,9 +6,11 @@ import useSWR from "swr";
 import HeadingPlayMovie from "./components/HeadingPlayMovie";
 import Comment from "./components/Comment";
 import ContentPlayMovie from "./components/ContentPlayMovie";
-import { IPage, PopularMovie, responseSchema } from "@/interfaces";
+import { IPage, responseSchema } from "@/interfaces";
+import { MOVIESCHEMA } from "@/interfaces/responseSchema/utils";
+import { DetailMovie } from "@/interfaces/responseSchema/DetailMovie";
 
-export type PlayMoviePageProps = IPage<[responseSchema<PopularMovie>]>;
+export type PlayMoviePageProps = IPage<[responseSchema<MOVIESCHEMA>, DetailMovie]>;
 
 const PlayMovie = ({ initData }: PlayMoviePageProps) => {
   const router = useRouter();
@@ -27,6 +23,7 @@ const PlayMovie = ({ initData }: PlayMoviePageProps) => {
     `/${router.query.type}/${router.query.id}/season/${router.query.season}?language=en-US`
   );
 
+
   return (
     <Container>
       <HeadingPlayMovie episodes={data?.episodes} />
@@ -34,7 +31,8 @@ const PlayMovie = ({ initData }: PlayMoviePageProps) => {
       <Grid container>
         <Grid item lg={8} md={8} sm={12} xs={12}>
           <ContentPlayMovie
-            data={dataRecomendationsMovie?.results}
+            dataRecomendationsMovie={dataRecomendationsMovie?.results}
+            dataInfoMovie={data?.episodes}
             dataDetail={dataDetail}
           />
           <Box className={"content"}>

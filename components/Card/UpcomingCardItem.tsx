@@ -2,16 +2,28 @@ import { Box, Stack, Typography, styled } from "@mui/material";
 import CardItemBase from "./CardItemBase";
 import StarIcon from "../Icons/StarIcon";
 import useThumbnail from "@/hooks/useThumbnail";
+import { useRouter } from "next/router";
 
 interface UpcomingCardItemProps {
-  data: any;
+  backdrop_path: string;
+  title: string;
+  original_title: string;
+  vote_average: number;
+  popularity: number;
+  id: string;
 }
 
-const UpcomingCardItem = ({ data }: UpcomingCardItemProps) => {
-  const { backdrop_path, title, original_title, vote_average, popularity } = data;
+const UpcomingCardItem = (props: UpcomingCardItemProps) => {
+  const { backdrop_path, title, original_title, vote_average, popularity, id } = props;
   const thumbnail = useThumbnail(backdrop_path);
+
+  const router = useRouter();
+
   return (
-    <Container thumbnail={thumbnail}>
+    <Container
+      thumbnail={thumbnail}
+      onClick={() => router.push(`/detail/${title ? "movie" : "tv"}/${id}`)}
+    >
       <CardItemBase zoom="zoom-in">
         <Box className={"card-image"}>
           <Typography className={"card-badge"} variant={"h5"}>

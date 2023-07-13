@@ -2,18 +2,30 @@ import { Box, Stack, Typography, styled } from "@mui/material";
 import CardItemBase from "./CardItemBase";
 import Image from "../Image";
 
-import cardImageDemo from "@/public/image/demoImageCard.jpg";
 import usePoster from "@/hooks/usePoster";
+import Link from "../Link";
+import { useRouter } from "next/router";
 
 interface EpisodeCardItemProps {
-  data: any;
+  still_path: string;
+  episode_number: number;
+  name: string;
+  vote_count: number;
+  air_date: string;
+  idx: number;
 }
 
-const EpisodeCardItem = ({ data }: EpisodeCardItemProps) => {
-  const posterPath = usePoster(data?.still_path);
+const EpisodeCardItem = (props: EpisodeCardItemProps) => {
+  const { still_path, episode_number, name, vote_count, air_date, idx } = props;
+  const posterPath = usePoster(still_path);
+
+  const { query } = useRouter();
 
   return (
-    <Container>
+    <Container
+      href={`/play/${query.type}/${query.id}?episode=${idx}&season=${query.season}`}
+      className={`${String(episode_number) == query.episode ? "active" : ""}`}
+    >
       <CardItemBase>
         <Box className={"card-image"}>
           <Image src={posterPath} alt={""} loading="lazy" />
@@ -22,27 +34,35 @@ const EpisodeCardItem = ({ data }: EpisodeCardItemProps) => {
 
       <Stack className={"card-content"}>
         <Typography variant={"body2"} className={"card-title"}>
-          Episode {data.episode_number}
+          Episode {episode_number}
         </Typography>
         <Typography variant={"h5"} className={"card-subtitle"}>
-          {data.name}
+          {name}
         </Typography>
         <Typography variant={"subtitle2"} className={"card-vote"}>
-          vote count: {data.vote_count}
+          vote count: {vote_count}
         </Typography>
         <Typography variant={"subtitle2"} className={"card-date"}>
-          {data.air_date}
+          {air_date}
         </Typography>
       </Stack>
     </Container>
   );
 };
 
-const Container = styled(Stack)(({ theme }) => {
+const Container = styled(Link)(({ theme }) => {
   return {
-    flexDirection: "row",
+    display: "flex",
     gap: "12px",
     cursor: "pointer",
+    color: theme.palette.common.white,
+    width: "100%",
+
+    ["&.active"]: {
+      backgroundColor: "#1CC749",
+      padding: "8px",
+      borderRadius: "4px",
+    },
 
     [theme.breakpoints.down("md")]: {
       minWidth: 370,

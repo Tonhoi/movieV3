@@ -11,16 +11,24 @@ import {
 } from "@mui/material";
 
 import HeadingDetailMovie from "./components/HeadingDetailMovie";
-import { Credit } from "@/interfaces/responseSchema/credits";
+import { CREDITSCHEMA } from "@/interfaces/responseSchema/credits";
 import { DetailMovie } from "@/interfaces/responseSchema/DetailMovie";
 import { useToggle } from "@/hooks";
 import { CardItem, Overlay, TabPanel, Tabs } from "@/components";
 import Embeded from "@/components/Embeded";
-import Reviewer from "./components/Reviewer";
+import Reviews from "./components/Reviews";
+import { REVIEWSCHEMA } from "@/interfaces/responseSchema/reviews";
+import { IPage, responseSchema } from "@/interfaces";
+import { MOVIESCHEMA, TVSCHEMA } from "@/interfaces/responseSchema/utils";
 
-export type DetailPageProps = {
-  initData: [DetailMovie, Credit];
-};
+export type DetailPageProps = IPage<
+  [
+    DetailMovie,
+    CREDITSCHEMA,
+    responseSchema<REVIEWSCHEMA>,
+    responseSchema<TVSCHEMA & MOVIESCHEMA>
+  ]
+>;
 
 const DetailMovie = ({ initData }: DetailPageProps) => {
   const { query, isFallback } = useRouter();
@@ -34,8 +42,8 @@ const DetailMovie = ({ initData }: DetailPageProps) => {
 
   const dataDetailMovie = get(initData, "0");
   const dataCreditMovie = get(initData, "1");
-  const dataReviews: any = get(initData, "2");
-  const dataRecommendations: any = get(initData, "3");
+  const dataReviews = get(initData, "2");
+  const dataRecommendations = get(initData, "3");
 
   const [value, setValue] = useState<number>(0);
 
@@ -46,19 +54,30 @@ const DetailMovie = ({ initData }: DetailPageProps) => {
   const renderReviews = useMemo(() => {
     if (typeof dataReviews?.results == "undefined") return null;
 
-    return dataReviews.results.map((data: any, idx: number) => (
-      <Reviewer key={idx} data={data} />
+    return dataReviews.results.map((data, idx: number) => (
+      <Reviews key={idx} data={data} />
     ));
   }, [dataReviews]);
 
   const renderRecommendations = useMemo(() => {
     if (typeof dataRecommendations.results == "undefined") return null;
 
-    return dataRecommendations.results.map((data: any, idx: number) => (
-      <Grid item lg={2} md={3} sm={4} xs={6}>
-        <CardItem key={idx} data={data} />
-      </Grid>
-    ));
+    return dataRecommendations.results.map((data, idx: number) => {
+      const { original_name, name, vote_average, poster_path, title, id } = data;
+      return (
+        <Grid item lg={2} md={3} sm={4} xs={6}>
+          <CardItem
+            key={idx}
+            original_name={original_name}
+            name={name}
+            vote_average={vote_average}
+            poster_path={poster_path}
+            title={title}
+            id={id}
+          />
+        </Grid>
+      );
+    });
   }, [dataRecommendations]);
 
   return (
@@ -113,12 +132,8 @@ const Container = styled(Box)(({ theme }) => {
 
     ["& .reviews-wrapper"]: {
       display: "grid",
-      gridTemplateColumns: "repeat(2, 1fr)",
+      gridTemplateColumns: "repeat(auto-fill, minmax(350px, 1fr))",
       gap: 8,
-
-      [theme.breakpoints.down("md")]: {
-        gridTemplateColumns: "1fr",
-      },
     },
 
     ["& .tabs-wrapper"]: {

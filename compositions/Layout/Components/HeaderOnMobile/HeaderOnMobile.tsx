@@ -1,24 +1,35 @@
-import { Fragment } from "react";
-import { useRouter } from "next/router";
-import { Box, Divider, Stack, Typography, styled, useTheme } from "@mui/material";
+import { Fragment, MouseEventHandler } from "react";
+import { Box, Divider, Typography, styled, useTheme } from "@mui/material";
 import Hamburger from "hamburger-react";
+import { auth } from "@/firebase/firebase-config";
+import { signOut } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 import { Image, Link, Overlay } from "@/components";
 import { NAVITEM } from "@/constant";
 import { useToggle } from "@/hooks";
 import { ROUTES } from "@/routers";
+import LogoutIcon from "@/components/Icons/LogoutIcon";
 
 import avatar from "@/public/image/avatar.png";
 import bgHeaderMobile from "@/public/image/backgroundAvatar.png";
+import HeaderItemOnMobile from "./HeaderItemOnMobile";
 
 const HeaderOnMobile = () => {
-  const { asPath } = useRouter();
   const theme = useTheme();
+  const [user] = useAuthState(auth);
+
   const {
     toggleOff: handleCloseHeaderMobile,
     on: isOpenHeaderMobile,
     toggle: toggleHeaderMobile,
   } = useToggle();
+
+  const handleLogoutAccount: MouseEventHandler<HTMLAnchorElement> = (e) => {
+    e.preventDefault();
+    signOut(auth);
+    handleCloseHeaderMobile();
+  };
 
   return (
     <Fragment>
@@ -41,27 +52,33 @@ const HeaderOnMobile = () => {
           </Box>
 
           <Typography className={"heading-title"} variant={"body2"}>
-            Login/Signup
+            {user ? user?.displayName : "Login/Signup"}
           </Typography>
         </Link>
 
-        {NAVITEM.map((item, idx: number) => (
-          <Box key={idx}>
-            {item.divider && <Divider light className={"divider"} />}
-            <StyledContent
-              href={item.href}
-              className={`nav-link ${asPath === item.href ? "active" : ""}`}
-              onClick={handleCloseHeaderMobile}
-            >
-              <Stack className={"nav-item"}>
-                <item.icon className={"nav-icon"} />
-                <Typography className={"nav-title"} variant={"body1"}>
-                  {item.title}
-                </Typography>
-              </Stack>
-            </StyledContent>
-          </Box>
-        ))}
+        {NAVITEM.map((item, idx: number) => {
+          const { href, icon, title } = item;
+          return (
+            <Box key={idx}>
+              {item.divider && <Divider light className={"divider"} />}
+              <HeaderItemOnMobile
+                href={href}
+                icon={icon}
+                title={title}
+                onClick={handleCloseHeaderMobile}
+              />
+            </Box>
+          );
+        })}
+
+        {user && (
+          <HeaderItemOnMobile
+            href="/logout"
+            icon={LogoutIcon}
+            title="Đăng xuất"
+            onClick={handleLogoutAccount}
+          />
+        )}
       </Container>
     </Fragment>
   );
@@ -125,41 +142,6 @@ const Container = styled(Box)(({ theme }) => {
       marginBottom: theme.spacing(2),
       height: 1,
       backgroundColor: "#6d7485",
-    },
-  };
-});
-
-const StyledContent = styled(Link)(({ theme }) => {
-  return {
-    position: "relative",
-    display: "block",
-    padding: "12px 0px 12px 24px",
-
-    ["&.active"]: {
-      backgroundColor: "rgb(28, 199, 73)",
-      ["&:after"]: {
-        content: '""',
-        position: "absolute",
-        top: 0,
-        left: 0,
-        bottom: 0,
-        width: 4,
-        backgroundColor: "rgb(0 255 67)",
-      },
-    },
-
-    ["& .nav-item"]: {
-      flexDirection: "row",
-      alignItems: "center",
-      color: "#ECECEC",
-
-      ["& .nav-icon"]: {
-        width: 20,
-        height: 20,
-        marginRight: theme.spacing(1),
-      },
-
-      ["& .nav-title"]: {},
     },
   };
 });

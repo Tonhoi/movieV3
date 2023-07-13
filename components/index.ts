@@ -2,7 +2,6 @@
 export { default as PlusIcon } from "./Icons/PlusIcon";
 export { default as CloseCircleFilled } from "./Icons/CloseCircleFilled";
 export { default as SearchIcon } from "./Icons/SearchIcon";
-export { default as ClockIcon } from "./Icons/ClockIcon";
 export { default as CrownIcon } from "./Icons/CrownIcon";
 export { default as DownloadIcon } from "./Icons/DownloadIcon";
 export { default as FilmIcon } from "./Icons/FilmIcon";
@@ -34,7 +33,6 @@ export { default as Spacing } from "./Spacing";
 export { default as CardItemBase } from "./Card/CardItemBase";
 export { default as CardItem } from "./Card/CardItem";
 export { default as CardItem2 } from "./Card/CardItem2";
-export { default as CardItem3 } from "./Card/CardItem3";
 export { default as TopTrendingCarditem } from "./Card/TopTrendingCarditem";
 
 export { default as Overlay } from "./Overlay";

@@ -5,11 +5,12 @@ import { Box, CircularProgress, TextField, Typography, styled } from "@mui/mater
 import useSWR from "swr";
 import HeadlessTippy from "@tippyjs/react/headless";
 
-import SearchItem from "./SearchItem";
+import SearchItem, { media_type } from "./SearchItem";
 import useThrottle from "@/hooks/useThrottle";
 import { transformUrl } from "@/libs";
 import { useToggle } from "@/hooks";
-import { useParams } from "@/hooks/useParams";
+import { MOVIESCHEMA, TVSCHEMA } from "@/interfaces/responseSchema/utils";
+import { TYPE_PARAMS } from "@/apis";
 
 const HeaderSearch = () => {
   const [ref, { width }] = useMeasure();
@@ -18,14 +19,7 @@ const HeaderSearch = () => {
   const [searchValue, setSearchValue] = useState<string>("");
   const throttledSearchValue = useThrottle<string>(searchValue);
 
-  const { params, setParams, router } = useParams({
-    initState: {
-      query: "",
-      include_adult: false,
-      language: "",
-      page: 1,
-    },
-  });
+  const router = useRouter();
 
   const {
     on: isOpenSearchItem,
@@ -35,7 +29,7 @@ const HeaderSearch = () => {
 
   const { data: searchData, isLoading } = useSWR(
     throttledSearchValue !== ""
-      ? transformUrl("/search/multi", {
+      ? transformUrl(TYPE_PARAMS["search_multi"], {
           query: throttledSearchValue,
           include_adult: false,
           language: "en-US",
@@ -62,9 +56,11 @@ const HeaderSearch = () => {
   const renderSearchItem = useMemo(() => {
     if (typeof searchData?.results == "undefined") return null;
 
-    return searchData.results.map((data: any, idx: number) => (
-      <SearchItem width={width} data={data} key={idx} onClick={handleClickSearchItem} />
-    ));
+    return searchData.results.map(
+      (data: TVSCHEMA & MOVIESCHEMA & media_type, idx: number) => (
+        <SearchItem width={width} data={data} key={idx} onClick={handleClickSearchItem} />
+      )
+    );
   }, [searchData?.results]);
 
   return (

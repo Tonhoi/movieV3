@@ -4,18 +4,25 @@ import { useMeasure } from "react-use";
 import { CardItemBase } from "@/components";
 import useThumbnail from "@/hooks/useThumbnail";
 import imageError from "@/public/image/image_not_available.png";
+import { useRouter } from "next/router";
+import { PEOPLELISTSCHEMA } from "@/interfaces/responseSchema/peopleList";
 
 interface ArtistCardItemProps {
-  data: any;
+  data: PEOPLELISTSCHEMA;
 }
 
 const ArtistCardItem = ({ data }: ArtistCardItemProps) => {
-  const { profile_path, original_name, name } = data;
+  const { profile_path, original_name, name, id } = data;
   const thumbnail = useThumbnail(profile_path);
   const [ref, { width }] = useMeasure();
+  const router = useRouter();
 
   return (
-    <Container ref={ref} thumbnail={thumbnail}>
+    <Container
+      ref={ref}
+      thumbnail={thumbnail}
+      onClick={() => router.push(`/actor-info/${id}`)}
+    >
       <CardItemBase className="card-base">
         <Box className={"card-image"} width={width} height={width}></Box>
 

@@ -3,12 +3,16 @@ import { Box, Button, styled, useTheme } from "@mui/material";
 import Select from "react-select";
 import "react-calendar/dist/Calendar.css";
 import CreatableSelect from "react-select/creatable";
+import { useRouter } from "next/router";
 
 import FilterIcon from "@/components/Icons/FilterIcon";
 import { COUNTRYOPTIONS, VOTEAVERAGEOPTIONS, YEAROPTIONS } from "@/constant";
-import { useRouter } from "next/router";
 
-const Filter = ({ setParams }: any) => {
+interface FilterProps {
+  setParams: (newParams: object) => void;
+}
+
+const Filter = ({ setParams }: FilterProps) => {
   const [selectedCountry, setSelectedCountry] = useState<any>(null);
   const [selectedYear, setSelectedYear] = useState<any>(null);
   const [selectedVoteAverage, setSelectedVoteAverage] = useState<any>(null);

@@ -1,14 +1,19 @@
 import DetailMovie, { DetailPageProps } from "@/containers/DetailMovie/DetailMovie";
-import { RESPONSEDATA as ResponseData } from "@/interfaces/responseSchema/utils";
+import {
+  MOVIESCHEMA,
+  RESPONSEDATA as ResponseData,
+  TVSCHEMA,
+} from "@/interfaces/responseSchema/utils";
 import axios from "@/axios.config";
 import { TYPE_PARAMS } from "@/apis";
+import { Paths } from "@/interfaces/responseSchema/utils";
 
 const index = (props: DetailPageProps) => {
   return <DetailMovie {...props} />;
 };
 
-export async function getStaticPaths(context: any) {
-  const paths: any = [];
+export async function getStaticPaths() {
+  const paths: Array<Paths> = [];
 
   try {
     const detailTv: ResponseData = await axios.get(TYPE_PARAMS["discover_tv"], {
@@ -31,11 +36,11 @@ export async function getStaticPaths(context: any) {
       },
     });
 
-    detailTv.results.map((movie: any) => {
+    detailTv.results.map((movie: TVSCHEMA) => {
       paths.push({ params: { type: "tv", id: `${movie.id}` } });
     });
 
-    detailMovie.results.map((movie: any) => {
+    detailMovie.results.map((movie: MOVIESCHEMA) => {
       paths.push({ params: { type: "movie", id: `${movie.id}` } });
     });
   } catch (error) {
@@ -48,7 +53,14 @@ export async function getStaticPaths(context: any) {
   };
 }
 
-export async function getStaticProps({ params }: any) {
+interface ParamsProps {
+  params: {
+    type: string;
+    id: string;
+  };
+}
+
+export async function getStaticProps({ params }: ParamsProps) {
   try {
     const { type, id } = params;
     const resDetailMovie = await axios.get(`/${type}/${id}?language=en-US`);

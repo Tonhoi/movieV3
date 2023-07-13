@@ -5,19 +5,19 @@ import { useRouter } from "next/router";
 import { Image, Overlay, TvIcon, PlayV2Icon, SaveV2Icon, Link } from "@/components";
 import usePoster from "@/hooks/usePoster";
 import useThumbnail from "@/hooks/useThumbnail";
-import { Credit } from "@/interfaces/responseSchema/credits";
+import { CREDITSCHEMA } from "@/interfaces/responseSchema/credits";
 import { DetailMovie } from "@/interfaces/responseSchema/DetailMovie";
 
 interface HeadingDetailMovieProps {
   dataDetailMovie: DetailMovie;
-  dataCreditMovie: Credit;
+  dataCreditMovie: CREDITSCHEMA;
   handleOpenTrailerMovie: () => void;
 }
 
 const HeadingDetailMovie = (props: HeadingDetailMovieProps) => {
   const { dataDetailMovie, dataCreditMovie, handleOpenTrailerMovie } = props;
 
-  const { query } = useRouter();
+  const { query, push } = useRouter();
 
   const poster = usePoster(dataDetailMovie?.poster_path);
   const thumbnail = useThumbnail(dataDetailMovie?.backdrop_path);
@@ -38,7 +38,12 @@ const HeadingDetailMovie = (props: HeadingDetailMovieProps) => {
     if (typeof dataCreditMovie?.cast == "undefined") return null;
 
     return dataCreditMovie.cast.map((data, idx: number) => (
-      <Typography variant={"body1"} className="artist" key={idx}>
+      <Typography
+        variant={"body1"}
+        className="artist"
+        key={idx}
+        onClick={() => push(`/actor-info/${data.id}`)}
+      >
         {data.name}
       </Typography>
     ));
@@ -181,6 +186,13 @@ const StyledContent = styled(Stack)(({ theme }) => {
         border: "1px solid #fff",
         borderRadius: "50px",
         width: "fit-content",
+      },
+
+      ["& .artist"]: {
+        cursor: "pointer",
+        ["&:hover"]: {
+          color: "#1cc749",
+        },
       },
 
       ["&.artist-list"]: {

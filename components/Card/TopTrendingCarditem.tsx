@@ -1,13 +1,18 @@
+import { memo } from "react";
 import { Box, Typography, styled } from "@mui/material";
 import { useRouter } from "next/router";
 
 import CardItemBase from "./CardItemBase";
-import { TrendingMovie } from "@/interfaces/responseSchema/trendingMovie";
-import { memo } from "react";
 import useThumbnail from "@/hooks/useThumbnail";
+import { MOVIESCHEMA } from "@/interfaces/responseSchema/utils";
+
+interface addData {
+  first_air_date?: string;
+  original_name?: string;
+}
 
 interface TopTrendingCarditemprops {
-  data: TrendingMovie;
+  data: MOVIESCHEMA & addData;
   idx: number;
 }
 

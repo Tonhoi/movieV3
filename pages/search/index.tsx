@@ -1,8 +1,10 @@
-import Search from "@/containers/Search/Search";
 import axios from "@/axios.config";
 import { GetServerSidePropsContext } from "next";
 
-const index = (props: any) => {
+import Search, { SearchPageProps } from "@/containers/Search/Search";
+import { TYPE_PARAMS } from "@/apis";
+
+const index = (props: SearchPageProps) => {
   return <Search {...props} />;
 };
 
@@ -10,7 +12,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
   try {
     const { page, query } = context.query;
 
-    const resSearch = await axios.get("/search/multi", {
+    const resSearch = await axios.get(TYPE_PARAMS["search_multi"], {
       params: {
         query: query,
         include_adult: false,
@@ -21,9 +23,9 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
 
     return {
       props: {
-        initialData: [resSearch],
+        initData: [resSearch],
         fallback: {
-          [`/search/multi?query=${query}&include_adult=false&language=en-US&page=${page}`]:
+          [`${TYPE_PARAMS["search_multi"]}?query=${query}&include_adult=false&language=en-US&page=${page}`]:
             resSearch,
         },
       },
