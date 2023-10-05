@@ -65,7 +65,7 @@ const DetailMovie = ({ initData }: DetailPageProps) => {
     return dataRecommendations.results.map((data, idx: number) => {
       const { original_name, name, vote_average, poster_path, title, id } = data;
       return (
-        <Grid item lg={2} md={3} sm={4} xs={6}>
+        <Grid item lg={2} md={3} sm={4} xs={6} key={idx}>
           <CardItem
             key={idx}
             original_name={original_name}

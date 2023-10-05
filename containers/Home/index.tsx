@@ -1,13 +1,18 @@
-import { Fragment, ReactNode, useMemo } from "react";
-import { Box, Grid, Container as MuiContainer, Typography, styled } from "@mui/material";
+import { useMemo } from "react";
+import { Box, Grid, Container as MuiContainer, styled } from "@mui/material";
 import { get } from "lodash";
 
-import { CardItem, CardItem2, TopTrendingCarditem } from "@/components";
+import {
+  CardItem,
+  CardItem2,
+  TopTrendingCarditem,
+  UpcomingCardItem,
+  ArtistCardItem,
+} from "@/components";
 import { IPage, responseSchema } from "@/interfaces";
-import UpcomingCardItem from "@/components/Card/UpcomingCardItem";
-import ArtistCardItem from "@/components/Card/ArtistCardItem";
 import { MOVIESCHEMA, TVSCHEMA } from "@/interfaces/responseSchema/utils";
 import { PEOPLELISTSCHEMA } from "@/interfaces/responseSchema/peopleList";
+import HomeItem from "./Components/HomeItem";
 
 export type HomePageProps = IPage<
   [
@@ -64,6 +69,7 @@ const Home = ({ initData }: HomePageProps) => {
 
     return dataNowPlaying.map((data, idx: number) => {
       const { vote_average, poster_path, title, id } = data;
+
       return (
         <Grid item lg={2} md={2} sm={3} xs={4} key={idx}>
           <CardItem
@@ -71,6 +77,7 @@ const Home = ({ initData }: HomePageProps) => {
             poster_path={poster_path}
             title={title}
             id={id}
+            animation
           />
         </Grid>
       );
@@ -108,52 +115,43 @@ const Home = ({ initData }: HomePageProps) => {
   }, [dataUpComingMovie]);
 
   return (
-    <Container>
-      <HomeComponent title="Bảng xếp hạng">
-        <Box className={"topTrending-wrapper"}>{renderTredingMovie}</Box>
-      </HomeComponent>
+    <MuiContainer>
+      <Container>
+        <HomeItem title="Bảng xếp hạng">
+          <Box className={"topTrending-wrapper"}>{renderTredingMovie}</Box>
+        </HomeItem>
 
-      <HomeComponent title="Hôm nay xem gì?">
-        <Grid container spacing={3}>
-          {renderAiringToday}
-        </Grid>
-      </HomeComponent>
+        <HomeItem title="Hôm nay xem gì?">
+          <Grid container spacing={3}>
+            {renderAiringToday}
+          </Grid>
+        </HomeItem>
 
-      <HomeComponent title="Nghệ sĩ được quan tâm">
-        <Grid container spacing={3}>
-          {renderTrendingPerson}
-        </Grid>
-      </HomeComponent>
+        <HomeItem title="Nghệ sĩ được quan tâm">
+          <Grid container spacing={3}>
+            {renderTrendingPerson}
+          </Grid>
+        </HomeItem>
 
-      <HomeComponent title="Phim đang được chiếu tại rạp">
-        <Grid container spacing={3}>
-          {renderNowPlaying}
-        </Grid>
-      </HomeComponent>
+        <HomeItem title="Phim đang được chiếu tại rạp">
+          <Grid container spacing={3}>
+            {renderNowPlaying}
+          </Grid>
+        </HomeItem>
 
-      <HomeComponent title="Phim sắp khởi chiếu">
-        <Grid container spacing={3}>
-          {renderUpComingMovie}
-        </Grid>
-      </HomeComponent>
-    </Container>
+        <HomeItem title="Phim sắp khởi chiếu">
+          <Grid container spacing={3}>
+            {renderUpComingMovie}
+          </Grid>
+        </HomeItem>
+      </Container>
+    </MuiContainer>
   );
 };
 
-const HomeComponent = ({ title, children }: { title: string; children: ReactNode }) => {
-  return (
-    <Fragment>
-      <Typography variant={"h3"} className={"title"}>
-        {title}
-      </Typography>
-      {children}
-    </Fragment>
-  );
-};
-
-const Container = styled(MuiContainer)(({ theme }) => {
+const Container = styled(Box)(({ theme }) => {
   return {
-    ["& > .title"]: {
+    ["& .home-title"]: {
       position: "relative",
       marginBottom: 42,
       marginTop: 32,
@@ -176,6 +174,7 @@ const Container = styled(MuiContainer)(({ theme }) => {
 
       [theme.breakpoints.down("md")]: {
         display: "flex",
+
         overflowX: "auto",
         overflowY: "hidden",
         scrollSnapType: "x mandatory",
@@ -185,7 +184,7 @@ const Container = styled(MuiContainer)(({ theme }) => {
         },
       },
 
-      ["& .topTrending-container:first-of-type"]: {
+      ["& .topTrending-item:first-of-type"]: {
         gridRow: "span 2",
         gridColumn: "span 2",
       },

@@ -32,25 +32,31 @@ const CardItem = forwardRef<HTMLDivElement, CardItemProps>((props, ref) => {
   const poster = usePoster(poster_path);
   const router = useRouter();
 
+  const handleClick = () => {
+    router.push(`/detail/${title ? "movie" : "tv"}/${id}`);
+  };
+
   return (
     <CardItemBase>
       <Container
-        className={animation ? "active" : ""}
-        onClick={() => router.push(`/detail/${title ? "movie" : "tv"}/${id}`)}
         ref={ref}
+        className={animation ? "active" : ""}
+        poster_path={poster}
+        onClick={handleClick}
         {...resProps}
       >
-        <StyledCardImage className="card-image" poster_path={poster}>
-          <PlayIcon className={`icon icon-play ${animation ? "active" : ""}`} />
-          <SaveIcon className={`icon icon-save ${animation ? "active" : ""}`} />
+        <Box className="card-image">
+          <PlayIcon className={"icon icon-play"} />
+          <SaveIcon className={"icon icon-save"} />
 
           <Stack className={"vote-average"}>
             <StarIcon className={"star-icon"} />
+
             <Typography variant="body2" className="viewer-count">
               {vote_average}
             </Typography>
           </Stack>
-        </StyledCardImage>
+        </Box>
 
         <Typography variant={"subtitle1"} className="card-title">
           {name ?? original_name ?? title}
@@ -60,71 +66,73 @@ const CardItem = forwardRef<HTMLDivElement, CardItemProps>((props, ref) => {
   );
 });
 
-const Container = styled(Box)(({ theme }) => {
+const Container = styled(Box, {
+  shouldForwardProp: (propName) => propName !== "poster_path",
+})<{ poster_path: string }>(({ poster_path, theme }) => {
   return {
     position: "relative",
-
-    ["& .card-title"]: {
-      marginTop: theme.spacing(1),
-      display: "-webkit-box",
-      WebkitLineClamp: 2,
-      WebkitBoxOrient: "vertical",
-      overflow: "hidden",
-    },
 
     ["&:hover"]: {
       ["& .card-title"]: {
         color: theme.palette.text_hover.main,
       },
 
-      ["& .icon.active"]: {
+      ["&.active .icon"]: {
         display: "block",
       },
     },
-  };
-});
 
-const StyledCardImage = styled(Box, {
-  shouldForwardProp: (propName) => propName !== "poster_path",
-})<{ poster_path: string }>(({ poster_path, theme }) => {
-  return {
-    backgroundImage: `url(${poster_path}), url(${posterAvailable.src})`,
-    aspectRatio: "172 / 230",
-    borderRadius: "4px",
-    ["& .star-icon"]: {
-      width: 13,
-      height: 13,
-    },
+    ["& .card-image"]: {
+      backgroundImage: `url(${poster_path}), url(${posterAvailable.src})`,
+      aspectRatio: "172 / 230",
+      borderRadius: 4,
 
-    ["& .vote-average"]: {
-      position: "absolute",
-      bottom: 10,
-      left: 8,
-      zIndex: 2,
-      flexDirection: "row",
-      alignItems: "center",
-      gap: 4,
-
-      color: theme.palette.common.white,
-    },
-
-    ["& .icon"]: {
-      position: "absolute",
-      display: "none",
-      width: 35,
-      height: 35,
-
-      ["&-play"]: {
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
+      ["& .star-icon"]: {
+        width: 13,
+        height: 13,
       },
 
-      ["&-save"]: {
+      ["& .vote-average"]: {
+        position: "absolute",
         bottom: 10,
-        right: 10,
+        left: 8,
         zIndex: 2,
+
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 4,
+
+        color: theme.palette.common.white,
       },
+
+      ["& .icon"]: {
+        position: "absolute",
+        display: "none",
+        width: 35,
+        height: 35,
+
+        ["&-play"]: {
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+        },
+
+        ["&-save"]: {
+          bottom: 10,
+          right: 10,
+          zIndex: 2,
+        },
+      },
+    },
+
+    ["& .card-title"]: {
+      marginTop: theme.spacing(1),
+
+      // text truncate
+      display: "-webkit-box",
+      WebkitLineClamp: 2,
+      WebkitBoxOrient: "vertical",
+      overflow: "hidden",
     },
   };
 });

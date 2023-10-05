@@ -1,12 +1,10 @@
-import { Box, Stack, Typography, styled } from "@mui/material";
-import CardItemBase from "./CardItemBase";
-import Image from "../Image";
-
-import usePoster from "@/hooks/usePoster";
-import Link from "../Link";
+import { Box, BoxProps, Typography, styled } from "@mui/material";
 import { useRouter } from "next/router";
 
-interface EpisodeCardItemProps {
+import { CardItemBase, Image, Link } from "@/components";
+import usePoster from "@/hooks/usePoster";
+
+interface EpisodeCardItemProps extends BoxProps {
   still_path: string;
   episode_number: number;
   name: string;
@@ -16,90 +14,80 @@ interface EpisodeCardItemProps {
 }
 
 const EpisodeCardItem = (props: EpisodeCardItemProps) => {
-  const { still_path, episode_number, name, vote_count, air_date, idx } = props;
+  const { still_path, episode_number, name, vote_count, air_date, idx, ...restProps } =
+    props;
   const posterPath = usePoster(still_path);
 
   const { query } = useRouter();
 
   return (
-    <Container
-      href={`/play/${query.type}/${query.id}?episode=${idx}&season=${query.season}`}
-      className={`${String(episode_number) == query.episode ? "active" : ""}`}
-    >
-      <CardItemBase>
+    <CardItemBase zoom="zoom-in" {...restProps}>
+      <Container
+        href={`/play/${query.type}/${query.id}?episode=${idx}&season=${query.season}`}
+        className={`${String(episode_number) == query.episode ? "active" : ""}`}
+      >
         <Box className={"card-image"}>
-          <Image src={posterPath} alt={""} loading="lazy" />
+          <Image src={posterPath} alt={""} loading="lazy" className={"img"} />
         </Box>
-      </CardItemBase>
 
-      <Stack className={"card-content"}>
-        <Typography variant={"body2"} className={"card-title"}>
-          Episode {episode_number}
-        </Typography>
-        <Typography variant={"h5"} className={"card-subtitle"}>
-          {name}
-        </Typography>
-        <Typography variant={"subtitle2"} className={"card-vote"}>
-          vote count: {vote_count}
-        </Typography>
-        <Typography variant={"subtitle2"} className={"card-date"}>
-          {air_date}
-        </Typography>
-      </Stack>
-    </Container>
+        <Box className={"card-content"}>
+          <Typography variant={"body2"} className={"card-itle"}>
+            Episode {episode_number}
+          </Typography>
+          <Typography variant={"h5"} className={"card-sub-title"}>
+            {name}
+          </Typography>
+          <Typography variant={"subtitle2"} className={"card-vote"}>
+            vote count: {vote_count}
+          </Typography>
+          <Typography variant={"subtitle2"} className={"card-date"}>
+            {air_date}
+          </Typography>
+        </Box>
+      </Container>
+    </CardItemBase>
   );
 };
 
 const Container = styled(Link)(({ theme }) => {
   return {
     display: "flex",
-    gap: "12px",
-    cursor: "pointer",
+    gap: 12,
     color: theme.palette.common.white,
-    width: "100%",
 
     ["&.active"]: {
       backgroundColor: "#1CC749",
-      padding: "8px",
-      borderRadius: "4px",
-    },
-
-    [theme.breakpoints.down("md")]: {
-      minWidth: 370,
+      padding: 8,
+      borderRadius: 4,
     },
 
     ["&:hover"]: {
-      opacity: 0.9,
+      opacity: 0.7,
       transition: "opacity linear 0.2s",
     },
 
     ["& .card-image"]: {
       width: 140,
       height: 95,
-      borderRadius: "10px",
-      overflow: "hidden",
+      flexShrink: 0,
+
+      ["& .img"]: {
+        objectFit: "cover",
+        borderRadius: 10,
+      },
     },
 
-    ["& .card-content"]: {
-      ["& .card-title"]: {
-        marginBottom: 4,
-      },
+    ["& .card-sub-title"]: {
+      margin: "2px 0 4px",
 
-      ["& .card-subtitle"]: {
-        marginBottom: 4,
-        ["&:hover"]: {
-          color: "#1CC749",
-        },
+      ["&:hover"]: {
+        color: "#1CC749",
       },
+    },
 
-      ["& .card-vote"]: {
-        marginBottom: 2,
-        color: "#909090",
-      },
-
-      ["& .card-date"]: {
-        color: "#909090",
-      },
+    ["& :where(.card-vote, .card-date)"]: {
+      marginBottom: 2,
+      color: "#909090",
     },
   };
 });

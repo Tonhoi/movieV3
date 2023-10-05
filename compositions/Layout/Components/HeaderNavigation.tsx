@@ -1,5 +1,4 @@
 import { Box, Stack, Typography, styled } from "@mui/material";
-import { useMeasure } from "react-use";
 
 import { Link, Image } from "@/components";
 import { ROUTES } from "@/routers";
@@ -7,83 +6,94 @@ import { useMedia } from "@/hooks";
 import HeaderOnMobile from "./HeaderOnMobile/HeaderOnMobile";
 
 import logo from "@/public/image/logo.png";
-import { useRouter } from "next/router";
+
+const NAVITEM = [
+  {
+    id: 1,
+    title: "Movie",
+    href: ROUTES.movie,
+  },
+  {
+    id: 2,
+    title: "Tv",
+    href: ROUTES.tv,
+  },
+];
 
 const HeaderItem = () => {
-  const [ref, { width }] = useMeasure();
-
   const { isMdDown } = useMedia();
-  const router = useRouter();
 
   return (
     <Container>
       {isMdDown && <HeaderOnMobile />}
 
-      <StyledImageWrapper ref={ref} onClick={() => router.push(ROUTES.home)}>
-        <Image src={logo} width={width} height={width} />
-      </StyledImageWrapper>
+      <Link href={ROUTES.home} className={"logo"}>
+        <Image src={logo} />
+      </Link>
 
-      <StyledNavLink href={ROUTES.movie}>
-        <Typography variant="subtitle1">Movie</Typography>
-      </StyledNavLink>
-
-      <StyledNavLink href={ROUTES.tv}>
-        <Typography variant="subtitle1">Tv</Typography>
-      </StyledNavLink>
+      <Box component={"ul"} className="nav-list">
+        {NAVITEM.map((el) => (
+          <Box component={"li"} key={el.id} className="nav-item">
+            <Link href={el.href} key={el.id} className="nav-link">
+              <Typography variant="subtitle1">{el.title}</Typography>
+            </Link>
+          </Box>
+        ))}
+      </Box>
     </Container>
   );
 };
 
-const Container = styled(Stack)(() => {
+const Container = styled(Stack)(({ theme }) => {
   return {
     flexDirection: "row",
     alignItems: "center",
     gap: 30,
-  };
-});
 
-const StyledImageWrapper = styled(Box)(({ theme }) => {
-  return {
-    position: "relative",
+    ["& .logo"]: {
+      position: "relative",
 
-    width: 170,
-    height: 43,
+      width: 170,
+      height: 43,
 
-    ["& img"]: {
-      objectFit: "cover",
-      cursor: "pointer",
+      ["& img"]: {
+        objectFit: "cover",
+        cursor: "pointer",
+      },
 
       [theme.breakpoints.down("md")]: {
-        marginLeft: "-24px",
+        margin: "0 auto",
+        width: 140,
+        height: 30,
+      },
+
+      [theme.breakpoints.down("sm")]: {
+        width: 170,
+        height: 43,
       },
     },
 
-    [theme.breakpoints.down("md")]: {
-      margin: "0 auto",
-      width: 140,
-      height: 30,
-    },
+    ["& .nav-list"]: {
+      listStyle: "none",
+      display: "flex",
+      alignItems: "center",
+      gap: 30,
+      padding: 0,
 
-    [theme.breakpoints.down("sm")]: {
-      width: 170,
-      height: 43,
-    },
-  };
-});
+      ["& .nav-link"]: {
+        textDecoration: "none",
+        opacity: 0.6,
+        color: theme.palette.common.white,
 
-const StyledNavLink = styled(Link)(({ theme }) => {
-  return {
-    textDecoration: "none",
-    opacity: 0.6,
-    color: theme.palette.common.white,
+        "&:hover": {
+          color: theme.palette.text_hover.main,
+          transition: "color linear 0.2s",
+        },
 
-    "&:hover": {
-      color: theme.palette.text_hover.main,
-      transition: "color linear 0.2s",
-    },
-
-    [theme.breakpoints.down("md")]: {
-      display: "none",
+        [theme.breakpoints.down("md")]: {
+          display: "none",
+        },
+      },
     },
   };
 });

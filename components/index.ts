@@ -17,6 +17,7 @@ export { default as TwitterIcon } from "./Icons/TwitterIcon";
 export { default as LinkedinIcon } from "./Icons/LinkedinIcon";
 export { default as PlayV2Icon } from "./Icons/PlayV2Icon";
 export { default as SaveV2Icon } from "./Icons/SaveV2Icon";
+export { default as MenuV2Icon } from "./Icons/MenuV2Icon";
 
 export { default as HeartIcon } from "./Icons/HeartIcon";
 export { default as ChatIcon } from "./Icons/ChatIcon";
@@ -34,8 +35,12 @@ export { default as CardItemBase } from "./Card/CardItemBase";
 export { default as CardItem } from "./Card/CardItem";
 export { default as CardItem2 } from "./Card/CardItem2";
 export { default as TopTrendingCarditem } from "./Card/TopTrendingCarditem";
+export { default as EpisodeCardItem } from "./Card/EpisodeCardItem";
+export { default as UpcomingCardItem } from "./Card/UpcomingCardItem";
+export { default as ArtistCardItem } from "./Card/ArtistCardItem";
 
 export { default as Overlay } from "./Overlay";
 
 export { default as TabPanel } from "./Tabs/TabPanel";
 export { default as Tabs } from "./Tabs/Tabs";
+export { default as Embeded } from "./Embeded";

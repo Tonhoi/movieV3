@@ -1,18 +1,17 @@
-import { useParams } from "@/hooks/useParams";
-import { useRouter } from "next/router";
-
 interface EmbededProps {
   src: string;
   className?: string;
+  width?: string;
+  height?: string;
 }
 
 const Embeded = (props: EmbededProps) => {
-  const { src, className } = props;
+  const { src, className, width = "100%", height = "100%" } = props;
 
   return (
     <iframe
-      width="100%"
-      height="100%"
+      width={width}
+      height={height}
       src={src}
       title="YouTube video player"
       frameBorder="0"

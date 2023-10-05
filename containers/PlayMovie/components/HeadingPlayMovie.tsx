@@ -1,12 +1,18 @@
 import { useMemo } from "react";
 import { Box, Stack, Typography, styled } from "@mui/material";
 
-import { ChatIcon, HeartIcon, Link, MenuIcon, SaveV2Icon, ShareIcon } from "@/components";
-import { useToggle } from "@/hooks";
-import EpisodeCardItem from "@/components/Card/EpisodeCardItem";
-import MenuV2Icon from "@/components/Icons/MenuV2Icon";
-import Embeded from "@/components/Embeded";
-import { useParams } from "@/hooks/useParams";
+import {
+  ChatIcon,
+  HeartIcon,
+  Link,
+  MenuIcon,
+  SaveV2Icon,
+  ShareIcon,
+  EpisodeCardItem,
+  MenuV2Icon,
+  Embeded,
+} from "@/components";
+import { useToggle, useParams } from "@/hooks";
 import { EPISODESCHEMA } from "@/interfaces/responseSchema/episode";
 
 interface HeadingPlayMovieProps {
@@ -16,7 +22,7 @@ interface HeadingPlayMovieProps {
 const HeadingPlayMovie = ({ episodes }: HeadingPlayMovieProps) => {
   const { on, toggleOff, toggleOn } = useToggle();
 
-  const { params, setParams, router, resetParams } = useParams({
+  const { router, resetParams } = useParams({
     initState: {
       season: 1,
       episode: 1,
@@ -30,11 +36,15 @@ const HeadingPlayMovie = ({ episodes }: HeadingPlayMovieProps) => {
       }
     },
   });
+  const { query } = router;
+  const { type, id, season, episode } = query;
+
   const renderEpisodes = useMemo(() => {
     if (typeof episodes == "undefined") return null;
 
     return episodes.map((data: EPISODESCHEMA, idx: number) => {
       const { still_path, episode_number, name, vote_count, air_date } = data;
+
       return (
         <EpisodeCardItem
           key={idx}
@@ -54,10 +64,8 @@ const HeadingPlayMovie = ({ episodes }: HeadingPlayMovieProps) => {
 
     return episodes.map((data: any, idx: number) => (
       <Link
-        href={`/play/${router.query.type}/${router.query.id}?episode=${data.episode_number}&season=${router.query.season}`}
-        className={`episode ${
-          data.episode_number == router.query.episode ? "active" : ""
-        }`}
+        href={`/play/${type}/${id}?episode=${data.episode_number}&season=${season}`}
+        className={`episode ${data.episode_number == episode ? "active" : ""}`}
         key={idx}
       >
         <Typography variant={"body2"}>{idx + 1}</Typography>
@@ -68,11 +76,10 @@ const HeadingPlayMovie = ({ episodes }: HeadingPlayMovieProps) => {
   return (
     <Container>
       <Box width={"100%"}>
-        <Box className={"embeded-wrapper"}>
-          <Embeded
-            src={`https://autoembed.to/${router.query.type}/tmdb/${router.query.id}-${router.query.season}-${router.query.episode}`}
-          />
-        </Box>
+        <Embeded
+          src={`https://autoembed.to/${type}/tmdb/${id}-${season}-${episode}`}
+          height="400"
+        />
 
         <Stack className={"menu-options"}>
           <Stack className={"menu-options-item"}>
@@ -97,18 +104,16 @@ const HeadingPlayMovie = ({ episodes }: HeadingPlayMovieProps) => {
         </Stack>
       </Box>
 
-      <Box className={"episodes-list"}>
+      <Box className={"episodes-list custom-scroll"}>
         <Stack className={"episodes-filter-wrap"}>
           <Typography variant={"subtitle2"}>
-            Episodes {router.query.episode}-{episodes?.length}
+            Episodes {episode}-{episodes?.length}
           </Typography>
 
           {on ? <MenuIcon onClick={toggleOff} /> : <MenuV2Icon onClick={toggleOn} />}
         </Stack>
 
-        <Stack className={"play-content custom-scroll"}>
-          {on ? renderEpisodes2 : renderEpisodes}
-        </Stack>
+        {on ? renderEpisodes2 : renderEpisodes}
       </Box>
     </Container>
   );
@@ -116,7 +121,6 @@ const HeadingPlayMovie = ({ episodes }: HeadingPlayMovieProps) => {
 
 const Container = styled(Stack)(({ theme }) => {
   return {
-    height: "auto",
     flexDirection: "row",
     backgroundColor: "#1A1C22",
     maxHeight: 455,
@@ -125,11 +129,6 @@ const Container = styled(Stack)(({ theme }) => {
     [theme.breakpoints.down("md")]: {
       flexDirection: "column",
       maxHeight: "100%",
-    },
-
-    ["& .embeded-wrapper"]: {
-      position: "relative",
-      height: 400,
     },
 
     ["& .menu-options"]: {
@@ -143,7 +142,7 @@ const Container = styled(Stack)(({ theme }) => {
       ["& .menu-options-item"]: {
         flexDirection: "row",
         alignItems: "center",
-        gap: "4px",
+        gap: 4,
         cursor: "pointer",
 
         ["&:hover"]: {
@@ -157,16 +156,24 @@ const Container = styled(Stack)(({ theme }) => {
       width: "50%",
       padding: "0px 10px",
       margin: "16px 0px",
+      overflowY: "scroll",
+      maxHeight: "100%",
 
       [theme.breakpoints.down("md")]: {
         width: "100%",
       },
 
       ["& .episodes-filter-wrap"]: {
+        position: "sticky",
+        top: 0,
+        zIndex: 2,
+
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
-        marginBottom: "12px",
+        paddingBottom: 12,
+
+        backgroundColor: "#1A1C22",
 
         ["& svg"]: {
           width: 18,
@@ -179,35 +186,21 @@ const Container = styled(Stack)(({ theme }) => {
         },
       },
 
-      ["& .play-content"]: {
-        flexDirection: "row",
-        alignItems: "center",
-        flexWrap: "wrap",
-        gap: 8,
-        maxHeight: "100%",
-        width: "calc(100% + 5px)",
-
-        overflowY: "scroll",
-      },
-
       ["& .episode"]: {
         width: 40,
         height: 40,
-        display: "flex",
+        display: "inline-flex",
         alignItems: "center",
         justifyContent: "center",
-        borderRadius: "4px",
+        margin: "0px 8px 8px 0px",
+        borderRadius: 4,
         backgroundColor: "#23252B",
-        cursor: "pointer",
         color: theme.palette.common.white,
+        cursor: "pointer",
 
-        ["&:hover"]: {
+        ["&:hover, &.active"]: {
           background: "#1CC749",
           transition: "all linear 0.2s",
-        },
-
-        ["&.active"]: {
-          background: "#1CC749",
         },
       },
     },

@@ -7,7 +7,7 @@ import { Link } from "@/components";
 import Pagination from "@/components/Pagination";
 import usePoster from "@/hooks/usePoster";
 import SearchItem from "./Components/SearchItem";
-import { useParams } from "@/hooks/useParams";
+import { useParams } from "@/hooks";
 import { transformUrl } from "@/libs";
 import Skeleton from "./Components/Skeleton";
 import { MOVIESCHEMA, TVSCHEMA } from "@/interfaces/responseSchema/utils";

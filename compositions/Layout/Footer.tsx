@@ -20,6 +20,8 @@ const Footer = () => {
 
 const Container = styled(Stack)(({ theme }) => {
   return {
+    padding: "32px 0px",
+
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",

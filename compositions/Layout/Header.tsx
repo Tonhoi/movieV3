@@ -1,7 +1,7 @@
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 import { Box, Container as MuiContainer, Grid, styled } from "@mui/material";
 import { useWindowScroll } from "react-use";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
 
 import { HeaderNavigation, HeaderOptions, HeaderSearch } from "@/compositions";
 import { useToggle } from "@/hooks";
@@ -22,12 +22,7 @@ const Header = () => {
   return (
     <Container className={on || asPath.startsWith("/play") ? "active" : ""}>
       <MuiContainer>
-        <Grid
-          container
-          justifyContent={"space-between"}
-          alignItems={"center"}
-          spacing={2}
-        >
+        <Grid container alignItems={"center"} spacing={2}>
           <Grid item lg={4} md={4} sm={4} xs={12}>
             <HeaderNavigation />
           </Grid>
@@ -57,10 +52,6 @@ const Container = styled(Box)(({ theme }) => {
 
     ["&.active"]: {
       backgroundColor: "rgb(10, 12, 15)",
-
-      // ["& .icon-wrapper"]: {
-      //   backgroundColor: "#444444",
-      // },
     },
 
     [theme.breakpoints.down("sm")]: {

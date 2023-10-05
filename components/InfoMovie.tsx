@@ -1,4 +1,4 @@
-import { Box, Divider, Stack, Typography, styled, useTheme } from "@mui/material";
+import { Box, Typography, styled, useTheme } from "@mui/material";
 
 import StarIcon from "./Icons/StarIcon";
 import { EPISODESCHEMA } from "@/interfaces/responseSchema/episode";
@@ -14,16 +14,14 @@ const InfoMovie = (props: InfoMovieProps) => {
 
   return (
     <Container>
-      <Typography variant="subtitle1">{data.name}</Typography>
+      <Typography variant="subtitle1" className="name-movie">
+        {data.name}
+      </Typography>
 
-      <Stack className="info-wrapper">
+      <Typography variant="body2" color={theme.palette.text_hover.main}>
         <StarIcon className={"star-icon"} color={"inherit"} />
-        <Typography variant="body2" color={theme.palette.text_hover.main}>
-          {data.vote_average}
-        </Typography>
-
-        <Divider orientation="vertical" light />
-      </Stack>
+        {data.vote_average}
+      </Typography>
 
       <Typography variant="h6" className={`description ${isDescription ? "active" : ""}`}>
         {data.overview}
@@ -34,21 +32,16 @@ const InfoMovie = (props: InfoMovieProps) => {
 
 const Container = styled(Box)(({ theme }) => {
   return {
-    ["& .info-wrapper"]: {
-      flexDirection: "row",
-      alignItems: "center",
-      gap: 6,
-      marginTop: 8,
-      color: "#1CC749",
+    ["& .name-movie"]: {
+      marginBottom: 8,
+    },
 
-      ["& .star-icon"]: {
-        width: 12,
-        height: 12,
-
-        cursor: "pointer",
-
-        ["&:hover"]: { opacity: 0.8, transition: "opacity linear 0.3s" },
-      },
+    ["& .star-icon"]: {
+      position: "relative",
+      top: 1,
+      marginRight: 2,
+      width: 12,
+      height: 12,
     },
 
     ["& .description"]: {

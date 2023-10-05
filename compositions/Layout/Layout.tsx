@@ -1,14 +1,14 @@
-import {  ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { Box, styled } from "@mui/material";
 import { useRouter } from "next/router";
 import "react-toastify/dist/ReactToastify.css";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 import Login from "@/containers/Login/Login";
 import { Header, Footer, Slider } from "@/compositions";
 import LoadingScreen from "../LoadingScreen";
 import ErrorPage from "@/pages/404";
 import Register from "@/containers/Register/Register";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/firebase/firebase-config";
 
 interface layoutProps {
@@ -68,7 +68,6 @@ const Container = styled(Box)(({ theme }) => {
     color: "#ECECEC",
 
     ["& .footer"]: {
-      padding: "32px 0px",
       marginTop: 50,
       backgroundColor: "rgb(10, 12, 15)",
       borderTop: "1px solid rgb(45, 47, 52)",

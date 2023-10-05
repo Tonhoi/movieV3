@@ -8,6 +8,7 @@ interface CardItemBaseprops extends BoxProps {
 
 const CardItemBase = (props: CardItemBaseprops) => {
   const { children, zoom = "zoom-out", ...restProps } = props;
+
   return (
     <Container zoom={zoom} {...restProps}>
       {children}

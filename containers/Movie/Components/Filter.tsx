@@ -1,7 +1,6 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import { Box, Button, styled, useTheme } from "@mui/material";
 import Select from "react-select";
-import "react-calendar/dist/Calendar.css";
 import CreatableSelect from "react-select/creatable";
 
 import FilterIcon from "@/components/Icons/FilterIcon";

@@ -20,7 +20,7 @@ interface UseParamsProps {
   isScroll?: boolean;
 }
 
-export const useParams = (props: UseParamsProps) => {
+const useParams = (props: UseParamsProps) => {
   const {
     initState = {},
     callback = () => {},
@@ -113,3 +113,5 @@ export const useParams = (props: UseParamsProps) => {
     resetParams,
   };
 };
+
+export default useParams;

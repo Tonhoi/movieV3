@@ -32,15 +32,12 @@ const TopTrendingCarditem = ({ data, idx }: TopTrendingCarditemprops) => {
 
   return (
     <Container
-      className={"topTrending-container"}
+      className={"topTrending-item"}
       onClick={() => router.push(`/detail/${!!title ? "movie" : "tv"}/${id}`)}
+      thumbnail={thumbnail}
     >
       <CardItemBase height={"100%"}>
-        <StyledCardImage
-          thumbnail={thumbnail}
-          className="card-image"
-          position={"relative"}
-        >
+        <Box className="card-image">
           <Typography variant={"h6"} className="card-image-badge">
             {release_date ?? first_air_date}
           </Typography>
@@ -53,58 +50,54 @@ const TopTrendingCarditem = ({ data, idx }: TopTrendingCarditemprops) => {
               {title ?? original_title ?? original_name}
             </Typography>
           </Box>
-        </StyledCardImage>
+        </Box>
       </CardItemBase>
     </Container>
   );
 };
 
-const Container = styled(Box)(({ theme }) => {
+const Container = styled(Box, {
+  shouldForwardProp: (propName) => propName !== "thumbnail",
+})<{ thumbnail: string }>(({ thumbnail, theme }) => {
   return {
-    borderRadius: "4px",
-
     [theme.breakpoints.down("md")]: {
       width: "50%",
       flexShrink: 0,
       scrollSnapAlign: "center",
     },
-  };
-});
 
-const StyledCardImage = styled(Box, {
-  shouldForwardProp: (propName) => propName !== "thumbnail",
-})<{ thumbnail: string }>(({ theme, thumbnail }) => {
-  return {
-    backgroundImage: `url(${thumbnail})`,
-    aspectRatio: "430 / 258",
-    height: "100%",
-    width: "100%",
+    ["& .card-image"]: {
+      position: "relative",
+      backgroundImage: `url(${thumbnail})`,
+      aspectRatio: "430 / 258",
+      borderRadius: 4,
 
-    ["& .card-image-badge"]: {
-      position: "absolute",
-      right: 0,
-      top: 0,
-      padding: "2px 4px",
+      ["& .card-image-badge"]: {
+        position: "absolute",
+        right: 0,
+        top: 0,
+        padding: "2px 4px",
 
-      color: theme.palette.common.white,
-      borderRadius: "2px",
-      textAlign: "center",
-      backgroundImage: "linear-gradient(90deg, rgb(0, 214, 57) 0%, rgb(0, 194, 52) 100%)",
-    },
-    ["& .card-content"]: {
-      position: "absolute",
-      bottom: 10,
-      left: 10,
-      zIndex: 2,
+        color: theme.palette.common.white,
+        borderRadius: "2px",
+        textAlign: "center",
+        backgroundImage:
+          "linear-gradient(90deg, rgb(0, 214, 57) 0%, rgb(0, 194, 52) 100%)",
+      },
 
-      ["& .card-title"]: {
-        bottom: 0,
+      ["& .card-content"]: {
+        position: "absolute",
+        bottom: 10,
+        left: 10,
         zIndex: 2,
 
-        display: "-webkit-box",
-        WebkitLineClamp: 1,
-        WebkitBoxOrient: "vertical",
-        overflow: "hidden",
+        // truncate
+        ["& .card-title"]: {
+          display: "-webkit-box",
+          WebkitLineClamp: 1,
+          WebkitBoxOrient: "vertical",
+          overflow: "hidden",
+        },
       },
     },
   };

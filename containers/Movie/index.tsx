@@ -6,7 +6,7 @@ import { get } from "lodash";
 
 import { CardItem } from "@/components";
 import { IPage, responseSchema } from "@/interfaces";
-import { useParams } from "@/hooks/useParams";
+import { useParams } from "@/hooks";
 import Pagination from "@/components/Pagination";
 import { TYPE_PARAMS } from "@/apis";
 import { transformUrl } from "@/libs";
