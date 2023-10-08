@@ -25,6 +25,7 @@
     "framer-motion": "^10.16.4",
     "hamburger-react": "^2.5.0",
     "lodash": "^4.17.21",
+    "material-ui-popup-state": "^5.0.9",
     "next": "13.3.4",
     "nextjs-progressbar": "^0.0.16",
     "query-string": "^8.1.0",
@@ -40,11 +41,13 @@
     "slick-carousel": "^1.8.1",
     "swr": "^2.1.5",
     "typescript": "5.0.4",
+    "uuid": "^9.0.1",
     "yup": "^1.1.1"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.194",
     "@types/react-custom-scrollbars": "^4.0.10",
-    "@types/react-slick": "^0.23.10"
+    "@types/react-slick": "^0.23.10",
+    "@types/uuid": "^9.0.4"
   }
 }

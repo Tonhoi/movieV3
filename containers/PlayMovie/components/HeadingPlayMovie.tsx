@@ -76,10 +76,7 @@ const HeadingPlayMovie = ({ episodes }: HeadingPlayMovieProps) => {
   return (
     <Container>
       <Box width={"100%"}>
-        <Embeded
-          src={`https://autoembed.to/${type}/tmdb/${id}-${season}-${episode}`}
-          height="400"
-        />
+        <Embeded id={id} episode={episode} season={season} type={type} height="400" />
 
         <Stack className={"menu-options"}>
           <Stack className={"menu-options-item"}>

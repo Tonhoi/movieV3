@@ -1,4 +1,5 @@
 import { Image } from "@/components";
+import usePoster from "@/hooks/usePoster";
 import { Box, Stack, Typography, styled } from "@mui/material";
 import { useRouter } from "next/router";
 
@@ -9,7 +10,7 @@ interface SearchItemProps {
   original_name: string;
   title: string;
   release_date: string;
-  poster: string;
+  poster_path: string;
   media_type: string;
   id: string;
 }
@@ -22,12 +23,13 @@ const SearchItem = (props: SearchItemProps) => {
     original_name,
     title,
     release_date,
-    poster,
+    poster_path,
     media_type,
     id,
   } = props;
 
   const router = useRouter();
+  const poster = usePoster(poster_path);
 
   const handleClick = () => {
     router.push(`/detail/${media_type}/${id}`);
@@ -72,6 +74,7 @@ const Container = styled(Stack)(({ theme }) => {
 
     ["&:not(:last-child)"]: {
       position: "relative",
+
       ["&:after"]: {
         content: '""',
         position: "absolute",
@@ -86,21 +89,18 @@ const Container = styled(Stack)(({ theme }) => {
 
     ["& .image-wrapper"]: {
       position: "relative",
-      width: "100%",
-      maxWidth: 156,
-      minWidth: 156,
+      width: 156,
       height: 210,
-      borderRadius: 4,
-      overflow: "hidden",
+      flexShrink: 0,
 
       [theme.breakpoints.down("sm")]: {
-        maxWidth: 91,
-        minWidth: 91,
+        width: 91,
         height: 121,
       },
 
       ["& img"]: {
         objectFit: "cover",
+        borderRadius: 4,
       },
     },
     ["& .search-content-right"]: {

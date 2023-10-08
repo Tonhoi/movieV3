@@ -6,11 +6,7 @@ import useSWR from "swr";
 import HeadingPlayMovie from "./components/HeadingPlayMovie";
 import Comment from "./components/Comment";
 import ContentPlayMovie from "./components/ContentPlayMovie";
-import { IPage, responseSchema } from "@/interfaces";
-import { MOVIESCHEMA } from "@/interfaces/responseSchema/utils";
-import { DetailMovie } from "@/interfaces/responseSchema/DetailMovie";
-
-export type PlayMoviePageProps = IPage<[responseSchema<MOVIESCHEMA>, DetailMovie]>;
+import { PlayMoviePageProps } from "@/pages/play/[type]/[id]";
 
 const PlayMovie = ({ initData }: PlayMoviePageProps) => {
   const router = useRouter();
@@ -22,7 +18,6 @@ const PlayMovie = ({ initData }: PlayMoviePageProps) => {
   const { data } = useSWR(
     `/${router.query.type}/${router.query.id}/season/${router.query.season}?language=en-US`
   );
-
 
   return (
     <Container>

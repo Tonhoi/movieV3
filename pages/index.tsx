@@ -1,34 +1,35 @@
 import { GetStaticProps } from "next";
-import axios from "@/axios.config";
 
-import Home, { HomePageProps } from "@/containers/Home";
-import { TYPE_PARAMS } from "@/apis";
+import Home from "@/containers/Home/Home";
+import { IPage, responseSchema } from "@/interfaces";
+import { MOVIESCHEMA, TVSCHEMA } from "@/interfaces/responseSchema/utils";
+import { PEOPLELISTSCHEMA } from "@/interfaces/responseSchema/peopleList";
+import movieServices from "@/services/movieServices";
+import tvServices from "@/services/tvServices";
+import artistServices from "@/services/artistServices";
+
+export type HomePageProps = IPage<
+  [
+    responseSchema<MOVIESCHEMA>,
+    responseSchema<TVSCHEMA>,
+    responseSchema<PEOPLELISTSCHEMA>,
+    responseSchema<MOVIESCHEMA>,
+    responseSchema<MOVIESCHEMA>
+  ]
+>;
 
 export default function home(props: HomePageProps) {
   return <Home {...props} />;
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  try {
-    const resTrendingMovie = await axios.get(TYPE_PARAMS["trending_movie"]);
-    const resUpcoming = await axios.get(TYPE_PARAMS["upcoming"]);
-    const resAiringToday = await axios.get(TYPE_PARAMS["airing_today"]);
-    const resTrendingPerson = await axios.get(TYPE_PARAMS["trending_person"]);
-    const resNowPlaying = await axios.get(TYPE_PARAMS["now_playing"]);
+  const trendingMovie = await movieServices.getTrendingMovie();
+  const DailyWatchingMovie = await tvServices.getTrendingTv();
+  const popularArtist = await artistServices.getPopularArtist();
+  const nowPlayingMovie = await movieServices.getNowPlayingMovie();
+  const upComingMovie = await movieServices.getUpComingMovie();
 
-    return {
-      props: {
-        initData: [
-          resTrendingMovie,
-          resUpcoming,
-          resAiringToday,
-          resTrendingPerson,
-          resNowPlaying,
-        ],
-        fallback: true,
-      },
-    };
-  } catch (err) {
+  if (!trendingMovie || !DailyWatchingMovie || !popularArtist || !upComingMovie) {
     return {
       redirect: {
         destination: "/404",
@@ -36,4 +37,17 @@ export const getStaticProps: GetStaticProps = async () => {
       },
     };
   }
+
+  return {
+    props: {
+      initData: [
+        trendingMovie,
+        DailyWatchingMovie,
+        popularArtist,
+        nowPlayingMovie,
+        upComingMovie,
+      ],
+      fallback: true,
+    },
+  };
 };

@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 import Login from "@/containers/Login/Login";
-import { Header, Footer, Slider } from "@/compositions";
+import { Header, Footer } from "@/compositions";
 import LoadingScreen from "../LoadingScreen";
 import ErrorPage from "@/pages/404";
 import Register from "@/containers/Register/Register";
@@ -32,17 +32,17 @@ const Layout = (props: layoutProps) => {
     };
   }, []);
 
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [asPath]);
+
   if (asPath === "/login") return <Login />;
   if (asPath === "/register") return <Register />;
   if (asPath === "/404") return <ErrorPage />;
   if (asPath.includes("personal") && !user) return <Login />;
-
-  const isSLider =
-    asPath.startsWith("/detail") ||
-    asPath.startsWith("/play") ||
-    asPath.startsWith("/search") ||
-    asPath.startsWith("/actor-info") ||
-    asPath.startsWith("/personal");
 
   return (
     <Container>
@@ -50,13 +50,9 @@ const Layout = (props: layoutProps) => {
 
       <Header />
 
-      {!isSLider && <Slider />}
-
       {children}
 
-      <Box className={"footer"}>
-        <Footer />
-      </Box>
+      <Footer />
     </Container>
   );
 };
@@ -66,12 +62,6 @@ const Container = styled(Box)(({ theme }) => {
     minHeight: "100vh",
     backgroundColor: theme.palette.primary.main,
     color: "#ECECEC",
-
-    ["& .footer"]: {
-      marginTop: 50,
-      backgroundColor: "rgb(10, 12, 15)",
-      borderTop: "1px solid rgb(45, 47, 52)",
-    },
   };
 });
 

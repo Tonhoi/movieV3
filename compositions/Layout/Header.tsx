@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { Box, Container as MuiContainer, Grid, styled } from "@mui/material";
 import { useWindowScroll } from "react-use";
 
-import { HeaderNavigation, HeaderOptions, HeaderSearch } from "@/compositions";
+import { HeaderNavigation, HeaderAction, HeaderSearch } from "@/compositions";
 import { useToggle } from "@/hooks";
 
 const Header = () => {
@@ -32,7 +32,7 @@ const Header = () => {
           </Grid>
 
           <Grid item lg={3} md={4} sm={1.5} xs={12}>
-            <HeaderOptions />
+            <HeaderAction />
           </Grid>
         </Grid>
       </MuiContainer>
@@ -43,6 +43,8 @@ const Header = () => {
 const Container = styled(Box)(({ theme }) => {
   return {
     position: "fixed",
+    left: 0,
+    top: 0,
     zIndex: 99,
 
     width: "100%",

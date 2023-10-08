@@ -1,4 +1,17 @@
-import { FilmIcon, GlobeIcon, TvIcon, UserIcon } from "./components";
+import {
+  FilmIcon,
+  GlobeIcon,
+  TvIcon,
+  UserIcon,
+  ThemeIcon,
+  SunIcon,
+  MoonIcon,
+  AlertIcon,
+  PhoneIcon,
+  ArrowRightIcon,
+} from "./components";
+import { v4 as uuidv4 } from "uuid";
+
 import { ROUTES } from "./routers";
 
 export const NAVITEM = [
@@ -137,5 +150,43 @@ export const VOTEAVERAGEOPTIONS = [
   {
     value: "10",
     label: "10",
+  },
+];
+
+export const SETTING_ITEMS = [
+  {
+    id: uuidv4(),
+    title: "Giao diện",
+    start_icon: ThemeIcon,
+    end_icon: ArrowRightIcon,
+    separate: true,
+    child: [
+      {
+        id: uuidv4(),
+        title: "Sáng",
+        start_icon: SunIcon,
+        separate: false,
+      },
+      {
+        id: uuidv4(),
+        title: "Tối",
+        start_icon: MoonIcon,
+        separate: false,
+      },
+    ],
+  },
+  {
+    id: uuidv4(),
+    title: "Giới thiệu",
+    start_icon: AlertIcon,
+    separate: false,
+    href: "/",
+  },
+  {
+    id: uuidv4(),
+    title: "Liên hệ",
+    start_icon: PhoneIcon,
+    separate: false,
+    href: "/",
   },
 ];

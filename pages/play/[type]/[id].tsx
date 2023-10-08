@@ -1,4 +1,4 @@
-import PlayMovie, { PlayMoviePageProps } from "@/containers/PlayMovie/PlayMovie";
+import PlayMovie from "@/containers/PlayMovie/PlayMovie";
 import axios from "@/axios.config";
 import {
   MOVIESCHEMA,
@@ -7,6 +7,10 @@ import {
   TVSCHEMA,
 } from "@/interfaces/responseSchema/utils";
 import { TYPE_PARAMS } from "@/apis";
+import { IPage, responseSchema } from "@/interfaces";
+import { DetailMovie } from "@/interfaces/responseSchema/DetailMovie";
+
+export type PlayMoviePageProps = IPage<[responseSchema<MOVIESCHEMA>, DetailMovie]>;
 
 const index = (props: PlayMoviePageProps) => {
   return <PlayMovie {...props} />;

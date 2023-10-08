@@ -1,4 +1,4 @@
-import { Fragment, MouseEvent, MouseEventHandler } from "react";
+import { Fragment } from "react";
 import { Box, Button, Divider, Typography, styled, useTheme } from "@mui/material";
 import Hamburger from "hamburger-react";
 import { auth } from "@/firebase/firebase-config";
@@ -46,7 +46,7 @@ const HeaderOnMobile = () => {
 
       <Container className={isOpenHeaderMobile ? "active" : ""}>
         <Link href={ROUTES.login} className={"heading"}>
-          <Box className={"image-wrapper"}>
+          <Box className={"logo-on-mobile"}>
             <Image src={avatar.src} />
           </Box>
 
@@ -57,6 +57,7 @@ const HeaderOnMobile = () => {
 
         {NAVITEM.map((item, idx: number) => {
           const { href, icon: Icon, title } = item;
+
           return (
             <Box key={idx}>
               {item.divider && <Divider light className={"divider"} />}
@@ -135,7 +136,7 @@ const Container = styled(Box)(({ theme }) => {
           " linear-gradient(rgba(26, 28, 34, 0) 0%, rgba(26, 28, 34, 0.06) 6%, rgba(26, 28, 34, 0.12) 12%, rgba(26, 28, 34, 0.19) 19%, rgba(26, 28, 34, 0.26) 26%, rgba(26, 28, 34, 0.34) 34%, rgba(26, 28, 34, 0.42) 42%, rgba(26, 28, 34, 0.5) 50%, rgba(26, 28, 34, 0.58) 58%, rgba(26, 28, 34, 0.66) 66%, rgba(26, 28, 34, 0.74) 74%, rgba(26, 28, 34, 0.81) 81%, rgba(26, 28, 34, 0.88) 88%, rgba(26, 28, 34, 0.94) 94%, rgb(26, 28, 34) 100%)",
       },
 
-      ["& .image-wrapper"]: {
+      ["& .logo-on-mobile"]: {
         position: "relative",
         width: 40,
         height: 40,

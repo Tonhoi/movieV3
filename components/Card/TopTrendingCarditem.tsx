@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { Box, Typography, styled } from "@mui/material";
+import { Box, BoxProps, Typography, styled } from "@mui/material";
 import { useRouter } from "next/router";
 
 import CardItemBase from "./CardItemBase";
@@ -11,12 +11,12 @@ interface addData {
   original_name?: string;
 }
 
-interface TopTrendingCarditemprops {
+interface TopTrendingCarditemprops extends BoxProps {
   data: MOVIESCHEMA & addData;
   idx: number;
 }
 
-const TopTrendingCarditem = ({ data, idx }: TopTrendingCarditemprops) => {
+const TopTrendingCarditem = ({ data, idx, ...restProps }: TopTrendingCarditemprops) => {
   const {
     id,
     title,
@@ -32,9 +32,9 @@ const TopTrendingCarditem = ({ data, idx }: TopTrendingCarditemprops) => {
 
   return (
     <Container
-      className={"topTrending-item"}
-      onClick={() => router.push(`/detail/${!!title ? "movie" : "tv"}/${id}`)}
       thumbnail={thumbnail}
+      onClick={() => router.push(`/detail/${!!title ? "movie" : "tv"}/${id}`)}
+      {...restProps}
     >
       <CardItemBase height={"100%"}>
         <Box className="card-image">

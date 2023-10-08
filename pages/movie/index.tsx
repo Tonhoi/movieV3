@@ -1,7 +1,11 @@
-import Movie, { MoviePageProps } from "@/containers/Movie";
+import Movie from "@/containers/Movie";
 import { GetServerSidePropsContext } from "next";
 import axios from "@/axios.config";
 import { TYPE_PARAMS } from "@/apis";
+import { IPage, responseSchema } from "@/interfaces";
+import { GENRES, MOVIESCHEMA } from "@/interfaces/responseSchema/utils";
+
+export type MoviePageProps = IPage<[responseSchema<MOVIESCHEMA>, responseSchema<GENRES>]>;
 
 const movie = (props: MoviePageProps) => {
   return <Movie {...props} />;
@@ -29,7 +33,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
 
     return {
       props: {
-        initData: [resDiscoverMovie, resGenres],
+        initData: [resDiscoverMovie, resGenres, { type: "movie" }],
         fallback: {
           [`/discover/movie?include_adult=false&include_video=false&language=en-US&page=${serverRouter}&sort_by=popularity.desc`]:
             resDiscoverMovie,

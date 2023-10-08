@@ -18,11 +18,16 @@ export { default as LinkedinIcon } from "./Icons/LinkedinIcon";
 export { default as PlayV2Icon } from "./Icons/PlayV2Icon";
 export { default as SaveV2Icon } from "./Icons/SaveV2Icon";
 export { default as MenuV2Icon } from "./Icons/MenuV2Icon";
-
+export { default as SunIcon } from "./Icons/SunIcon";
 export { default as HeartIcon } from "./Icons/HeartIcon";
 export { default as ChatIcon } from "./Icons/ChatIcon";
 export { default as ShareIcon } from "./Icons/ShareIcon";
 export { default as MenuIcon } from "./Icons/MenuIcon";
+export { default as SettingIcon } from "./Icons/SettingIcon";
+export { default as ThemeIcon } from "./Icons/ThemeIcon";
+export { default as MoonIcon } from "./Icons/MoonIcon";
+export { default as AlertIcon } from "./Icons/AlertIcon";
+export { default as PhoneIcon } from "./Icons/PhoneIcon";
 
 export { default as Image } from "./Image";
 
@@ -44,3 +49,5 @@ export { default as Overlay } from "./Overlay";
 export { default as TabPanel } from "./Tabs/TabPanel";
 export { default as Tabs } from "./Tabs/Tabs";
 export { default as Embeded } from "./Embeded";
+
+export { default as Pagination } from "./Pagination";

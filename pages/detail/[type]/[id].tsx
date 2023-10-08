@@ -1,4 +1,4 @@
-import DetailMovie, { DetailPageProps } from "@/containers/DetailMovie/DetailMovie";
+import DetailMovieComponent from "@/containers/DetailMovie/DetailMovie";
 import {
   MOVIESCHEMA,
   RESPONSEDATA as ResponseData,
@@ -7,9 +7,22 @@ import {
 import axios from "@/axios.config";
 import { TYPE_PARAMS } from "@/apis";
 import { Paths } from "@/interfaces/responseSchema/utils";
+import { IPage, responseSchema } from "@/interfaces";
+import { CREDITSCHEMA } from "@/interfaces/responseSchema/credits";
+import { REVIEWSCHEMA } from "@/interfaces/responseSchema/reviews";
+import { DetailMovie } from "@/interfaces/responseSchema/DetailMovie";
+
+export type DetailPageProps = IPage<
+  [
+    DetailMovie,
+    CREDITSCHEMA,
+    responseSchema<REVIEWSCHEMA>,
+    responseSchema<TVSCHEMA & MOVIESCHEMA>
+  ]
+>;
 
 const index = (props: DetailPageProps) => {
-  return <DetailMovie {...props} />;
+  return <DetailMovieComponent {...props} />;
 };
 
 export async function getStaticPaths() {

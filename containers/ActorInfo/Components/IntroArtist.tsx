@@ -6,31 +6,24 @@ import { useToggle } from "@/hooks";
 import usePoster from "@/hooks/usePoster";
 import { PEOPLEDETAILSCHEMA } from "@/interfaces/responseSchema/peopleDetail";
 
-interface ActorHeadingProps {
-  // profile_path: string;
-  // name: string;
-  // known_for_department: string;
-  // birthday: string;
-  // place_of_birth: string;
-  // biography: string;
-
+interface IntroArtistProps {
   // data: PEOPLEDETAILSCHEMA;
   data: any;
 }
 
-const ActorHeading = ({ data }: ActorHeadingProps) => {
-  // const {
-  //   profile_path,
-  //   name,
-  //   known_for_department,
-  //   birthday,
-  //   place_of_birth,
-  //   biography,
-  // } = props;
+const IntroArtist = ({ data }: IntroArtistProps) => {
+  const {
+    name,
+    known_for_department,
+    birthday,
+    place_of_birth,
+    biography,
+    profile_path,
+  } = data;
 
   const { on, toggle } = useToggle();
 
-  const poster = usePoster(data?.profile_path);
+  const poster = usePoster(profile_path);
 
   return (
     <Container on={on}>
@@ -40,23 +33,23 @@ const ActorHeading = ({ data }: ActorHeadingProps) => {
 
       <Stack className={"actor-heading-content"}>
         <Typography variant={"h4"} className={"actor-name"}>
-          {data?.name}
+          {name}
         </Typography>
 
         <Typography variant={"subtitle6"} className={"actor-job"}>
-          {data?.known_for_department}
+          {known_for_department}
         </Typography>
 
         <Typography variant={"body1"} className={"actor-birthday"}>
-          Ngày sinh: {data?.birthday}
+          Ngày sinh: {birthday}
         </Typography>
 
         <Typography variant={"body1"} className={"actor-place-birthday"}>
-          Nơi sinh: {data?.place_of_birth}
+          Nơi sinh: {place_of_birth}
         </Typography>
 
         <Typography variant={"body1"} className={"actor-description"}>
-          {data?.biography}
+          {biography}
         </Typography>
 
         <Button
@@ -170,4 +163,4 @@ const Container = styled(Stack, {
   };
 });
 
-export default ActorHeading;
+export default IntroArtist;

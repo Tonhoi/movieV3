@@ -27,7 +27,7 @@ const HeaderItem = () => {
     <Container>
       {isMdDown && <HeaderOnMobile />}
 
-      <Link href={ROUTES.home} className={"logo"}>
+      <Link href={ROUTES.home} className={"logo-on-pc"}>
         <Image src={logo} />
       </Link>
 
@@ -50,7 +50,7 @@ const Container = styled(Stack)(({ theme }) => {
     alignItems: "center",
     gap: 30,
 
-    ["& .logo"]: {
+    ["& .logo-on-pc"]: {
       position: "relative",
 
       width: 170,

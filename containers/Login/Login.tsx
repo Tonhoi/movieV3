@@ -11,7 +11,6 @@ import {
 import { useForm } from "react-hook-form";
 import { toast, ToastContainer } from "react-toastify";
 import { signInWithEmailAndPassword } from "firebase/auth";
-
 import { auth } from "@/firebase/firebase-config";
 
 import { Link } from "@/components";
@@ -43,7 +42,7 @@ const Login = () => {
     <Container>
       <ToastContainer theme="colored" />
 
-      <Box className={"form-control"} component={"form"}>
+      <Box component={"form"} className={"form-control"}>
         <Typography variant={"netflixtitle1"} className="form-heading">
           Đăng nhập
         </Typography>

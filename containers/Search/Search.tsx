@@ -46,7 +46,7 @@ const Search = ({ initData }: SearchPageProps) => {
   );
 
   const renderItem = useMemo(() => {
-    if (typeof data?.results == "undefined") return null;
+    if (typeof data == "undefined") return null;
 
     return data.results.map(
       (data: TVSCHEMA & MOVIESCHEMA & { media_type: string }, idx: number) => {
@@ -62,25 +62,23 @@ const Search = ({ initData }: SearchPageProps) => {
           id,
         } = data;
 
-        const poster = usePoster(poster_path);
-
         return (
           <SearchItem
+            key={idx}
             name={name}
             first_air_date={first_air_date}
             overview={overview}
             original_name={original_name}
             title={title}
             release_date={release_date}
-            poster={poster}
+            poster_path={poster_path}
             media_type={media_type}
             id={id}
-            key={idx}
           />
         );
       }
     );
-  }, [data]);
+  }, [data, router]);
 
   return (
     <Container>

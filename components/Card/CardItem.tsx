@@ -1,6 +1,8 @@
-import { forwardRef, memo } from "react";
+import { Fragment, memo } from "react";
 import { Box, BoxProps, Stack, Typography, styled } from "@mui/material";
 import { useRouter } from "next/router";
+// import Skeleton from "react-loading-skeleton";
+// import "react-loading-skeleton/dist/skeleton.css";
 
 import { PlayIcon, SaveIcon, StarIcon, CardItemBase } from "@/components";
 import usePoster from "@/hooks/usePoster";
@@ -8,16 +10,16 @@ import usePoster from "@/hooks/usePoster";
 import posterAvailable from "@/public/image/no-poster-available.jpg";
 
 interface CardItemProps extends BoxProps {
-  animation?: boolean;
-
-  original_name?: string;
-  name?: string;
   vote_average: number;
   poster_path: string;
-  title?: string;
   id: string;
+
+  animation?: boolean;
+  original_name?: string;
+  name?: string;
+  title?: string;
 }
-const CardItem = forwardRef<HTMLDivElement, CardItemProps>((props, ref) => {
+const CardItem = (props: CardItemProps) => {
   const {
     animation = false,
     original_name,
@@ -39,7 +41,6 @@ const CardItem = forwardRef<HTMLDivElement, CardItemProps>((props, ref) => {
   return (
     <CardItemBase>
       <Container
-        ref={ref}
         className={animation ? "active" : ""}
         poster_path={poster}
         onClick={handleClick}
@@ -64,14 +65,12 @@ const CardItem = forwardRef<HTMLDivElement, CardItemProps>((props, ref) => {
       </Container>
     </CardItemBase>
   );
-});
+};
 
 const Container = styled(Box, {
   shouldForwardProp: (propName) => propName !== "poster_path",
 })<{ poster_path: string }>(({ poster_path, theme }) => {
   return {
-    position: "relative",
-
     ["&:hover"]: {
       ["& .card-title"]: {
         color: theme.palette.text_hover.main,
@@ -136,7 +135,5 @@ const Container = styled(Box, {
     },
   };
 });
-
-CardItem.displayName = "CardItem";
 
 export default memo(CardItem);

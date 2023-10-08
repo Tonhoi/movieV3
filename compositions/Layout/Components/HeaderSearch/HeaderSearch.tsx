@@ -1,30 +1,27 @@
-import { ChangeEvent, useMemo, useRef, useState } from "react";
+import useSWR from "swr";
 import { useMeasure } from "react-use";
 import { useRouter } from "next/router";
-import { Box, CircularProgress, TextField, Typography, styled } from "@mui/material";
-import useSWR from "swr";
 import HeadlessTippy from "@tippyjs/react/headless";
+import { ChangeEvent, MouseEventHandler, useMemo, useState } from "react";
+import { Box, CircularProgress, TextField, Typography, styled } from "@mui/material";
 
-import SearchItem, { media_type } from "./SearchItem";
-import useThrottle from "@/hooks/useThrottle";
-import { transformUrl } from "@/libs";
 import { useToggle } from "@/hooks";
-import { MOVIESCHEMA, TVSCHEMA } from "@/interfaces/responseSchema/utils";
 import { TYPE_PARAMS } from "@/apis";
+import { transformUrl } from "@/libs";
+import useThrottle from "@/hooks/useThrottle";
+import SearchItem, { media_type } from "./SearchItem";
+import { MOVIESCHEMA, TVSCHEMA } from "@/interfaces/responseSchema/utils";
 
 const HeaderSearch = () => {
+  const router = useRouter();
   const [ref, { width }] = useMeasure();
-  const inputRef = useRef(null);
-
   const [searchValue, setSearchValue] = useState<string>("");
   const throttledSearchValue = useThrottle<string>(searchValue);
 
-  const router = useRouter();
-
   const {
-    on: isOpenSearchItem,
-    toggleOff: handleCloseSearchItem,
-    toggleOn: handleOpenSearchItem,
+    on: isOpenSearchResult,
+    toggleOff: handleCloseSearchResult,
+    toggleOn: handleOpenSearchResult,
   } = useToggle();
 
   const { data: searchData, isLoading } = useSWR(
@@ -42,69 +39,77 @@ const HeaderSearch = () => {
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const searchValue = e.target.value;
-    if (!searchValue.startsWith(" ")) {
-      setSearchValue(searchValue);
+
+    if (searchValue.startsWith(" ")) return null;
+
+    setSearchValue(searchValue);
+  };
+
+  const handleClickSearchResult: MouseEventHandler<HTMLDivElement> = (e) => {
+    const target = e.target as HTMLElement;
+    const checkSearchItem = target.closest(".search-item");
+    const checkBtnSeeMore = target.closest(".btn-see-more");
+
+    if (checkSearchItem || checkBtnSeeMore) {
+      setSearchValue("");
+    }
+
+    if (checkBtnSeeMore) {
+      router.push(`/search?page=1&query=${throttledSearchValue}`);
+      handleCloseSearchResult();
     }
   };
 
-  const handleClickSearchItem = (id: string, media_type: string) => {
-    router.push(`/detail/${media_type}/${id}`);
-    handleCloseSearchItem();
-    setSearchValue("");
-  };
-
   const renderSearchItem = useMemo(() => {
-    if (typeof searchData?.results == "undefined") return null;
+    if (typeof searchData == "undefined") return null;
 
     return searchData.results.map(
       (data: TVSCHEMA & MOVIESCHEMA & media_type, idx: number) => (
-        <SearchItem width={width} data={data} key={idx} onClick={handleClickSearchItem} />
+        <SearchItem
+          width={width}
+          data={data}
+          key={idx}
+          handleCloseSearchResult={handleCloseSearchResult}
+        />
       )
     );
-  }, [searchData?.results]);
+  }, [searchData]);
 
   return (
     <Container ref={ref}>
       <HeadlessTippy
         interactive
         placement="bottom-start"
-        visible={isOpenSearchItem}
+        visible={isOpenSearchResult}
+        onClickOutside={handleCloseSearchResult}
         render={(attrs) => (
           <StyledSearchWrapper
             className="search-warpper custom-scroll"
             width={width}
+            onClick={handleClickSearchResult}
             {...attrs}
           >
-            {isLoading && (
-              <Box className={"loading-wrapper"}>
-                <CircularProgress variant="indeterminate" color="inherit" />
-              </Box>
-            )}
+            <Box className={`loading ${isLoading ? "active" : ""}`}>
+              <CircularProgress variant="indeterminate" color="inherit" />
+            </Box>
 
             {renderSearchItem}
 
             <Typography
               variant={"body2"}
               className={`btn-see-more ${searchData?.results.length > 0 ? "active" : ""}`}
-              onClick={() => {
-                router.push(`/search?page=1&query=${throttledSearchValue}`);
-                handleCloseSearchItem();
-                setSearchValue("");
-              }}
             >
               Xem tất cả
             </Typography>
           </StyledSearchWrapper>
         )}
-        onClickOutside={handleCloseSearchItem}
       >
         <TextField
-          ref={inputRef}
           placeholder="Search here"
           value={searchValue}
           autoComplete="off"
           onChange={handleChangeInputValue}
-          onFocus={handleOpenSearchItem}
+          onFocus={handleOpenSearchResult}
         />
       </HeadlessTippy>
     </Container>
@@ -156,10 +161,15 @@ const StyledSearchWrapper = styled(Box)(({ theme }) => {
       padding: "12px 0px",
     },
 
-    ["& .loading-wrapper"]: {
+    ["& .loading"]: {
       color: "rgb(25, 118, 210)",
       textAlign: "center",
       padding: "24px 0px 20px",
+      display: "none",
+
+      ["&.active"]: {
+        display: "block",
+      },
     },
   };
 });

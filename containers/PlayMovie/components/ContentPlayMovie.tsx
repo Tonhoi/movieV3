@@ -166,6 +166,7 @@ const Container = styled(Box)(({ theme }) => {
       ["& .recommended-movie"]: {
         marginTop: 40,
         marginBottom: 12,
+
         ["& .name"]: {
           marginBottom: 16,
         },

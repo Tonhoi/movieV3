@@ -2,16 +2,15 @@ import { SetStateAction, useMemo, useState } from "react";
 import { Box, Container as MuiContainer, Stack, Typography, styled } from "@mui/material";
 import useSWR from "swr";
 
-import SlickSlider from "../Slick/SlickSlider";
-import SlideShadow from "./Components/Slider/SlideShadow";
+import SlickSlider from "@/compositions/Slick/SlickSlider";
 import { CardItem2 } from "@/components";
 import { MOVIESCHEMA } from "@/interfaces/responseSchema/utils";
 import { transformUrl } from "@/libs";
 import { TYPE_PARAMS } from "@/apis";
 
 const Slider = () => {
-  const [slider1, setSlider1] = useState(null);
-  const [slider2, setSlider2] = useState(null);
+  const [backdrop, setBackdrop] = useState(null);
+  const [poster, setPoster] = useState(null);
 
   const { data: dataPopularMovie } = useSWR(
     transformUrl(TYPE_PARAMS["movie_popular"], {
@@ -19,28 +18,29 @@ const Slider = () => {
       page: 1,
     })
   );
-  const renderThumbnail = useMemo(() => {
+
+  const renderBackdropPath = useMemo(() => {
     if (typeof dataPopularMovie == "undefined") return null;
 
     return dataPopularMovie.results.map((data: MOVIESCHEMA) => {
       const { backdrop_path, id } = data;
 
       return (
-        <StyledThumbnailWrapper
-          className="thumbnail-wrapper"
-          backdrop_path={backdrop_path}
+        <StyledBackdropItem
           key={id}
+          className="backdrop-item"
+          backdrop_path={backdrop_path}
         >
-          <Box className="thumbnail" />;
-        </StyledThumbnailWrapper>
+          <Box className={"backdrop"} />
+        </StyledBackdropItem>
       );
     });
   }, [dataPopularMovie]);
 
   const renderSlideContent = useMemo(() => {
-    if (typeof dataPopularMovie?.results == "undefined") return null;
+    if (typeof dataPopularMovie == "undefined") return null;
 
-    return dataPopularMovie?.results.map((data: MOVIESCHEMA) => {
+    return dataPopularMovie.results.map((data: MOVIESCHEMA) => {
       const { poster_path, title, popularity, id } = data;
       return (
         <CardItem2
@@ -49,41 +49,36 @@ const Slider = () => {
           title={title}
           popularity={popularity}
           id={id}
-          sx={{
-            ["& .card-image"]: {
-              aspectRatio: "302 / 400",
-            },
-          }}
         />
       );
     });
-  }, [dataPopularMovie?.results]);
+  }, [dataPopularMovie]);
 
   return (
     <Container>
-      <StyledSlickWrapper>
+      <Box className={"backdrop-list"}>
         <SlickSlider
           variant="simple"
-          asNavFor={slider2}
-          refSlick={(slider: SetStateAction<null>) => setSlider1(slider)}
+          asNavFor={poster}
+          refSlick={(backdrop: SetStateAction<null>) => setBackdrop(backdrop)}
           props={{
             fade: true,
           }}
         >
-          {renderThumbnail}
+          {renderBackdropPath}
         </SlickSlider>
-      </StyledSlickWrapper>
+      </Box>
 
       <MuiContainer>
-        <Box className={"sub-slide"}>
+        <Box className={"poster-list"}>
           <Typography variant={"h3"} marginLeft={"9.6px"}>
             Phổ biến
           </Typography>
 
           <SlickSlider
             variant="multiple"
-            asNavFor={slider1}
-            refSlick={(slider: SetStateAction<null>) => setSlider2(slider)}
+            asNavFor={backdrop}
+            refSlick={(poster: SetStateAction<null>) => setPoster(poster)}
             props={{ arrows: true }}
           >
             {renderSlideContent}
@@ -91,7 +86,9 @@ const Slider = () => {
         </Box>
       </MuiContainer>
 
-      <SlideShadow />
+      <Box className={"box-shadow box-shadow-left"} />
+      <Box className={"box-shadow box-shadow-top"} />
+      <Box className={"box-shadow box-shadow-right"} />
     </Container>
   );
 };
@@ -99,9 +96,9 @@ const Slider = () => {
 const Container = styled(Stack)(({ theme }) => {
   return {
     position: "relative",
-
     justifyContent: "center",
     height: 700,
+    marginBottom: theme.spacing(10),
 
     [theme.breakpoints.down("md")]: {
       height: 500,
@@ -114,37 +111,57 @@ const Container = styled(Stack)(({ theme }) => {
     ["&::after"]: {
       content: '""',
       position: "absolute",
-      zIndex: 2,
       inset: 0,
-
-      height: "100%",
-      width: "100%",
+      zIndex: 2,
 
       background: "linear-gradient(rgba(52,73,94,.255),#333 90%)",
     },
 
-    ["& .sub-slide"]: {
+    ["& .poster-list"]: {
       position: "relative",
       zIndex: 4,
+    },
+
+    ["& .backdrop-list"]: {
+      position: "absolute",
+      width: "100%",
+      height: "100%",
+    },
+
+    ["& .box-shadow"]: {
+      position: "absolute",
+      top: 0,
+      zIndex: 3,
+
+      ["&-left"]: {
+        left: 0,
+        width: "30%",
+        height: "100%",
+        background: theme.palette.gradientColor.gradient4,
+      },
+
+      ["&-top"]: {
+        left: 0,
+        width: "100%",
+        height: "120px",
+        background: theme.palette.gradientColor.gradient5,
+      },
+
+      ["&-right"]: {
+        right: 0,
+        width: "15%",
+        height: "100%",
+        background: theme.palette.gradientColor.gradient3,
+      },
     },
   };
 });
 
-const StyledSlickWrapper = styled(Box)(() => {
-  return {
-    position: "absolute",
-
-    width: "100%",
-    height: "100%",
-  };
-});
-
-const StyledThumbnailWrapper = styled(Box, {
+const StyledBackdropItem = styled(Box, {
   shouldForwardProp: (propName) => propName !== "backdrop_path",
 })<{ backdrop_path: string }>(({ backdrop_path, theme }) => {
   return {
     position: "relative",
-
     height: 700,
 
     [theme.breakpoints.down("md")]: {
@@ -155,12 +172,10 @@ const StyledThumbnailWrapper = styled(Box, {
       height: 400,
     },
 
-    ["& .thumbnail"]: {
+    ["& .backdrop"]: {
       position: "absolute",
+      inset: 0,
       zIndex: 1,
-
-      width: "100%",
-      height: "100%",
 
       backgroundImage: `url(https://image.tmdb.org/t/p//w1280${backdrop_path})`,
       backgroundSize: "cover",

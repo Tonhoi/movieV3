@@ -1,22 +1,21 @@
-import ActorInfo from "@/containers/ActorInfo/ActorInfo";
-import { Container } from "@mui/material";
 import axios from "@/axios.config";
+
 import { RESPONSEDATA } from "@/interfaces/responseSchema/utils";
-import { MoviePageProps } from "../../containers/ActorInfo/ActorInfo";
 import { PEOPLELISTSCHEMA } from "@/interfaces/responseSchema/peopleList";
 import { TYPE_PARAMS } from "@/apis";
+import { IPage, responseSchema } from "@/interfaces";
+import { PEOPLEDETAILSCHEMA } from "@/interfaces/responseSchema/peopleDetail";
+import ArtistInfo from "@/containers/ActorInfo/ArtistInfo";
 interface PathsProps {
   params: {
     id: string;
   };
 }
 
-const index = (props: MoviePageProps) => {
-  return (
-    <Container>
-      <ActorInfo {...props} />
-    </Container>
-  );
+export type ArtistPageProps = IPage<[responseSchema<PEOPLEDETAILSCHEMA>, any, any]>;
+
+const index = (props: ArtistPageProps) => {
+  return <ArtistInfo {...props} />;
 };
 
 export async function getStaticPaths() {
