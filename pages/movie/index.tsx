@@ -34,10 +34,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
     return {
       props: {
         initData: [resDiscoverMovie, resGenres, { type: "movie" }],
-        fallback: {
-          [`/discover/movie?include_adult=false&include_video=false&language=en-US&page=${serverRouter}&sort_by=popularity.desc`]:
-            resDiscoverMovie,
-        },
+        fallback: true,
       },
     };
   } catch (err) {

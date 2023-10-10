@@ -1,7 +1,7 @@
-import Account from "@/containers/Account";
+import Me from "@/containers/Me/Me";
 
-const account = () => {
-  return <Account />;
+const index = () => {
+  return <Me />;
 };
 
-export default account;
+export default index;

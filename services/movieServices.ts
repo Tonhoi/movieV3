@@ -8,12 +8,7 @@ const movieServices = {
 
       return res;
     } catch (error) {
-      return {
-        redirec: {
-          destination: "/404",
-          permanent: false,
-        },
-      };
+      console.log(error);
     }
   },
 
@@ -23,12 +18,7 @@ const movieServices = {
 
       return res;
     } catch (error) {
-      return {
-        redirec: {
-          destination: "/404",
-          permanent: false,
-        },
-      };
+      console.log(error);
     }
   },
 
@@ -38,12 +28,7 @@ const movieServices = {
 
       return res;
     } catch (error) {
-      return {
-        redirec: {
-          destination: "/404",
-          permanent: false,
-        },
-      };
+      console.log(error);
     }
   },
 };

@@ -2,7 +2,7 @@ import useSWR from "swr";
 import { useMeasure } from "react-use";
 import { useRouter } from "next/router";
 import HeadlessTippy from "@tippyjs/react/headless";
-import { ChangeEvent, MouseEventHandler, useMemo, useState } from "react";
+import { ChangeEvent, MouseEventHandler, memo, useMemo, useState } from "react";
 import { Box, CircularProgress, TextField, Typography, styled } from "@mui/material";
 
 import { useToggle } from "@/hooks";
@@ -23,6 +23,8 @@ const HeaderSearch = () => {
     toggleOff: handleCloseSearchResult,
     toggleOn: handleOpenSearchResult,
   } = useToggle();
+
+  // console.log("re-render");
 
   const { data: searchData, isLoading } = useSWR(
     throttledSearchValue !== ""
@@ -174,4 +176,4 @@ const StyledSearchWrapper = styled(Box)(({ theme }) => {
   };
 });
 
-export default HeaderSearch;
+export default memo(HeaderSearch);

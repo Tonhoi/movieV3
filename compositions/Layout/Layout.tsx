@@ -60,6 +60,9 @@ const Layout = (props: layoutProps) => {
 const Container = styled(Box)(({ theme }) => {
   return {
     minHeight: "100vh",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
     backgroundColor: theme.palette.primary.main,
     color: "#ECECEC",
   };

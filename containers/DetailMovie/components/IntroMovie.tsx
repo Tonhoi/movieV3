@@ -44,7 +44,7 @@ const HeadingDetailMovie = (props: HeadingDetailMovieProps) => {
         key={idx}
         variant={"body1"}
         className="artist-item"
-        onClick={() => push(`/actor-info/${el.id}`)}
+        onClick={() => push(`/artist-info/${el.id}`)}
       >
         {el.name}
       </Typography>

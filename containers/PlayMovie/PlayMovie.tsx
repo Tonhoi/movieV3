@@ -1,7 +1,7 @@
+import useSWR from "swr";
 import { Box, styled, Container as MuiContainer, Grid } from "@mui/material";
 import { get } from "lodash";
 import { useRouter } from "next/router";
-import useSWR from "swr";
 
 import HeadingPlayMovie from "./components/HeadingPlayMovie";
 import Comment from "./components/Comment";

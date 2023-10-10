@@ -8,19 +8,21 @@ import { useToggle } from "@/hooks";
 
 const Header = () => {
   const { y } = useWindowScroll();
-  const { toggleOff, toggleOn, on } = useToggle();
+  const { toggleOff, toggleOn, on: isBackgroundHeader } = useToggle();
   const { asPath } = useRouter();
 
   useEffect(() => {
-    if (y >= 200 && !on) {
+    if (y >= 200 && !isBackgroundHeader) {
       return toggleOn;
-    } else if (y < 200 && on) {
+    } else if (y < 200 && isBackgroundHeader) {
       return toggleOff;
     }
   }, [y]);
 
   return (
-    <Container className={on || asPath.startsWith("/play") ? "active" : ""}>
+    <Container
+      className={isBackgroundHeader || asPath.startsWith("/play") ? "active" : ""}
+    >
       <MuiContainer>
         <Grid container alignItems={"center"} spacing={2}>
           <Grid item lg={4} md={4} sm={4} xs={12}>

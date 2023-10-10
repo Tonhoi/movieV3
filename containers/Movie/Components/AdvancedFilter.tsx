@@ -1,10 +1,14 @@
 import { memo, useState } from "react";
+import dynamic from "next/dynamic";
 import { Box, Button, styled } from "@mui/material";
-import Select, { CSSObjectWithLabel } from "react-select";
-import CreatableSelect from "react-select/creatable";
+import { CSSObjectWithLabel } from "react-select";
 
 import FilterIcon from "@/components/Icons/FilterIcon";
 import { COUNTRYOPTIONS, VOTEAVERAGEOPTIONS, YEAROPTIONS } from "@/constant";
+
+const SelectClient = dynamic(() => import("react-select"), {
+  ssr: false,
+});
 
 interface FilterProps {
   setParams: (newParams: object) => void;
@@ -79,7 +83,7 @@ const AdvancedFilter = ({ setParams, type }: FilterProps) => {
 
   return (
     <Container>
-      <Select
+      <SelectClient
         defaultValue={selectedCountry}
         onChange={setSelectedCountry}
         options={COUNTRYOPTIONS}
@@ -88,7 +92,7 @@ const AdvancedFilter = ({ setParams, type }: FilterProps) => {
         styles={customStyles}
       />
 
-      <CreatableSelect
+      <SelectClient
         isClearable
         options={YEAROPTIONS}
         onChange={setSelectedYear}
@@ -96,7 +100,7 @@ const AdvancedFilter = ({ setParams, type }: FilterProps) => {
         styles={customStyles}
       />
 
-      <CreatableSelect
+      <SelectClient
         isClearable
         options={VOTEAVERAGEOPTIONS}
         onChange={setSelectedVoteAverage}

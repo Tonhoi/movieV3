@@ -48,6 +48,7 @@ export const getStaticProps: GetStaticProps = async () => {
         upComingMovie,
       ],
       fallback: true,
+      revalidate: true,
     },
   };
 };

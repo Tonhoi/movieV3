@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 // import Skeleton from "react-loading-skeleton";
 // import "react-loading-skeleton/dist/skeleton.css";
 
-import { PlayIcon, SaveIcon, StarIcon, CardItemBase } from "@/components";
+import { PlayIcon, SaveIcon, StarIcon, CardItemBase, Image } from "@/components";
 import usePoster from "@/hooks/usePoster";
 
 import posterAvailable from "@/public/image/no-poster-available.jpg";

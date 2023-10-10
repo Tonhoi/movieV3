@@ -5,7 +5,8 @@ import { PEOPLELISTSCHEMA } from "@/interfaces/responseSchema/peopleList";
 import { TYPE_PARAMS } from "@/apis";
 import { IPage, responseSchema } from "@/interfaces";
 import { PEOPLEDETAILSCHEMA } from "@/interfaces/responseSchema/peopleDetail";
-import ArtistInfo from "@/containers/ActorInfo/ArtistInfo";
+import ArtistInfo from "@/containers/ArtistInfo/ArtistInfo";
+
 interface PathsProps {
   params: {
     id: string;
@@ -35,7 +36,6 @@ export async function getStaticPaths() {
     resTrendingPerson.results.map((el: PEOPLELISTSCHEMA) => {
       paths.push({ params: { id: `${el.id}` } });
     });
-    console.log(resTrendingPerson);
   } catch (error) {
     console.log("không đúng đường dẫn");
   }

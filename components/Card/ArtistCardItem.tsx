@@ -21,7 +21,7 @@ const ArtistCardItem = ({ data }: ArtistCardItemProps) => {
     <Container
       ref={ref}
       thumbnail={thumbnail}
-      onClick={() => router.push(`/actor-info/${id}`)}
+      onClick={() => router.push(`/artist-info/${id}`)}
     >
       <CardItemBase className="card-base">
         <Box className={"card-image"} width={width} height={width} />

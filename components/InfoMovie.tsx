@@ -15,7 +15,7 @@ const InfoMovie = (props: InfoMovieProps) => {
   return (
     <Container>
       <Typography variant="subtitle1" className="name-movie">
-        {data.name}
+        {data?.name}
       </Typography>
 
       <Typography variant="body2" color={theme.palette.text_hover.main}>

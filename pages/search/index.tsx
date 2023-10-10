@@ -24,10 +24,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
     return {
       props: {
         initData: [resSearch],
-        fallback: {
-          [`${TYPE_PARAMS["search_multi"]}?query=${query}&include_adult=false&language=en-US&page=${page}`]:
-            resSearch,
-        },
+        fallback: true,
       },
     };
   } catch (err) {

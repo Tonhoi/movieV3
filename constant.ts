@@ -27,7 +27,7 @@ export const NAVITEM = [
   },
   {
     icon: UserIcon,
-    href: ROUTES.personal,
+    href: ROUTES.me,
     title: "Trang cá nhân",
     divider: true,
   },

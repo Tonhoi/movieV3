@@ -34,10 +34,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
     return {
       props: {
         initData: [resDiscoverTv, resGenres, { type: "tv" }],
-        fallback: {
-          [`${TYPE_PARAMS["discover_tv"]}?include_adult=false&include_null_first_air_dates=false&language=en-US&page=${serverRouter}&sort_by=popularity.desc`]:
-            resDiscoverTv,
-        },
+        fallback: true,
       },
     };
   } catch (err) {

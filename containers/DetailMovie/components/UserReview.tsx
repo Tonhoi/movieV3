@@ -75,7 +75,7 @@ const UserReview = ({ data }: UserReviewProps) => {
 const Container = styled(Stack)(() => {
   return {
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(350px, 1fr))",
+    gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
     gap: 8,
   };
 });

@@ -2,7 +2,7 @@ import { Box, Stack, Typography, styled } from "@mui/material";
 
 import Sidebar from "./Components/Sidebar";
 
-const Personal = () => {
+const Me = () => {
   return (
     <Container>
       <Sidebar />
@@ -101,4 +101,4 @@ const Container = styled(Stack)(({ theme }) => {
   };
 });
 
-export default Personal;
+export default Me;
