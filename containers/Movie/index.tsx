@@ -1,6 +1,5 @@
 import useSWR from "swr";
 import { get } from "lodash";
-import { useMeasure } from "react-use";
 import { Fragment, MouseEventHandler, useCallback, useMemo } from "react";
 import { Box, Grid, styled, Container as MuiContainer, Typography } from "@mui/material";
 import Skeleton from "react-loading-skeleton";
@@ -20,7 +19,6 @@ const Movie = ({ initData }: MoviePageProps | TvPageProps) => {
   const { total_pages, page } = get(initData, "0");
   const dataGenres: Array<GENRES> = get(initData, "[1].genres") || [];
   const type = get(initData, "[2].type");
-  const [ref, { height }] = useMeasure<HTMLDivElement>();
 
   const { params, setParams, resetParams, router } = useParams({
     initState: {
@@ -78,7 +76,7 @@ const Movie = ({ initData }: MoviePageProps | TvPageProps) => {
     if (typeof data == "undefined") return null;
 
     return data.results.map((data: MOVIESCHEMA & TVSCHEMA) => (
-      <Grid item lg={3} md={3} sm={5} xs={7.5} key={data.id} margin={"20px 0"} ref={ref}>
+      <Grid item lg={3} md={3} sm={5} xs={7.5} key={data.id} margin={"20px 0"}>
         <CardItem
           vote_average={data.vote_average}
           poster_path={data.poster_path}
@@ -135,7 +133,11 @@ const Movie = ({ initData }: MoviePageProps | TvPageProps) => {
                 .fill(null)
                 .map((el, idx) => (
                   <Grid item lg={3} md={3} sm={5} xs={7.5} key={idx}>
-                    <Skeleton height={height} />
+                    <Skeleton
+                      style={{
+                        aspectRatio: "206 / 301",
+                      }}
+                    />
                   </Grid>
                 ))
             : renderMovie}

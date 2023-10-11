@@ -15,8 +15,7 @@ interface layoutProps {
   children: ReactNode;
 }
 
-const Layout = (props: layoutProps) => {
-  const { children } = props;
+const Layout = ({ children }: layoutProps) => {
   const { asPath } = useRouter();
   const [fadeOut, setFadeOut] = useState(false);
   const [user] = useAuthState(auth);
@@ -24,8 +23,7 @@ const Layout = (props: layoutProps) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setFadeOut(true);
-      document.body.style.overflow = "unset";
-    }, 2000);
+    }, 3500);
 
     return () => {
       clearTimeout(timer);
@@ -40,9 +38,9 @@ const Layout = (props: layoutProps) => {
   }, [asPath]);
 
   if (asPath === "/login") return <Login />;
+  if (asPath.includes("personal") && !user) return <Login />;
   if (asPath === "/register") return <Register />;
   if (asPath === "/404") return <ErrorPage />;
-  if (asPath.includes("personal") && !user) return <Login />;
 
   return (
     <Container>

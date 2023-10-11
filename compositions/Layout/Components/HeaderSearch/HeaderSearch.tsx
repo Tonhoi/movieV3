@@ -1,9 +1,15 @@
 import useSWR from "swr";
-import { useMeasure } from "react-use";
-import { useRouter } from "next/router";
 import HeadlessTippy from "@tippyjs/react/headless";
-import { ChangeEvent, MouseEventHandler, memo, useMemo, useState } from "react";
-import { Box, CircularProgress, TextField, Typography, styled } from "@mui/material";
+import { ChangeEvent, MouseEventHandler, memo, useMemo, useRef, useState } from "react";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  TextField,
+  Typography,
+  styled,
+} from "@mui/material";
+import { useMeasure } from "react-use";
 
 import { useToggle } from "@/hooks";
 import { TYPE_PARAMS } from "@/apis";
@@ -11,10 +17,12 @@ import { transformUrl } from "@/libs";
 import useThrottle from "@/hooks/useThrottle";
 import SearchItem, { media_type } from "./SearchItem";
 import { MOVIESCHEMA, TVSCHEMA } from "@/interfaces/responseSchema/utils";
+import { Link } from "@/components";
 
 const HeaderSearch = () => {
-  const router = useRouter();
   const [ref, { width }] = useMeasure();
+
+  const containerWidthRef = useRef<HTMLDivElement | null>(null);
   const [searchValue, setSearchValue] = useState<string>("");
   const throttledSearchValue = useThrottle<string>(searchValue);
 
@@ -23,8 +31,6 @@ const HeaderSearch = () => {
     toggleOff: handleCloseSearchResult,
     toggleOn: handleOpenSearchResult,
   } = useToggle();
-
-  // console.log("re-render");
 
   const { data: searchData, isLoading } = useSWR(
     throttledSearchValue !== ""
@@ -57,7 +63,6 @@ const HeaderSearch = () => {
     }
 
     if (checkBtnSeeMore) {
-      router.push(`/search?page=1&query=${throttledSearchValue}`);
       handleCloseSearchResult();
     }
   };
@@ -97,12 +102,14 @@ const HeaderSearch = () => {
 
             {renderSearchItem}
 
-            <Typography
-              variant={"body2"}
+            <Button
+              variant="text"
+              href={`/search?page=1&query=${throttledSearchValue}`}
+              LinkComponent={Link}
               className={`btn-see-more ${searchData?.results.length > 0 ? "active" : ""}`}
             >
-              Xem tất cả
-            </Typography>
+              <Typography variant={"body2"}>Xem tất cả</Typography>
+            </Button>
           </StyledSearchWrapper>
         )}
       >
@@ -112,6 +119,7 @@ const HeaderSearch = () => {
           autoComplete="off"
           onChange={handleChangeInputValue}
           onFocus={handleOpenSearchResult}
+          ref={containerWidthRef}
         />
       </HeadlessTippy>
     </Container>
@@ -127,15 +135,24 @@ const Container = styled(Box)(({ theme }) => {
     ["& .btn-see-more"]: {
       position: "fixed",
       bottom: 0,
+      left: 0,
       width: "100%",
       padding: "12px 0px",
       backgroundColor: "#232020",
       textAlign: "center",
       display: "none",
-      cursor: "pointer",
+      borderRadius: "unset",
+      color: theme.palette.common.white,
+      transition: "all linear 0.1s",
 
       ["&.active"]: {
         display: "block",
+      },
+
+      ["&:hover"]: {
+        opacity: 1,
+        backgroundColor: "#232020",
+        color: "#1cc749",
       },
     },
 
@@ -156,7 +173,7 @@ const StyledSearchWrapper = styled(Box)(({ theme }) => {
     backgroundColor: "#312e2e",
     color: theme.palette.common.white,
     maxHeight: 350,
-    overflow: "overlay",
+    overflowY: "scroll",
 
     ["& .no-search-result"]: {
       textAlign: "center",

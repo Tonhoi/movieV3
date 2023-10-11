@@ -4,5 +4,5 @@ export const ROUTES = {
   tv: "/tv",
   login: "/login",
   register: "/register",
-  me: "/personal",
+  me: "/me",
 };

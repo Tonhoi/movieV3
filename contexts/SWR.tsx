@@ -15,6 +15,7 @@ const SWR = ({ children, fallback }: SWRProps) => {
         fallback: fallback || {},
         refreshInterval: 30000,
         revalidateOnMount: true,
+
         fetcher: async (resource) => {
           return axios
             .get(resource)

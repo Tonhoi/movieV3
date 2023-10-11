@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { Stack, Typography, styled, Container as MuiContainer, Box } from "@mui/material";
 
 import { FacebookIcon, LinkedinIcon, TwitterIcon } from "@/components";
@@ -25,7 +26,7 @@ const Container = styled(Box)(({ theme }) => {
     marginTop: 50,
     backgroundColor: "rgb(10, 12, 15)",
     borderTop: "1px solid rgb(45, 47, 52)",
-    
+
     ["& .footer"]: {
       padding: "32px 0px",
 
@@ -57,4 +58,4 @@ const Container = styled(Box)(({ theme }) => {
   };
 });
 
-export default Footer;
+export default memo(Footer);

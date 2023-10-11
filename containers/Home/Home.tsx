@@ -1,5 +1,5 @@
 import { get } from "lodash";
-import { Fragment } from "react";
+import { Fragment, memo } from "react";
 import { HomePageProps } from "@/pages";
 import { Container as MuiContainer } from "@mui/material";
 

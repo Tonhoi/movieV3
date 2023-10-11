@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { Box, styled } from "@mui/material";
 
 import { TopTrendingCarditem } from "@/components";

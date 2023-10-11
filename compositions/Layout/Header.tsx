@@ -1,23 +1,29 @@
-import { useEffect } from "react";
+import { memo, useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { throttle } from "lodash";
 import { Box, Container as MuiContainer, Grid, styled } from "@mui/material";
-import { useWindowScroll } from "react-use";
 
 import { HeaderNavigation, HeaderAction, HeaderSearch } from "@/compositions";
-import { useToggle } from "@/hooks";
 
 const Header = () => {
-  const { y } = useWindowScroll();
-  const { toggleOff, toggleOn, on: isBackgroundHeader } = useToggle();
+  const [isBackgroundHeader, setIsBackgroundHeader] = useState<boolean>(false);
   const { asPath } = useRouter();
 
   useEffect(() => {
-    if (y >= 200 && !isBackgroundHeader) {
-      return toggleOn;
-    } else if (y < 200 && isBackgroundHeader) {
-      return toggleOff;
-    }
-  }, [y]);
+    const handleScroll = throttle((event) => {
+      if (window.scrollY > 200 && !isBackgroundHeader) {
+        setIsBackgroundHeader(true);
+      } else if (window.scrollY < 200 && isBackgroundHeader) {
+        setIsBackgroundHeader(false);
+      }
+    }, 250);
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [isBackgroundHeader]);
 
   return (
     <Container
@@ -67,4 +73,4 @@ const Container = styled(Box)(({ theme }) => {
   };
 });
 
-export default Header;
+export default memo(Header);

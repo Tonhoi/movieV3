@@ -1,5 +1,4 @@
 import { Box, Typography, styled } from "@mui/material";
-import { useMeasure } from "react-use";
 import { useRouter } from "next/router";
 
 import { CardItemBase } from "@/components";
@@ -14,17 +13,12 @@ interface ArtistCardItemProps {
 const ArtistCardItem = ({ data }: ArtistCardItemProps) => {
   const { profile_path, original_name, name, id } = data;
   const thumbnail = useThumbnail(profile_path);
-  const [ref, { width }] = useMeasure();
   const router = useRouter();
 
   return (
-    <Container
-      ref={ref}
-      thumbnail={thumbnail}
-      onClick={() => router.push(`/artist-info/${id}`)}
-    >
+    <Container thumbnail={thumbnail} onClick={() => router.push(`/artist-info/${id}`)}>
       <CardItemBase className="card-base">
-        <Box className={"card-image"} width={width} height={width} />
+        <Box className={"card-image"} />
 
         <Typography variant={"body1"} className={"card-title"}>
           {name ?? original_name}
@@ -53,8 +47,8 @@ const Container = styled(Box, {
 
     ["& .card-image"]: {
       backgroundImage: `url(${thumbnail}), url(${imageError.src})`,
-      maxWidth: 135,
-      maxHeight: 135,
+      width: 135,
+      height: 135,
       borderRadius: "50%",
 
       ["& img"]: {

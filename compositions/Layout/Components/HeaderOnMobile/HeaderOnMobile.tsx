@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import { Box, Button, Divider, Typography, styled, useTheme } from "@mui/material";
 import Hamburger from "hamburger-react";
 import { auth } from "@/firebase/firebase-config";
@@ -19,8 +19,8 @@ const HeaderOnMobile = () => {
   const [user] = useAuthState(auth);
 
   const {
-    toggleOff: handleCloseHeaderMobile,
     on: isOpenHeaderMobile,
+    toggleOff: handleCloseHeaderMobile,
     toggle: toggleHeaderMobile,
   } = useToggle();
 

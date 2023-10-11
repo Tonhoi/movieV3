@@ -20,6 +20,8 @@ import { ROUTES } from "@/routers";
 import { defaultValue } from "@/yups/login/defaultValue";
 import { Login as YupLogin } from "@/yups/login/login";
 
+import backdrop from "@/public/image/backdrop_login_register_page.jpg";
+
 const Login = () => {
   const { control, handleSubmit } = useForm({
     resolver: YupLogin,
@@ -118,7 +120,7 @@ const Container = styled(Stack)(({ theme }) => {
     minHeight: "100vh",
     alignItems: "center",
     justifyContent: "center",
-    backgroundImage: `url(https://assets.nflxext.com/ffe/siteui/vlv3/51e53f54-0d9f-40ec-9e05-c030def06ac9/59fd5bf8-0338-47a5-abb2-c78d169fcd8f/VN-vi-20230515-popsignuptwoweeks-perspective_alpha_website_medium.jpg)`,
+    backgroundImage: `url(${backdrop.src})`,
 
     ["& .form-control"]: {
       width: 450,

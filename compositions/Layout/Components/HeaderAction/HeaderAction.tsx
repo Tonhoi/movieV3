@@ -39,7 +39,7 @@ const HeaderAction = () => {
         </Box>
       </PopOverWrapper>
 
-      <Link href={user ? "/personal" : "/login"} className={"avatar"}>
+      <Link href={user ? "/me" : "/login"} className={"avatar"}>
         <Image src={avatar} />
       </Link>
     </Container>

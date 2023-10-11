@@ -6,6 +6,7 @@ import { useMedia } from "@/hooks";
 import HeaderOnMobile from "./HeaderOnMobile/HeaderOnMobile";
 
 import logo from "@/public/image/logo.png";
+import { memo } from "react";
 
 const NAVITEM = [
   {
@@ -98,4 +99,4 @@ const Container = styled(Stack)(({ theme }) => {
   };
 });
 
-export default HeaderItem;
+export default memo(HeaderItem);

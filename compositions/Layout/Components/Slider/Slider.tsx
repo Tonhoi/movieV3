@@ -1,4 +1,4 @@
-import { SetStateAction, useMemo, useState } from "react";
+import { SetStateAction, memo, useMemo, useRef, useState } from "react";
 import { Box, Container as MuiContainer, Stack, Typography, styled } from "@mui/material";
 import useSWR from "swr";
 
@@ -9,8 +9,7 @@ import { transformUrl } from "@/libs";
 import { TYPE_PARAMS } from "@/apis";
 
 const Slider = () => {
-  const [backdrop, setBackdrop] = useState(null);
-  const [poster, setPoster] = useState(null);
+  const mainSlider = useRef<HTMLElement | null>(null);
 
   const { data: dataPopularMovie } = useSWR(
     transformUrl(TYPE_PARAMS["movie_popular"], {
@@ -18,6 +17,7 @@ const Slider = () => {
       page: 1,
     })
   );
+
 
   const renderBackdropPath = useMemo(() => {
     if (typeof dataPopularMovie == "undefined") return null;
@@ -59,8 +59,7 @@ const Slider = () => {
       <Box className={"backdrop-list"}>
         <SlickSlider
           variant="simple"
-          asNavFor={poster}
-          refSlick={(backdrop: SetStateAction<null>) => setBackdrop(backdrop)}
+          refSlick={mainSlider}
           props={{
             fade: true,
           }}
@@ -77,8 +76,7 @@ const Slider = () => {
 
           <SlickSlider
             variant="multiple"
-            asNavFor={backdrop}
-            refSlick={(poster: SetStateAction<null>) => setPoster(poster)}
+            asNavFor={mainSlider.current}
             props={{ arrows: true }}
           >
             {renderSlideContent}
@@ -185,4 +183,4 @@ const StyledBackdropItem = styled(Box, {
   };
 });
 
-export default Slider;
+export default memo(Slider);
