@@ -63,7 +63,8 @@ const useParams = (props: UseParamsProps) => {
 
     const searchParams = omit(params, excludeKeys);
 
-    const { url } = queryString.parseUrl(router.asPath);
+    // const { url } = queryString.parseUrl(router.asPath);
+    const url = router.asPath;
 
     let pathname = url;
 

@@ -1,5 +1,5 @@
 import Movie from "@/containers/Movie";
-import { GetServerSidePropsContext } from "next";
+import { GetStaticProps } from "next";
 import axios from "@/axios.config";
 import { TYPE_PARAMS } from "@/apis";
 import { IPage, responseSchema } from "@/interfaces";
@@ -11,20 +11,8 @@ const movie = (props: MoviePageProps) => {
   return <Movie {...props} />;
 };
 
-export const getServerSideProps = async (context: GetServerSidePropsContext) => {
+export const getStaticProps: GetStaticProps = async () => {
   try {
-    const serverRouter = context.query.page;
-
-    const resDiscoverMovie = await axios.get(TYPE_PARAMS["discover_movie"], {
-      params: {
-        include_adult: false,
-        include_video: false,
-        language: "en-US",
-        page: serverRouter,
-        sort_by: "popularity.desc",
-      },
-    });
-
     const resGenres = await axios.get("/genre/movie/list", {
       params: {
         language: "vi",
@@ -33,8 +21,9 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
 
     return {
       props: {
-        initData: [resDiscoverMovie, resGenres, { type: "movie" }],
+        initData: [resGenres, { type: "movie" }],
         fallback: true,
+        revalidate: 30,
       },
     };
   } catch (err) {

@@ -25,6 +25,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
       props: {
         initData: [resSearch],
         fallback: true,
+        revalidate: 30,
       },
     };
   } catch (err) {

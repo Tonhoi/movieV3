@@ -7,6 +7,7 @@ import PopOverWrapper from "./PopOverWrapper";
 import HeaderActionChild from "./HeaderActionChild";
 import { SETTING_ITEMS } from "@/constant";
 import avatar from "@/public/image/avatar2.png";
+import { ROUTES } from "@/routers";
 
 const HeaderAction = () => {
   const [user] = useAuthState(auth);
@@ -39,7 +40,7 @@ const HeaderAction = () => {
         </Box>
       </PopOverWrapper>
 
-      <Link href={user ? "/me" : "/login"} className={"avatar"}>
+      <Link href={user ? ROUTES.me : ROUTES.login} className={"avatar"}>
         <Image src={avatar} />
       </Link>
     </Container>

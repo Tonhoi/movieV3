@@ -75,7 +75,11 @@ export async function getStaticProps({ params }: ParamsProps) {
     const resDetailMovie = await axios.get(`/${type}/${id}?language=en-US`);
 
     return {
-      props: { initData: [resRecomendations, resDetailMovie], fallback: true },
+      props: {
+        initData: [resRecomendations, resDetailMovie],
+        fallback: true,
+        revalidate: 30,
+      },
     };
   } catch (error) {
     return {

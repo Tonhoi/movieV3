@@ -9,6 +9,7 @@ const Header = () => {
   const [isBackgroundHeader, setIsBackgroundHeader] = useState<boolean>(false);
   const { asPath } = useRouter();
 
+
   useEffect(() => {
     const handleScroll = throttle((event) => {
       if (window.scrollY > 200 && !isBackgroundHeader) {

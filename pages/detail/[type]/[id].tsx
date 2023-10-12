@@ -86,6 +86,7 @@ export async function getStaticProps({ params }: ParamsProps) {
     return {
       props: {
         initData: [resDetailMovie, resCredit, resReviews, resRecommendations],
+        revalidate: 30,
         fallback: true,
       },
     };

@@ -8,7 +8,7 @@ interface MovieCreditProps {
   cast: Array<any>;
 }
 
-const maxItems = 20;
+const maxItems = 15;
 const MovieCredit = ({ cast }: MovieCreditProps) => {
   const [count, setCount] = useState(0);
 

@@ -8,7 +8,7 @@ interface TvCreditProps {
   cast: any;
 }
 
-const maxItems = 20;
+const maxItems = 15;
 const TvCredit = ({ cast }: TvCreditProps) => {
   const [count, setCount] = useState(0);
 
