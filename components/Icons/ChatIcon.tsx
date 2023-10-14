@@ -2,14 +2,26 @@ import SVGIconBase, { SvgIconProps } from "./SVGIconBase";
 
 const ChatIcon = (props: SvgIconProps) => {
   return (
-    <SVGIconBase xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" {...props}>
-      <path
-        d="M408 64H104a56.16 56.16 0 00-56 56v192a56.16 56.16 0 0056 56h40v80l93.72-78.14a8 8 0 015.13-1.86H408a56.16 56.16 0 0056-56V120a56.16 56.16 0 00-56-56z"
-        fill="none"
-        stroke="currentColor"
-        strokeLinejoin="round"
-        strokeWidth="32"
-      />
+    <SVGIconBase
+      width="24px"
+      height="24px"
+      viewBox="0 0 24 24"
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
+      {...props}
+    >
+      <title>icon_comment_gray</title>
+      <g id="控件" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+        <g id="评论/回复" stroke="#828387" strokeWidth="2">
+          <g id="编组" transform="translate(3.503068, 5.000000)">
+            <path
+              d="M15.9969316,1 L15.9969316,12 L10.8761996,12 L8.49832702,14.5363974 L6.11726667,12 L1,12 L1,1 L15.9969316,1 Z"
+              id="矩形"
+            ></path>
+          </g>
+        </g>
+      </g>
     </SVGIconBase>
   );
 };

@@ -26,10 +26,10 @@ const UserReview = ({ data }: UserReviewProps) => {
 
     if (descElement.classList.contains("show-more")) {
       isShowMore = true;
-      target.textContent = "Show Less";
+      target.textContent = "Ẩn bớt";
     } else {
       isShowMore = false;
-      target.textContent = "Show More";
+      target.textContent = "Đọc thêm";
     }
   };
 
@@ -58,7 +58,7 @@ const UserReview = ({ data }: UserReviewProps) => {
                   className="btn-show-more"
                   onClick={handleShowAllDescription}
                 >
-                  Read MORE
+                  Đọc Thêm
                 </Typography>
 
                 <Typography variant="h5" color={"#A67C7C"} className={"time"}>

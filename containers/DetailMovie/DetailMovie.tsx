@@ -12,6 +12,7 @@ import {
   UserReview,
 } from "@/containers/DetailMovie/components";
 import { useRouter } from "next/router";
+import Loading from "@/components/Loading";
 
 const DetailMovie = ({ initData }: DetailPageProps) => {
   const dataDetailMovie = get(initData, "0");
@@ -32,7 +33,7 @@ const DetailMovie = ({ initData }: DetailPageProps) => {
     setValue(newValue);
   };
 
-  if (router.isFallback) return <Box>Loading...</Box>;
+  if (router.isFallback) return <Loading />;
   return (
     <Container>
       <IntroMovie

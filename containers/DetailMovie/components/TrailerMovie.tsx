@@ -2,6 +2,7 @@ import { Box, styled, Skeleton } from "@mui/material";
 import { useRouter } from "next/router";
 
 import { Embeded, Overlay } from "@/components";
+import { memo } from "react";
 
 interface TrailerMovieProps {
   isOpenTrailerMovie: boolean;
@@ -68,4 +69,4 @@ const Container = styled(Box)(({ theme }) => {
   };
 });
 
-export default TrailerMovie;
+export default memo(TrailerMovie);

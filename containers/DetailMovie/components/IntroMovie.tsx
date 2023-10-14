@@ -80,7 +80,7 @@ const HeadingDetailMovie = (props: HeadingDetailMovieProps) => {
           startIcon={<PlayV2Icon />}
           className="btn btn-play"
         >
-          <Typography variant={"h5"}>Play</Typography>
+          <Typography variant={"h5"}>Xem phim</Typography>
         </Button>
 
         <Button
@@ -89,11 +89,11 @@ const HeadingDetailMovie = (props: HeadingDetailMovieProps) => {
           startIcon={<TvIcon />}
           onClick={handleOpenTrailerMovie}
         >
-          <Typography variant={"h5"}>Watch Trailer</Typography>
+          <Typography variant={"h5"}>Xem trailer</Typography>
         </Button>
 
         <Button variant={"contained"} className={"btn"} startIcon={<SaveV2Icon />}>
-          <Typography variant={"h5"}>Watch Later</Typography>
+          <Typography variant={"h5"}>Xem sau</Typography>
         </Button>
       </Box>
     </Container>
@@ -197,7 +197,7 @@ const Container = styled(Box, {
         padding: "8px 16px",
         width: "fit-content",
         margin: "0px 10px 10px 0px",
-        textTransform: "capitalize",
+        textTransform: "inherit",
         backgroundColor: "#34495E",
 
         ["& svg"]: {

@@ -8,6 +8,7 @@ import IntroArtist from "./Components/IntroArtist";
 import { ArtistPageProps } from "@/pages/artist-info/[id]";
 import MovieCredit from "./Components/MovieCredit";
 import TvCredit from "./Components/TvCredit";
+import Loading from "@/components/Loading";
 
 const ArtistInfo = ({ initData }: ArtistPageProps) => {
   const dataDetailPerson = get(initData, "0");
@@ -22,7 +23,7 @@ const ArtistInfo = ({ initData }: ArtistPageProps) => {
     setValue(newValue);
   };
 
-  if (router.isFallback) return <Box>loading...</Box>;
+  if (router.isFallback) return <Loading />;
 
   return (
     <Container>

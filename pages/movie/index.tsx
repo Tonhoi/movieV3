@@ -23,7 +23,7 @@ export const getStaticProps: GetStaticProps = async () => {
       props: {
         initData: [resGenres, { type: "movie" }],
         fallback: true,
-        revalidate: 30,
+        revalidate: 60,
       },
     };
   } catch (err) {

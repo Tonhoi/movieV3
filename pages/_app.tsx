@@ -26,7 +26,6 @@ interface MyAppProps extends AppProps {
 export default function App(props: MyAppProps) {
   const { emotionCache = clientSideEmotionCache, pageProps, Component } = props;
   // const router = useRouter();
-  // console.log("re-render");
 
   return (
     <>

@@ -20,11 +20,11 @@ const InfoMovie = (props: InfoMovieProps) => {
 
       <Typography variant="body2" color={theme.palette.text_hover.main}>
         <StarIcon className={"star-icon"} color={"inherit"} />
-        {data.vote_average}
+        {data?.vote_average}
       </Typography>
 
       <Typography variant="h6" className={`description ${isDescription ? "active" : ""}`}>
-        {data.overview}
+        {data?.overview}
       </Typography>
     </Container>
   );
