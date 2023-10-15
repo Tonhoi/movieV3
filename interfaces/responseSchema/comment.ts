@@ -11,4 +11,5 @@ export interface Comment {
   text: string;
   name: string;
   user_id: string;
+  users_like: Array<string>;
 }

@@ -2,11 +2,11 @@ import { useEffect, useMemo, useState } from "react";
 import { Box, Typography, styled } from "@mui/material";
 import { useRouter } from "next/router";
 
-import { CardItem } from "@/components";
 import InfoMovie from "@/components/InfoMovie";
 import ArrowLeft from "@/compositions/Slick/ArrowLeft";
 import ArrowRight from "@/compositions/Slick/ArrowRight";
 import SlickSlider from "@/compositions/Slick/SlickSlider";
+import { CardItem } from "@/components";
 import { MOVIESCHEMA } from "@/interfaces/responseSchema/utils";
 import { DetailMovie } from "@/interfaces/responseSchema/DetailMovie";
 import { EPISODESCHEMA } from "@/interfaces/responseSchema/episode";
@@ -41,13 +41,11 @@ interface ContentPlayMovieProps {
   dataDetail: DetailMovie;
 }
 
-const ContentPlayMovie = ({
-  dataRecomendationsMovie,
-  dataInfoMovie,
-  dataDetail,
-}: ContentPlayMovieProps) => {
-  const router = useRouter();
+const ContentPlayMovie = (props: ContentPlayMovieProps) => {
+  const { dataRecomendationsMovie, dataInfoMovie, dataDetail } = props;
+
   const [dataDetailInfoMovie, setDataDetailInfoMovie] = useState<any>([]);
+  const router = useRouter();
 
   const handleChangeSeason = (season_number: number) => {
     router.push(
@@ -81,6 +79,7 @@ const ContentPlayMovie = ({
     const text = dataInfoMovie.find((data: EPISODESCHEMA, idx: number) => {
       return String(data.episode_number) == router.query.episode;
     });
+
     setDataDetailInfoMovie(text);
   }, [dataInfoMovie, router]);
 
@@ -114,9 +113,11 @@ const ContentPlayMovie = ({
         />
 
         <Box className={"recommended-movie"}>
-          <Typography variant={"h3"} className={"name"}>
-            Recommended
-          </Typography>
+          {dataRecomendationsMovie?.length !== 0 && (
+            <Typography variant={"h3"} className={"name"}>
+              Có thể bạn quan tâm
+            </Typography>
+          )}
 
           <SlickSlider
             variant="multiple"

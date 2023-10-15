@@ -27,10 +27,12 @@ const Register = () => {
       await updateProfile(auth?.currentUser as any, {
         displayName: data.fullname,
       });
-      reset()
+      reset();
       toast.success("Đăng ký thành công");
     } catch (error) {
-      toast.error("Đăng ký thất bại");
+      toast.error(
+        "Đăng ký thất bại, Gmail đã bị trùng, vui lòng thay đổi Gmail khác và thử lại!"
+      );
     }
   };
 

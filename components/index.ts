@@ -1,11 +1,6 @@
 // icon
-export { default as PlusIcon } from "./Icons/PlusIcon";
 export { default as CloseCircleFilled } from "./Icons/CloseCircleFilled";
-export { default as SearchIcon } from "./Icons/SearchIcon";
-export { default as CrownIcon } from "./Icons/CrownIcon";
-export { default as DownloadIcon } from "./Icons/DownloadIcon";
 export { default as FilmIcon } from "./Icons/FilmIcon";
-export { default as GlobeIcon } from "./Icons/GlobeIcon";
 export { default as TvIcon } from "./Icons/TvIcon";
 export { default as UserIcon } from "./Icons/UserIcon";
 export { default as ArrowRightIcon } from "./Icons/ArrowRightIcon";
@@ -21,7 +16,6 @@ export { default as MenuV2Icon } from "./Icons/MenuV2Icon";
 export { default as SunIcon } from "./Icons/SunIcon";
 export { default as HeartIcon } from "./Icons/HeartIcon";
 export { default as ChatIcon } from "./Icons/ChatIcon";
-export { default as ShareIcon } from "./Icons/ShareIcon";
 export { default as MenuIcon } from "./Icons/MenuIcon";
 export { default as SettingIcon } from "./Icons/SettingIcon";
 export { default as ThemeIcon } from "./Icons/ThemeIcon";

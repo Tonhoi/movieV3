@@ -1,13 +1,12 @@
 import { ReactNode, useEffect, useState } from "react";
 import { Box, styled } from "@mui/material";
 import { useRouter } from "next/router";
-import "react-toastify/dist/ReactToastify.css";
 import { useAuthState } from "react-firebase-hooks/auth";
+import "react-toastify/dist/ReactToastify.css";
 
 import Login from "@/containers/Login/Login";
 import { Header, Footer } from "@/compositions";
 import LoadingScreen from "../LoadingScreen";
-import ErrorPage from "@/pages/404";
 import Register from "@/containers/Register/Register";
 import { auth } from "@/firebase/firebase-config";
 
@@ -40,7 +39,6 @@ const Layout = ({ children }: layoutProps) => {
   if (asPath === "/login") return <Login />;
   if (asPath.includes("personal") && !user) return <Login />;
   if (asPath === "/register") return <Register />;
-  if (asPath === "/404") return <ErrorPage />;
 
   return (
     <Container>

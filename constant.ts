@@ -1,6 +1,5 @@
 import {
   FilmIcon,
-  GlobeIcon,
   TvIcon,
   UserIcon,
   ThemeIcon,
@@ -13,28 +12,58 @@ import {
 import { v4 as uuidv4 } from "uuid";
 
 import { ROUTES } from "./routers";
+import LogoutIcon from "./components/Icons/LogoutIcon";
 
 export const NAVITEM = [
   {
-    icon: FilmIcon,
+    start_icon: FilmIcon,
     href: ROUTES.movie,
     title: "Movie",
   },
   {
-    icon: TvIcon,
+    start_icon: TvIcon,
     href: ROUTES.tv,
     title: "Tv",
-  },
-  {
-    icon: UserIcon,
-    href: ROUTES.me,
-    title: "Trang cá nhân",
     divider: true,
   },
   {
-    icon: GlobeIcon,
-    href: "/language",
-    title: "Language",
+    start_icon: UserIcon,
+    href: ROUTES.me,
+    title: "Trang cá nhân",
+  },
+  {
+    start_icon: AlertIcon,
+    href: ROUTES.introduced,
+    title: "Giới thiệu",
+  },
+  {
+    start_icon: PhoneIcon,
+    href: ROUTES.contact,
+    title: "Liên hệ",
+  },
+  {
+    start_icon: ThemeIcon,
+    end_icon: ArrowRightIcon,
+    title: "Giao diện",
+    child: [
+      {
+        id: uuidv4(),
+        title: "Sáng",
+        start_icon: SunIcon,
+        separate: false,
+      },
+      {
+        id: uuidv4(),
+        title: "Tối",
+        start_icon: MoonIcon,
+        separate: false,
+      },
+    ],
+  },
+  {
+    start_icon: LogoutIcon,
+    title: "Đăng xuất",
+    is_login_button: true,
   },
 ];
 
@@ -180,13 +209,13 @@ export const SETTING_ITEMS = [
     title: "Giới thiệu",
     start_icon: AlertIcon,
     separate: false,
-    href: "/",
+    href: ROUTES.introduced,
   },
   {
     id: uuidv4(),
     title: "Liên hệ",
     start_icon: PhoneIcon,
     separate: false,
-    href: "/",
+    href: ROUTES.contact,
   },
 ];

@@ -3,7 +3,7 @@ import { Box, BoxProps, styled } from "@mui/material";
 
 interface CardItemBaseprops extends BoxProps {
   children: ReactNode;
-  zoom?: "zoom-in" | "zoom-out";
+  zoom?: "zoom-in" | "zoom-out" | "disableZoom";
 }
 
 const CardItemBase = (props: CardItemBaseprops) => {
@@ -18,7 +18,7 @@ const CardItemBase = (props: CardItemBaseprops) => {
 
 const Container = styled(Box, {
   shouldForwardProp: (propName) => propName !== "zoom",
-})<{ zoom: "zoom-in" | "zoom-out" }>(({ zoom, theme }) => {
+})<{ zoom: "zoom-in" | "zoom-out" | "disableZoom" }>(({ zoom, theme }) => {
   return {
     cursor: "pointer",
     overflow: "hidden",

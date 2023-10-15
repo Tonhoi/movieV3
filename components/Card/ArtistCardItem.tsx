@@ -54,6 +54,11 @@ const Container = styled(Box, {
       ["& img"]: {
         objectFit: "cover",
       },
+
+      [theme.breakpoints.down("sm")]: {
+        width: 120,
+        height: 120,
+      },
     },
 
     ["& .card-title"]: {

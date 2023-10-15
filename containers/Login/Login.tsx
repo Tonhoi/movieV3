@@ -36,7 +36,7 @@ const Login = () => {
       toast.success("Đăng Nhập thành công");
       router.push(ROUTES.home);
     } catch (error) {
-      toast.error("Đăng Nhập thất bại");
+      toast.error("Đăng Nhập thất bại. Tài khoản hoặc mật khẩu không chính xác!");
     }
   };
 

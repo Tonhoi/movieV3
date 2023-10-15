@@ -42,7 +42,7 @@ const Comment = () => {
     if (typeof comments == "undefined") return null;
 
     return comments.map((el) => {
-      const { text, name, createdAt, user_id, id } = el;
+      const { text, name, createdAt, user_id, id, users_like } = el;
 
       // Chuyển đổi timestamp thành đối tượng Day.js và định dạng thời gian
       const createdAtDate = dayjs(createdAt?.toDate()).tz("Asia/Ho_Chi_Minh");
@@ -58,6 +58,7 @@ const Comment = () => {
           time={minutesAgo}
           user_id={user_id}
           id={id}
+          isUserLikeComment={users_like}
         />
       );
     });

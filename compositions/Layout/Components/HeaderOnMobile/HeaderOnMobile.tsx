@@ -1,15 +1,14 @@
-import { Fragment, useEffect } from "react";
+import { Fragment } from "react";
 import { Box, Button, Divider, Typography, styled, useTheme } from "@mui/material";
-import Hamburger from "hamburger-react";
 import { auth } from "@/firebase/firebase-config";
 import { signOut } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
+import Hamburger from "hamburger-react";
 
 import { Image, Link, Overlay } from "@/components";
 import { NAVITEM } from "@/constant";
 import { useToggle } from "@/hooks";
 import { ROUTES } from "@/routers";
-import LogoutIcon from "@/components/Icons/LogoutIcon";
 
 import avatar from "@/public/image/avatar.png";
 import bgHeaderMobile from "@/public/image/backgroundAvatar.png";
@@ -24,11 +23,12 @@ const HeaderOnMobile = () => {
     toggle: toggleHeaderMobile,
   } = useToggle();
 
-  const handleLogoutAccount = (e: any) => {
-    e.preventDefault();
+  const handleLogoutAccount = () => {
     signOut(auth);
     handleCloseHeaderMobile();
   };
+
+  const toggleChildMenu = () => {};
 
   return (
     <Fragment>
@@ -45,7 +45,12 @@ const HeaderOnMobile = () => {
       />
 
       <Container className={isOpenHeaderMobile ? "active" : ""}>
-        <Link href={ROUTES.login} className={"heading"}>
+        <Button
+          LinkComponent={user ? Box : Link}
+          href={ROUTES.login}
+          disableRipple
+          className={"heading"}
+        >
           <Box className={"logo-on-mobile"}>
             <Image src={avatar.src} />
           </Box>
@@ -53,41 +58,47 @@ const HeaderOnMobile = () => {
           <Typography variant={"body2"} className={"heading-title"}>
             {user ? user?.displayName : "Login/Signup"}
           </Typography>
-        </Link>
+        </Button>
 
         {NAVITEM.map((item, idx: number) => {
-          const { href, icon: Icon, title } = item;
+          const {
+            href,
+            start_icon: StartIcon,
+            end_icon: EndIcon,
+            title,
+            child,
+            divider,
+            is_login_button,
+          } = item;
+
+          if (!user && (href === ROUTES.me || is_login_button)) return null;
 
           return (
             <Box key={idx}>
-              {item.divider && <Divider light className={"divider"} />}
-
               <Button
                 href={href}
-                LinkComponent={Link}
-                startIcon={<Icon className="icon" />}
-                onClick={handleCloseHeaderMobile}
-                className={"btn"}
+                LinkComponent={href ? Link : Button}
+                startIcon={StartIcon && <StartIcon className="icon" />}
+                endIcon={EndIcon && <EndIcon />}
+                disableRipple
+                className={"nav-mobile-list"}
+                onClick={
+                  child
+                    ? toggleChildMenu
+                    : user && is_login_button
+                    ? handleLogoutAccount
+                    : handleCloseHeaderMobile
+                }
               >
                 <Typography variant={"body1"} className={"nav-title"}>
                   {title}
                 </Typography>
               </Button>
+
+              {divider && <Divider light className={"divider"} />}
             </Box>
           );
         })}
-
-        {user && (
-          <Button
-            startIcon={<LogoutIcon className="icon" />}
-            className={"btn"}
-            onClick={handleLogoutAccount}
-          >
-            <Typography className={"nav-title"} variant={"body1"}>
-              Đăng xuất
-            </Typography>
-          </Button>
-        )}
       </Container>
     </Fragment>
   );
@@ -120,9 +131,10 @@ const Container = styled(Box)(({ theme }) => {
       backgroundPosition: "center center",
       aspectRatio: "270 / 88",
 
-      display: "flex",
-      alignItems: "center",
-      padding: "22px 24px",
+      width: "100%",
+      textTransform: "capitalize",
+      padding: "22px 16px",
+      justifyContent: "start",
       color: theme.palette.common.white,
 
       ["&:after"]: {
@@ -156,20 +168,20 @@ const Container = styled(Box)(({ theme }) => {
       backgroundColor: "#6d7485",
     },
 
-    ["& .btn"]: {
-      padding: "12px 0px 12px 24px",
+    ["& .nav-mobile-list"]: {
+      padding: "12px 12px 12px 24px",
       textTransform: "capitalize",
       justifyContent: "start",
       color: "#ECECEC",
       width: "100%",
 
+      ["& .MuiButton-endIcon"]: {
+        marginLeft: "auto",
+      },
+
       ["&:hover"]: {
         color: "#1cc749",
         opacity: 1,
-      },
-
-      ["& .icon"]: {
-        marginLeft: 0,
       },
     },
   };

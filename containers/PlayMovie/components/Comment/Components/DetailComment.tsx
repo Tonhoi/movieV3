@@ -1,8 +1,9 @@
-import { memo, useContext, useEffect, useState } from "react";
+import { memo, useCallback, useContext } from "react";
 import { Box, Button, Typography, styled } from "@mui/material";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { db, auth as firebaseAuth } from "@/firebase/firebase-config";
 import { useRouter } from "next/router";
+import { toast } from "react-toastify";
 
 import { timeAgo } from "./timeAgo";
 import { ChatIcon, HeartIcon, Image } from "@/components";
@@ -18,69 +19,48 @@ interface DetailCommentProps {
   title: string;
   user_id: string;
   id: string;
+  isUserLikeComment: Array<string>;
 }
 
-let text: Array<string> = [];
+let userLikeComments: Array<string> = [];
 
 const DetailComment = (props: DetailCommentProps) => {
-  const { auth, time, title, user_id, id } = props;
-  const [user] = useAuthState(firebaseAuth);
-  const [isLike, setIsLike] = useState<boolean>(false);
+  const { auth, time, title, user_id, id, isUserLikeComment } = props;
+
   const router = useRouter();
+  const [user] = useAuthState(firebaseAuth);
   const commentDocRef = doc(db, "comment", id);
 
   const { toggleOn, setGetIdComment } = useContext(ConfirmDialogContext);
 
-  const handleComfirmDialog = () => {
+  const handleComfirmDialog = useCallback(() => {
     toggleOn();
     setGetIdComment(id);
-  };
-
-  const checkLikeUser = async () => {
-    const getComment = await getDoc(commentDocRef);
-    const dataComment = getComment.data();
-
-    if (!dataComment) return null;
-    const isLikeUser: boolean = dataComment.users_like.includes(user?.uid);
-
-    return {
-      isLikeUser,
-      dataComment,
-    };
-  };
-
-  useEffect(() => {
-    const checkStatusUserLike = async () => {
-      const { isLikeUser }: any = await checkLikeUser();
-
-      if (isLikeUser) {
-        setIsLike(true);
-      } else {
-        setIsLike(false);
-      }
-    };
-    checkStatusUserLike();
-  }, [id]);
+  }, []);
 
   const handleLikeComment = async () => {
     try {
       if (!user) return router.push(ROUTES.login);
 
-      const { isLikeUser, dataComment }: any = await checkLikeUser();
+      const getComment = await getDoc(commentDocRef);
+      const dataComment = getComment.data();
+
+      if (!dataComment) return null;
+      const isLikeUser: boolean = dataComment.users_like.includes(user?.uid);
 
       if (isLikeUser) {
-        text = dataComment?.users_like.filter((user_id: string) => user_id !== user?.uid);
-        setIsLike(false);
+        userLikeComments = dataComment.users_like.filter(
+          (user_id: string) => user_id !== user?.uid
+        );
       } else {
-        text.push(...dataComment?.users_like, user?.uid);
-        setIsLike(true);
+        userLikeComments.push(...dataComment.users_like, user?.uid);
       }
 
       await updateDoc(commentDocRef, {
-        users_like: text,
+        users_like: userLikeComments,
       });
     } catch (error) {
-      console.log("có lỗi xảy ra");
+      toast.error("có lỗi xảy ra trong quá trình thao tác, vui lòng thử lại!");
     }
   };
 
@@ -108,10 +88,12 @@ const DetailComment = (props: DetailCommentProps) => {
         <Box className={"comment-action"}>
           <Button
             variant="text"
-            className={`btn btn-like ${isLike ? "active" : ""}`}
-            startIcon={<HeartIcon className="like-icon" />}
             disableRipple
+            startIcon={<HeartIcon className="like-icon" />}
             onClick={handleLikeComment}
+            className={`btn btn-like ${
+              isUserLikeComment.includes(user_id) ? "active" : ""
+            }`}
           >
             <Typography variant="caption" className={"btn-text"}>
               Thích
@@ -131,8 +113,8 @@ const DetailComment = (props: DetailCommentProps) => {
           {user_id === user?.uid && (
             <Button
               variant="text"
-              className={"btn btn-delete"}
               startIcon={<DeleteIcon className="delete-icon" />}
+              className={"btn btn-delete"}
               onClick={handleComfirmDialog}
             >
               <Typography variant="caption" className={"btn-text"}>

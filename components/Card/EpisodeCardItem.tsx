@@ -21,7 +21,7 @@ const EpisodeCardItem = (props: EpisodeCardItemProps) => {
   const { query } = useRouter();
 
   return (
-    <CardItemBase zoom="zoom-in" {...restProps}>
+    <CardItemBase zoom="disableZoom" {...restProps}>
       <Container
         href={`/play/${query.type}/${query.id}?episode=${idx}&season=${query.season}`}
         className={`${String(episode_number) == query.episode ? "active" : ""}`}
@@ -70,10 +70,11 @@ const Container = styled(Link)(({ theme }) => {
       width: 140,
       height: 95,
       flexShrink: 0,
+      borderRadius: 10,
+      overflow: "hidden",
 
       ["& .img"]: {
         objectFit: "cover",
-        borderRadius: 10,
       },
     },
 

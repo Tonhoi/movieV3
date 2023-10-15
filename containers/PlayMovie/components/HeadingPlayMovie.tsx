@@ -1,17 +1,7 @@
 import { useMemo } from "react";
 import { Box, Stack, Typography, styled } from "@mui/material";
 
-import {
-  ChatIcon,
-  HeartIcon,
-  Link,
-  MenuIcon,
-  SaveV2Icon,
-  ShareIcon,
-  EpisodeCardItem,
-  MenuV2Icon,
-  Embeded,
-} from "@/components";
+import { Link, MenuIcon, EpisodeCardItem, MenuV2Icon, Embeded } from "@/components";
 import { useToggle, useParams } from "@/hooks";
 import { EPISODESCHEMA } from "@/interfaces/responseSchema/episode";
 
@@ -28,7 +18,6 @@ const HeadingPlayMovie = ({ episodes }: HeadingPlayMovieProps) => {
       episode: 1,
     },
     excludeKeys: ["type", "id"],
-    // isUpdateRouter: true,
 
     callback(params) {
       if (router.query.type == "movie") {
@@ -39,34 +28,30 @@ const HeadingPlayMovie = ({ episodes }: HeadingPlayMovieProps) => {
   const { query } = router;
   const { type, id, season, episode } = query;
 
-  const renderEpisodes = useMemo(() => {
+  const renderEpisodesHorizontal = useMemo(() => {
     if (typeof episodes == "undefined") return null;
 
-    return episodes.map((data: EPISODESCHEMA, idx: number) => {
-      const { still_path, episode_number, name, vote_count, air_date } = data;
-
-      return (
-        <EpisodeCardItem
-          key={idx}
-          idx={idx + 1}
-          still_path={still_path}
-          episode_number={episode_number}
-          name={name}
-          vote_count={vote_count}
-          air_date={air_date}
-        />
-      );
-    });
+    return episodes.map((data: EPISODESCHEMA, idx: number) => (
+      <EpisodeCardItem
+        key={idx}
+        idx={idx + 1}
+        still_path={data.still_path}
+        episode_number={data.episode_number}
+        name={data.name}
+        vote_count={data.vote_count}
+        air_date={data.air_date}
+      />
+    ));
   }, [episodes]);
 
-  const renderEpisodes2 = useMemo(() => {
+  const renderEpisodesVertical = useMemo(() => {
     if (typeof episodes == "undefined") return null;
 
     return episodes.map((data: any, idx: number) => (
       <Link
-        href={`/play/${type}/${id}?episode=${data.episode_number}&season=${season}`}
-        className={`episode ${data.episode_number == episode ? "active" : ""}`}
         key={idx}
+        href={`/play/${type}/${id}?episode=${data.episode_number}&season=${season}`}
+        className={`episode-vertical ${data.episode_number == episode ? "active" : ""}`}
       >
         <Typography variant={"body2"}>{idx + 1}</Typography>
       </Link>
@@ -78,40 +63,28 @@ const HeadingPlayMovie = ({ episodes }: HeadingPlayMovieProps) => {
       <Box width={"100%"}>
         <Embeded id={id} episode={episode} season={season} type={type} height="400" />
 
-        <Stack className={"menu-options"}>
-          <Stack className={"menu-options-item"}>
-            <HeartIcon />
-            <Typography variant={"h5"}>Like</Typography>
-          </Stack>
-
-          <Stack className={"menu-options-item"}>
-            <ChatIcon />
-            <Typography variant={"h5"}>Comments</Typography>
-          </Stack>
-
-          <Stack className={"menu-options-item"}>
-            <SaveV2Icon />
-            <Typography variant={"h5"}>Watch Later</Typography>
-          </Stack>
-
-          <Stack className={"menu-options-item"}>
-            <ShareIcon />
-            <Typography variant={"h5"}>Share</Typography>
-          </Stack>
-        </Stack>
+        <Typography variant="caption" className={"reminder-text"}>
+          Hãy đổi server nếu bạn cảm thấy phim load chậm
+        </Typography>
       </Box>
 
-      <Box className={"episodes-list custom-scroll"}>
-        <Stack className={"episodes-filter-wrap"}>
-          <Typography variant={"subtitle2"}>
-            Episodes {episode}-{episodes?.length}
-          </Typography>
+      {episode && (
+        <Box className={"episodes-list custom-scroll"}>
+          <Stack className={"episodes-filter-wrap"}>
+            <Typography variant={"subtitle2"}>
+              Tập {episode}-{episodes?.length}
+            </Typography>
 
-          {on ? <MenuIcon onClick={toggleOff} /> : <MenuV2Icon onClick={toggleOn} />}
-        </Stack>
+            {on ? <MenuIcon onClick={toggleOff} /> : <MenuV2Icon onClick={toggleOn} />}
+          </Stack>
 
-        {on ? renderEpisodes2 : renderEpisodes}
-      </Box>
+          {on ? (
+            renderEpisodesVertical
+          ) : (
+            <Stack gap={1.5}>{renderEpisodesHorizontal}</Stack>
+          )}
+        </Box>
+      )}
     </Container>
   );
 };
@@ -122,31 +95,21 @@ const Container = styled(Stack)(({ theme }) => {
     backgroundColor: "#1A1C22",
     maxHeight: 455,
     overflow: "hidden",
+    boxShadow:
+      "rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset",
 
     [theme.breakpoints.down("md")]: {
       flexDirection: "column",
       maxHeight: "100%",
     },
 
-    ["& .menu-options"]: {
-      flexDirection: "row",
-      alignItems: "center",
-      justifyContent: "center",
-      flexWrap: "wrap",
-      padding: "10px 20px",
-      gap: 24,
-
-      ["& .menu-options-item"]: {
-        flexDirection: "row",
-        alignItems: "center",
-        gap: 4,
-        cursor: "pointer",
-
-        ["&:hover"]: {
-          opacity: 0.8,
-          transition: "opacity linear 0.2s",
-        },
-      },
+    ["& .reminder-text"]: {
+      display: "block",
+      fontSize: 13,
+      fontStyle: "italic",
+      textAlign: "center",
+      color: "#9e9c9c",
+      marginBottom: 8,
     },
 
     ["& .episodes-list"]: {
@@ -154,7 +117,6 @@ const Container = styled(Stack)(({ theme }) => {
       padding: "0px 10px",
       margin: "16px 0px",
       overflowY: "scroll",
-      maxHeight: "100%",
 
       [theme.breakpoints.down("md")]: {
         width: "100%",
@@ -183,7 +145,7 @@ const Container = styled(Stack)(({ theme }) => {
         },
       },
 
-      ["& .episode"]: {
+      ["& .episode-vertical"]: {
         width: 40,
         height: 40,
         display: "inline-flex",

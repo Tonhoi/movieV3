@@ -5,4 +5,6 @@ export const ROUTES = {
   login: "/login",
   register: "/register",
   me: "/me",
+  introduced: "/introduced",
+  contact: '/contact'
 };
