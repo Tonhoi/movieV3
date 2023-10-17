@@ -72,7 +72,6 @@ const HeaderOnMobile = () => {
           } = item;
 
           if (!user && (href === ROUTES.me || is_login_button)) return null;
-
           return (
             <Box key={idx}>
               <Button
@@ -133,7 +132,7 @@ const Container = styled(Box)(({ theme }) => {
 
       width: "100%",
       textTransform: "capitalize",
-      padding: "22px 16px",
+      padding: "22px 24px",
       justifyContent: "start",
       color: theme.palette.common.white,
 

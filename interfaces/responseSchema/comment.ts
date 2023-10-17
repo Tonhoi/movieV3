@@ -12,4 +12,5 @@ export interface Comment {
   name: string;
   user_id: string;
   users_like: Array<string>;
+  comment_child:any
 }

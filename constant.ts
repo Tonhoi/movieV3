@@ -47,13 +47,11 @@ export const NAVITEM = [
     title: "Giao diện",
     child: [
       {
-        id: uuidv4(),
         title: "Sáng",
         start_icon: SunIcon,
         separate: false,
       },
       {
-        id: uuidv4(),
         title: "Tối",
         start_icon: MoonIcon,
         separate: false,

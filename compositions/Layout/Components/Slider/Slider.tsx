@@ -1,4 +1,4 @@
-import { SetStateAction, memo, useMemo, useRef, useState } from "react";
+import { memo, useMemo, useRef } from "react";
 import { Box, Container as MuiContainer, Stack, Typography, styled } from "@mui/material";
 import useSWR from "swr";
 
@@ -17,7 +17,6 @@ const Slider = () => {
       page: 1,
     })
   );
-
 
   const renderBackdropPath = useMemo(() => {
     if (typeof dataPopularMovie == "undefined") return null;
