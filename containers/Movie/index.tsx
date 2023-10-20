@@ -1,6 +1,6 @@
 import useSWR from "swr";
 import { get } from "lodash";
-import { Fragment, useEffect, useMemo, useState } from "react";
+import { Fragment, useMemo } from "react";
 import { useRouter } from "next/router";
 import { Grid, Container as MuiContainer } from "@mui/material";
 import Skeleton from "react-loading-skeleton";
