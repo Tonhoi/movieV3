@@ -1,4 +1,4 @@
-import { Box, BoxProps, CircularProgress, Typography, styled } from "@mui/material";
+import { Box, BoxProps, CircularProgress, styled } from "@mui/material";
 
 interface LoadingProps extends BoxProps {}
 

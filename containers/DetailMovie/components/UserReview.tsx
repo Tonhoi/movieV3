@@ -119,7 +119,6 @@ const StyledReviewWrapper = styled(Stack, {
     ["& .review-content"]: {
       gap: 8,
       width: "100%",
-      paddingRight: 40,
 
       ["& .description"]: {
         width: "100%",
@@ -127,6 +126,7 @@ const StyledReviewWrapper = styled(Stack, {
         WebkitLineClamp: "3",
         WebkitBoxOrient: "vertical",
         overflow: "hidden",
+        maxWidth: "calc(100% - 45px)",
 
         ["&.show-more"]: {
           WebkitLineClamp: "unset",

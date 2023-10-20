@@ -6,7 +6,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { auth } from "@/firebase/firebase-config";
 
 import { Link } from "@/components";
-import { FormControl as FormInput } from "@/compositions";
+import { FormControl as FormInput } from "@/components";
 import { ROUTES } from "@/routers";
 import { updateProfile } from "firebase/auth";
 import { defaultValue } from "@/yups/register/defaultValue";

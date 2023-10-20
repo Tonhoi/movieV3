@@ -4,7 +4,7 @@ import { Box, Button, styled } from "@mui/material";
 import { CSSObjectWithLabel } from "react-select";
 
 import FilterIcon from "@/components/Icons/FilterIcon";
-import { COUNTRYOPTIONS, VOTEAVERAGEOPTIONS, YEAROPTIONS } from "@/constant";
+import { COUNTRYOPTIONS, VOTEAVERAGEOPTIONS, YEAROPTIONS } from "../constants";
 
 const SelectClient = dynamic(() => import("react-select"), {
   ssr: false,

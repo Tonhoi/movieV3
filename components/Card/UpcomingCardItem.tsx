@@ -61,9 +61,10 @@ const Container = styled(Box, {
       position: "relative",
       backgroundImage: `url(${thumbnail})`,
       aspectRatio: "320 /180",
+      // borderRadius: 8,
 
       ["&:after"]: {
-        height: "60%",
+        height: 60,
         backgroundImage: "linear-gradient(to bottom, transparent,  #111827)",
       },
 

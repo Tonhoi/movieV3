@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { Box, Button, Grid, Typography, styled } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
 
@@ -37,7 +37,7 @@ const MovieCredit = ({ cast }: MovieCreditProps) => {
     return finalData;
   }, [nextDataMovieCredit]);
 
-  const handleClickLoadMore = () => {
+  const handleClickLoadMore = useCallback(() => {
     const currentCount = count + maxItems;
     if (currentCount > cast.length) return null;
 
@@ -45,7 +45,7 @@ const MovieCredit = ({ cast }: MovieCreditProps) => {
 
     setCount(currentCount);
     setNextdataMovieCredit(results);
-  };
+  }, []);
 
   return (
     <Container>

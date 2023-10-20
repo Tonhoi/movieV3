@@ -5,11 +5,10 @@ import { get } from "lodash";
 
 import { Link } from "@/components";
 import Pagination from "@/components/Pagination";
-import usePoster from "@/hooks/usePoster";
-import SearchItem from "./Components/SearchItem";
+import SearchItem from "./components/SearchItem";
 import { useParams } from "@/hooks";
 import { transformUrl } from "@/libs";
-import Skeleton from "./Components/Skeleton";
+import Skeleton from "./components/Skeleton";
 import { MOVIESCHEMA, TVSCHEMA } from "@/interfaces/responseSchema/utils";
 import { IPage, responseSchema } from "@/interfaces";
 import { TYPE_PARAMS } from "@/apis";
@@ -49,55 +48,44 @@ const Search = ({ initData }: SearchPageProps) => {
     if (typeof data == "undefined") return null;
 
     return data.results.map(
-      (data: TVSCHEMA & MOVIESCHEMA & { media_type: string }, idx: number) => {
-        const {
-          poster_path,
-          name,
-          first_air_date,
-          overview,
-          original_name,
-          title,
-          release_date,
-          media_type,
-          id,
-        } = data;
-
-        return (
-          <SearchItem
-            key={idx}
-            name={name}
-            first_air_date={first_air_date}
-            overview={overview}
-            original_name={original_name}
-            title={title}
-            release_date={release_date}
-            poster_path={poster_path}
-            media_type={media_type}
-            id={id}
-          />
-        );
-      }
+      (data: TVSCHEMA & MOVIESCHEMA & { media_type: string }, idx: number) => (
+        <SearchItem
+          key={idx}
+          name={data.name}
+          first_air_date={data.first_air_date}
+          overview={data.overview}
+          original_name={data.original_name}
+          title={data.title}
+          release_date={data.release_date}
+          poster_path={data.poster_path}
+          media_type={data.media_type}
+          id={data.id}
+        />
+      )
     );
   }, [data, router]);
 
   return (
     <Container>
       <Stack className={"search-header"}>
-        <Box className={"title-wrapper"}>
-          <Typography variant={"subtitle1"}>
-            The following results are found based on your search
+        <Typography variant={"subtitle1"} component={"span"}>
+          Có {data?.total_results} kết quả tìm kiếm dựa trên từ khóa “{router.query.query}
+          ”
+        </Typography>
+
+        <Box className={"sub-title"}>
+          <Typography variant={"h5"} component={"span"} color={"rgb(130, 131, 135)"}>
+            Có vấn đề về kết quả tìm kiếm?
           </Typography>
-          <Typography variant={"subtitle1"} color={"#fff"}>
-            “{router.query.query}”
-          </Typography>
-        </Box>
-        <Box className={"sub-title-wrapper"}>
-          <Typography variant={"h5"} className={"sub-title"} color={"rgb(130, 131, 135)"}>
-            Not happy with the search result?
-          </Typography>
+
           <Link href={"/search"} underline="hover">
-            <Typography className={"sub-title"} variant={"h5"} color={"#1CC749"}>
-              Click for feedback
+            <Typography
+              variant={"h5"}
+              component={"span"}
+              marginLeft={"4px"}
+              color={"#1CC749"}
+            >
+              Gửi phản hồi
             </Typography>
           </Link>
         </Box>
@@ -106,6 +94,7 @@ const Search = ({ initData }: SearchPageProps) => {
       <MuiContainer maxWidth={"md"}>
         {isLoading ? <Skeleton count={10} /> : renderItem}
       </MuiContainer>
+
       <Pagination
         count={total_pages as number}
         onChange={handlePagination}
@@ -123,22 +112,7 @@ const Container = styled(Box)(({ theme }) => {
       alignItems: "center",
       justifyContent: "end",
       backgroundColor: "rgb(26, 28, 34)",
-
-      ["& .title-wrapper"]: {
-        display: "flex",
-        alignItems: "center",
-        gap: 4,
-        padding: "24px 0px 16px",
-      },
-
-      ["& .sub-title-wrapper"]: {
-        display: "flex",
-        alignItems: "center",
-        gap: 4,
-        ["& .sub-title"]: {
-          marginBottom: 24,
-        },
-      },
+      padding: "24px 16px",
     },
 
     ["& .pagination"]: {

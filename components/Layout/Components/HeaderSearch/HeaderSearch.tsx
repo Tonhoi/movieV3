@@ -1,6 +1,14 @@
 import useSWR from "swr";
 import HeadlessTippy from "@tippyjs/react/headless";
-import { ChangeEvent, MouseEventHandler, memo, useMemo, useRef, useState } from "react";
+import {
+  ChangeEvent,
+  MouseEventHandler,
+  memo,
+  useCallback,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import {
   Box,
   Button,
@@ -43,17 +51,18 @@ const HeaderSearch = () => {
       : null
   );
 
-  const handleChangeInputValue = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const searchValue = e.target.value;
+  const handleChangeInputValue = useCallback(
+    (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const searchValue = e.target.value;
 
-    if (searchValue.startsWith(" ")) return null;
+      if (searchValue.startsWith(" ")) return null;
 
-    setSearchValue(searchValue);
-  };
+      setSearchValue(searchValue);
+    },
+    []
+  );
 
-  const handleClickSearchResult: MouseEventHandler<HTMLDivElement> = (e) => {
+  const handleClickSearchResult: MouseEventHandler<HTMLDivElement> = useCallback((e) => {
     const target = e.target as HTMLElement;
     const checkSearchItem = target.closest(".search-item");
     const checkBtnSeeMore = target.closest(".btn-see-more");
@@ -65,7 +74,7 @@ const HeaderSearch = () => {
     if (checkBtnSeeMore) {
       handleCloseSearchResult();
     }
-  };
+  }, []);
 
   const renderSearchItem = useMemo(() => {
     if (typeof searchData == "undefined") return null;

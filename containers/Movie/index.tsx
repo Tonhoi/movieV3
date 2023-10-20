@@ -11,11 +11,11 @@ import { TYPE_PARAMS } from "@/apis";
 import { transformUrl } from "@/libs";
 import { CardItem, Pagination } from "@/components";
 import { GENRES, MOVIESCHEMA, TVSCHEMA } from "@/interfaces/responseSchema/utils";
-import { Slider } from "@/compositions";
+import { Slider } from "@/components";
 import { MoviePageProps } from "@/pages/movie";
 import { TvPageProps } from "@/pages/tv";
-import AdvancedFilter from "./Components/AdvancedFilter";
-import GenresMovie from "./Components/GenresMovie";
+import AdvancedFilter from "./components/AdvancedFilter";
+import GenresMovie from "./components/GenresMovie";
 
 const Movie = ({ initData }: MoviePageProps | TvPageProps) => {
   const dataGenres: Array<GENRES> = get(initData, "[0].genres") || [];

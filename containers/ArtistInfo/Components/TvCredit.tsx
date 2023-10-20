@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { Box, Button, Grid, Typography, styled } from "@mui/material";
 
 import { CardItem } from "@/components";
@@ -37,7 +37,7 @@ const TvCredit = ({ cast }: TvCreditProps) => {
     return finalData;
   }, [nextdataMovieCredit]);
 
-  const handleClickLoadMore = () => {
+  const handleClickLoadMore = useCallback(() => {
     const currentCount = count + maxItems;
     if (currentCount > cast.length) return null;
 
@@ -45,7 +45,7 @@ const TvCredit = ({ cast }: TvCreditProps) => {
 
     setCount(currentCount);
     setNextdataMovieCredit(results);
-  };
+  }, []);
 
   return (
     <Container>

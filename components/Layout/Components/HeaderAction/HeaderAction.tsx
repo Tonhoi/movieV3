@@ -5,7 +5,7 @@ import { auth } from "@/firebase/firebase-config";
 import { Image, Link, SettingIcon } from "@/components";
 import PopOverWrapper from "./PopOverWrapper";
 import HeaderActionChild from "./HeaderActionChild";
-import { SETTING_ITEMS } from "@/constant";
+import { SETTING_ITEMS } from "@/constants";
 import avatar from "@/public/image/avatar2.png";
 import { ROUTES } from "@/routers";
 
@@ -40,7 +40,7 @@ const HeaderAction = () => {
         </Box>
       </PopOverWrapper>
 
-      <Link href={user ? ROUTES.me : ROUTES.login} className={"avatar"}>
+      <Link href={user ? ROUTES.account : ROUTES.login} className={"avatar"}>
         <Image src={avatar} />
       </Link>
     </Container>

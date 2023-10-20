@@ -3,11 +3,13 @@ import { Box, styled, Container as MuiContainer, Grid } from "@mui/material";
 import { get } from "lodash";
 import { useRouter } from "next/router";
 
-import ContentPlayMovie from "./components/ContentPlayMovie";
+import {
+  ContentPlayMovie,
+  Comment,
+  HeadingPlayMovie,
+} from "@/containers/PlayMovie/components";
+import { Loading } from "@/components";
 import { PlayMoviePageProps } from "@/pages/play/[type]/[id]";
-import Loading from "@/components/Loading";
-import Comment2 from "./components/Comment";
-import HeadingPlayMovie from "./components/HeadingPlayMovie";
 
 const PlayMovie = ({ initData }: PlayMoviePageProps) => {
   const router = useRouter();
@@ -35,7 +37,7 @@ const PlayMovie = ({ initData }: PlayMoviePageProps) => {
         <Grid item lg={8} md={8} sm={12} xs={12}>
           <Box className={"content"}>
             {/* <Comment /> */}
-            <Comment2 />
+            <Comment />
           </Box>
         </Grid>
       </Grid>

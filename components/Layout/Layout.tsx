@@ -5,7 +5,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import "react-toastify/dist/ReactToastify.css";
 
 import Login from "@/containers/Login/Login";
-import { Header, Footer } from "@/compositions";
+import { Header, Footer } from "@/components";
 import LoadingScreen from "../LoadingScreen";
 import Register from "@/containers/Register/Register";
 import { auth } from "@/firebase/firebase-config";
@@ -37,7 +37,7 @@ const Layout = ({ children }: layoutProps) => {
   }, [asPath]);
 
   if (asPath === "/login") return <Login />;
-  if (asPath.includes("personal") && !user) return <Login />;
+  if (asPath.includes("me") && !user) return <Login />;
   if (asPath === "/register") return <Register />;
 
   return (

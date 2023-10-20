@@ -45,3 +45,22 @@ export { default as Tabs } from "./Tabs/Tabs";
 export { default as Embeded } from "./Embeded";
 
 export { default as Pagination } from "./Pagination";
+export { default as Loading } from "./Loading";
+
+// layout
+
+export { default as Header } from "./Layout/Header";
+export { default as Footer } from "./Layout/Footer";
+export { default as Slider } from "./Layout/Components/Slider/Slider";
+
+// start header import
+export { default as HeaderAction } from "./Layout/Components/HeaderAction/HeaderAction";
+export { default as HeaderOnMobile } from "./Layout/Components/HeaderOnMobile/HeaderOnMobile";
+export { default as HeaderSearch } from "./Layout/Components/HeaderSearch/HeaderSearch";
+export { default as HeaderNavigation } from "./Layout/Components/HeaderNavigation";
+
+// end header import
+
+// start form import
+export { default as FormControl } from "./FormControl/FormControl";
+export { default as FormControlBase } from "./FormControl/FormControlBase";

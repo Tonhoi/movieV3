@@ -6,7 +6,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import Hamburger from "hamburger-react";
 
 import { Image, Link, Overlay } from "@/components";
-import { NAVITEM } from "@/constant";
+import { NAVITEM } from "@/constants";
 import { useToggle } from "@/hooks";
 import { ROUTES } from "@/routers";
 
@@ -71,7 +71,7 @@ const HeaderOnMobile = () => {
             is_login_button,
           } = item;
 
-          if (!user && (href === ROUTES.me || is_login_button)) return null;
+          if (!user && (href === ROUTES.account || is_login_button)) return null;
           return (
             <Box key={idx}>
               <Button

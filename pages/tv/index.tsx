@@ -22,6 +22,7 @@ export const getStaticProps: GetStaticProps = async () => {
       props: {
         initData: [resGenres, { type: "tv" }],
         fallback: true,
+        revalidate: 60,
       },
     };
   } catch (err) {

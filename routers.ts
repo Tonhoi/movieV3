@@ -4,7 +4,8 @@ export const ROUTES = {
   tv: "/tv?page=1",
   login: "/login",
   register: "/register",
-  me: "/me",
+  account: "/me/account",
+  history: "/me/history",
   introduced: "/introduced",
-  contact: '/contact'
+  contact: "/contact",
 };

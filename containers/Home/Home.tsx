@@ -1,16 +1,16 @@
 import { get } from "lodash";
-import { Fragment, memo } from "react";
+import { Fragment } from "react";
 import { HomePageProps } from "@/pages";
 import { Container as MuiContainer } from "@mui/material";
 
-import { Slider } from "@/compositions";
+import { Slider } from "@/components";
 import {
   TrendingMovie,
   DailyWatchingMovie,
   PopularArtist,
   NowPlayingMovie,
   UpcomingMovie,
-} from "@/containers/Home/Components";
+} from "@/containers/Home/components";
 
 const Home = ({ initData }: HomePageProps) => {
   const dataTrendingMovie = get(initData[0], "results").slice(0, 9);

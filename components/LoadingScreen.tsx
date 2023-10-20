@@ -9,7 +9,7 @@ const LoadingScreen = (props: LoadingScreenProps) => {
   const { fadeOut } = props;
 
   return (
-    <Container fadeOut={fadeOut} className="asdasd">
+    <Container fadeOut={fadeOut}>
       <ContentWrapper>
         <Box className="fancy-spinner">
           <Box className="ring" />

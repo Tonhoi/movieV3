@@ -15,7 +15,7 @@ import { auth } from "@/firebase/firebase-config";
 import { useRouter } from "next/router";
 
 import { Link } from "@/components";
-import { FormControl as FormInput } from "@/compositions";
+import { FormControl as FormInput } from "@/components";
 import { ROUTES } from "@/routers";
 import { defaultValue } from "@/yups/login/defaultValue";
 import { Login as YupLogin } from "@/yups/login/login";

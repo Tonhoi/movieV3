@@ -6,16 +6,12 @@ import type { AppProps } from "next/app";
 import NextNProgress from "nextjs-progressbar";
 
 import { Head } from "@/hocs";
-// import Setting from "@/contexts/Setting";
-// import { Layout } from "@/compositions";
-import { useRouter } from "next/router";
 import { createEmotionCache } from "@/libs";
 
 import { SWR } from "@/contexts";
-import Layout from "@/compositions/Layout/Layout";
+import Layout from "@/components/Layout/Layout";
 import ThemeProvider from "@/contexts/ThemeProvider";
-import { AnimatePresence, motion } from "framer-motion";
-import Transition from "@/compositions/Transition";
+import { Fragment } from "react";
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -26,10 +22,9 @@ interface MyAppProps extends AppProps {
 
 export default function App(props: MyAppProps) {
   const { emotionCache = clientSideEmotionCache, pageProps, Component } = props;
-  // const router = useRouter();
 
   return (
-    <>
+    <Fragment>
       <NextNProgress />
       <CacheProvider value={emotionCache}>
         <Head />
@@ -37,16 +32,11 @@ export default function App(props: MyAppProps) {
         <ThemeProvider>
           <SWR fallback={pageProps.fallback}>
             <Layout>
-              {/* <AnimatePresence mode="wait"> */}
-              {/* <motion.div key={router.route}> */}
-              {/* <Transition /> */}
               <Component {...pageProps} />
-              {/* </motion.div> */}
-              {/* </AnimatePresence> */}
             </Layout>
           </SWR>
         </ThemeProvider>
       </CacheProvider>
-    </>
+    </Fragment>
   );
 }

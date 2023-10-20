@@ -1,12 +1,11 @@
-import { Box } from "@mui/material";
+import { memo } from "react";
 import Script from "next/script";
+import { Box } from "@mui/material";
 
-const Comment2 = () => {
+const Comment = () => {
   return (
     <>
-      {/* <MovieDetails movie={data} /> */}
       <Box id="disqus_thread" className="max-w-5xl mx-auto mt-16 px-5" />
-      {/* <div id="disqus_thread" className="max-w-5xl mx-auto mt-16 px-5"></div> */}
       <Script>
         {`(function() {
           var d = document, s = d.createElement('script');
@@ -19,4 +18,4 @@ const Comment2 = () => {
   );
 };
 
-export default Comment2;
+export default memo(Comment);

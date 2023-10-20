@@ -8,7 +8,12 @@ const Footer = () => {
     <Container>
       <MuiContainer>
         <Stack className={"footer"}>
-          <Typography>@ 2020 Pied Piper, All rights reserved</Typography>
+          <Typography variant="caption" className={"coppy-right"}>
+            Copyright © 2023. All Rights Reserved By{" "}
+            <Typography variant="caption" color={"#1cc749"} className="coppy-right">
+              Movie
+            </Typography>
+          </Typography>
 
           <Stack className={"social-media"}>
             <TwitterIcon className="icon" />
@@ -38,6 +43,10 @@ const Container = styled(Box)(({ theme }) => {
       [theme.breakpoints.down("sm")]: {
         flexDirection: "column",
         gap: 16,
+      },
+
+      ["& .coppy-right"]: {
+        fontSize: 14,
       },
 
       ["& .icon"]: {

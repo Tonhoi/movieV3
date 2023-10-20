@@ -4,10 +4,10 @@ import { get } from "lodash";
 import { useRouter } from "next/router";
 
 import { TabPanel, Tabs } from "@/components";
-import IntroArtist from "./Components/IntroArtist";
+import IntroArtist from "./components/IntroArtist";
 import { ArtistPageProps } from "@/pages/artist-info/[id]";
-import MovieCredit from "./Components/MovieCredit";
-import TvCredit from "./Components/TvCredit";
+import MovieCredit from "./components/MovieCredit";
+import TvCredit from "./components/TvCredit";
 import Loading from "@/components/Loading";
 
 const ArtistInfo = ({ initData }: ArtistPageProps) => {
