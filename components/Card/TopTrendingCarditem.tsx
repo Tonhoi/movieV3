@@ -78,7 +78,7 @@ const Container = styled(Box, {
         top: 0,
         padding: "2px 4px",
 
-        color: theme.palette.common.white,
+        color: "#fff",
         borderRadius: "2px",
         textAlign: "center",
         backgroundImage:
@@ -90,6 +90,7 @@ const Container = styled(Box, {
         bottom: 10,
         left: 10,
         zIndex: 2,
+        color: "#ececec",
 
         // truncate
         ["& .card-title"]: {

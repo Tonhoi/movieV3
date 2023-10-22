@@ -98,6 +98,7 @@ const Container = styled(Stack, {
 
     ["& .intro-content"]: {
       gap: 10,
+      color: theme.palette.text_color.main,
 
       ["& .intro-name"]: {
         fontWeight: 500,
@@ -109,7 +110,7 @@ const Container = styled(Stack, {
       },
 
       ["& .intro-job"]: {
-        color: "#FFFFFF80",
+        color: theme.palette.mode == "light" ? "#ccc" : "#FFFFFF80",
         fontWeight: 500,
         [theme.breakpoints.down("md")]: {
           fontSize: "20px",

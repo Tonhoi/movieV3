@@ -29,7 +29,7 @@ const Footer = () => {
 const Container = styled(Box)(({ theme }) => {
   return {
     marginTop: 50,
-    backgroundColor: "rgb(10, 12, 15)",
+    backgroundColor: theme.palette.bg_color.main,
     borderTop: "1px solid rgb(45, 47, 52)",
 
     ["& .footer"]: {
@@ -38,7 +38,7 @@ const Container = styled(Box)(({ theme }) => {
       flexDirection: "row",
       alignItems: "center",
       justifyContent: "space-between",
-      color: "#ECECEC",
+      color: theme.palette.text_color.main,
 
       [theme.breakpoints.down("sm")]: {
         flexDirection: "column",

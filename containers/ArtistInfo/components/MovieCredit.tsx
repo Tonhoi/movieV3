@@ -13,6 +13,7 @@ const MovieCredit = ({ cast }: MovieCreditProps) => {
   const [count, setCount] = useState(0);
 
   const [nextDataMovieCredit, setNextdataMovieCredit] = useState(cast.slice(0, maxItems));
+
   const [prevDataMovieCredit, setPrevDataMovieCredit] = useState<Array<any>>([]);
 
   const renderCast = useMemo(() => {
@@ -39,13 +40,14 @@ const MovieCredit = ({ cast }: MovieCreditProps) => {
 
   const handleClickLoadMore = useCallback(() => {
     const currentCount = count + maxItems;
+
     if (currentCount > cast.length) return null;
 
     const results = cast.slice(currentCount, currentCount + maxItems);
 
     setCount(currentCount);
     setNextdataMovieCredit(results);
-  }, []);
+  }, [count]);
 
   return (
     <Container>

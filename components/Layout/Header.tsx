@@ -9,7 +9,6 @@ const Header = () => {
   const [isBackgroundHeader, setIsBackgroundHeader] = useState<boolean>(false);
   const { asPath } = useRouter();
 
-
   useEffect(() => {
     const handleScroll = throttle((event) => {
       if (window.scrollY > 200 && !isBackgroundHeader) {
@@ -26,13 +25,17 @@ const Header = () => {
     };
   }, [isBackgroundHeader]);
 
+  const isActiveHeader =
+    isBackgroundHeader ||
+    asPath.startsWith("/play") ||
+    asPath.startsWith("/me") ||
+    asPath.startsWith("/artist-info");
+
   return (
-    <Container
-      className={isBackgroundHeader || asPath.startsWith("/play") ? "active" : ""}
-    >
+    <Container className={isActiveHeader ? "active" : ""}>
       <MuiContainer>
         <Grid container alignItems={"center"} spacing={2}>
-          <Grid item lg={4} md={4} sm={4} xs={12}>
+          <Grid item lg={4} md={5} sm={4} xs={12}>
             <HeaderNavigation />
           </Grid>
 
@@ -40,7 +43,7 @@ const Header = () => {
             <HeaderSearch />
           </Grid>
 
-          <Grid item lg={3} md={4} sm={1.5} xs={12}>
+          <Grid item lg={3} md={3} sm={1.5} xs={12}>
             <HeaderAction />
           </Grid>
         </Grid>
@@ -62,7 +65,11 @@ const Container = styled(Box)(({ theme }) => {
     transition: "all linear 0.2s",
 
     ["&.active"]: {
-      backgroundColor: "rgb(10, 12, 15)",
+      backgroundColor: theme.palette.bg_color.main,
+
+      ["& :is(.nav-link, input)"]: {
+        color: theme.palette.mode === "light" ? "#000 !important" : "#fff",
+      },
     },
 
     [theme.breakpoints.down("sm")]: {

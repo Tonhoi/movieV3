@@ -1,7 +1,7 @@
-import { Fragment } from "react";
+import { Fragment, MouseEvent, useCallback } from "react";
 import { Box, Button, Divider, Typography, styled, useTheme } from "@mui/material";
 import { auth } from "@/firebase/firebase-config";
-import { signOut } from "firebase/auth";
+import { User, signOut } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Hamburger from "hamburger-react";
 
@@ -12,10 +12,12 @@ import { ROUTES } from "@/routers";
 
 import avatar from "@/public/image/avatar.png";
 import bgHeaderMobile from "@/public/image/backgroundAvatar.png";
+import { useDarkModeContext } from "@/contexts/ThemeProvider/ThemeProvider";
 
 const HeaderOnMobile = () => {
   const theme = useTheme();
   const [user] = useAuthState(auth);
+  const { setIsDarkTheme, isDarkTheme } = useDarkModeContext();
 
   const {
     on: isOpenHeaderMobile,
@@ -28,14 +30,44 @@ const HeaderOnMobile = () => {
     handleCloseHeaderMobile();
   };
 
-  const toggleChildMenu = () => {};
+  const handleClickNavItem = useCallback(
+    (
+      e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>,
+      user: User | null | undefined,
+      is_login_button: boolean,
+      type: string
+    ) => {
+      if (user && is_login_button) return handleLogoutAccount();
+
+      if (type == "dark_mode") {
+        setIsDarkTheme((prev: boolean) => !prev);
+
+        const check = !isDarkTheme;
+
+        localStorage.setItem("theme", `${check}`);
+
+        const btnTextElement = e.currentTarget.querySelector(".nav-title");
+
+        if (!btnTextElement) return null;
+
+        if (isDarkTheme) {
+          btnTextElement.textContent = "Giao diện màu tối";
+        } else {
+          btnTextElement.textContent = "Giao diện màu sáng";
+        }
+      }
+
+      handleCloseHeaderMobile();
+    },
+    [isDarkTheme]
+  );
 
   return (
     <Fragment>
       <Hamburger
         toggled={isOpenHeaderMobile}
         toggle={toggleHeaderMobile}
-        color={theme.palette.common.white}
+        color={theme.palette.common.black}
       />
 
       <Overlay
@@ -60,15 +92,14 @@ const HeaderOnMobile = () => {
           </Typography>
         </Button>
 
-        {NAVITEM.map((item, idx: number) => {
+        {NAVITEM.map((item: any, idx: number) => {
           const {
             href,
             start_icon: StartIcon,
-            end_icon: EndIcon,
             title,
-            child,
             divider,
             is_login_button,
+            type,
           } = item;
 
           if (!user && (href === ROUTES.account || is_login_button)) return null;
@@ -78,15 +109,10 @@ const HeaderOnMobile = () => {
                 href={href}
                 LinkComponent={href ? Link : Button}
                 startIcon={StartIcon && <StartIcon className="icon" />}
-                endIcon={EndIcon && <EndIcon />}
                 disableRipple
                 className={"nav-mobile-list"}
-                onClick={
-                  child
-                    ? toggleChildMenu
-                    : user && is_login_button
-                    ? handleLogoutAccount
-                    : handleCloseHeaderMobile
+                onClick={(e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) =>
+                  handleClickNavItem(e, user, is_login_button, type)
                 }
               >
                 <Typography variant={"body1"} className={"nav-title"}>
@@ -116,7 +142,7 @@ const Container = styled(Box)(({ theme }) => {
 
     width: "100%",
     maxWidth: 270,
-    background: "rgb(35, 37, 43)",
+    background: theme.palette.mode == "light" ? "#fff" : "rgb(35, 37, 43)",
 
     ["&.active"]: {
       transform: "translateX(0)",
@@ -144,7 +170,7 @@ const Container = styled(Box)(({ theme }) => {
         right: 0,
         height: 40,
         backgroundImage:
-          " linear-gradient(rgba(26, 28, 34, 0) 0%, rgba(26, 28, 34, 0.06) 6%, rgba(26, 28, 34, 0.12) 12%, rgba(26, 28, 34, 0.19) 19%, rgba(26, 28, 34, 0.26) 26%, rgba(26, 28, 34, 0.34) 34%, rgba(26, 28, 34, 0.42) 42%, rgba(26, 28, 34, 0.5) 50%, rgba(26, 28, 34, 0.58) 58%, rgba(26, 28, 34, 0.66) 66%, rgba(26, 28, 34, 0.74) 74%, rgba(26, 28, 34, 0.81) 81%, rgba(26, 28, 34, 0.88) 88%, rgba(26, 28, 34, 0.94) 94%, rgb(26, 28, 34) 100%)",
+          "linear-gradient(rgba(26, 28, 34, 0) 0%, rgba(26, 28, 34, 0.06) 6%, rgba(26, 28, 34, 0.12) 12%, rgba(26, 28, 34, 0.19) 19%, rgba(26, 28, 34, 0.26) 26%, rgba(26, 28, 34, 0.34) 34%, rgba(26, 28, 34, 0.42) 42%, rgba(26, 28, 34, 0.5) 50%, rgba(26, 28, 34, 0.58) 58%, rgba(26, 28, 34, 0.66) 66%, rgba(26, 28, 34, 0.74) 74%, rgba(26, 28, 34, 0.81) 81%, rgba(26, 28, 34, 0.88) 88%, rgba(26, 28, 34, 0.94) 94%, rgb(26, 28, 34) 100%)",
       },
 
       ["& .logo-on-mobile"]: {
@@ -157,6 +183,10 @@ const Container = styled(Box)(({ theme }) => {
           objectFit: "cover",
           borderRadius: "50%",
         },
+      },
+
+      ["& .heading-title"]: {
+        color: "#fff",
       },
     },
 
@@ -171,7 +201,7 @@ const Container = styled(Box)(({ theme }) => {
       padding: "12px 12px 12px 24px",
       textTransform: "capitalize",
       justifyContent: "start",
-      color: "#ECECEC",
+      color: theme.palette.text_color.main,
       width: "100%",
 
       ["& .MuiButton-endIcon"]: {

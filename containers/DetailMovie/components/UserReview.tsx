@@ -82,7 +82,7 @@ const Container = styled(Stack)(() => {
 
 const StyledReviewWrapper = styled(Stack, {
   shouldForwardProp: (propName) => propName !== "poster",
-})<{ poster: string }>(({ poster }) => {
+})<{ poster: string }>(({ poster, theme }) => {
   return {
     position: "relative",
     border: "1px solid rgb(38 36 36)",
@@ -111,6 +111,7 @@ const StyledReviewWrapper = styled(Stack, {
       alignItems: "center",
       width: 30,
       height: 30,
+      color: theme.palette.text_color.main,
 
       border: "2px solid #1CC749",
       borderRadius: "50%",
@@ -127,6 +128,7 @@ const StyledReviewWrapper = styled(Stack, {
         WebkitBoxOrient: "vertical",
         overflow: "hidden",
         maxWidth: "calc(100% - 45px)",
+        color: theme.palette.text_color.main,
 
         ["&.show-more"]: {
           WebkitLineClamp: "unset",

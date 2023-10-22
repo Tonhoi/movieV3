@@ -141,6 +141,7 @@ const ContentPlayMovie = (props: ContentPlayMovieProps) => {
 const Container = styled(Box)(({ theme }) => {
   return {
     marginTop: 14,
+    color: theme.palette.text_color.main,
 
     ["& .season-wrapper"]: {
       display: "grid",
@@ -149,7 +150,10 @@ const Container = styled(Box)(({ theme }) => {
       marginBottom: 16,
 
       ["& .season-item"]: {
-        backgroundColor: "#399551",
+        backgroundColor: theme.palette.mode === "light" ? "#fff" : "#399551",
+        boxShadow:
+          "rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px",
+
         borderRadius: "4px",
         padding: "4px 16px",
         textAlign: "center",
@@ -157,6 +161,7 @@ const Container = styled(Box)(({ theme }) => {
 
         ["&.active"]: {
           backgroundColor: "#1cc749",
+          color: "#fff",
         },
       },
     },

@@ -53,12 +53,17 @@ const Container = styled(Link)(({ theme }) => {
   return {
     display: "flex",
     gap: 12,
-    color: theme.palette.common.white,
+    color: theme.palette.common.black,
 
     ["&.active"]: {
       backgroundColor: "#1CC749",
       padding: 8,
       borderRadius: 4,
+      color: "#fff",
+
+      ["& :where(.card-vote, .card-date)"]: {
+        color: "rgba(255, 255, 255, 0.7)",
+      },
     },
 
     ["&:hover"]: {
@@ -88,7 +93,7 @@ const Container = styled(Link)(({ theme }) => {
 
     ["& :where(.card-vote, .card-date)"]: {
       marginBottom: 2,
-      color: "#909090",
+      color: theme.palette.common.black,
     },
   };
 });

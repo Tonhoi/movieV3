@@ -12,10 +12,11 @@ const HeadingMovie = ({ title, ...restProps }: HeadingMovieProps) => {
   );
 };
 
-const Container = styled(Typography)(() => {
+const Container = styled(Typography)(({ theme }) => {
   return {
     position: "relative",
     margin: "42px 0",
+    color: theme.palette.common.black,
 
     ["&:after"]: {
       content: '""',

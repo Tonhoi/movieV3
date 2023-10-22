@@ -11,12 +11,12 @@ import { memo } from "react";
 const NAVITEM = [
   {
     id: 1,
-    title: "Movie",
+    title: "Phim lẻ",
     href: ROUTES.movie,
   },
   {
     id: 2,
-    title: "Tv",
+    title: "Phim bộ",
     href: ROUTES.tv,
   },
 ];
@@ -84,10 +84,10 @@ const Container = styled(Stack)(({ theme }) => {
       ["& .nav-link"]: {
         textDecoration: "none",
         opacity: 0.6,
-        color: theme.palette.common.white,
+        color: "#fff",
 
         "&:hover": {
-          color: theme.palette.text_hover.main,
+          color: "rgb(28, 199, 73)",
           transition: "color linear 0.2s",
         },
 

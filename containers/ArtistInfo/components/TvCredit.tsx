@@ -45,7 +45,7 @@ const TvCredit = ({ cast }: TvCreditProps) => {
 
     setCount(currentCount);
     setNextdataMovieCredit(results);
-  }, []);
+  }, [count]);
 
   return (
     <Container>

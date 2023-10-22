@@ -60,7 +60,6 @@ const Container = styled(Box)(({ theme }) => {
     flexDirection: "column",
     justifyContent: "space-between",
     backgroundColor: theme.palette.primary.main,
-    color: "#ECECEC",
   };
 });
 

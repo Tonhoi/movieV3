@@ -24,12 +24,13 @@ const StyledPagination = styled(MuiPagination)(({ theme }) => {
       marginTop: theme.spacing(3),
 
       ["& .MuiButtonBase-root"]: {
-        color: theme.palette.common.white,
+        color: theme.palette.common.black,
         border: "1px solid rgba(0,0,0,.23)",
       },
 
       ["& .Mui-selected"]: {
         background: "-webkit-gradient(linear,0 0,0 100%,from(#cd881e),to(#674614))",
+        color: "#fff",
       },
     },
 

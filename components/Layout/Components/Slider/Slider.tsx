@@ -69,7 +69,7 @@ const Slider = () => {
 
       <MuiContainer>
         <Box className={"poster-list"}>
-          <Typography variant={"h3"} marginLeft={"9.6px"}>
+          <Typography variant={"h3"} marginLeft={"9.6px"} color={"#ececec"}>
             Phổ biến
           </Typography>
 

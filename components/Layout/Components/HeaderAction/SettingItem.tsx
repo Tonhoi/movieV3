@@ -1,20 +1,21 @@
-import { Box, Button, Divider, Typography, styled } from "@mui/material";
-import { HeaderActionChildProps } from "./HeaderActionChild";
+import { MouseEventHandler } from "react";
+import { Box, Button, Divider, SvgIconProps, Typography, styled } from "@mui/material";
+
 import { Link } from "@/components";
 
-const SettingItem = (props: HeaderActionChildProps) => {
-  const {
-    title,
-    startIcon: StartIcon,
-    endIcon: EndIcon,
-    separate,
-    child,
-    href,
-    ...restProps
-  } = props;
+interface SettingItemProps {
+  title: string;
+  startIcon: (props: SvgIconProps) => JSX.Element;
+  separate: boolean;
+  href?: string | undefined;
+  onClick: MouseEventHandler<HTMLDivElement>;
+}
+
+const SettingItem = (props: SettingItemProps) => {
+  const { title, startIcon: StartIcon, separate, href, onClick, ...restProps } = props;
 
   return (
-    <Container {...restProps}>
+    <Container onClick={onClick} {...restProps}>
       <Button
         variant="text"
         fullWidth
@@ -22,7 +23,6 @@ const SettingItem = (props: HeaderActionChildProps) => {
         href={href}
         LinkComponent={Link}
         startIcon={<StartIcon />}
-        endIcon={EndIcon && <EndIcon />}
         className={"btn"}
       >
         <Typography variant="body1" className="title">
@@ -35,12 +35,13 @@ const SettingItem = (props: HeaderActionChildProps) => {
   );
 };
 
-const Container = styled(Box)(() => {
+const Container = styled(Box)(({ theme }) => {
   return {
     ["& .btn"]: {
       padding: "6px 10px",
       justifyContent: "start",
       textTransform: "inherit",
+      color: theme.palette.common.black,
 
       ["& .MuiButton-endIcon"]: {
         marginLeft: "auto",

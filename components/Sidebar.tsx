@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import { useRouter } from "next/router";
 import { signOut } from "firebase/auth";
 import { auth } from "@/firebase/firebase-config";
-import { Box, Button, Typography, styled } from "@mui/material";
+import { Box, BoxProps, Button, Typography, styled } from "@mui/material";
 
 import { Link, SaveV2Icon, UserIcon } from "@/components";
 import { ROUTES } from "@/routers";
@@ -88,7 +88,7 @@ const Container = styled(Box)(({ theme }) => {
 
       ["& .sidebar-link"]: {
         textTransform: "inherit",
-        color: theme.palette.common.white,
+        color: theme.palette.common.black,
         padding: 12,
         justifyContent: "start",
 

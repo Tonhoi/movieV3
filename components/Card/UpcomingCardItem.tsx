@@ -77,6 +77,7 @@ const Container = styled(Box, {
         padding: "4px 12px",
         backgroundColor: "rgb(220 38 38/.5)",
         borderRadius: 24,
+        color: "#ececec",
       },
 
       ["& .card-content"]: {
@@ -84,6 +85,7 @@ const Container = styled(Box, {
         bottom: 0,
         left: 0,
         zIndex: 2,
+        color: "#ececec",
 
         width: "100%",
         padding: "0 12px 12px",

@@ -180,7 +180,6 @@ const StyledWrapper = styled(Box, {
       },
 
       "& .slick-active": {
-        // border: `1px solid ${theme.palette.primary.main} !important`,
         borderRadius: "1rem !important",
       },
 

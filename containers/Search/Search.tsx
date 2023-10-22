@@ -12,6 +12,7 @@ import Skeleton from "./components/Skeleton";
 import { MOVIESCHEMA, TVSCHEMA } from "@/interfaces/responseSchema/utils";
 import { IPage, responseSchema } from "@/interfaces";
 import { TYPE_PARAMS } from "@/apis";
+import HeadingSearch from "./components/HeadingSearch";
 
 export type SearchPageProps = IPage<[responseSchema<MOVIESCHEMA & TVSCHEMA>]>;
 
@@ -67,29 +68,7 @@ const Search = ({ initData }: SearchPageProps) => {
 
   return (
     <Container>
-      <Stack className={"search-header"}>
-        <Typography variant={"subtitle1"} component={"span"}>
-          Có {data?.total_results} kết quả tìm kiếm dựa trên từ khóa “{router.query.query}
-          ”
-        </Typography>
-
-        <Box className={"sub-title"}>
-          <Typography variant={"h5"} component={"span"} color={"rgb(130, 131, 135)"}>
-            Có vấn đề về kết quả tìm kiếm?
-          </Typography>
-
-          <Link href={"/search"} underline="hover">
-            <Typography
-              variant={"h5"}
-              component={"span"}
-              marginLeft={"4px"}
-              color={"#1CC749"}
-            >
-              Gửi phản hồi
-            </Typography>
-          </Link>
-        </Box>
-      </Stack>
+      <HeadingSearch data={data} />
 
       <MuiContainer maxWidth={"md"}>
         {isLoading ? <Skeleton count={10} /> : renderItem}
@@ -107,14 +86,6 @@ const Search = ({ initData }: SearchPageProps) => {
 
 const Container = styled(Box)(({ theme }) => {
   return {
-    ["& .search-header"]: {
-      height: 200,
-      alignItems: "center",
-      justifyContent: "end",
-      backgroundColor: "rgb(26, 28, 34)",
-      padding: "24px 16px",
-    },
-
     ["& .pagination"]: {
       marginTop: theme.spacing(2),
     },

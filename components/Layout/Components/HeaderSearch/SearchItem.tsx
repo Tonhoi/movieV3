@@ -45,9 +45,10 @@ const Container = styled(Stack)(({ theme }) => {
     gap: 10,
     cursor: "pointer",
 
-    ["&:hover"]: {
-      ["& .title"]: {
-        color: theme.palette.text_hover.main,
+    ["& .title"]: {
+      color: theme.palette.text_color.main,
+      ["&:hover"]: {
+        color: "#1cc749",
         transition: "all linear 0.2s",
       },
     },

@@ -147,12 +147,14 @@ const Container = styled(Box)(({ theme }) => {
       left: 0,
       width: "100%",
       padding: "12px 0px",
-      backgroundColor: "#232020",
+      backgroundColor: theme.palette.mode == "light" ? "#fff" : "#232020",
       textAlign: "center",
       display: "none",
       borderRadius: "unset",
-      color: theme.palette.common.white,
+      color: theme.palette.common.black,
       transition: "all linear 0.1s",
+      boxShadow:
+        "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
 
       ["&.active"]: {
         display: "block",
@@ -160,29 +162,31 @@ const Container = styled(Box)(({ theme }) => {
 
       ["&:hover"]: {
         opacity: 1,
-        backgroundColor: "#232020",
+        backgroundColor: theme.palette.mode == "light" ? "#fff" : "#232020",
         color: "#1cc749",
       },
     },
 
     ["& input"]: {
-      color: theme.palette.common.white,
+      color: "#ececec",
       padding: "10px 14px",
-      backgroundColor: "#ffffff33",
-    },
+      backgroundColor: "#99a1b333",
 
-    ["& .placeholder"]: {
-      color: theme.palette.common.white,
+      [theme.breakpoints.down("sm")]: {
+        color: theme.palette.common.white,
+      },
     },
   };
 });
 
 const StyledSearchWrapper = styled(Box)(({ theme }) => {
   return {
-    backgroundColor: "#312e2e",
+    backgroundColor: theme.palette.mode == "light" ? "#fff" : "#312e2e",
     color: theme.palette.common.white,
     maxHeight: 350,
     overflowY: "scroll",
+    boxShadow:
+      "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
 
     ["& .no-search-result"]: {
       textAlign: "center",

@@ -71,7 +71,7 @@ const Container = styled(Box, {
   return {
     ["&:hover"]: {
       ["& .card-title"]: {
-        color: theme.palette.text_hover.main,
+        color: theme.palette.text_color.hover,
       },
 
       ["&.active .icon"]: {
@@ -87,6 +87,7 @@ const Container = styled(Box, {
       ["& .star-icon"]: {
         width: 13,
         height: 13,
+        color: "#1cc749",
       },
 
       ["& .vote-average"]: {
@@ -98,8 +99,7 @@ const Container = styled(Box, {
         flexDirection: "row",
         alignItems: "center",
         gap: 4,
-
-        color: theme.palette.common.white,
+        color: "#fff",
       },
 
       ["& .icon"]: {
@@ -130,6 +130,7 @@ const Container = styled(Box, {
       WebkitLineClamp: 2,
       WebkitBoxOrient: "vertical",
       overflow: "hidden",
+      color: theme.palette.text_color.main,
     },
   };
 });

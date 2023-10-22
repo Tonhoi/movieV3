@@ -18,7 +18,7 @@ const InfoMovie = (props: InfoMovieProps) => {
         {data?.name}
       </Typography>
 
-      <Typography variant="body2" color={theme.palette.text_hover.main}>
+      <Typography variant="body2" color={theme.palette.text_color.hover}>
         <StarIcon className={"star-icon"} color={"inherit"} />
         {data?.vote_average}
       </Typography>
@@ -32,6 +32,7 @@ const InfoMovie = (props: InfoMovieProps) => {
 
 const Container = styled(Box)(({ theme }) => {
   return {
+    color: theme.palette.text_color.main,
     ["& .name-movie"]: {
       marginBottom: 8,
     },

@@ -1,16 +1,4 @@
 export const PALETTE_COLOR = {
-  primary: "#111319",
-  secondary: "#1a1c22",
-
-  black: "#111319",
-  white: "#fff",
-
-  green: "#00DC5A",
-
-  gray: "#3B3D3F",
-
-  text_hover: "rgb(28, 199, 73)",
-
   opacity: {
     light: {
       white_02: "rgba(255, 255, 255, 0.2)",
@@ -44,24 +32,4 @@ export const PALETTE_COLOR = {
     gradient5:
       "linear-gradient(179.5deg, rgba(17, 19, 25, 0.88) 0%, rgba(17, 19, 25, 0.89) 9%, rgba(17, 19, 25, 0.85) 17%, rgba(17, 19, 25, 0.79) 24%, rgba(17, 19, 25, 0.72) 31%, rgba(17, 19, 25, 0.64) 37%, rgba(17, 19, 25, 0.55) 44%, rgba(17, 19, 25, 0.45) 50%, rgba(17, 19, 25, 0.35) 56%, rgba(17, 19, 25, 0.26) 63%, rgba(17, 19, 25, 0.18) 69%, rgba(17, 19, 25, 0.11) 76%, rgba(17, 19, 25, 0.05) 83%, rgba(17, 19, 25, 0.01) 91%, rgba(17, 19, 25, 0) 100%)",
   },
-};
-
-export const PSEUDO_STATE = {
-  hover: "&:hover",
-  focus: "&:focus",
-  active: "&:active",
-  placeholder: "&::placeholder",
-};
-
-export const COMPONENT_STATE = {
-  active: "&.Mui-active",
-  checked: "&.Mui-checked",
-  completed: "&.Mui-completed",
-  disabled: "&.Mui-disabled",
-  error: "&.Mui-error",
-  expanded: "&.Mui-expanded",
-  focusVisible: "&.Mui-focusVisible",
-  focused: "&.Mui-focused",
-  required: "&.Mui-required",
-  selected: "&.Mui-selected",
 };

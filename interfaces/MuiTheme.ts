@@ -43,7 +43,11 @@ declare module "@mui/material/Typography" {
 
 declare module "@mui/material/styles/createPalette" {
   interface Palette {
-    text_hover: {
+    text_color: {
+      main: string;
+      hover: string;
+    };
+    bg_color: {
       main: string;
     };
     opacity: {
@@ -51,7 +55,7 @@ declare module "@mui/material/styles/createPalette" {
       white_07: string;
       white_008: string;
       white_025: string;
-      
+
       dark_10: string;
       dark_20: string;
       dark_30: string;
@@ -73,7 +77,11 @@ declare module "@mui/material/styles/createPalette" {
   }
 
   interface PaletteOptions {
-    text_hover: {
+    text_color: {
+      main: string;
+      hover: string;
+    };
+    bg_color: {
       main: string;
     };
     opacity: {

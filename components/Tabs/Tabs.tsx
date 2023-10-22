@@ -1,10 +1,6 @@
 import { styled, Tabs as MuiTabs, TabsProps as MuiTabsProps } from "@mui/material";
 
-type Mode = "light" | "dark";
-
-interface StyledMuiTabsProps extends MuiTabsProps {
-  mode?: Mode;
-}
+interface StyledMuiTabsProps extends MuiTabsProps {}
 
 interface TabsProps<T> {
   value: T;
@@ -15,17 +11,15 @@ interface TabsProps<T> {
 type DefaultTabsProps<T> = StyledMuiTabsProps & TabsProps<T>;
 
 export default function Tabs<T>(props: DefaultTabsProps<T>) {
-  const { mode = "light", children, value, onChange, ...restProps } = props;
+  const { children, value, onChange, ...restProps } = props;
   return (
-    <StyledMuiTabs value={value} onChange={onChange} mode={mode} {...restProps}>
+    <StyledMuiTabs value={value} onChange={onChange} {...restProps}>
       {children}
     </StyledMuiTabs>
   );
 }
 
-const StyledMuiTabs = styled(MuiTabs, {
-  shouldForwardProp: (propName) => propName !== "mode",
-})<StyledMuiTabsProps>(({ theme, mode }) => {
+const StyledMuiTabs = styled(MuiTabs)(({ theme }) => {
   return {
     "& .MuiTabs-flexContainer": {
       justifyContent: "flex-start",
@@ -34,18 +28,18 @@ const StyledMuiTabs = styled(MuiTabs, {
     },
 
     ["& .MuiButtonBase-root"]: {
-      color: theme.palette.common.white,
+      color: theme.palette.common.black,
       opacity: 0.6,
       textTransform: "capitalize",
     },
 
     ["& .Mui-selected"]: {
-      color: "#fff !important",
+      color: `${theme.palette.common.black} !important`,
       opacity: 1,
     },
 
     "& .MuiTabs-indicator": {
-      backgroundColor: "rgb(28, 199, 73)",
+      backgroundColor: "#1cc749",
     },
   };
 });

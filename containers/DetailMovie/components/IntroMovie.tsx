@@ -112,6 +112,7 @@ const Container = styled(Box, {
     justifyContent: "center",
     alignItems: "center",
     padding: "0px 24px",
+    color: "#ececec",
 
     aspectRatio: "1 / 1",
     backgroundImage: `url(${backdrop})`,
@@ -199,6 +200,7 @@ const Container = styled(Box, {
         margin: "0px 10px 10px 0px",
         textTransform: "inherit",
         backgroundColor: "#34495E",
+        color: "#fff",
 
         ["& svg"]: {
           width: 24,

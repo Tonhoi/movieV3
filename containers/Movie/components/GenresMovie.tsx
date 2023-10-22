@@ -91,8 +91,10 @@ const Container = styled(Box)(({ theme }) => {
       padding: "9px 8px",
       borderRadius: 4,
 
-      backgroundColor: "#8a84e9",
-      color: theme.palette.common.white,
+      backgroundColor: theme.palette.mode == "light" ? "#fff" : "#8a84e9",
+      boxShadow:
+        "rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px",
+      color: theme.palette.common.black,
       textAlign: "center",
       cursor: "pointer",
 
@@ -102,7 +104,8 @@ const Container = styled(Box)(({ theme }) => {
       },
 
       ["&.active"]: {
-        backgroundColor: "#443ae7",
+        backgroundColor: theme.palette.mode == "light" ? "#1cc749" : "#443ae7",
+        color: "#fff",
         transition: "all linear 0.2s",
       },
 

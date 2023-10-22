@@ -1,16 +1,43 @@
-import { Box, Stack, Tooltip, styled } from "@mui/material";
+import { MouseEvent, useCallback, useEffect } from "react";
+import { Box, Stack, Tooltip, Typography, styled } from "@mui/material";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/firebase/firebase-config";
 
 import { Image, Link, SettingIcon } from "@/components";
 import PopOverWrapper from "./PopOverWrapper";
-import HeaderActionChild from "./HeaderActionChild";
 import { SETTING_ITEMS } from "@/constants";
 import avatar from "@/public/image/avatar2.png";
 import { ROUTES } from "@/routers";
+import { useDarkModeContext } from "@/contexts/ThemeProvider/ThemeProvider";
+import SettingItem from "./SettingItem";
 
 const HeaderAction = () => {
   const [user] = useAuthState(auth);
+
+  const { setIsDarkTheme, isDarkTheme } = useDarkModeContext();
+
+  const handleToggleTheme = useCallback(
+    (e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>, type: string) => {
+      if (type == "dark_mode") {
+        setIsDarkTheme((prev: boolean) => !prev);
+
+        const check = !isDarkTheme;
+
+        localStorage.setItem("theme", `${check}`);
+
+        const btnTextElement = e.currentTarget.querySelector(".title");
+
+        if (!btnTextElement) return null;
+
+        if (isDarkTheme) {
+          btnTextElement.textContent = "Giao diện màu tối";
+        } else {
+          btnTextElement.textContent = "Giao diện màu sáng";
+        }
+      }
+    },
+    [isDarkTheme]
+  );
 
   return (
     <Container>
@@ -18,7 +45,19 @@ const HeaderAction = () => {
         disablePortal
         disableScrollLock
         parentChildren={
-          <Tooltip title={"Cài đặt"} placement="bottom">
+          <Tooltip
+            arrow
+            placement="bottom"
+            slotProps={{
+              tooltip: { sx: { background: "#000" } },
+              arrow: { sx: { color: "#000" } },
+            }}
+            title={
+              <Typography variant="caption" color={"#fff"}>
+                Cài đặt
+              </Typography>
+            }
+          >
             <Stack className={"icon-wrapper"}>
               <SettingIcon className="setting-icon" />
             </Stack>
@@ -27,14 +66,13 @@ const HeaderAction = () => {
       >
         <Box className={"setting-wrapper"}>
           {SETTING_ITEMS.map((el) => (
-            <HeaderActionChild
+            <SettingItem
               key={el.id}
               startIcon={el.start_icon}
-              endIcon={el.end_icon}
               title={el.title}
               separate={el.separate}
-              child={el.child}
               href={el.href}
+              onClick={(e) => handleToggleTheme(e, el.type as string)}
             />
           ))}
         </Box>
@@ -61,7 +99,9 @@ const Container = styled(Stack)(({ theme }) => {
     ["& .icon-wrapper"]: {
       padding: "12px",
       borderRadius: "50%",
-      backgroundColor: "#444444",
+      backgroundColor: theme.palette.mode == "light" ? "#fff" : "#444444",
+      boxShadow:
+        "rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.5) 0px 8px 16px -8px",
       cursor: "pointer",
 
       ["&:hover"]: {
@@ -83,20 +123,23 @@ const Container = styled(Stack)(({ theme }) => {
         objectFit: "cover",
         borderRadius: "50%",
         cursor: "pointer",
+        boxShadow:
+          "rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.5) 0px 8px 16px -8px",
       },
+    },
+
+    ["& .setting-icon"]: {
+      color: theme.palette.common.black,
     },
 
     ["& .setting-wrapper"]: {
       padding: 6,
       width: 260,
-      backgroundColor: "#292e3d",
-
-      ["& .btn"]: {
-        color: theme.palette.common.white,
-      },
+      backgroundColor: theme.palette.mode == "light" ? "#fff" : "#292e3d",
+      transition: "all linear 0.3s",
 
       ["& .divided"]: {
-        backgroundColor: theme.palette.common.white,
+        backgroundColor: theme.palette.mode == "light" ? "#fff" : "#282727",
       },
     },
   };

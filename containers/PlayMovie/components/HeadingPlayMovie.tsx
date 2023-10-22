@@ -92,11 +92,12 @@ const HeadingPlayMovie = ({ episodes }: HeadingPlayMovieProps) => {
 const Container = styled(Stack)(({ theme }) => {
   return {
     flexDirection: "row",
-    backgroundColor: "#1A1C22",
+    backgroundColor: theme.palette.secondary.main,
     maxHeight: 455,
+    borderRadius: 4,
     overflow: "hidden",
     boxShadow:
-      "rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset",
+      "rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px",
 
     [theme.breakpoints.down("md")]: {
       flexDirection: "column",
@@ -132,7 +133,7 @@ const Container = styled(Stack)(({ theme }) => {
         justifyContent: "space-between",
         paddingBottom: 12,
 
-        backgroundColor: "#1A1C22",
+        backgroundColor: theme.palette.secondary.main,
 
         ["& svg"]: {
           width: 18,
@@ -154,7 +155,7 @@ const Container = styled(Stack)(({ theme }) => {
         margin: "0px 8px 8px 0px",
         borderRadius: 4,
         backgroundColor: "#23252B",
-        color: theme.palette.common.white,
+        color: "#fff",
         cursor: "pointer",
 
         ["&:hover, &.active"]: {

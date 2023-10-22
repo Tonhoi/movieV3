@@ -104,9 +104,12 @@ const Container = styled(Stack)(({ theme }) => {
         borderRadius: 4,
       },
     },
+
     ["& .search-content-right"]: {
       marginLeft: theme.spacing(2),
       gap: theme.spacing(1),
+
+      color: theme.palette.text_color.main,
 
       ["& .first_air_date_year"]: {
         display: "flex",

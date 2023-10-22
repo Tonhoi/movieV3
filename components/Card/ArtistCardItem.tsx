@@ -64,6 +64,7 @@ const Container = styled(Box, {
     ["& .card-title"]: {
       textAlign: "center",
       marginTop: theme.spacing(1),
+      color: theme.palette.common.black,
 
       // truncate
       display: "-webkit-box",

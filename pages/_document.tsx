@@ -1,6 +1,7 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import createEmotionServer from "@emotion/server/create-instance";
 import { createEmotionCache } from "@/libs";
+import { Children } from "react";
 
 class MyDocument extends Document {
   render() {
@@ -49,6 +50,7 @@ MyDocument.getInitialProps = async (ctx) => {
   return {
     ...initialProps,
     emotionStyleTags,
+    // styles: [...Children.toArray(initialProps.styles), ...emotionStyleTags],
   };
 };
 

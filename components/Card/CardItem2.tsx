@@ -78,6 +78,7 @@ const Container = styled(Box, {
       width: "100%",
       padding: "30px 8px 15px",
       borderRadius: 12,
+      color: "#ececec",
 
       backgroundImage:
         "linear-gradient(transparent, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9))",
