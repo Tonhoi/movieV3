@@ -1,14 +1,13 @@
-import { Box, Button, Stack, Typography, styled, useTheme } from "@mui/material";
+import { Box, Button, Stack, Typography, styled } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { toast, ToastContainer } from "react-toastify";
 
-import { auth } from "@/firebase/firebase-config";
-
-import { Link } from "@/components";
-import { FormControl as FormInput } from "@/components";
 import { ROUTES } from "@/routers";
+import { Link } from "@/components";
 import { updateProfile } from "firebase/auth";
+import { auth } from "@/firebase/firebase-config";
+import { FormControl as FormInput } from "@/components";
 import { defaultValue } from "@/yups/register/defaultValue";
 import { Register as YupRegister } from "@/yups/register/register";
 
@@ -17,7 +16,6 @@ const Register = () => {
     resolver: YupRegister,
     defaultValues: defaultValue,
   });
-  const theme = useTheme();
 
   const [createUserWithEmailAndPassword] = useCreateUserWithEmailAndPassword(auth);
 
@@ -39,34 +37,15 @@ const Register = () => {
   return (
     <Container>
       <ToastContainer theme="colored" />
+
       <Box className={"form-control"} component={"form"}>
         <Typography variant={"netflixtitle1"} className="form-heading">
           Đăng kí
         </Typography>
 
-        <FormInput
-          control={control}
-          name="fullname"
-          placeholder="Họ và tên"
-          InputProps={{
-            sx: {
-              ...theme.typography.netflixtitle5,
-              backgroundColor: "#333333",
-            },
-          }}
-        />
+        <FormInput control={control} name="fullname" placeholder="Họ và tên" />
 
-        <FormInput
-          control={control}
-          name="email"
-          placeholder="Email"
-          InputProps={{
-            sx: {
-              ...theme.typography.netflixtitle5,
-              backgroundColor: "#333333",
-            },
-          }}
-        />
+        <FormInput control={control} name="email" placeholder="Email" />
 
         <FormInput
           control={control}
@@ -74,10 +53,6 @@ const Register = () => {
           placeholder="Mật khẩu"
           InputProps={{
             type: "password",
-            sx: {
-              ...theme.typography.netflixtitle5,
-              backgroundColor: "#333333",
-            },
           }}
         />
         <FormInput
@@ -86,10 +61,6 @@ const Register = () => {
           placeholder="Nhập lại mật khẩu"
           InputProps={{
             type: "password",
-            sx: {
-              ...theme.typography.netflixtitle5,
-              backgroundColor: "#333333",
-            },
           }}
         />
 
@@ -108,7 +79,7 @@ const Register = () => {
           <Link
             href={ROUTES.login}
             variant={"netflixtitle4"}
-            color={theme.palette.common.white}
+            color={"#fff"}
             underline={"hover"}
           >
             Đăng nhập
@@ -138,20 +109,29 @@ const Container = styled(Stack)(({ theme }) => {
       },
 
       ["& .form-heading"]: {
-        color: theme.palette.common.white,
+        color: "#fff",
       },
 
       ["& .btn-submit"]: {
         padding: 16,
         marginTop: theme.spacing(4),
         marginBottom: theme.spacing(2),
-        color: theme.palette.common.white,
+        color: "#fff",
 
         backgroundColor: "#e50914",
 
         [":hover"]: {
           opadcity: "0.9",
           transition: "opacity linear 0.2s",
+        },
+      },
+
+      ["& .MuiFormControl-root .MuiInputBase-root"]: {
+        ...theme.typography.netflixtitle5,
+        backgroundColor: "#333333",
+
+        ["&::before, &::after"]: {
+          display: "none",
         },
       },
     },

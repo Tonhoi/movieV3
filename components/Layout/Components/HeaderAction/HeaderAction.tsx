@@ -5,7 +5,7 @@ import { auth } from "@/firebase/firebase-config";
 
 import { Image, Link, SettingIcon } from "@/components";
 import PopOverWrapper from "./PopOverWrapper";
-import { SETTING_ITEMS } from "@/constants";
+import { SETTING_ITEMS, SETTING_THEME_TITLE } from "@/constants";
 import avatar from "@/public/image/avatar2.png";
 import { ROUTES } from "@/routers";
 import { useDarkModeContext } from "@/contexts/ThemeProvider/ThemeProvider";
@@ -30,9 +30,9 @@ const HeaderAction = () => {
         if (!btnTextElement) return null;
 
         if (isDarkTheme) {
-          btnTextElement.textContent = "Giao diện màu tối";
+          btnTextElement.textContent = SETTING_THEME_TITLE.dark;
         } else {
-          btnTextElement.textContent = "Giao diện màu sáng";
+          btnTextElement.textContent = SETTING_THEME_TITLE.light;
         }
       }
     },

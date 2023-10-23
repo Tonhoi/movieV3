@@ -6,7 +6,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import Hamburger from "hamburger-react";
 
 import { Image, Link, Overlay } from "@/components";
-import { NAVITEM } from "@/constants";
+import { NAVITEM, SETTING_THEME_TITLE } from "@/constants";
 import { useToggle } from "@/hooks";
 import { ROUTES } from "@/routers";
 
@@ -51,9 +51,9 @@ const HeaderOnMobile = () => {
         if (!btnTextElement) return null;
 
         if (isDarkTheme) {
-          btnTextElement.textContent = "Giao diện màu tối";
+          btnTextElement.textContent = SETTING_THEME_TITLE.dark;
         } else {
-          btnTextElement.textContent = "Giao diện màu sáng";
+          btnTextElement.textContent = SETTING_THEME_TITLE.light;
         }
       }
 

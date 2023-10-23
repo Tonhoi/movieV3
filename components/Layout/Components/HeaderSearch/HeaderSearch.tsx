@@ -173,7 +173,7 @@ const Container = styled(Box)(({ theme }) => {
       backgroundColor: "#99a1b333",
 
       [theme.breakpoints.down("sm")]: {
-        color: theme.palette.common.white,
+        color: theme.palette.common.black,
       },
     },
   };

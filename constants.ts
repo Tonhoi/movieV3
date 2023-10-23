@@ -5,15 +5,18 @@ import { ROUTES } from "./routers";
 import LogoutIcon from "./components/Icons/LogoutIcon";
 import ConstrastOutline from "./components/Icons/ConstrastOutline";
 
+export const SETTING_THEME_TITLE = {
+  dark: "Giao diện màu tối",
+  light: "Giao diện màu sáng",
+};
+
 export const SETTING_ITEMS = [
   {
     id: uuidv4(),
-
-    // title: "Giao diện màu tối",
     title:
       typeof window !== "undefined" && JSON.parse(localStorage.getItem("theme") as string)
-        ? "Giao diện màu sáng"
-        : "Giao diện màu tối",
+        ? SETTING_THEME_TITLE.light
+        : SETTING_THEME_TITLE.dark,
     start_icon: ConstrastOutline,
     type: "dark_mode",
     separate: true,

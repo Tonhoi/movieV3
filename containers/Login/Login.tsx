@@ -11,15 +11,14 @@ import {
 import { useForm } from "react-hook-form";
 import { toast, ToastContainer } from "react-toastify";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "@/firebase/firebase-config";
 import { useRouter } from "next/router";
 
-import { Link } from "@/components";
-import { FormControl as FormInput } from "@/components";
 import { ROUTES } from "@/routers";
-import { defaultValue } from "@/yups/login/defaultValue";
+import { Link } from "@/components";
+import { auth } from "@/firebase/firebase-config";
 import { Login as YupLogin } from "@/yups/login/login";
-
+import { FormControl as FormInput } from "@/components";
+import { defaultValue } from "@/yups/login/defaultValue";
 import backdrop from "@/public/image/backdrop_login_register_page.jpg";
 
 const Login = () => {
@@ -49,27 +48,13 @@ const Login = () => {
           Đăng nhập
         </Typography>
 
-        <FormInput
-          control={control}
-          name="email"
-          placeholder="Email"
-          InputProps={{
-            sx: {
-              ...theme.typography.netflixtitle5,
-              backgroundColor: "#333333",
-            },
-          }}
-        />
+        <FormInput control={control} name="email" placeholder="Email" />
 
         <FormInput
           control={control}
           name="password"
           placeholder="Mật khẩu"
           InputProps={{
-            sx: {
-              ...theme.typography.netflixtitle5,
-              backgroundColor: "#333333",
-            },
             type: "password",
           }}
         />
@@ -104,7 +89,7 @@ const Login = () => {
           <Link
             href={ROUTES.register}
             variant={"netflixtitle4"}
-            color={theme.palette.common.white}
+            color={"#fff"}
             underline={"hover"}
           >
             Đăng kí
@@ -134,14 +119,14 @@ const Container = styled(Stack)(({ theme }) => {
       },
 
       ["& .form-heading"]: {
-        color: theme.palette.common.white,
+        color: "#fff",
       },
 
       ["& .btn-submit"]: {
         padding: 16,
         marginTop: theme.spacing(4),
         marginBottom: theme.spacing(2),
-        color: theme.palette.common.white,
+        color: "#fff",
 
         backgroundColor: "#e50914",
 
@@ -159,6 +144,15 @@ const Container = styled(Stack)(({ theme }) => {
 
         ["& .form-checbox"]: {
           color: "#B3B3B3",
+        },
+      },
+
+      ["& .MuiFormControl-root .MuiInputBase-root"]: {
+        ...theme.typography.netflixtitle5,
+        backgroundColor: "#333333",
+
+        ["&::before, &::after"]: {
+          display: "none",
         },
       },
     },

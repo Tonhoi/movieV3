@@ -1,7 +1,7 @@
 import { memo, useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import { throttle } from "lodash";
 import { Box, Container as MuiContainer, Grid, styled } from "@mui/material";
+import { throttle } from "lodash";
+import { useRouter } from "next/router";
 
 import { HeaderNavigation, HeaderAction, HeaderSearch } from "@/components";
 
@@ -36,7 +36,7 @@ const Header = () => {
       <MuiContainer>
         <Grid container alignItems={"center"} spacing={2}>
           <Grid item lg={4} md={5} sm={4} xs={12}>
-            <HeaderNavigation />
+            <HeaderNavigation isActiveHeader={isActiveHeader} />
           </Grid>
 
           <Grid item lg={5} md={4} sm={6.5} xs={12}>
@@ -77,6 +77,29 @@ const Container = styled(Box)(({ theme }) => {
       top: 0,
       paddingBottom: 12,
       backgroundColor: theme.palette.primary.main,
+    },
+
+    ["& .logo-on-pc"]: {
+      position: "relative",
+
+      width: 170,
+      height: 43,
+
+      ["& img"]: {
+        objectFit: "cover",
+        cursor: "pointer",
+      },
+
+      [theme.breakpoints.down("md")]: {
+        margin: "0 auto",
+        width: 140,
+        height: 30,
+      },
+
+      [theme.breakpoints.down("sm")]: {
+        width: 170,
+        height: 43,
+      },
     },
   };
 });

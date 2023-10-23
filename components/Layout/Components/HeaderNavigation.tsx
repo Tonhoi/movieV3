@@ -1,12 +1,13 @@
+import { memo } from "react";
 import { Box, Stack, Typography, styled } from "@mui/material";
 
-import { Link, Image } from "@/components";
 import { ROUTES } from "@/routers";
 import { useMedia } from "@/hooks";
+import { Link, Image } from "@/components";
 import HeaderOnMobile from "./HeaderOnMobile/HeaderOnMobile";
-
-import logo from "@/public/image/logo.png";
-import { memo } from "react";
+import { useDarkModeContext } from "@/contexts/ThemeProvider/ThemeProvider";
+import logo_light from "@/public/image/logo_light.png";
+import logo_dark from "@/public/image/logo_dark.png";
 
 const NAVITEM = [
   {
@@ -21,15 +22,18 @@ const NAVITEM = [
   },
 ];
 
-const HeaderItem = () => {
-  const { isMdDown } = useMedia();
+const HeaderNavigation = ({ isActiveHeader }: { isActiveHeader: boolean }) => {
+  const { isMdDown, isSmDown } = useMedia();
+  const { isDarkTheme } = useDarkModeContext();
+
+  const isDisplayLogoDark = isSmDown || (isActiveHeader && !isDarkTheme);
 
   return (
     <Container>
       {isMdDown && <HeaderOnMobile />}
 
       <Link href={ROUTES.home} className={"logo-on-pc"}>
-        <Image src={logo} />
+        <Image src={isDisplayLogoDark ? logo_dark : logo_light} />
       </Link>
 
       <Box component={"ul"} className="nav-list">
@@ -99,4 +103,4 @@ const Container = styled(Stack)(({ theme }) => {
   };
 });
 
-export default memo(HeaderItem);
+export default memo(HeaderNavigation);
