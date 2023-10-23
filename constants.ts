@@ -10,6 +10,7 @@ export const SETTING_THEME_TITLE = {
   light: "Giao diện màu sáng",
 };
 
+
 export const SETTING_ITEMS = [
   {
     id: uuidv4(),

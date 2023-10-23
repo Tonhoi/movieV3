@@ -1,11 +1,11 @@
 import { Box, styled } from "@mui/material";
 
 import { TopTrendingCarditem } from "@/components";
-import { MOVIESCHEMA } from "@/interfaces/responseSchema/utils";
+import { MovieProps } from "@/interfaces/responseSchema/utils";
 import HeadingMovie from "./HeadingMovie";
 
 interface TrendingMovieProps {
-  data: Array<MOVIESCHEMA>;
+  data: Array<MovieProps>;
 }
 
 const TrendingMovie = ({ data }: TrendingMovieProps) => {

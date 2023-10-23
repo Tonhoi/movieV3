@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 
 import CardItemBase from "./CardItemBase";
 import useThumbnail from "@/hooks/useThumbnail";
-import { MOVIESCHEMA } from "@/interfaces/responseSchema/utils";
+import { MovieProps } from "@/interfaces/responseSchema/utils";
 
 interface addData {
   first_air_date?: string;
@@ -12,7 +12,7 @@ interface addData {
 }
 
 interface TopTrendingCarditemprops extends BoxProps {
-  data: MOVIESCHEMA & addData;
+  data: MovieProps & addData;
   idx: number;
 }
 

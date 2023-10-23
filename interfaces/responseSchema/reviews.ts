@@ -1,13 +1,13 @@
-interface author_details {
+interface AuthorDetailProps {
   avatar_path: string;
   name: string;
   rating: number;
   username: string;
 }
 
-export interface REVIEWSCHEMA {
+export interface ReviewProps {
   author: string;
-  author_details: author_details;
+  author_details: AuthorDetailProps;
   content: string;
   created_at: string;
   id: string;

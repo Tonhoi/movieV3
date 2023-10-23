@@ -1,10 +1,12 @@
-import { Crew, guest_stars } from "./utils";
+import { CrewProps } from "./MovieCredit";
+import { GuestStarProps } from "./utils";
 
-export interface EPISODESCHEMA {
+export interface EpisodeProps {
   air_date: string;
-  crew: Array<Crew>;
+  crew: Array<CrewProps>;
   episode_number: number;
-  guest_stars: Array<guest_stars>;
+  episode_type: string;
+  guest_stars: Array<GuestStarProps>;
   id: number;
   name: string;
   overview: string;

@@ -1,11 +1,15 @@
 import axios from "@/axios.config";
 
-import { RESPONSEDATA } from "@/interfaces/responseSchema/utils";
-import { PEOPLELISTSCHEMA } from "@/interfaces/responseSchema/peopleList";
+import { ResponeDataSchema } from "@/interfaces/responseSchema/utils";
 import { TYPE_PARAMS } from "@/apis";
 import { IPage, responseSchema } from "@/interfaces";
-import { PEOPLEDETAILSCHEMA } from "@/interfaces/responseSchema/peopleDetail";
 import ArtistInfo from "@/containers/ArtistInfo/ArtistInfo";
+import { ArtistDetailProps, ArtistListProps } from "@/interfaces/responseSchema/Artist";
+import {
+  CreditProps,
+  MoviesForActorProps,
+  moviesForCrewProps,
+} from "@/interfaces/responseSchema/MovieCredit";
 
 interface PathsProps {
   params: {
@@ -13,7 +17,13 @@ interface PathsProps {
   };
 }
 
-export type ArtistPageProps = IPage<[responseSchema<PEOPLEDETAILSCHEMA>, any, any]>;
+export type ArtistPageProps = IPage<
+  [
+    ArtistDetailProps,
+    CreditProps<MoviesForActorProps, moviesForCrewProps>,
+    CreditProps<MoviesForActorProps, moviesForCrewProps>
+  ]
+>;
 
 const index = (props: ArtistPageProps) => {
   return <ArtistInfo {...props} />;
@@ -23,7 +33,7 @@ export async function getStaticPaths() {
   const paths: Array<PathsProps> = [];
 
   try {
-    const resTrendingPerson: RESPONSEDATA = await axios.get(
+    const resTrendingPerson: ResponeDataSchema = await axios.get(
       TYPE_PARAMS["trending_person"],
       {
         params: {
@@ -33,7 +43,7 @@ export async function getStaticPaths() {
     );
     // const resTrendingPerson: any = await axios.get("/trending/person/changes?page=1");
 
-    resTrendingPerson.results.map((el: PEOPLELISTSCHEMA) => {
+    resTrendingPerson.results.map((el: ArtistListProps) => {
       paths.push({ params: { id: `${el.id}` } });
     });
   } catch (error) {

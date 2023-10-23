@@ -2,10 +2,10 @@ import { MouseEventHandler, useCallback, useMemo } from "react";
 import { useRouter } from "next/router";
 import { Box, Typography, styled } from "@mui/material";
 
-import { GENRES } from "@/interfaces/responseSchema/utils";
+import { GenreProps } from "@/interfaces/responseSchema/utils";
 
 interface GenresMovieProps {
-  data: Array<GENRES>;
+  data: Array<GenreProps>;
   setParams: (newParams: object) => void;
 }
 
@@ -42,7 +42,7 @@ const GenresMovie = ({ data, setParams }: GenresMovieProps) => {
   const renderGenres = useMemo(() => {
     if (typeof data == "undefined") return null;
 
-    return data.map((data: GENRES, idx: number) => {
+    return data.map((data: GenreProps, idx: number) => {
       return (
         <Typography
           variant="subtitle2"

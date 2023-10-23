@@ -5,12 +5,13 @@ import { Link } from "@/components";
 import { ROUTES } from "@/routers";
 
 interface HeadingSearchProps {
-  data: any;
+  total_results: number;
 }
 
-const HeadingSearch = ({ data }: HeadingSearchProps) => {
+const HeadingSearch = ({ total_results }: HeadingSearchProps) => {
   const router = useRouter();
   const theme = useTheme();
+
   return (
     <Container>
       <Typography
@@ -18,7 +19,7 @@ const HeadingSearch = ({ data }: HeadingSearchProps) => {
         component={"span"}
         color={theme.palette.text_color.main}
       >
-        Có {data?.total_results} kết quả tìm kiếm dựa trên từ khóa “{router.query.query}”
+        Có {total_results} kết quả tìm kiếm dựa trên từ khóa “{router.query.query}”
       </Typography>
 
       <Box className={"title"}>

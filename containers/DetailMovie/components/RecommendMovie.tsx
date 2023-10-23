@@ -1,10 +1,10 @@
 import { Grid } from "@mui/material";
 
 import { CardItem } from "@/components";
-import { MOVIESCHEMA, TVSCHEMA } from "@/interfaces/responseSchema/utils";
+import { MovieProps, TvProps } from "@/interfaces/responseSchema/utils";
 
 interface RecommendMovieProps {
-  data: Array<TVSCHEMA & MOVIESCHEMA>;
+  data: Array<TvProps & MovieProps>;
 }
 
 const RecommendMovie = ({ data }: RecommendMovieProps) => {

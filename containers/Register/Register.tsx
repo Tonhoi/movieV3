@@ -5,11 +5,11 @@ import { toast, ToastContainer } from "react-toastify";
 
 import { ROUTES } from "@/routers";
 import { Link } from "@/components";
-import { updateProfile } from "firebase/auth";
+import { User, updateProfile } from "firebase/auth";
 import { auth } from "@/firebase/firebase-config";
 import { FormControl as FormInput } from "@/components";
 import { defaultValue } from "@/yups/register/defaultValue";
-import { Register as YupRegister } from "@/yups/register/register";
+import { Register as YupRegister, RegisterProps } from "@/yups/register/register";
 
 const Register = () => {
   const { control, handleSubmit, reset } = useForm({
@@ -19,10 +19,10 @@ const Register = () => {
 
   const [createUserWithEmailAndPassword] = useCreateUserWithEmailAndPassword(auth);
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: RegisterProps) => {
     try {
       await createUserWithEmailAndPassword(data.email, data.password);
-      await updateProfile(auth?.currentUser as any, {
+      await updateProfile(auth?.currentUser as User, {
         displayName: data.fullname,
       });
       reset();

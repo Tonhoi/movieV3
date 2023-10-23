@@ -1,20 +1,19 @@
 import { useCallback, useMemo } from "react";
-import { Box, Stack, Typography, styled, Container as MuiContainer } from "@mui/material";
+import { Box, styled, Container as MuiContainer } from "@mui/material";
 import useSWR from "swr";
 import { get } from "lodash";
 
-import { Link } from "@/components";
 import Pagination from "@/components/Pagination";
 import SearchItem from "./components/SearchItem";
 import { useParams } from "@/hooks";
 import { transformUrl } from "@/libs";
 import Skeleton from "./components/Skeleton";
-import { MOVIESCHEMA, TVSCHEMA } from "@/interfaces/responseSchema/utils";
+import { MovieProps, TvProps } from "@/interfaces/responseSchema/utils";
 import { IPage, responseSchema } from "@/interfaces";
 import { TYPE_PARAMS } from "@/apis";
 import HeadingSearch from "./components/HeadingSearch";
 
-export type SearchPageProps = IPage<[responseSchema<MOVIESCHEMA & TVSCHEMA>]>;
+export type SearchPageProps = IPage<[responseSchema<MovieProps & TvProps>]>;
 
 const Search = ({ initData }: SearchPageProps) => {
   const dataSearch = get(initData, "0");
@@ -49,7 +48,7 @@ const Search = ({ initData }: SearchPageProps) => {
     if (typeof data == "undefined") return null;
 
     return data.results.map(
-      (data: TVSCHEMA & MOVIESCHEMA & { media_type: string }, idx: number) => (
+      (data: TvProps & MovieProps & { media_type: string }, idx: number) => (
         <SearchItem
           key={idx}
           name={data.name}
@@ -68,7 +67,7 @@ const Search = ({ initData }: SearchPageProps) => {
 
   return (
     <Container>
-      <HeadingSearch data={data} />
+      <HeadingSearch total_results={data?.total_results} />
 
       <MuiContainer maxWidth={"md"}>
         {isLoading ? <Skeleton count={10} /> : renderItem}

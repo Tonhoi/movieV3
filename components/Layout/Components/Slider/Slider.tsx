@@ -4,7 +4,7 @@ import useSWR from "swr";
 
 import SlickSlider from "@/components/Slick/SlickSlider";
 import { CardItem2 } from "@/components";
-import { MOVIESCHEMA } from "@/interfaces/responseSchema/utils";
+import { MovieProps } from "@/interfaces/responseSchema/utils";
 import { transformUrl } from "@/libs";
 import { TYPE_PARAMS } from "@/apis";
 
@@ -21,7 +21,7 @@ const Slider = () => {
   const renderBackdropPath = useMemo(() => {
     if (typeof dataPopularMovie == "undefined") return null;
 
-    return dataPopularMovie.results.map((data: MOVIESCHEMA) => {
+    return dataPopularMovie.results.map((data: MovieProps) => {
       const { backdrop_path, id } = data;
 
       return (
@@ -39,7 +39,7 @@ const Slider = () => {
   const renderSlideContent = useMemo(() => {
     if (typeof dataPopularMovie == "undefined") return null;
 
-    return dataPopularMovie.results.map((data: MOVIESCHEMA) => {
+    return dataPopularMovie.results.map((data: MovieProps) => {
       const { poster_path, title, popularity, id } = data;
       return (
         <CardItem2

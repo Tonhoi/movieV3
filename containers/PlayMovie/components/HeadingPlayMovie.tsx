@@ -3,10 +3,10 @@ import { Box, Stack, Typography, styled } from "@mui/material";
 
 import { Link, MenuIcon, EpisodeCardItem, MenuV2Icon, Embeded } from "@/components";
 import { useToggle, useParams } from "@/hooks";
-import { EPISODESCHEMA } from "@/interfaces/responseSchema/episode";
+import { EpisodeProps } from "@/interfaces/responseSchema/episode";
 
 interface HeadingPlayMovieProps {
-  episodes: Array<EPISODESCHEMA>;
+  episodes: Array<EpisodeProps>;
 }
 
 const HeadingPlayMovie = ({ episodes }: HeadingPlayMovieProps) => {
@@ -31,7 +31,7 @@ const HeadingPlayMovie = ({ episodes }: HeadingPlayMovieProps) => {
   const renderEpisodesHorizontal = useMemo(() => {
     if (typeof episodes == "undefined") return null;
 
-    return episodes.map((data: EPISODESCHEMA, idx: number) => (
+    return episodes.map((data: EpisodeProps, idx: number) => (
       <EpisodeCardItem
         key={idx}
         idx={idx + 1}
@@ -46,12 +46,13 @@ const HeadingPlayMovie = ({ episodes }: HeadingPlayMovieProps) => {
 
   const renderEpisodesVertical = useMemo(() => {
     if (typeof episodes == "undefined") return null;
-
-    return episodes.map((data: any, idx: number) => (
+    return episodes.map((data: EpisodeProps, idx: number) => (
       <Link
         key={idx}
         href={`/play/${type}/${id}?episode=${data.episode_number}&season=${season}`}
-        className={`episode-vertical ${data.episode_number == episode ? "active" : ""}`}
+        className={`episode-vertical ${
+          String(data.episode_number) == episode ? "active" : ""
+        }`}
       >
         <Typography variant={"body2"}>{idx + 1}</Typography>
       </Link>
@@ -61,7 +62,7 @@ const HeadingPlayMovie = ({ episodes }: HeadingPlayMovieProps) => {
   return (
     <Container>
       <Box width={"100%"}>
-        <Embeded id={id} episode={episode} season={season} type={type} height="400" />
+        {/* <Embeded id={id} episode={episode} season={season} type={type} height="400" /> */}
 
         <Typography variant="caption" className={"reminder-text"}>
           Hãy đổi server nếu bạn cảm thấy phim load chậm

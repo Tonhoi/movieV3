@@ -2,19 +2,19 @@ import { GetStaticProps } from "next";
 
 import Home from "@/containers/Home/Home";
 import { IPage, responseSchema } from "@/interfaces";
-import { MOVIESCHEMA, TVSCHEMA } from "@/interfaces/responseSchema/utils";
-import { PEOPLELISTSCHEMA } from "@/interfaces/responseSchema/peopleList";
+import { MovieProps, TvProps } from "@/interfaces/responseSchema/utils";
 import movieServices from "@/services/movieServices";
 import tvServices from "@/services/tvServices";
 import artistServices from "@/services/artistServices";
+import { ArtistListProps } from "@/interfaces/responseSchema/Artist";
 
 export type HomePageProps = IPage<
   [
-    responseSchema<MOVIESCHEMA>,
-    responseSchema<TVSCHEMA>,
-    responseSchema<PEOPLELISTSCHEMA>,
-    responseSchema<MOVIESCHEMA>,
-    responseSchema<MOVIESCHEMA>
+    responseSchema<MovieProps>,
+    responseSchema<TvProps>,
+    responseSchema<ArtistListProps>,
+    responseSchema<MovieProps>,
+    responseSchema<MovieProps>
   ]
 >;
 

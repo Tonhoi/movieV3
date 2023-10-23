@@ -2,7 +2,7 @@ import { styled, Stack, Typography, StackProps, Box } from "@mui/material";
 
 import { Image } from "@/components";
 import usePoster from "@/hooks/usePoster";
-import { MOVIESCHEMA, TVSCHEMA } from "@/interfaces/responseSchema/utils";
+import { MovieProps, TvProps } from "@/interfaces/responseSchema/utils";
 import { useRouter } from "next/router";
 
 export interface media_type {
@@ -10,7 +10,7 @@ export interface media_type {
 }
 
 interface SearchItemProps extends StackProps {
-  data: TVSCHEMA & MOVIESCHEMA & media_type;
+  data: TvProps & MovieProps & media_type;
   handleCloseSearchResult: () => void;
 }
 

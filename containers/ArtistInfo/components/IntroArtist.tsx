@@ -4,11 +4,10 @@ import { Box, Button, Stack, Typography, styled } from "@mui/material";
 import { ArrowRightIcon, Image } from "@/components";
 import { useToggle } from "@/hooks";
 import usePoster from "@/hooks/usePoster";
-import { PEOPLEDETAILSCHEMA } from "@/interfaces/responseSchema/peopleDetail";
+import { ArtistDetailProps } from "@/interfaces/responseSchema/Artist";
 
 interface IntroArtistProps {
-  // data: PEOPLEDETAILSCHEMA;
-  data: any;
+  data: ArtistDetailProps;
 }
 
 const IntroArtist = ({ data }: IntroArtistProps) => {

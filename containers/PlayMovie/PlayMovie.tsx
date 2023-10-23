@@ -14,7 +14,7 @@ import { PlayMoviePageProps } from "@/pages/play/[type]/[id]";
 const PlayMovie = ({ initData }: PlayMoviePageProps) => {
   const router = useRouter();
   const dataRecomendationsMovie = get(initData, "0");
-  const dataDetail = get(initData, "1");
+  const dataDetailMovie = get(initData, "1");
 
   const { data } = useSWR(
     `/${router.query.type}/${router.query.id}/season/${router.query.season}?language=en-US`
@@ -29,14 +29,13 @@ const PlayMovie = ({ initData }: PlayMoviePageProps) => {
         <Grid item lg={8} md={8} sm={12} xs={12}>
           <ContentPlayMovie
             dataRecomendationsMovie={dataRecomendationsMovie?.results}
-            dataInfoMovie={data?.episodes}
-            dataDetail={dataDetail}
+            dataEpisodes={data?.episodes}
+            dataDetailMovie={dataDetailMovie}
           />
         </Grid>
 
         <Grid item lg={8} md={8} sm={12} xs={12}>
           <Box className={"content"}>
-            {/* <Comment /> */}
             <Comment />
           </Box>
         </Grid>

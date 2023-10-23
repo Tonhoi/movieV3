@@ -1,4 +1,6 @@
 import {
+  Dispatch,
+  SetStateAction,
   createContext,
   useCallback,
   useContext,
@@ -15,9 +17,9 @@ import { darkTheme } from "./DarkTheme";
 import { lightTheme } from "./LightTheme";
 
 interface DarkModeContextProps {
-  handleChangeTheme: (newmode: any) => void;
+  handleChangeTheme: (newmode: boolean) => void;
   isDarkTheme: boolean;
-  setIsDarkTheme: (value: any) => void;
+  setIsDarkTheme: Dispatch<SetStateAction<boolean>>;
 }
 
 const DarkModeContext = createContext<DarkModeContextProps>({
@@ -32,14 +34,14 @@ const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   const [isDarkTheme, setIsDarkTheme] = useState(prefersDarkMode);
 
   useEffect(() => {
-    const mode = localStorage.getItem("theme") === "true";
+    const mode = localStorage.getItem("isDarkTheme") === "true";
     // set mode
     setIsDarkTheme(mode);
   }, []);
 
   // set DarkMode triggered by user
   const handleChangeTheme = useCallback(
-    (newmode: any) => {
+    (newmode: boolean) => {
       setIsDarkTheme(newmode);
     },
     [isDarkTheme]

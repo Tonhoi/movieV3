@@ -2,11 +2,11 @@ import { Fragment } from "react";
 import { Grid } from "@mui/material";
 
 import { CardItem2 } from "@/components";
-import { TVSCHEMA } from "@/interfaces/responseSchema/utils";
+import { TvProps } from "@/interfaces/responseSchema/utils";
 import HeadingMovie from "./HeadingMovie";
 
 interface DailyWatchingMovieProps {
-  data: Array<TVSCHEMA>;
+  data: Array<TvProps>;
 }
 
 const DailyWatchingMovie = ({ data }: DailyWatchingMovieProps) => {

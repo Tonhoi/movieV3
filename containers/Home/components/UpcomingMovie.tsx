@@ -2,11 +2,11 @@ import { Fragment } from "react";
 import { Grid } from "@mui/material";
 
 import { UpcomingCardItem } from "@/components";
-import { MOVIESCHEMA } from "@/interfaces/responseSchema/utils";
+import { MovieProps } from "@/interfaces/responseSchema/utils";
 import HeadingMovie from "./HeadingMovie";
 
 interface UpcomingMovieProps {
-  data: Array<MOVIESCHEMA>;
+  data: Array<MovieProps>;
 }
 
 const UpcomingMovie = ({ data }: UpcomingMovieProps) => {

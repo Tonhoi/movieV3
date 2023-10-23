@@ -1,12 +1,12 @@
 import { MouseEventHandler } from "react";
 import { Box, Stack, Typography, styled } from "@mui/material";
 
-import { REVIEWSCHEMA } from "@/interfaces/responseSchema/reviews";
+import { ReviewProps } from "@/interfaces/responseSchema/reviews";
 import usePoster from "@/hooks/usePoster";
 import imageError from "@/public/image/avatar.png";
 
 interface UserReviewProps {
-  data: Array<REVIEWSCHEMA>;
+  data: Array<ReviewProps>;
 }
 
 let isShowMore = false;

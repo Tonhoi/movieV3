@@ -3,9 +3,9 @@ import { GetStaticProps } from "next";
 import axios from "@/axios.config";
 import { TYPE_PARAMS } from "@/apis";
 import { IPage, responseSchema } from "@/interfaces";
-import { GENRES, MOVIESCHEMA } from "@/interfaces/responseSchema/utils";
+import { GenreProps, MovieProps } from "@/interfaces/responseSchema/utils";
 
-export type MoviePageProps = IPage<[responseSchema<MOVIESCHEMA>, responseSchema<GENRES>]>;
+export type MoviePageProps = IPage<[responseSchema<MovieProps>, responseSchema<GenreProps>]>;
 
 const movie = (props: MoviePageProps) => {
   return <Movie {...props} />;

@@ -23,7 +23,7 @@ const HeaderAction = () => {
 
         const check = !isDarkTheme;
 
-        localStorage.setItem("theme", `${check}`);
+        localStorage.setItem("isDarkTheme", `${check}`);
 
         const btnTextElement = e.currentTarget.querySelector(".title");
 

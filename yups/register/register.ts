@@ -10,4 +10,11 @@ export const REGISTERSCHEMA = object({
     .oneOf([ref("password")], "2 mật khẩu không trùng nhau"),
 });
 
+export interface RegisterProps {
+  fullname: string;
+  email: string;
+  password: string;
+  confirm_password: string;
+}
+
 export const Register = yupResolver(REGISTERSCHEMA);

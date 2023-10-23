@@ -7,9 +7,9 @@ import ArrowLeft from "@/components/Slick/ArrowLeft";
 import ArrowRight from "@/components/Slick/ArrowRight";
 import SlickSlider from "@/components/Slick/SlickSlider";
 import { CardItem } from "@/components";
-import { MOVIESCHEMA } from "@/interfaces/responseSchema/utils";
-import { DetailMovie } from "@/interfaces/responseSchema/DetailMovie";
-import { EPISODESCHEMA } from "@/interfaces/responseSchema/episode";
+import { MovieProps } from "@/interfaces/responseSchema/utils";
+import DetailMovie from "@/interfaces/responseSchema/DetailMovie";
+import { EpisodeProps } from "@/interfaces/responseSchema/episode";
 
 const reponsiveSlider = [
   {
@@ -36,16 +36,16 @@ const reponsiveSlider = [
 ];
 
 interface ContentPlayMovieProps {
-  dataRecomendationsMovie: Array<MOVIESCHEMA>;
-  dataInfoMovie: Array<EPISODESCHEMA>;
-  dataDetail: DetailMovie;
+  dataRecomendationsMovie: Array<MovieProps>;
+  dataEpisodes: Array<EpisodeProps>;
+  dataDetailMovie: DetailMovie;
 }
 
 const ContentPlayMovie = (props: ContentPlayMovieProps) => {
-  const { dataRecomendationsMovie, dataInfoMovie, dataDetail } = props;
+  const { dataRecomendationsMovie, dataEpisodes, dataDetailMovie } = props;
 
-  const [dataDetailInfoMovie, setDataDetailInfoMovie] = useState<any>([]);
   const router = useRouter();
+  const [dataEpisode, setDataEpisode] = useState<any>({});
 
   const handleChangeSeason = (season_number: number) => {
     router.push(
@@ -72,21 +72,21 @@ const ContentPlayMovie = (props: ContentPlayMovieProps) => {
   }, [dataRecomendationsMovie]);
 
   useEffect(() => {
-    if (typeof dataInfoMovie == "undefined") {
+    if (typeof dataEpisodes == "undefined") {
       return;
     }
 
-    const text = dataInfoMovie.find((data: EPISODESCHEMA, idx: number) => {
+    const result = dataEpisodes.find((data: EpisodeProps, idx: number) => {
       return String(data.episode_number) == router.query.episode;
     });
 
-    setDataDetailInfoMovie(text);
-  }, [dataInfoMovie, router]);
+    setDataEpisode(result);
+  }, [dataEpisodes, router]);
 
   const renderSeason = useMemo(() => {
-    if (typeof dataDetail?.seasons == "undefined") return null;
+    if (typeof dataDetailMovie?.seasons == "undefined") return null;
 
-    return dataDetail.seasons.map((data, idx: number) => (
+    return dataDetailMovie.seasons.map((data, idx: number) => (
       <Box
         key={idx}
         onClick={() => handleChangeSeason(data.season_number)}
@@ -97,20 +97,18 @@ const ContentPlayMovie = (props: ContentPlayMovieProps) => {
         {data.name}
       </Box>
     ));
-  }, [dataInfoMovie]);
+  }, [dataEpisodes]);
 
   return (
     <Container>
       <Box className={"season-wrapper"}>{renderSeason}</Box>
 
       <Typography variant={"h3"} className={"title"}>
-        {dataDetail.title ?? dataDetail.name}
+        {dataDetailMovie.title ?? dataDetailMovie.name}
       </Typography>
 
       <Box className={"content"}>
-        <InfoMovie
-          data={dataDetailInfoMovie?.length == 0 ? dataDetail : dataDetailInfoMovie}
-        />
+        <InfoMovie data={dataEpisode} />
 
         <Box className={"recommended-movie"}>
           {dataRecomendationsMovie?.length !== 0 && (

@@ -4,10 +4,10 @@ import { useRouter } from "next/router";
 import { CardItemBase } from "@/components";
 import useThumbnail from "@/hooks/useThumbnail";
 import imageError from "@/public/image/image_not_available.png";
-import { PEOPLELISTSCHEMA } from "@/interfaces/responseSchema/peopleList";
+import { ArtistListProps } from "@/interfaces/responseSchema/Artist";
 
 interface ArtistCardItemProps {
-  data: PEOPLELISTSCHEMA;
+  data: ArtistListProps;
 }
 
 const ArtistCardItem = ({ data }: ArtistCardItemProps) => {

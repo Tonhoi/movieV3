@@ -1,23 +1,27 @@
 import DetailMovieComponent from "@/containers/DetailMovie/DetailMovie";
 import {
-  MOVIESCHEMA,
-  RESPONSEDATA as ResponseData,
-  TVSCHEMA,
+  MovieProps,
+  ResponeDataSchema as ResponeDataSchema,
+  TvProps,
 } from "@/interfaces/responseSchema/utils";
 import axios from "@/axios.config";
 import { TYPE_PARAMS } from "@/apis";
 import { Paths } from "@/interfaces/responseSchema/utils";
 import { IPage, responseSchema } from "@/interfaces";
-import { CREDITSCHEMA } from "@/interfaces/responseSchema/credits";
-import { REVIEWSCHEMA } from "@/interfaces/responseSchema/reviews";
-import { DetailMovie } from "@/interfaces/responseSchema/DetailMovie";
+import {
+  CastProps,
+  CreditProps,
+  CrewProps,
+} from "@/interfaces/responseSchema/MovieCredit";
+import { ReviewProps } from "@/interfaces/responseSchema/reviews";
+import DetailMovie from "@/interfaces/responseSchema/DetailMovie";
 
 export type DetailPageProps = IPage<
   [
     DetailMovie,
-    CREDITSCHEMA,
-    responseSchema<REVIEWSCHEMA>,
-    responseSchema<TVSCHEMA & MOVIESCHEMA>
+    CreditProps<CastProps, CrewProps>,
+    responseSchema<ReviewProps>,
+    responseSchema<TvProps & MovieProps>
   ]
 >;
 
@@ -29,7 +33,7 @@ export async function getStaticPaths() {
   const paths: Array<Paths> = [];
 
   try {
-    const detailTv: ResponseData = await axios.get(TYPE_PARAMS["discover_tv"], {
+    const detailTv: ResponeDataSchema = await axios.get(TYPE_PARAMS["discover_tv"], {
       params: {
         include_adult: false,
         include_null_first_air_dates: false,
@@ -39,21 +43,24 @@ export async function getStaticPaths() {
       },
     });
 
-    const detailMovie: ResponseData = await axios.get(TYPE_PARAMS["discover_movie"], {
-      params: {
-        include_adult: false,
-        include_video: false,
-        language: "en-US",
-        page: 1,
-        sort_by: "popularity.desc",
-      },
-    });
+    const detailMovie: ResponeDataSchema = await axios.get(
+      TYPE_PARAMS["discover_movie"],
+      {
+        params: {
+          include_adult: false,
+          include_video: false,
+          language: "en-US",
+          page: 1,
+          sort_by: "popularity.desc",
+        },
+      }
+    );
 
-    detailTv.results.map((movie: TVSCHEMA) => {
+    detailTv.results.map((movie: TvProps) => {
       paths.push({ params: { type: "tv", id: `${movie.id}` } });
     });
 
-    detailMovie.results.map((movie: MOVIESCHEMA) => {
+    detailMovie.results.map((movie: MovieProps) => {
       paths.push({ params: { type: "movie", id: `${movie.id}` } });
     });
   } catch (error) {

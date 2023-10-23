@@ -6,4 +6,9 @@ const LOGINSCHEMA = object({
   password: string().required("Trường này bắt buộc nhập"),
 });
 
+export interface LoginProps {
+  email: string;
+  password: string;
+}
+
 export const Login = yupResolver(LOGINSCHEMA);

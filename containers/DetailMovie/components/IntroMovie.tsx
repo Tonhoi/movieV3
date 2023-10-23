@@ -5,17 +5,22 @@ import { styled, Box, Typography, Stack, Button } from "@mui/material";
 import { Image, TvIcon, PlayV2Icon, SaveV2Icon, Link } from "@/components";
 import usePoster from "@/hooks/usePoster";
 import useThumbnail from "@/hooks/useThumbnail";
-import { CREDITSCHEMA } from "@/interfaces/responseSchema/credits";
-import { DetailMovie } from "@/interfaces/responseSchema/DetailMovie";
+import {
+  CastProps,
+  CreditProps,
+  CrewProps,
+} from "@/interfaces/responseSchema/MovieCredit";
+import DetailMovie from "@/interfaces/responseSchema/DetailMovie";
 
 interface HeadingDetailMovieProps {
   dataDetailMovie: DetailMovie;
-  dataCreditMovie: CREDITSCHEMA;
+  dataCreditMovie: CreditProps<CastProps, CrewProps>;
   handleOpenTrailerMovie: () => void;
 }
 
 const HeadingDetailMovie = (props: HeadingDetailMovieProps) => {
   const { dataDetailMovie, dataCreditMovie, handleOpenTrailerMovie } = props;
+
   const { title, original_title, name, overview, poster_path, backdrop_path } =
     dataDetailMovie;
 

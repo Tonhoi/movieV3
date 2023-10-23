@@ -7,11 +7,10 @@ import { TabPanel, Tabs } from "@/components";
 import IntroArtist from "./components/IntroArtist";
 import { ArtistPageProps } from "@/pages/artist-info/[id]";
 import MovieCredit from "./components/MovieCredit";
-import TvCredit from "./components/TvCredit";
 import Loading from "@/components/Loading";
 
 const ArtistInfo = ({ initData }: ArtistPageProps) => {
-  const dataDetailPerson = get(initData, "0");
+  const dataArtistDetail = get(initData, "0");
   const dataMovieCredit = get(initData, "1");
 
   const dataTvCredit = get(initData, "2");
@@ -27,7 +26,7 @@ const ArtistInfo = ({ initData }: ArtistPageProps) => {
 
   return (
     <Container>
-      <IntroArtist data={dataDetailPerson} />
+      <IntroArtist data={dataArtistDetail} />
 
       <Box className={"tab-list"}>
         <Tabs value={value} onChange={handleChangeTabs}>
@@ -41,7 +40,7 @@ const ArtistInfo = ({ initData }: ArtistPageProps) => {
       </TabPanel>
 
       <TabPanel value={value} index={1}>
-        <TvCredit cast={dataTvCredit.cast} />
+        <MovieCredit cast={dataTvCredit.cast} />
       </TabPanel>
     </Container>
   );

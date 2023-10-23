@@ -10,7 +10,7 @@ import { useParams } from "@/hooks";
 import { TYPE_PARAMS } from "@/apis";
 import { transformUrl } from "@/libs";
 import { CardItem, Pagination } from "@/components";
-import { GENRES, MOVIESCHEMA, TVSCHEMA } from "@/interfaces/responseSchema/utils";
+import { GenreProps, MovieProps, TvProps } from "@/interfaces/responseSchema/utils";
 import { Slider } from "@/components";
 import { MoviePageProps } from "@/pages/movie";
 import { TvPageProps } from "@/pages/tv";
@@ -18,7 +18,7 @@ import AdvancedFilter from "./components/AdvancedFilter";
 import GenresMovie from "./components/GenresMovie";
 
 const Movie = ({ initData }: MoviePageProps | TvPageProps) => {
-  const dataGenres: Array<GENRES> = get(initData, "[0].genres") || [];
+  const dataGenres: Array<GenreProps> = get(initData, "[0].genres") || [];
   const type = get(initData, "[1].type");
   const router = useRouter();
   const { query, pathname } = router;
@@ -61,7 +61,7 @@ const Movie = ({ initData }: MoviePageProps | TvPageProps) => {
   const renderMovie = useMemo(() => {
     if (typeof data == "undefined") return null;
 
-    return data.results.map((data: MOVIESCHEMA & TVSCHEMA) => (
+    return data.results.map((data: MovieProps & TvProps) => (
       <Grid item lg={3} md={3} sm={5} xs={7.5} key={data.id} margin={"20px 0"}>
         <CardItem
           vote_average={data.vote_average}

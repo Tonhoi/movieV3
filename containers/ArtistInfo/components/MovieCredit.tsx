@@ -1,39 +1,43 @@
-import { useCallback, useMemo, useState } from "react";
+import { ReactNode, useCallback, useMemo, useState } from "react";
 import { Box, Button, Grid, Typography, styled } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
 
 import { CardItem } from "@/components";
-
-interface MovieCreditProps {
-  cast: Array<any>;
-}
+import { MoviesForActorProps } from "@/interfaces/responseSchema/MovieCredit";
 
 const maxItems = 15;
+
+interface MovieCreditProps {
+  cast: Array<MoviesForActorProps>;
+}
+
 const MovieCredit = ({ cast }: MovieCreditProps) => {
   const [count, setCount] = useState(0);
 
   const [nextDataMovieCredit, setNextdataMovieCredit] = useState(cast.slice(0, maxItems));
 
-  const [prevDataMovieCredit, setPrevDataMovieCredit] = useState<Array<any>>([]);
+  const [prevDataMovieCredit, setPrevDataMovieCredit] = useState<Array<ReactNode>>([]);
+  
 
   const renderCast = useMemo(() => {
     if (typeof nextDataMovieCredit == "undefined") return null;
 
-    const results = nextDataMovieCredit.map((data: any) => (
+    const results = nextDataMovieCredit.map((data: MoviesForActorProps) => (
       <Grid item lg={2} md={3} sm={6} xs={6} key={uuidv4()}>
         <CardItem
           animation
           vote_average={data.vote_average}
           poster_path={data.poster_path}
           title={data.title}
-          id={data.id}
+          id={String(data.id)}
+          name={data.name}
         />
       </Grid>
     ));
 
     const finalData = [...prevDataMovieCredit, ...results];
 
-    setPrevDataMovieCredit((prev: any) => [...prev, ...results]);
+    setPrevDataMovieCredit((prev: Array<ReactNode>) => [...prev, ...results]);
 
     return finalData;
   }, [nextDataMovieCredit]);
@@ -74,6 +78,10 @@ const MovieCredit = ({ cast }: MovieCreditProps) => {
 
 const Container = styled(Box)(() => {
   return {
+    ["& .no-results"]: {
+      fontSize: 16,
+    },
+
     ["& .btn-wrapper"]: {
       position: "relative",
       width: "fit-content",

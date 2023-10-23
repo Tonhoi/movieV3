@@ -2,11 +2,11 @@ import { Fragment } from "react";
 import { Grid } from "@mui/material";
 
 import { ArtistCardItem } from "@/components";
-import { PEOPLELISTSCHEMA } from "@/interfaces/responseSchema/peopleList";
 import HeadingMovie from "./HeadingMovie";
+import { ArtistListProps } from "@/interfaces/responseSchema/Artist";
 
 interface PopularArtistProps {
-  data: Array<PEOPLELISTSCHEMA>;
+  data: Array<ArtistListProps>;
 }
 
 const PopularArtist = ({ data }: PopularArtistProps) => {

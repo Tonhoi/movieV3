@@ -16,7 +16,7 @@ import { useRouter } from "next/router";
 import { ROUTES } from "@/routers";
 import { Link } from "@/components";
 import { auth } from "@/firebase/firebase-config";
-import { Login as YupLogin } from "@/yups/login/login";
+import { Login as YupLogin, LoginProps } from "@/yups/login/login";
 import { FormControl as FormInput } from "@/components";
 import { defaultValue } from "@/yups/login/defaultValue";
 import backdrop from "@/public/image/backdrop_login_register_page.jpg";
@@ -29,7 +29,7 @@ const Login = () => {
   const theme = useTheme();
   const router = useRouter();
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: LoginProps) => {
     try {
       await signInWithEmailAndPassword(auth, data.email, data.password);
       toast.success("Đăng Nhập thành công");

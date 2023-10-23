@@ -26,7 +26,7 @@ const HeaderNavigation = ({ isActiveHeader }: { isActiveHeader: boolean }) => {
   const { isMdDown, isSmDown } = useMedia();
   const { isDarkTheme } = useDarkModeContext();
 
-  const isDisplayLogoDark = isSmDown || (isActiveHeader && !isDarkTheme);
+  const isDisplayLogoDark = (isActiveHeader || isSmDown) && !isDarkTheme;
 
   return (
     <Container>

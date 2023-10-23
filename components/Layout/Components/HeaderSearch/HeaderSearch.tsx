@@ -24,7 +24,7 @@ import { TYPE_PARAMS } from "@/apis";
 import { transformUrl } from "@/libs";
 import useThrottle from "@/hooks/useThrottle";
 import SearchItem, { media_type } from "./SearchItem";
-import { MOVIESCHEMA, TVSCHEMA } from "@/interfaces/responseSchema/utils";
+import { MovieProps, TvProps } from "@/interfaces/responseSchema/utils";
 import { Link } from "@/components";
 
 const HeaderSearch = () => {
@@ -80,7 +80,7 @@ const HeaderSearch = () => {
     if (typeof searchData == "undefined") return null;
 
     return searchData.results.map(
-      (data: TVSCHEMA & MOVIESCHEMA & media_type, idx: number) => (
+      (data: TvProps & MovieProps & media_type, idx: number) => (
         <SearchItem
           width={width}
           data={data}

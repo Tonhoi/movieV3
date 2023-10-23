@@ -1,16 +1,16 @@
 import PlayMovie from "@/containers/PlayMovie/PlayMovie";
 import axios from "@/axios.config";
 import {
-  MOVIESCHEMA,
+  MovieProps,
   Paths,
-  RESPONSEDATA as ResponseData,
-  TVSCHEMA,
+  ResponeDataSchema as ResponeDataSchema,
+  TvProps,
 } from "@/interfaces/responseSchema/utils";
 import { TYPE_PARAMS } from "@/apis";
 import { IPage, responseSchema } from "@/interfaces";
-import { DetailMovie } from "@/interfaces/responseSchema/DetailMovie";
+import DetailMovie from "@/interfaces/responseSchema/DetailMovie";
 
-export type PlayMoviePageProps = IPage<[responseSchema<MOVIESCHEMA>, DetailMovie]>;
+export type PlayMoviePageProps = IPage<[responseSchema<MovieProps>, DetailMovie]>;
 
 const index = (props: PlayMoviePageProps) => {
   return <PlayMovie {...props} />;
@@ -19,7 +19,7 @@ const index = (props: PlayMoviePageProps) => {
 export async function getStaticPaths() {
   const paths: Array<Paths> = [];
   try {
-    const detailTv: ResponseData = await axios.get(TYPE_PARAMS["discover_tv"], {
+    const detailTv: ResponeDataSchema = await axios.get(TYPE_PARAMS["discover_tv"], {
       params: {
         include_adult: false,
         include_null_first_air_dates: false,
@@ -29,21 +29,24 @@ export async function getStaticPaths() {
       },
     });
 
-    const detailMovie: ResponseData = await axios.get(TYPE_PARAMS["discover_movie"], {
-      params: {
-        include_adult: false,
-        include_video: false,
-        language: "en-US",
-        page: 1,
-        sort_by: "popularity.desc",
-      },
-    });
+    const detailMovie: ResponeDataSchema = await axios.get(
+      TYPE_PARAMS["discover_movie"],
+      {
+        params: {
+          include_adult: false,
+          include_video: false,
+          language: "en-US",
+          page: 1,
+          sort_by: "popularity.desc",
+        },
+      }
+    );
 
-    detailTv.results.map((movie: TVSCHEMA) => {
+    detailTv.results.map((movie: TvProps) => {
       paths.push({ params: { type: "tv", id: `${movie.id}` } });
     });
 
-    detailMovie.results.map((movie: MOVIESCHEMA) => {
+    detailMovie.results.map((movie: MovieProps) => {
       paths.push({ params: { type: "movie", id: `${movie.id}` } });
     });
   } catch (error) {

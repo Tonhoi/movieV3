@@ -1,11 +1,11 @@
 import { Box, Typography, styled, useTheme } from "@mui/material";
 
 import StarIcon from "../../../components/Icons/StarIcon";
-import { EPISODESCHEMA } from "@/interfaces/responseSchema/episode";
+import { EpisodeProps } from "@/interfaces/responseSchema/episode";
 
 interface InfoMovieProps {
   isDescription?: boolean;
-  data: EPISODESCHEMA;
+  data: EpisodeProps;
 }
 
 const InfoMovie = (props: InfoMovieProps) => {
