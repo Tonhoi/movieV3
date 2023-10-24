@@ -62,7 +62,7 @@ const HeadingPlayMovie = ({ episodes }: HeadingPlayMovieProps) => {
   return (
     <Container>
       <Box width={"100%"}>
-        {/* <Embeded id={id} episode={episode} season={season} type={type} height="400" /> */}
+        <Embeded id={id} episode={episode} season={season} type={type} height="400" />
 
         <Typography variant="caption" className={"reminder-text"}>
           Hãy đổi server nếu bạn cảm thấy phim load chậm
