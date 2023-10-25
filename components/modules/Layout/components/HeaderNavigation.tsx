@@ -34,7 +34,7 @@ const HeaderNavigation = ({ isActiveHeader }: { isActiveHeader: boolean }) => {
       {isMdDown && <HeaderOnMobile />}
 
       <Link href={ROUTES.home} className={"logo-on-pc"}>
-        <Image src={isDisplayLogoDark ? logo_dark : logo_light} />
+        <Image src={isDisplayLogoDark ? logo_dark.src : logo_light.src} />
       </Link>
 
       <Box component={"ul"} className="nav-list">
