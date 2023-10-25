@@ -14,10 +14,9 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "next/router";
 
 import { ROUTES } from "@/routers";
-import { Link } from "@/components";
+import { Link, FormControl as FormInput } from "@/components/common";
 import { auth } from "@/firebase/firebase-config";
 import { Login as YupLogin, LoginProps } from "@/yups/login/login";
-import { FormControl as FormInput } from "@/components";
 import { defaultValue } from "@/yups/login/defaultValue";
 import backdrop from "@/public/image/backdrop_login_register_page.jpg";
 

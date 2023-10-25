@@ -6,7 +6,7 @@ import NextNProgress from "nextjs-progressbar";
 import { Head } from "@/hocs";
 import { createEmotionCache } from "@/libs";
 import { SWR } from "@/contexts";
-import Layout from "@/components/Layout/Layout";
+import { Layout } from "@/components/modules";
 import ThemeProvider from "@/contexts/ThemeProvider/ThemeProvider";
 import "@/styles/globals.css";
 

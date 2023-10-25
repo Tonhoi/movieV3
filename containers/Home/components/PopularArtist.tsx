@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import { Grid } from "@mui/material";
 
-import { ArtistCardItem } from "@/components";
+import { ArtistCardItem } from "@/components/common";
 import HeadingMovie from "./HeadingMovie";
 import { ArtistListProps } from "@/interfaces/responseSchema/Artist";
 

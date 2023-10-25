@@ -3,10 +3,7 @@ import { Box, Typography, styled } from "@mui/material";
 import { useRouter } from "next/router";
 
 import InfoMovie from "@/containers/PlayMovie/components/InfoMovie";
-import ArrowLeft from "@/components/Slick/ArrowLeft";
-import ArrowRight from "@/components/Slick/ArrowRight";
-import SlickSlider from "@/components/Slick/SlickSlider";
-import { CardItem } from "@/components";
+import { CardItem, ArrowLeft, ArrowRight, SlickSlider } from "@/components/common";
 import { MovieProps } from "@/interfaces/responseSchema/utils";
 import DetailMovie from "@/interfaces/responseSchema/DetailMovie";
 import { EpisodeProps } from "@/interfaces/responseSchema/episode";

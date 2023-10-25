@@ -3,7 +3,7 @@ import { Fragment } from "react";
 import { HomePageProps } from "@/pages";
 import { Container as MuiContainer } from "@mui/material";
 
-import { Slider } from "@/components";
+import { Slider } from "@/components/modules";
 import {
   TrendingMovie,
   DailyWatchingMovie,

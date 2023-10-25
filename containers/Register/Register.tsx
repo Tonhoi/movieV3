@@ -2,12 +2,11 @@ import { Box, Button, Stack, Typography, styled } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { toast, ToastContainer } from "react-toastify";
-
-import { ROUTES } from "@/routers";
-import { Link } from "@/components";
 import { User, updateProfile } from "firebase/auth";
+
 import { auth } from "@/firebase/firebase-config";
-import { FormControl as FormInput } from "@/components";
+import { ROUTES } from "@/routers";
+import { Link, FormControl as FormInput } from "@/components/common";
 import { defaultValue } from "@/yups/register/defaultValue";
 import { Register as YupRegister, RegisterProps } from "@/yups/register/register";
 

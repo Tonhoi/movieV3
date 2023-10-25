@@ -19,6 +19,9 @@ export { default as MenuIcon } from "./Icons/MenuIcon";
 export { default as SettingIcon } from "./Icons/SettingIcon";
 export { default as AlertIcon } from "./Icons/AlertIcon";
 export { default as PhoneIcon } from "./Icons/PhoneIcon";
+export { default as ConstrastOutline } from "./Icons/ConstrastOutline";
+export { default as LogoutIcon } from "./Icons/LogoutIcon";
+export { default as FilterIcon } from "./Icons/FilterIcon";
 
 export { default as Image } from "./Image";
 
@@ -44,20 +47,12 @@ export { default as Embeded } from "./Embeded";
 export { default as Pagination } from "./Pagination";
 export { default as Loading } from "./Loading";
 
-// layout
-
-export { default as Header } from "./Layout/Header";
-export { default as Footer } from "./Layout/Footer";
-export { default as Slider } from "./Layout/Components/Slider/Slider";
-
-// start header import
-export { default as HeaderAction } from "./Layout/Components/HeaderAction/HeaderAction";
-export { default as HeaderOnMobile } from "./Layout/Components/HeaderOnMobile/HeaderOnMobile";
-export { default as HeaderSearch } from "./Layout/Components/HeaderSearch/HeaderSearch";
-export { default as HeaderNavigation } from "./Layout/Components/HeaderNavigation";
-
-// end header import
-
 // start form import
 export { default as FormControl } from "./FormControl/FormControl";
 export { default as FormControlBase } from "./FormControl/FormControlBase";
+
+// slick slider
+
+export { default as SlickSlider } from "./Slick/SlickSlider";
+export { default as ArrowLeft } from "./Slick/ArrowLeft";
+export { default as ArrowRight } from "./Slick/ArrowRight";

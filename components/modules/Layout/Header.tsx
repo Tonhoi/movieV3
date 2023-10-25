@@ -3,7 +3,7 @@ import { Box, Container as MuiContainer, Grid, styled } from "@mui/material";
 import { throttle } from "lodash";
 import { useRouter } from "next/router";
 
-import { HeaderNavigation, HeaderAction, HeaderSearch } from "@/components";
+import { HeaderNavigation, HeaderAction, HeaderSearch } from "@/components/modules";
 
 const Header = () => {
   const [isBackgroundHeader, setIsBackgroundHeader] = useState<boolean>(false);

@@ -2,7 +2,7 @@ import { ReactNode, useCallback, useMemo, useState } from "react";
 import { Box, Button, Grid, Typography, styled } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
 
-import { CardItem } from "@/components";
+import { CardItem } from "@/components/common";
 import { MoviesForActorProps } from "@/interfaces/responseSchema/MovieCredit";
 
 const maxItems = 15;

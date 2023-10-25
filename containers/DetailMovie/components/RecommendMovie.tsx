@@ -1,6 +1,6 @@
 import { Grid } from "@mui/material";
 
-import { CardItem } from "@/components";
+import { CardItem } from "@/components/common";
 import { MovieProps, TvProps } from "@/interfaces/responseSchema/utils";
 
 interface RecommendMovieProps {

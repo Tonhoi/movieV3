@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { Box, Stack, Typography, styled } from "@mui/material";
 
-import { Image } from "@/components";
+import { Image } from "@/components/common";
 import usePoster from "@/hooks/usePoster";
 
 interface SearchItemProps {

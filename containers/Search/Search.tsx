@@ -3,14 +3,14 @@ import { Box, styled, Container as MuiContainer } from "@mui/material";
 import useSWR from "swr";
 import { get } from "lodash";
 
-import Pagination from "@/components/Pagination";
-import SearchItem from "./components/SearchItem";
+import { Pagination } from "@/components/common";
 import { useParams } from "@/hooks";
 import { transformUrl } from "@/libs";
-import Skeleton from "./components/Skeleton";
 import { MovieProps, TvProps } from "@/interfaces/responseSchema/utils";
 import { IPage, responseSchema } from "@/interfaces";
 import { TYPE_PARAMS } from "@/apis";
+import SearchItem from "./components/SearchItem";
+import Skeleton from "./components/Skeleton";
 import HeadingSearch from "./components/HeadingSearch";
 
 export type SearchPageProps = IPage<[responseSchema<MovieProps & TvProps>]>;

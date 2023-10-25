@@ -1,7 +1,7 @@
 import { Box, Stack, Typography, styled } from "@mui/material";
 import { useRouter } from "next/router";
 
-import { CardItemBase, StarIcon } from "@/components";
+import { CardItemBase, StarIcon } from "@/components/common";
 import useThumbnail from "@/hooks/useThumbnail";
 
 interface UpcomingCardItemProps {

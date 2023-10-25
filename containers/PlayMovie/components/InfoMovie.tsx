@@ -1,6 +1,6 @@
 import { Box, Typography, styled, useTheme } from "@mui/material";
 
-import StarIcon from "../../../components/Icons/StarIcon";
+import StarIcon from "../../../components/common/Icons/StarIcon";
 import { EpisodeProps } from "@/interfaces/responseSchema/episode";
 
 interface InfoMovieProps {

@@ -1,6 +1,6 @@
 import { Box, styled } from "@mui/material";
 
-import { TopTrendingCarditem } from "@/components";
+import { TopTrendingCarditem } from "@/components/common";
 import { MovieProps } from "@/interfaces/responseSchema/utils";
 import HeadingMovie from "./HeadingMovie";
 

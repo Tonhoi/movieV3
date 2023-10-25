@@ -3,11 +3,11 @@ import { v4 as uuidv4 } from "uuid";
 import { useRouter } from "next/router";
 import { signOut } from "firebase/auth";
 import { auth } from "@/firebase/firebase-config";
-import { Box, BoxProps, Button, Typography, styled } from "@mui/material";
+import { Box, Button, Typography, styled } from "@mui/material";
 
-import { Link, SaveV2Icon, UserIcon } from "@/components";
+import { Link, SaveV2Icon, UserIcon } from "@/components/common";
 import { ROUTES } from "@/routers";
-import LogoutIcon from "./Icons/LogoutIcon";
+import LogoutIcon from "../../common/Icons/LogoutIcon";
 
 const SIBAR_ITEMS = [
   {

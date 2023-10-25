@@ -1,7 +1,7 @@
 import { Box, BoxProps, Typography, styled } from "@mui/material";
 import { useRouter } from "next/router";
 
-import { CardItemBase, Image, Link } from "@/components";
+import { CardItemBase, Image, Link } from "@/components/common";
 import usePoster from "@/hooks/usePoster";
 
 interface EpisodeCardItemProps extends BoxProps {

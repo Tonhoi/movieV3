@@ -5,8 +5,8 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import "react-toastify/dist/ReactToastify.css";
 
 import Login from "@/containers/Login/Login";
-import { Header, Footer } from "@/components";
-import LoadingScreen from "../LoadingScreen";
+import { Header, Footer } from "@/components/modules";
+import LoadingScreen from "../../common/LoadingScreen";
 import Register from "@/containers/Register/Register";
 import { auth } from "@/firebase/firebase-config";
 

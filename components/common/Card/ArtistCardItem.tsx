@@ -1,7 +1,7 @@
 import { Box, Typography, styled } from "@mui/material";
 import { useRouter } from "next/router";
 
-import { CardItemBase } from "@/components";
+import { CardItemBase } from "@/components/common";
 import useThumbnail from "@/hooks/useThumbnail";
 import imageError from "@/public/image/image_not_available.png";
 import { ArtistListProps } from "@/interfaces/responseSchema/Artist";

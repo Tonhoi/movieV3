@@ -1,7 +1,7 @@
 import { memo } from "react";
 import { Stack, Typography, styled, Container as MuiContainer, Box } from "@mui/material";
 
-import { FacebookIcon, LinkedinIcon, TwitterIcon } from "@/components";
+import { FacebookIcon, LinkedinIcon, TwitterIcon } from "@/components/common";
 
 const Footer = () => {
   return (

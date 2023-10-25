@@ -2,8 +2,8 @@ import { memo, useMemo, useRef } from "react";
 import { Box, Container as MuiContainer, Stack, Typography, styled } from "@mui/material";
 import useSWR from "swr";
 
-import SlickSlider from "@/components/Slick/SlickSlider";
-import { CardItem2 } from "@/components";
+import SlickSlider from "@/components/common/Slick/SlickSlider";
+import { CardItem2 } from "@/components/common";
 import { MovieProps } from "@/interfaces/responseSchema/utils";
 import { transformUrl } from "@/libs";
 import { TYPE_PARAMS } from "@/apis";

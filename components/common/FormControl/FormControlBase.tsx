@@ -1,4 +1,3 @@
-import React from "react";
 import { Control, Path, FieldValues, useController } from "react-hook-form";
 
 import {
@@ -12,7 +11,7 @@ import {
 } from "@mui/material";
 
 import FormHelperText from "./FormHelperText";
-import CloseCircleFilled from "@/components/Icons/CloseCircleFilled";
+import { CloseCircleFilled } from "@/components/common";
 
 export type AugementFormControlBaseProps<T extends FieldValues> = {
   label?: string;

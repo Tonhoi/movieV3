@@ -1,7 +1,7 @@
 import { Box, Stack, Typography, styled, useTheme } from "@mui/material";
 import { useRouter } from "next/router";
 
-import { Link } from "@/components";
+import { Link } from "@/components/common";
 import { ROUTES } from "@/routers";
 
 interface HeadingSearchProps {

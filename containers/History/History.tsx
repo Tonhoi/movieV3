@@ -1,7 +1,7 @@
 import { useMedia } from "@/hooks";
 import { Box, styled, Container as MuiContainer, Grid } from "@mui/material";
 
-import Sidebar from "../../components/Sidebar";
+import Sidebar from "../../components/modules/Layout/Sidebar";
 
 const History = () => {
   const { isMdDown } = useMedia();

@@ -8,7 +8,7 @@ import {
   Comment,
   HeadingPlayMovie,
 } from "@/containers/PlayMovie/components";
-import { Loading } from "@/components";
+import { Loading } from "@/components/common";
 import { PlayMoviePageProps } from "@/pages/play/[type]/[id]";
 
 const PlayMovie = ({ initData }: PlayMoviePageProps) => {

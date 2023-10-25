@@ -5,8 +5,9 @@ import { User, signOut } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Hamburger from "hamburger-react";
 
-import { Image, Link, Overlay } from "@/components";
-import { NAVITEM, SETTING_THEME_TITLE } from "@/constants";
+import { Image, Link, Overlay } from "@/components/common";
+import { NAVITEM } from "@/components/modules";
+import { SETTING_THEME_TITLE } from "@/constants";
 import { useToggle } from "@/hooks";
 import { ROUTES } from "@/routers";
 

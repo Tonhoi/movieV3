@@ -1,7 +1,7 @@
 import { MouseEventHandler } from "react";
 import { Box, Button, Divider, SvgIconProps, Typography, styled } from "@mui/material";
 
-import { Link } from "@/components";
+import { Link } from "@/components/common";
 
 interface SettingItemProps {
   title: string;

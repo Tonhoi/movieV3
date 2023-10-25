@@ -1,9 +1,10 @@
 import { SyntheticEvent, useState } from "react";
 import { get } from "lodash";
 import { Box, Tab, styled, Container as MuiContainer } from "@mui/material";
+import { useRouter } from "next/router";
 
 import { useToggle } from "@/hooks";
-import { TabPanel, Tabs } from "@/components";
+import { TabPanel, Tabs, Loading } from "@/components/common";
 import { DetailPageProps } from "@/pages/detail/[type]/[id]";
 import {
   IntroMovie,
@@ -11,8 +12,6 @@ import {
   TrailerMovie,
   UserReview,
 } from "@/containers/DetailMovie/components";
-import { useRouter } from "next/router";
-import Loading from "@/components/Loading";
 
 const DetailMovie = ({ initData }: DetailPageProps) => {
   const dataDetailMovie = get(initData, "0");

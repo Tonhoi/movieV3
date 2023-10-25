@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { Box, Stack, Typography, styled } from "@mui/material";
 
-import { Link, MenuIcon, EpisodeCardItem, MenuV2Icon, Embeded } from "@/components";
+import { Link, MenuIcon, EpisodeCardItem, MenuV2Icon, Embeded } from "@/components/common";
 import { useToggle, useParams } from "@/hooks";
 import { EpisodeProps } from "@/interfaces/responseSchema/episode";
 

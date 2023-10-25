@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import { Grid } from "@mui/material";
 
-import { UpcomingCardItem } from "@/components";
+import { UpcomingCardItem } from "@/components/common";
 import { MovieProps } from "@/interfaces/responseSchema/utils";
 import HeadingMovie from "./HeadingMovie";
 

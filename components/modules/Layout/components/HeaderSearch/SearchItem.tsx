@@ -1,6 +1,6 @@
 import { styled, Stack, Typography, StackProps, Box } from "@mui/material";
 
-import { Image } from "@/components";
+import { Image } from "@/components/common";
 import usePoster from "@/hooks/usePoster";
 import { MovieProps, TvProps } from "@/interfaces/responseSchema/utils";
 import { useRouter } from "next/router";

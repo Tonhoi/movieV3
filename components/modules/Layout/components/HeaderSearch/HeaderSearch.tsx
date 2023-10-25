@@ -25,7 +25,7 @@ import { transformUrl } from "@/libs";
 import useThrottle from "@/hooks/useThrottle";
 import SearchItem, { media_type } from "./SearchItem";
 import { MovieProps, TvProps } from "@/interfaces/responseSchema/utils";
-import { Link } from "@/components";
+import { Link } from "@/components/common";
 
 const HeaderSearch = () => {
   const [ref, { width }] = useMeasure();

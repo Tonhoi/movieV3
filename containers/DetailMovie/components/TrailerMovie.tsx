@@ -1,8 +1,8 @@
+import { memo } from "react";
 import { Box, styled, Skeleton } from "@mui/material";
 import { useRouter } from "next/router";
 
-import { Embeded, Overlay } from "@/components";
-import { memo } from "react";
+import { Embeded, Overlay } from "@/components/common";
 
 interface TrailerMovieProps {
   isOpenTrailerMovie: boolean;

@@ -2,7 +2,7 @@ import { memo, useMemo } from "react";
 import { useRouter } from "next/router";
 import { styled, Box, Typography, Stack, Button } from "@mui/material";
 
-import { Image, TvIcon, PlayV2Icon, SaveV2Icon, Link } from "@/components";
+import { Image, TvIcon, PlayV2Icon, SaveV2Icon, Link } from "@/components/common";
 import usePoster from "@/hooks/usePoster";
 import useThumbnail from "@/hooks/useThumbnail";
 import {

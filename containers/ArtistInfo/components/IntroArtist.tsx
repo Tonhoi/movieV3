@@ -1,7 +1,7 @@
 import { memo } from "react";
 import { Box, Button, Stack, Typography, styled } from "@mui/material";
 
-import { ArrowRightIcon, Image } from "@/components";
+import { ArrowRightIcon, Image } from "@/components/common";
 import { useToggle } from "@/hooks";
 import usePoster from "@/hooks/usePoster";
 import { ArtistDetailProps } from "@/interfaces/responseSchema/Artist";
