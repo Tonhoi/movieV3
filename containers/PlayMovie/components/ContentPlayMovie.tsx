@@ -100,11 +100,11 @@ const ContentPlayMovie = (props: ContentPlayMovieProps) => {
     <Container>
       <Box className={"season-wrapper"}>{renderSeason}</Box>
 
-      <Typography variant={"h3"} className={"title"}>
-        {dataDetailMovie.title ?? dataDetailMovie.name}
-      </Typography>
-
       <Box className={"content"}>
+        <Typography variant={"h3"} className={"title"}>
+          {dataDetailMovie.title ?? dataDetailMovie.name}
+        </Typography>
+
         <InfoMovie data={dataEpisode} />
 
         <Box className={"recommended-movie"}>

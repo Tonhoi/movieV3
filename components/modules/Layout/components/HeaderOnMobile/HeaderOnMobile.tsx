@@ -11,7 +11,7 @@ import { SETTING_THEME_TITLE } from "@/constants";
 import { useToggle } from "@/hooks";
 import { ROUTES } from "@/routers";
 
-import avatar from "@/public/image/avatar.png";
+import avatar from "@/public/image/avatar2.png";
 import bgHeaderMobile from "@/public/image/backgroundAvatar.png";
 import { useDarkModeContext } from "@/contexts/ThemeProvider/ThemeProvider";
 
@@ -89,7 +89,7 @@ const HeaderOnMobile = () => {
           </Box>
 
           <Typography variant={"body2"} className={"heading-title"}>
-            {user ? user?.displayName : "Login/Signup"}
+            {user ? user?.displayName : "Đăng nhập/Đăng ký"}
           </Typography>
         </Button>
 

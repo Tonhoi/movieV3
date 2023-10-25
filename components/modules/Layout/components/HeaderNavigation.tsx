@@ -6,9 +6,9 @@ import { useMedia } from "@/hooks";
 import { Link, Image } from "@/components/common";
 import HeaderOnMobile from "./HeaderOnMobile/HeaderOnMobile";
 import { useDarkModeContext } from "@/contexts/ThemeProvider/ThemeProvider";
+import { MENU_TEXT } from "@/constants";
 import logo_light from "@/public/image/logo_light.png";
 import logo_dark from "@/public/image/logo_dark.png";
-import { MENU_TEXT } from "@/constants";
 
 const NAVITEM = [
   {

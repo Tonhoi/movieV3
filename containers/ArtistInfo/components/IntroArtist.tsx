@@ -31,7 +31,7 @@ const IntroArtist = ({ data }: IntroArtistProps) => {
       </Box>
 
       <Stack className={"intro-content"}>
-        <Typography variant={"h4"} className={"intro-name"}>
+        <Typography variant={"h1"} className={"intro-name"}>
           {name}
         </Typography>
 
@@ -102,6 +102,8 @@ const Container = styled(Stack, {
       ["& .intro-name"]: {
         fontWeight: 500,
         lineHeight: "26px",
+        fontSize: 32,
+
         [theme.breakpoints.down("md")]: {
           fontSize: "26px",
           margin: "0 auto",

@@ -63,7 +63,7 @@ const HeadingDetailMovie = (props: HeadingDetailMovieProps) => {
       </Box>
 
       <Box className="content">
-        <Typography className={"title"} variant={"subtitle5"}>
+        <Typography className={"title"} variant={"subtitle5"} component={"h1"}>
           {title ?? original_title ?? name}
         </Typography>
 

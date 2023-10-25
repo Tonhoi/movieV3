@@ -13,8 +13,6 @@ export { default as LinkedinIcon } from "./Icons/LinkedinIcon";
 export { default as PlayV2Icon } from "./Icons/PlayV2Icon";
 export { default as SaveV2Icon } from "./Icons/SaveV2Icon";
 export { default as MenuV2Icon } from "./Icons/MenuV2Icon";
-export { default as HeartIcon } from "./Icons/HeartIcon";
-export { default as ChatIcon } from "./Icons/ChatIcon";
 export { default as MenuIcon } from "./Icons/MenuIcon";
 export { default as SettingIcon } from "./Icons/SettingIcon";
 export { default as AlertIcon } from "./Icons/AlertIcon";
