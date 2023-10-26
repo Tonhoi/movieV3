@@ -8,7 +8,7 @@ import HeaderOnMobile from "./HeaderOnMobile/HeaderOnMobile";
 import { useDarkModeContext } from "@/contexts/ThemeProvider/ThemeProvider";
 import { MENU_TEXT } from "@/constants";
 import logo_light from "@/public/image/logo_light.png";
-import logo_dark from "@/public/image/logo_dark.png";
+import logo_dark from "@/public/image/dark_logo.png";
 
 const NAVITEM = [
   {
