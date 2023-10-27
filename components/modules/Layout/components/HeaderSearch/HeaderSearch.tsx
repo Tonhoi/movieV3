@@ -123,7 +123,7 @@ const HeaderSearch = () => {
         )}
       >
         <TextField
-          placeholder="Search here"
+          placeholder="Tìm kiếm phim ..."
           value={searchValue}
           autoComplete="off"
           onChange={handleChangeInputValue}

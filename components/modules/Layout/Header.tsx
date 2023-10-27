@@ -1,6 +1,5 @@
-import { memo, useEffect, useState } from "react";
+import { memo } from "react";
 import { Box, Container as MuiContainer, Grid, styled } from "@mui/material";
-import { throttle } from "lodash";
 import { useRouter } from "next/router";
 
 import {
@@ -12,29 +11,12 @@ import {
 import { useMedia, useToggle } from "@/hooks";
 import { Overlay } from "@/components/common";
 
-const Header = () => {
-  const [isBackgroundHeader, setIsBackgroundHeader] = useState<boolean>(false);
+const Header = ({ hasScrolledPastHeader }: { hasScrolledPastHeader: boolean }) => {
   const { asPath } = useRouter();
   const { isMdDown } = useMedia();
 
-  useEffect(() => {
-    const handleScroll = throttle((event) => {
-      if (window.scrollY > 200 && !isBackgroundHeader) {
-        setIsBackgroundHeader(true);
-      } else if (window.scrollY < 200 && isBackgroundHeader) {
-        setIsBackgroundHeader(false);
-      }
-    }, 250);
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [isBackgroundHeader]);
-
   const isActiveHeader =
-    isBackgroundHeader ||
+    hasScrolledPastHeader ||
     asPath.startsWith("/play") ||
     asPath.startsWith("/me") ||
     asPath.startsWith("/artist-info");

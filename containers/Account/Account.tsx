@@ -1,5 +1,5 @@
 import { useMedia } from "@/hooks";
-import { Box, styled, Container as MuiContainer, Grid, useTheme } from "@mui/material";
+import { Box, styled, Container as MuiContainer, Grid } from "@mui/material";
 
 import Sidebar from "../../components/modules/Layout/Sidebar";
 

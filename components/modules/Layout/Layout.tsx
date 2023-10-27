@@ -9,6 +9,9 @@ import { Header, Footer } from "@/components/modules";
 import LoadingScreen from "../../common/LoadingScreen";
 import Register from "@/containers/Register/Register";
 import { auth } from "@/firebase/firebase-config";
+import BackToTop from "./BackToTop";
+import { throttle } from "lodash";
+import { useToggle } from "@/hooks";
 
 interface layoutProps {
   children: ReactNode;
@@ -16,8 +19,9 @@ interface layoutProps {
 
 const Layout = ({ children }: layoutProps) => {
   const { asPath } = useRouter();
-  const [fadeOut, setFadeOut] = useState(false);
+  const [hasScrolledPastHeader, setHasScrolledPastHeader] = useState<boolean>(false);
   const [user] = useAuthState(auth);
+  const { on: fadeOut, toggle: setFadeOut } = useToggle();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -36,6 +40,22 @@ const Layout = ({ children }: layoutProps) => {
     });
   }, [asPath]);
 
+  useEffect(() => {
+    const handleScroll = throttle((event) => {
+      if (window.scrollY > 200 && !hasScrolledPastHeader) {
+        setHasScrolledPastHeader(true);
+      } else if (window.scrollY < 200 && hasScrolledPastHeader) {
+        setHasScrolledPastHeader(false);
+      }
+    }, 250);
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [hasScrolledPastHeader]);
+
   if (asPath === "/login") return <Login />;
   if (asPath.includes("me") && !user) return <Login />;
   if (asPath === "/register") return <Register />;
@@ -44,11 +64,13 @@ const Layout = ({ children }: layoutProps) => {
     <Container>
       <LoadingScreen fadeOut={fadeOut} />
 
-      <Header />
+      <Header hasScrolledPastHeader={hasScrolledPastHeader} />
 
       {children}
 
       <Footer />
+
+      <BackToTop hasScrolledPastHeader={hasScrolledPastHeader} />
     </Container>
   );
 };
