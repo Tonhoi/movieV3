@@ -2,12 +2,12 @@ import { GetStaticProps } from "next";
 import axios from "@/axios.config";
 import { IPage, responseSchema } from "@/interfaces";
 import { GenreProps, TvProps } from "@/interfaces/responseSchema/utils";
-import Movie from "@/containers/Movie";
+import MovieList from "@/containers/MovieList";
 
 export type TvPageProps = IPage<[responseSchema<TvProps>, responseSchema<GenreProps>]>;
 
 const tv = (props: TvPageProps) => {
-  return <Movie {...props} />;
+  return <MovieList {...props} />;
 };
 
 export const getStaticProps: GetStaticProps = async () => {

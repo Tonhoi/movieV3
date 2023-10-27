@@ -1,4 +1,4 @@
-import { MouseEvent, useCallback } from "react";
+import { useMemo } from "react";
 import { Box, Stack, Tooltip, Typography, styled } from "@mui/material";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/firebase/firebase-config";
@@ -15,30 +15,30 @@ import SettingItem from "./SettingItem";
 const HeaderAction = () => {
   const [user] = useAuthState(auth);
 
-  const { setIsDarkTheme, isDarkTheme } = useDarkModeContext();
+  const { isDarkTheme, handleChangeTheme } = useDarkModeContext();
 
-  const handleToggleTheme = useCallback(
-    (e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>, type: string) => {
-      if (type == "dark_mode") {
-        setIsDarkTheme((prev: boolean) => !prev);
+  const renderSettingItem = useMemo(() => {
+    return SETTING_ITEMS.map((el) => {
+      let checkIsTypeDarkMode = el.title;
 
-        const check = !isDarkTheme;
-
-        localStorage.setItem("isDarkTheme", `${check}`);
-
-        const btnTextElement = e.currentTarget.querySelector(".title");
-
-        if (!btnTextElement) return null;
-
-        if (isDarkTheme) {
-          btnTextElement.textContent = SETTING_THEME_TITLE.dark;
-        } else {
-          btnTextElement.textContent = SETTING_THEME_TITLE.light;
-        }
+      if (el.type === "dark_mode" && isDarkTheme) {
+        checkIsTypeDarkMode = SETTING_THEME_TITLE.light;
+      } else if (el.type === "dark_mode" && !isDarkTheme) {
+        checkIsTypeDarkMode = SETTING_THEME_TITLE.dark;
       }
-    },
-    [isDarkTheme]
-  );
+
+      return (
+        <SettingItem
+          key={el.id}
+          startIcon={el.start_icon}
+          title={checkIsTypeDarkMode}
+          separate={el.separate}
+          href={el.href}
+          onClick={el.type == "dark_mode" ? (e) => handleChangeTheme(e) : () => {}}
+        />
+      );
+    });
+  }, [isDarkTheme]);
 
   return (
     <Container>
@@ -65,18 +65,7 @@ const HeaderAction = () => {
           </Tooltip>
         }
       >
-        <Box className={"setting-wrapper"}>
-          {SETTING_ITEMS.map((el) => (
-            <SettingItem
-              key={el.id}
-              startIcon={el.start_icon}
-              title={el.title}
-              separate={el.separate}
-              href={el.href}
-              onClick={(e) => handleToggleTheme(e, el.type as string)}
-            />
-          ))}
-        </Box>
+        <Box className={"setting-wrapper"}>{renderSettingItem}</Box>
       </PopOverWrapper>
 
       <Link href={user ? ROUTES.account : ROUTES.login} className={"avatar"}>

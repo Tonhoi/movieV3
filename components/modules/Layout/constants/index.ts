@@ -16,9 +16,11 @@ export const SETTING_ITEMS = [
   {
     id: uuidv4(),
     title:
-      typeof window !== "undefined" && JSON.parse(localStorage.getItem("theme") as string)
+      typeof window !== "undefined" &&
+      JSON.parse(localStorage.getItem("isDarkTheme") as string)
         ? SETTING_THEME_TITLE.light
         : SETTING_THEME_TITLE.dark,
+
     start_icon: ConstrastOutline,
     type: "dark_mode",
     separate: true,
@@ -41,11 +43,13 @@ export const SETTING_ITEMS = [
 
 export const NAVITEM = [
   {
+    id: uuidv4(),
     start_icon: FilmIcon,
     href: ROUTES.movie,
     title: MENU_TEXT.movie,
   },
   {
+    id: uuidv4(),
     start_icon: TvIcon,
     href: ROUTES.tv,
     title: MENU_TEXT.tv,
@@ -55,12 +59,14 @@ export const NAVITEM = [
   ...SETTING_ITEMS,
 
   {
+    id: uuidv4(),
     start_icon: UserIcon,
     href: ROUTES.account,
     title: "Trang cá nhân",
   },
 
   {
+    id: uuidv4(),
     start_icon: LogoutIcon,
     title: "Đăng xuất",
     is_login_button: true,

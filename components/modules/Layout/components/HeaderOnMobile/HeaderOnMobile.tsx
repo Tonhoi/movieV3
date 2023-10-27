@@ -1,30 +1,30 @@
-import { Fragment, MouseEvent, useCallback } from "react";
-import { Box, Button, Divider, Typography, styled, useTheme } from "@mui/material";
+import { MouseEvent, memo, useCallback, useMemo } from "react";
+import { Box, Button, Typography, styled } from "@mui/material";
 import { auth } from "@/firebase/firebase-config";
-import { User, signOut } from "firebase/auth";
+import { signOut } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
-import Hamburger from "hamburger-react";
+import { useRouter } from "next/router";
 
-import { Image, Link, Overlay } from "@/components/common";
+import { Image, Link } from "@/components/common";
 import { NAVITEM } from "@/components/modules";
 import { SETTING_THEME_TITLE } from "@/constants";
-import { useToggle } from "@/hooks";
 import { ROUTES } from "@/routers";
 
 import avatar from "@/public/image/avatar2.png";
 import bgHeaderMobile from "@/public/image/backgroundAvatar.png";
 import { useDarkModeContext } from "@/contexts/ThemeProvider/ThemeProvider";
 
-const HeaderOnMobile = () => {
-  const theme = useTheme();
-  const [user] = useAuthState(auth);
-  const { setIsDarkTheme, isDarkTheme } = useDarkModeContext();
+interface HeaderOnMobileProps {
+  handleCloseHeaderMobile: () => void;
+  isOpenHeaderMobile: boolean;
+}
 
-  const {
-    on: isOpenHeaderMobile,
-    toggleOff: handleCloseHeaderMobile,
-    toggle: toggleHeaderMobile,
-  } = useToggle();
+const HeaderOnMobile = (props: HeaderOnMobileProps) => {
+  const { handleCloseHeaderMobile, isOpenHeaderMobile } = props;
+
+  const [user] = useAuthState(auth);
+  const { isDarkTheme, handleChangeTheme } = useDarkModeContext();
+  const { asPath } = useRouter();
 
   const handleLogoutAccount = () => {
     signOut(auth);
@@ -32,101 +32,68 @@ const HeaderOnMobile = () => {
   };
 
   const handleClickNavItem = useCallback(
-    (
-      e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>,
-      user: User | null | undefined,
-      is_login_button: boolean,
-      type: string
-    ) => {
+    (e: MouseEvent<HTMLDivElement>, is_login_button: boolean, href: string) => {
       if (user && is_login_button) return handleLogoutAccount();
+      if (href) return handleCloseHeaderMobile();
 
-      if (type == "dark_mode") {
-        setIsDarkTheme((prev: boolean) => !prev);
-
-        const check = !isDarkTheme;
-
-        localStorage.setItem("isDarkTheme", `${check}`);
-
-        const btnTextElement = e.currentTarget.querySelector(".nav-title");
-
-        if (!btnTextElement) return null;
-
-        if (isDarkTheme) {
-          btnTextElement.textContent = SETTING_THEME_TITLE.dark;
-        } else {
-          btnTextElement.textContent = SETTING_THEME_TITLE.light;
-        }
-      }
+      handleChangeTheme(e);
 
       handleCloseHeaderMobile();
     },
-    [isDarkTheme]
+    [isDarkTheme, user]
   );
 
-  return (
-    <Fragment>
-      <Hamburger
-        toggled={isOpenHeaderMobile}
-        toggle={toggleHeaderMobile}
-        color={theme.palette.common.black}
-      />
+  const renderNavItem = useMemo(() => {
+    return NAVITEM.map((el: any) => {
+      let checkIsTypeDarkMode = el.title;
 
-      <Overlay
-        backgroundColor="dark_50"
-        onClick={handleCloseHeaderMobile}
-        className={isOpenHeaderMobile ? "active" : ""}
-      />
+      if (el.type === "dark_mode" && isDarkTheme) {
+        checkIsTypeDarkMode = SETTING_THEME_TITLE.light;
+      } else if (el.type === "dark_mode" && !isDarkTheme) {
+        checkIsTypeDarkMode = SETTING_THEME_TITLE.dark;
+      }
 
-      <Container className={isOpenHeaderMobile ? "active" : ""}>
+      if (!user && (el.href === ROUTES.account || el.is_login_button)) return null;
+
+      return (
         <Button
-          LinkComponent={user ? Box : Link}
-          href={ROUTES.login}
+          key={el.id}
+          href={el.href}
+          LinkComponent={el.href ? Link : Button}
+          startIcon={el.start_icon && <el.start_icon className="icon" />}
           disableRipple
-          className={"heading"}
+          onClick={(e) => handleClickNavItem(e as any, el.is_login_button, el.href)}
+          className={`nav-mobile-list ${asPath.includes(el.href) ? "active" : ""} ${
+            el.divider ? "divider" : ""
+          }`}
         >
-          <Box className={"logo-on-mobile"}>
-            <Image src={avatar.src} />
-          </Box>
-
-          <Typography variant={"body2"} className={"heading-title"}>
-            {user ? user?.displayName : "Đăng nhập/Đăng ký"}
+          <Typography variant={"body1"} className={`title`}>
+            {checkIsTypeDarkMode}
           </Typography>
         </Button>
+      );
+    });
+  }, [isDarkTheme, user, asPath]);
 
-        {NAVITEM.map((item: any, idx: number) => {
-          const {
-            href,
-            start_icon: StartIcon,
-            title,
-            divider,
-            is_login_button,
-            type,
-          } = item;
+  return (
+    <Container className={isOpenHeaderMobile ? "active" : ""}>
+      <Button
+        LinkComponent={user ? Box : Link}
+        href={ROUTES.login}
+        disableRipple
+        className={"heading"}
+      >
+        <Box className={"logo-on-mobile"}>
+          <Image src={avatar.src} />
+        </Box>
 
-          if (!user && (href === ROUTES.account || is_login_button)) return null;
-          return (
-            <Box key={idx}>
-              <Button
-                href={href}
-                LinkComponent={href ? Link : Button}
-                startIcon={StartIcon && <StartIcon className="icon" />}
-                disableRipple
-                className={"nav-mobile-list"}
-                onClick={(e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) =>
-                  handleClickNavItem(e, user, is_login_button, type)
-                }
-              >
-                <Typography variant={"body1"} className={"nav-title"}>
-                  {title}
-                </Typography>
-              </Button>
+        <Typography variant={"body2"} className={"heading-title"}>
+          {user ? user?.displayName : "Đăng nhập/Đăng ký"}
+        </Typography>
+      </Button>
 
-              {divider && <Divider light className={"divider"} />}
-            </Box>
-          );
-        })}
-      </Container>
-    </Fragment>
+      {renderNavItem}
+    </Container>
   );
 };
 
@@ -161,7 +128,7 @@ const Container = styled(Box)(({ theme }) => {
       textTransform: "capitalize",
       padding: "22px 24px",
       justifyContent: "start",
-      color: theme.palette.common.white,
+      color: "#fff",
 
       ["&:after"]: {
         content: '""',
@@ -185,28 +152,23 @@ const Container = styled(Box)(({ theme }) => {
           borderRadius: "50%",
         },
       },
-
-      ["& .heading-title"]: {
-        color: "#fff",
-      },
-    },
-
-    ["& .divider"]: {
-      marginTop: theme.spacing(2),
-      marginBottom: theme.spacing(2),
-      height: 1,
-      backgroundColor: "#6d7485",
     },
 
     ["& .nav-mobile-list"]: {
+      position: "relative",
       padding: "12px 12px 12px 24px",
       textTransform: "capitalize",
       justifyContent: "start",
       color: theme.palette.text_color.main,
       width: "100%",
 
-      ["& .MuiButton-endIcon"]: {
-        marginLeft: "auto",
+      ["&.divider"]: {
+        borderBottom: "1px solid #6d7485",
+        marginBottom: theme.spacing(1),
+      },
+
+      ["&.active :where(.title, .MuiButton-startIcon)"]: {
+        color: "#1cc749",
       },
 
       ["&:hover"]: {
@@ -217,4 +179,4 @@ const Container = styled(Box)(({ theme }) => {
   };
 });
 
-export default HeaderOnMobile;
+export default memo(HeaderOnMobile);

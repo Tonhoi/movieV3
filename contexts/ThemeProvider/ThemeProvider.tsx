@@ -1,5 +1,6 @@
 import {
   Dispatch,
+  MouseEvent,
   SetStateAction,
   createContext,
   useCallback,
@@ -15,9 +16,10 @@ import {
 } from "@mui/material";
 import { darkTheme } from "./DarkTheme";
 import { lightTheme } from "./LightTheme";
+import { SETTING_THEME_TITLE } from "@/constants";
 
 interface DarkModeContextProps {
-  handleChangeTheme: (newmode: boolean) => void;
+  handleChangeTheme: (event: MouseEvent<HTMLDivElement, globalThis.MouseEvent>) => void;
   isDarkTheme: boolean;
   setIsDarkTheme: Dispatch<SetStateAction<boolean>>;
 }
@@ -41,8 +43,19 @@ const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
 
   // set DarkMode triggered by user
   const handleChangeTheme = useCallback(
-    (newmode: boolean) => {
-      setIsDarkTheme(newmode);
+    (event: MouseEvent<HTMLDivElement, globalThis.MouseEvent>) => {
+      setIsDarkTheme((prev) => !prev);
+      localStorage.setItem("isDarkTheme", `${!isDarkTheme}`);
+
+      const btnTextElement = event.currentTarget.querySelector(".title");
+
+      if (!btnTextElement) return null;
+
+      if (isDarkTheme) {
+        btnTextElement.textContent = SETTING_THEME_TITLE.dark;
+      } else {
+        btnTextElement.textContent = SETTING_THEME_TITLE.light;
+      }
     },
     [isDarkTheme]
   );

@@ -184,6 +184,7 @@ const Container = styled(Box, {
           padding: "6px 16px",
           border: "1px solid #fff",
           borderRadius: 50,
+          marginBottom: 8,
         },
 
         ["& .artist-item"]: {

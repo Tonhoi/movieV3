@@ -17,7 +17,7 @@ const PopularArtist = ({ data }: PopularArtistProps) => {
       <Grid container spacing={3}>
         {data &&
           data.map((el) => (
-            <Grid item lg={2} md={2} sm={3} xs={4} key={el.id}>
+            <Grid item lg={2} md={2} sm={3} xs={6} key={el.id}>
               <ArtistCardItem data={el} />
             </Grid>
           ))}

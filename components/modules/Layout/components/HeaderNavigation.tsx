@@ -1,14 +1,14 @@
 import { memo } from "react";
-import { Box, Stack, Typography, styled } from "@mui/material";
+import { Box, Stack, Typography, styled, useTheme } from "@mui/material";
 
 import { ROUTES } from "@/routers";
 import { useMedia } from "@/hooks";
 import { Link, Image } from "@/components/common";
-import HeaderOnMobile from "./HeaderOnMobile/HeaderOnMobile";
 import { useDarkModeContext } from "@/contexts/ThemeProvider/ThemeProvider";
 import { MENU_TEXT } from "@/constants";
 import logo_light from "@/public/image/logo_light.png";
 import logo_dark from "@/public/image/dark_logo.png";
+import Hamburger from "hamburger-react";
 
 const NAVITEM = [
   {
@@ -23,18 +23,33 @@ const NAVITEM = [
   },
 ];
 
-const HeaderNavigation = ({ isActiveHeader }: { isActiveHeader: boolean }) => {
+interface HeaderNavigationProps {
+  isActiveHeader: boolean;
+  isOpenHeaderMobile: boolean;
+  toggleHeaderMobile: () => void;
+}
+
+const HeaderNavigation = (props: HeaderNavigationProps) => {
+  const { isActiveHeader, isOpenHeaderMobile, toggleHeaderMobile } = props;
+
   const { isMdDown, isSmDown } = useMedia();
   const { isDarkTheme } = useDarkModeContext();
+  const theme = useTheme();
 
-  const isDisplayLogoDark = (isActiveHeader || isSmDown) && !isDarkTheme;
+  const isHeaderElementDark = (isActiveHeader || isSmDown) && !isDarkTheme;
 
   return (
     <Container>
-      {isMdDown && <HeaderOnMobile />}
+      {isMdDown && (
+        <Hamburger
+          toggled={isOpenHeaderMobile}
+          toggle={toggleHeaderMobile}
+          color={isHeaderElementDark ? theme.palette.common.black : "#fff"}
+        />
+      )}
 
       <Link href={ROUTES.home} className={"logo-on-pc"}>
-        <Image src={isDisplayLogoDark ? logo_dark.src : logo_light.src} />
+        <Image src={isHeaderElementDark ? logo_dark.src : logo_light.src} />
       </Link>
 
       <Box component={"ul"} className="nav-list">

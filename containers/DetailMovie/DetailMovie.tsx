@@ -48,8 +48,8 @@ const DetailMovie = ({ initData }: DetailPageProps) => {
 
       <MuiContainer>
         <Tabs value={value} onChange={handleChangeTabs} className="tab-list">
-          <Tab label="Reviews" value={0} />
-          <Tab label="Recommended" value={1} />
+          <Tab label="Đánh giá" value={0} />
+          <Tab label="Phim gợi ý" value={1} />
         </Tabs>
 
         <TabPanel value={value} index={0}>

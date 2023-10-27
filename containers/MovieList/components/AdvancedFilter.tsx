@@ -54,7 +54,7 @@ const customStyles = (theme: any) => ({
 
   singleValue: (baseStyle: CSSObjectWithLabel) => ({
     ...baseStyle,
-    color: "#fff",
+    color: theme.palette.common.black,
   }),
   dropdownIndicator: (baseStyle: CSSObjectWithLabel) => ({
     ...baseStyle,

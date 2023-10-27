@@ -17,7 +17,7 @@ import { TvPageProps } from "@/pages/tv";
 import AdvancedFilter from "./components/AdvancedFilter";
 import GenresMovie from "./components/GenresMovie";
 
-const Movie = ({ initData }: MoviePageProps | TvPageProps) => {
+const MovieList = ({ initData }: MoviePageProps | TvPageProps) => {
   const dataGenres: Array<GenreProps> = get(initData, "[0].genres") || [];
   const type = get(initData, "[1].type");
   const router = useRouter();
@@ -112,4 +112,4 @@ const Movie = ({ initData }: MoviePageProps | TvPageProps) => {
   );
 };
 
-export default Movie;
+export default MovieList;

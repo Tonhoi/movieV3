@@ -3,11 +3,19 @@ import { Box, Container as MuiContainer, Grid, styled } from "@mui/material";
 import { throttle } from "lodash";
 import { useRouter } from "next/router";
 
-import { HeaderNavigation, HeaderAction, HeaderSearch } from "@/components/modules";
+import {
+  HeaderNavigation,
+  HeaderAction,
+  HeaderSearch,
+  HeaderOnMobile,
+} from "@/components/modules";
+import { useMedia, useToggle } from "@/hooks";
+import { Overlay } from "@/components/common";
 
 const Header = () => {
   const [isBackgroundHeader, setIsBackgroundHeader] = useState<boolean>(false);
   const { asPath } = useRouter();
+  const { isMdDown } = useMedia();
 
   useEffect(() => {
     const handleScroll = throttle((event) => {
@@ -31,12 +39,22 @@ const Header = () => {
     asPath.startsWith("/me") ||
     asPath.startsWith("/artist-info");
 
+  const {
+    on: isOpenHeaderMobile,
+    toggleOff: handleCloseHeaderMobile,
+    toggle: toggleHeaderMobile,
+  } = useToggle();
+
   return (
     <Container className={isActiveHeader ? "active" : ""}>
       <MuiContainer>
         <Grid container alignItems={"center"} spacing={2}>
           <Grid item lg={4} md={5} sm={4} xs={12}>
-            <HeaderNavigation isActiveHeader={isActiveHeader} />
+            <HeaderNavigation
+              isActiveHeader={isActiveHeader}
+              isOpenHeaderMobile={isOpenHeaderMobile}
+              toggleHeaderMobile={toggleHeaderMobile}
+            />
           </Grid>
 
           <Grid item lg={5} md={4} sm={6.5} xs={12}>
@@ -48,6 +66,19 @@ const Header = () => {
           </Grid>
         </Grid>
       </MuiContainer>
+
+      {isMdDown && (
+        <HeaderOnMobile
+          handleCloseHeaderMobile={handleCloseHeaderMobile}
+          isOpenHeaderMobile={isOpenHeaderMobile}
+        />
+      )}
+
+      <Overlay
+        backgroundColor="dark_50"
+        onClick={handleCloseHeaderMobile}
+        className={isOpenHeaderMobile ? "active" : ""}
+      />
     </Container>
   );
 };

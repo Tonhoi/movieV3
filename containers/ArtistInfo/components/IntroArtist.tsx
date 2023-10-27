@@ -56,10 +56,9 @@ const IntroArtist = ({ data }: IntroArtistProps) => {
           className={"btn-show-more"}
           startIcon={<ArrowRightIcon className={"arrow-icon"} />}
           onClick={toggleShowMore}
+          disableRipple
         >
-          <Typography variant={"body2"} color={"#fff"}>
-            {isShowMore ? "Thu gọn" : "Xem thêm"}
-          </Typography>
+          <Typography variant={"body2"}>{isShowMore ? "Thu gọn" : "Xem thêm"}</Typography>
         </Button>
       </Stack>
     </Container>
@@ -137,8 +136,10 @@ const Container = styled(Stack, {
       },
 
       ["& .btn-show-more"]: {
+        color: theme.palette.common.black,
+
         ["& .arrow-icon"]: {
-          color: theme.palette.common.white,
+          color: theme.palette.common.black,
           transform: `rotate(${isShowMore ? "270deg" : "90deg"})`,
           transition: "transform linear 0.2s",
         },
