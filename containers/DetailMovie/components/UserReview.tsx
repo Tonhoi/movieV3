@@ -3,7 +3,7 @@ import { Box, Stack, Typography, styled } from "@mui/material";
 
 import { ReviewProps } from "@/interfaces/responseSchema/reviews";
 import usePoster from "@/hooks/usePoster";
-import imageError from "@/public/image/avatar2.png";
+import imageError from "@/public/image/avatar.png";
 
 interface UserReviewProps {
   data: Array<ReviewProps>;

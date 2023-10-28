@@ -10,7 +10,7 @@ import { NAVITEM } from "@/components/modules";
 import { SETTING_THEME_TITLE } from "@/constants";
 import { ROUTES } from "@/routers";
 
-import avatar from "@/public/image/avatar2.png";
+import avatar from "@/public/image/avatar.png";
 import bgHeaderMobile from "@/public/image/backgroundAvatar.png";
 import { useDarkModeContext } from "@/contexts/ThemeProvider/ThemeProvider";
 

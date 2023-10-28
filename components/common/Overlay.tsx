@@ -33,7 +33,7 @@ const Container = styled(Box, {
 })<{ backgroundColor: backgroundColorType }>(({ backgroundColor, theme }) => {
   return {
     inset: 0,
-    zIndex: 10,
+    zIndex: 1000,
 
     display: "none",
 

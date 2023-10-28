@@ -9,7 +9,7 @@ import { ROUTES } from "@/routers";
 import { useDarkModeContext } from "@/contexts/ThemeProvider/ThemeProvider";
 import { SETTING_THEME_TITLE } from "@/constants";
 import PopOverWrapper from "./PopOverWrapper";
-import avatar from "@/public/image/avatar2.png";
+import avatar from "@/public/image/avatar.png";
 import SettingItem from "./SettingItem";
 
 const HeaderAction = () => {

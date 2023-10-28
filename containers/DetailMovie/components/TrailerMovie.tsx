@@ -46,7 +46,7 @@ const Container = styled(Box)(({ theme }) => {
       position: "fixed",
       top: "50%",
       left: "50%",
-      zIndex: 99,
+      zIndex: 1001,
       transform: "translate(-50%, -50%)",
       width: 900,
       height: 400,

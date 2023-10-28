@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 
 import { CardItemBase } from "@/components/common";
 import useThumbnail from "@/hooks/useThumbnail";
-import imageError from "@/public/image/image_not_available.png";
+import imageError from "@/public/image/no-poster-available.jpg";
 import { ArtistListProps } from "@/interfaces/responseSchema/Artist";
 
 interface ArtistCardItemProps {
