@@ -4,14 +4,13 @@ import { useRouter } from "next/router";
 import { useAuthState } from "react-firebase-hooks/auth";
 import "react-toastify/dist/ReactToastify.css";
 
-import Login from "@/containers/Login/Login";
 import { Header, Footer } from "@/components/modules";
 import LoadingScreen from "../../common/LoadingScreen";
-import Register from "@/containers/Register/Register";
 import { auth } from "@/firebase/firebase-config";
 import BackToTop from "./BackToTop";
 import { throttle } from "lodash";
 import { useToggle } from "@/hooks";
+import { Auth } from "@/containers/Auth";
 
 interface layoutProps {
   children: ReactNode;
@@ -56,9 +55,9 @@ const Layout = ({ children }: layoutProps) => {
     };
   }, [hasScrolledPastHeader]);
 
-  if (asPath === "/login") return <Login />;
-  if (asPath.includes("me") && !user) return <Login />;
-  if (asPath === "/register") return <Register />;
+  if (asPath === "/login") return <Auth type="login" />;
+  if (asPath.includes("me") && !user) return <Auth type="login" />;
+  if (asPath === "/register") return <Auth type="register" />;
 
   return (
     <Container>

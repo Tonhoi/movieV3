@@ -1,7 +1,7 @@
-import Register from "@/containers/Register/Register";
+import { Auth } from "@/containers/Auth";
 
 const index = () => {
-  return <Register />;
+  return <Auth type="register" />;
 };
 
 export default index;

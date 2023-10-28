@@ -1,7 +1,7 @@
-import Login from "@/containers/Login/Login";
+import { Auth } from "@/containers/Auth";
 
 const login = () => {
-  return <Login />;
+  return <Auth type="login" />;
 };
 
 export default login;
