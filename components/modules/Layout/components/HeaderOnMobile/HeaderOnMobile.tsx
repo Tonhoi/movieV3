@@ -103,7 +103,7 @@ const Container = styled(Box)(({ theme }) => {
     top: 0,
     left: 0,
     bottom: 0,
-    zIndex: 99,
+    zIndex: 1001,
     transform: "translateX(-100%)",
     opacity: 0,
     transition: "all linear 0.2s",
